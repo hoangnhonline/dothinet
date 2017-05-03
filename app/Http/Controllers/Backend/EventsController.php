@@ -54,7 +54,7 @@ class EventsController extends Controller
                 $arrIdDb[] = $tmp1->sp_id;           
                 /*
                     -kiem tra neu sp do da bi remove khoi event thi update [status = 0, so_luong = 0]
-                    - cap nhat lai so luong cua san pham trong table san_pham
+                    - cap nhat lai so luong cua san pham trong table product
                 */
                 if(!in_array($tmp1->sp_id, $tmpArr)){
                     
@@ -116,7 +116,7 @@ class EventsController extends Controller
                         
                         $model->update($dataArr);
                     }
-                    // cap nhat sl table san_pham
+                    // cap nhat sl table product
                     $tmpModel->so_luong_ton = $so_luong_ton - $sl_tang + $sl_giam;
                     $tmpModel->is_event = 1;
                     $tmpModel->save();
@@ -140,21 +140,21 @@ class EventsController extends Controller
         $query = SanPham::whereRaw('1');
         
         if( $loai_id ){
-            $query->where('san_pham.loai_id', $loai_id);
+            $query->where('product.loai_id', $loai_id);
         }
         if( $cate_id ){
-            $query->where('san_pham.cate_id', $cate_id);
+            $query->where('product.cate_id', $cate_id);
         }
         if( $name != ''){
-            $query->where('san_pham.name', 'LIKE', '%'.$name.'%');
+            $query->where('product.name', 'LIKE', '%'.$name.'%');
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }
-        $query->join('users', 'users.id', '=', 'san_pham.created_user');
-        $query->join('loai_sp', 'loai_sp.id', '=', 'san_pham.loai_id');
-        $query->join('cate', 'cate.id', '=', 'san_pham.cate_id');
-        $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id');        
-        $query->orderBy('san_pham.id', 'desc');
-        $items = $query->select(['sp_hinh.image_url','san_pham.*','san_pham.id as sp_id', 'full_name' , 'san_pham.created_at as time_created', 'users.full_name', 'loai_sp.name as ten_loai', 'cate.name as ten_cate'])
+        $query->join('users', 'users.id', '=', 'product.created_user');
+        $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');
+        $query->join('cate', 'cate.id', '=', 'product.cate_id');
+        $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id');        
+        $query->orderBy('product.id', 'desc');
+        $items = $query->select(['sp_hinh.image_url','product.*','product.id as sp_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'loai_sp.name as ten_loai', 'cate.name as ten_cate'])
         ->paginate(1000);
 
         $loaiSpArr = LoaiSp::all();  
@@ -273,11 +273,11 @@ class EventsController extends Controller
         $event_id = $request->event_id;
         $detail = Events::find($event_id);        
         $dataList = ProductEvent::where('event_id', $event_id)->where('product_event.status', 1)
-                    ->join('san_pham', 'san_pham.id', '=', 'product_event.sp_id')
-                    ->join('sp_hinh', 'san_pham.thumbnail_id', '=', 'sp_hinh.id')
-                    ->join('loai_sp', 'san_pham.loai_id', '=', 'loai_sp.id')
-                    ->join('cate', 'san_pham.cate_id', '=', 'cate.id')
-                    ->select('san_pham.*', 'sp_hinh.*', 'loai_sp.name as ten_loai', 'cate.name as ten_cate', 'product_event.*', 'san_pham.id as sp_id')
+                    ->join('product', 'product.id', '=', 'product_event.sp_id')
+                    ->join('sp_hinh', 'product.thumbnail_id', '=', 'sp_hinh.id')
+                    ->join('loai_sp', 'product.loai_id', '=', 'loai_sp.id')
+                    ->join('cate', 'product.cate_id', '=', 'cate.id')
+                    ->select('product.*', 'sp_hinh.*', 'loai_sp.name as ten_loai', 'cate.name as ten_cate', 'product_event.*', 'product.id as sp_id')
                     ->get();        
         return view('backend.events.product-event', compact( 'detail', 'dataList'));
     }

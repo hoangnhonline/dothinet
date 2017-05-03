@@ -87,17 +87,17 @@ class DetailController extends Controller
         $tmpArr = array_merge($phuKienArr, $tuongtuArr, $sosanhArr);
         
         if( !empty($tmpArr)){
-            $productTmpArr = SanPham::whereIn('san_pham.id', $tmpArr)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->select('san_pham.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url', 'is_sale')->get();
+            $productTmpArr = SanPham::whereIn('product.id', $tmpArr)
+                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                ->select('product.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url', 'is_sale')->get();
             foreach($productTmpArr as $product){
                 $productArr[$product->sp_id] = $product;
             }
         }
-        $lienquanArr = SanPham::where('san_pham.cate_id', $detail->cate_id)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->where('san_pham.id', '<>', $detail->id)
-                ->select('san_pham.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url', 'is_sale')->orderBy('san_pham.id', 'desc')->limit(10)->get();        
+        $lienquanArr = SanPham::where('product.cate_id', $detail->cate_id)
+                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                ->where('product.id', '<>', $detail->id)
+                ->select('product.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url', 'is_sale')->orderBy('product.id', 'desc')->limit(10)->get();        
 
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
@@ -161,10 +161,10 @@ class DetailController extends Controller
 
         
         $productArr = SanPham::where('cate_id', $rsCate->id)->where('loai_id', $loai_id)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->select('sp_hinh.image_url', 'san_pham.*')
+                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                ->select('sp_hinh.image_url', 'product.*')
                 //->where('sp_hinh.image_url', '<>', '')
-                ->orderBy('san_pham.id', 'desc')
+                ->orderBy('product.id', 'desc')
                 ->paginate(24);
 
         return view('frontend.cate.child', compact('productArr', 'cateArr', 'rs', 'rsCate'));

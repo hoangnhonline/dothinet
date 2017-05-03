@@ -2,10 +2,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\LoaiSp;
-use App\Models\Cate;
-use App\Models\Settings;
-
+use Hash;
 //use App\Models\Entity\SuperStar\Account\Traits\Behavior\SS_Shortcut_Icon;
 
 /**
@@ -42,7 +39,8 @@ class ViewComposerServiceProvider extends ServiceProvider
 	private function composerMenu()
 	{
 		
-		view()->composer( '*' , function( $view ){
+		view()->composer( '*' , function( $view ){			
+			/*
 			$menuNgang = $menuDoc = $loaiSpHot = [];
 			$loaiSp = LoaiSp::where(['status' => 1])->orderBy('display_order')->get();
 
@@ -75,6 +73,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 	       // var_dump("<pre>", $menuDoc);die;   
 	        //var_dump("<pre>", $loaiSpKey);die;
 			$view->with( ['loaiSpKey' => $loaiSpKey, 'menuNgang' => $menuNgang, 'menuDoc' => $menuDoc, 'loaiSpHot' => $loaiSpHot, 'settingArr' => $settingArr] );
+			*/
 		});
 	}
 	

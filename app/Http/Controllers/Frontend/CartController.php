@@ -53,9 +53,9 @@ class CartController extends Controller
 
         $getlistProduct = Session::get('products');
         $listProductId = array_keys($getlistProduct);
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                            ->select('sp_hinh.image_url', 'product.*')->get();
         $seo['title'] = $seo['description'] = $seo['keywords'] = "Giỏ hàng";
         return view('frontend.cart.index', compact('arrProductInfo', 'getlistProduct', 'seo'));
     }
@@ -137,9 +137,9 @@ class CartController extends Controller
             }
         }
         */
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                            ->select('sp_hinh.image_url', 'product.*')->get();
 
         //$service_fee = Session::get('service_fee') ? Session::get('service_fee') : 0;
         $seo = Helper::seo();
@@ -157,9 +157,9 @@ class CartController extends Controller
         }
 
         $listProductId = $getlistProduct ? array_keys($getlistProduct) : [];
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                            ->select('sp_hinh.image_url', 'product.*')->get();
         $listCity = City::orderBy('display_order')->get();
 
         $userId = Session::get('userId');
@@ -239,9 +239,9 @@ class CartController extends Controller
 
         $listProductId = array_keys($getlistProduct);
 
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                            ->select('sp_hinh.image_url', 'product.*')->get();
         $totalCanNang = 0;
         foreach( $arrProductInfo as $product ){
             $canNangCongKenh = ($product->chieu_dai * $product->chieu_cao * $product->chieu_rong)/6000;
@@ -286,9 +286,9 @@ class CartController extends Controller
         
 
         $vangLaiArr = Session::get('vanglai');
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                            ->select('sp_hinh.image_url', 'product.*')->get();
         $order['tong_tien'] = 0;
         $order['tong_sp'] = array_sum($getlistProduct);
         $order['giam_gia'] = 0;

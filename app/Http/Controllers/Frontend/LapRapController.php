@@ -115,12 +115,12 @@ class LapRapController extends Controller
             $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
             
             $productArr = SanPham::where('loai_id', $loai_id)
-                    ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                    ->join('sp_mucdich', 'sp_mucdich.sp_id', '=','san_pham.id')
-                    ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
+                    ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                    ->join('sp_mucdich', 'sp_mucdich.sp_id', '=','product.id')
+                    ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
                     ->where('muc_dich', $muc_dich)
-                    ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')
-                    ->orderBy('san_pham.id', 'desc')
+                    ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')
+                    ->orderBy('product.id', 'desc')
                     ->limit(8)->get();
             $hoverInfo = HoverInfo::where('loai_id', 3)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
         }       

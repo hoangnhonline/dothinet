@@ -81,19 +81,19 @@ class HomeController extends Controller
            
             $query->where('loai_id', $loai->id);
             
-            $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-            ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-            ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')
+            $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+            ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
+            ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')
             ->where('sp_hinh.image_url', '<>', '');
             if($loai->price_sort == 0){
-                $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+                $query->where('price', '>', 0)->orderBy('product.price', 'asc');
             }else{
-                $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+                $query->where('price', '>', 0)->orderBy('product.price', 'desc');
             }
-            $query->orderBy('san_pham.is_hot', 'desc')
-            ->orderBy('san_pham.is_sale', 'desc')
-            ->orderBy('san_pham.display_order', 'desc')
-            ->orderBy('san_pham.id', 'desc');
+            $query->orderBy('product.is_hot', 'desc')
+            ->orderBy('product.is_sale', 'desc')
+            ->orderBy('product.display_order', 'desc')
+            ->orderBy('product.id', 'desc');
 
             
             $query->limit(32);
@@ -133,15 +133,15 @@ class HomeController extends Controller
     {
         $tu_khoa = $request->keyword;       
 
-        $productArr = SanPham::where('san_pham.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('loai_sp.status', 1)
+        $productArr = SanPham::where('product.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('loai_sp.status', 1)
                         ->where('chieu_dai', '>', 0)
                         ->where('chieu_rong', '>', 0)
                         ->where('chieu_cao', '>', 0)
                         ->where('can_nang', '>', 0)
-                        ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-                        ->join('loai_sp', 'loai_sp.id', '=', 'san_pham.loai_id')
-                        ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')
+                        ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
+                        ->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id')
+                        ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')
                         ->orderBy('id', 'desc')->paginate(20);
         $seo['title'] = $seo['description'] =$seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";
         $hoverInfo = [];

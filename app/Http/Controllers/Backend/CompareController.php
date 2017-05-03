@@ -37,19 +37,19 @@ class CompareController extends Controller
         $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : $tmpCate->id;
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
         
-        $query = SanPham::where('san_pham.loai_id', $loai_id);
+        $query = SanPham::where('product.loai_id', $loai_id);
 
         if( $cate_id ){
-            $query->where('san_pham.cate_id', $cate_id);
+            $query->where('product.cate_id', $cate_id);
         }       
         if( $name != ''){
-            $query->where('san_pham.name', 'LIKE', '%'.$name.'%');
+            $query->where('product.name', 'LIKE', '%'.$name.'%');
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }        
-        $query->join('loai_sp', 'loai_sp.id', '=', 'san_pham.loai_id');
-        $query->join('cate', 'cate.id', '=', 'san_pham.cate_id');        
-        $query->orderBy('san_pham.id', 'desc');
-        $items = $query->select('san_pham.*')
+        $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');
+        $query->join('cate', 'cate.id', '=', 'product.cate_id');        
+        $query->orderBy('product.id', 'desc');
+        $items = $query->select('product.*')
         ->paginate(50);   
 
         $loaiSpArr = LoaiSp::whereIn('id', [2])->get();  

@@ -42,9 +42,9 @@ class CompareController extends Controller
         $str_id = $request->id;
         if( $str_id ){
             $tmpArr = explode("-", $str_id);
-            $productTmpArr = SanPham::whereIn('san_pham.id', $tmpArr)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->select('san_pham.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url')->get();                
+            $productTmpArr = SanPham::whereIn('product.id', $tmpArr)
+                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
+                ->select('product.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url')->get();                
         
             foreach($productTmpArr as $product){
                 $productArr[$product->sp_id] = $product;

@@ -10,7 +10,7 @@ class SanPham extends Model  {
 	 *
 	 * @var string
 	 */
-	protected $table = 'san_pham';
+	protected $table = 'product';
 
 	 /**
      * Indicates if the model should be timestamped.
