@@ -92,27 +92,18 @@
 					<li class="level0 parent">
 						<a href="#">BĐS bán</a>
 						<ul class="level0 submenu">
-							<li class="level1"><a href="#">Bán căn hộ chung cư</a></li>
-							<li class="level1 parent"><a href="#">Tất cả các loại nhà bán</a>
-								<ul class="level2 submenu2">
-									<li><a href="#">Bán nhà riêng</a></li>
-									<li><a href="#">Bán nhà biệt thự, liền kề</a></li>
-									<li><a href="#">Bán nhà mặt phố</a></li>
-								</ul>
-							</li>
-							<li class="level1 parent"><a href="#">Tất cả các loại nhà bán</a>
-								<ul class="level2 submenu2">
-									<li><a href="#">Bán đất nền dự án</a></li>
-									<li><a href="#">Bán đất</a></li>
-								</ul>
-							</li>
-							<li class="level1"><a href="#">Bán trang trại, khu nghỉ dưỡng</a>
-							</li>
-							<li class="level1"><a href="#">Bán kho, nhà xưởng</a></li>
-                            <li class="level1"><a href="#">Bán loại bất động sản khác</a></li>
+							@foreach($banList as $ban)
+							<li class="level1"><a href="#">{{ $ban->name }}</a></li>							
+							@endforeach
 						</ul>
 					</li><!-- END MENU SHOP -->
-					<li class="level0"><a href="#">BĐS cho thuê</a></li><!-- END MENU BLOG -->
+					<li class="level0"><a href="#">BĐS cho thuê</a>
+						<ul class="level0 submenu">
+							@foreach($thueList as $thue)
+							<li class="level1"><a href="#">{{ $thue->name }}</a></li>							
+							@endforeach
+						</ul>
+					</li><!-- END MENU BLOG -->
 					<li class="level0"><a href="#">Thông tin thị trường</a></li>
 					<li class="level0"><a href="#">Thiết kế kiến trúc</a></li><!-- END MENU BLOG -->
 					<li class="level0"><a href="#">Không gian sống</a></li>
@@ -426,14 +417,14 @@
 					<article class="block block-news-default row">
 						<div class="block-news-default-left">
 							<div class="col-sm-7 col-xs-12">
-								<div class="block-news-default-item">
+								<div class="block-news-default-item" style="height:346px">
 									<div class="block-thumb">
 										<a href="#" title="">
-											<img src="{{ URL::asset('assets/images/news-default/3.jpg') }}" alt="">
+											<img src="{{ $tinThiTruong[0]['image_url'] ? Helper::showImage($tinThiTruong[0]['image_url']) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
 										</a>
 									</div>
 									<h2 class="block-title">
-							            <a href="#" title="">Hải Phòng chi 15.000 tỷ đồng cho việc quy hoạch, xây mới chung cư</a>
+							            <a href="#" title="">{{ $tinThiTruong[0]['title'] }}</a>
 							        </h2>
 						        </div><!-- /block-news-default-item -->
 							</div>
@@ -441,11 +432,14 @@
 						<div class="block-news-default-right">
 							<div class="col-sm-5 col-xs-12 block-pl0">
 								<ul class="block-news-list-right">
-									<li><h3><a href="#" title="">Dự án đốn 100 hecta rừng làm sân golf ở Phú Yên được ưu ái ...</a></h3></li>
-				                    <li><h3><a href="#" title="">Dự án đốn 100 hecta rừng làm sân golf ở Phú Yên được ưu ái ...</a></h3></li>
-				                    <li><h3><a href="#" title="">Dự án đốn 100 hecta rừng làm sân golf ở Phú Yên được ưu ái ...</a></h3></li>
-				                    <li><h3><a href="#" title="">Dự án đốn 100 hecta rừng làm sân golf ở Phú Yên được ưu ái ...</a></h3></li>
-				                    <li><h3><a href="#" title="">Dự án đốn 100 hecta rừng làm sân golf ở Phú Yên được ưu ái ...</a></h3></li>
+								<?php $i =0; ?>
+									@foreach($tinThiTruong as $tin)
+									<?php $i++; 
+									?>
+									@if($i > 1)
+									<li><h3><a href="#" title="">{{ $tin['title'] }}</a></h3></li>
+									@endif
+									@endforeach
 								</ul>
 							</div>
 						</div><!-- /block-news-default-right -->
@@ -459,102 +453,20 @@
 								</div>
 								<div class="block-contents">
 									<ul>
-										<li class="news-new-item">
-											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ URL::asset('assets/images/news-new/1.jpg') }}" alt=""></a></div>
+										@foreach($hotProduct as $product)
+										<li class="news-new-item">											
+											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ $product->image_urls ? Helper::showImage($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt=""></a></div>
 											<div class="news-new-item-description">
-												<h4><a class="description-title vip1" title="" href="">Nhà mặt phố Thủ Dầu Một – giá giá rẻ nhất khu vực. LH: 0933 566 039</a></h4>
+												<h4><a class="description-title vip1" title="" href="">{{ $product->title }}</a></h4>
                         						<div class="description-info">
-                        							<div class="price"><label>Giá<span>:</span></label>4.8 Tỷ</div>
-						                            <div class="area"><label>Diện tích<span>:</span></label>214 m²</div>
-						                            <div class="location"><label>Vị trí<span>:</span></label>Thủ Dầu Một - Bình Dương</div>
+                        							<div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
+						                            <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }}</div>
+						                            <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}</div>
                         						</div>
-                        						<span class="date">29/04/2017</span>
+                        						<span class="date">{{ date('d/m/Y', strtotime($product->updated_at)) }}</span>
 											</div>
-										</li>
-										<li class="news-new-item">
-											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ URL::asset('assets/images/news-new/2.jpg') }}" alt=""></a></div>
-											<div class="news-new-item-description">
-												<h4><a class="description-title vip2" title="" href="">Bán gấp nhà phố Hào Nam ngõ to ô tô đỗ cách nhà 5m, 30m2, 4 tầng ô tô đỗ cách nhà 5m. Giá 3,95 tỷ</a></h4>
-                        						<div class="description-info">
-                        							<div class="price"><label>Giá<span>:</span></label>4.8 Tỷ</div>
-						                            <div class="area"><label>Diện tích<span>:</span></label>214 m²</div>
-						                            <div class="location"><label>Vị trí<span>:</span></label>Thủ Dầu Một - Bình Dương</div>
-                        						</div>
-                        						<span class="date">29/04/2017</span>
-											</div>
-										</li>
-										<li class="news-new-item">
-											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ URL::asset('assets/images/news-new/2.jpg') }}" alt=""></a></div>
-											<div class="news-new-item-description">
-												<h4><a class="description-title vip5" title="" href="">Bán gấp nhà phố Hào Nam ngõ to ô tô đỗ cách nhà 5m, 30m2, 4 tầng ô tô đỗ cách nhà 5m. Giá 3,95 tỷ</a></h4>
-                        						<div class="description-info">
-                        							<div class="price"><label>Giá<span>:</span></label>4.8 Tỷ</div>
-						                            <div class="area"><label>Diện tích<span>:</span></label>214 m²</div>
-						                            <div class="location"><label>Vị trí<span>:</span></label>Thủ Dầu Một - Bình Dương</div>
-                        						</div>
-                        						<span class="date">29/04/2017</span>
-											</div>
-										</li>
-										<li class="news-new-item">
-											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ URL::asset('assets/images/news-new/2.jpg') }}" alt=""></a></div>
-											<div class="news-new-item-description">
-												<h4><a class="description-title" title="" href="">Bán gấp nhà phố Hào Nam ngõ to ô tô đỗ cách nhà 5m, 30m2, 4 tầng ô tô đỗ cách nhà 5m. Giá 3,95 tỷ</a></h4>
-                        						<div class="description-info">
-                        							<div class="price"><label>Giá<span>:</span></label>4.8 Tỷ</div>
-						                            <div class="area"><label>Diện tích<span>:</span></label>214 m²</div>
-						                            <div class="location"><label>Vị trí<span>:</span></label>Thủ Dầu Một - Bình Dương</div>
-                        						</div>
-                        						<span class="date">29/04/2017</span>
-											</div>
-										</li>
-										<li class="news-new-item">
-											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ URL::asset('assets/images/news-new/2.jpg') }}" alt=""></a></div>
-											<div class="news-new-item-description">
-												<h4><a class="description-title" title="" href="">Bán gấp nhà phố Hào Nam ngõ to ô tô đỗ cách nhà 5m, 30m2, 4 tầng ô tô đỗ cách nhà 5m. Giá 3,95 tỷ</a></h4>
-                        						<div class="description-info">
-                        							<div class="price"><label>Giá<span>:</span></label>4.8 Tỷ</div>
-						                            <div class="area"><label>Diện tích<span>:</span></label>214 m²</div>
-						                            <div class="location"><label>Vị trí<span>:</span></label>Thủ Dầu Một - Bình Dương</div>
-                        						</div>
-                        						<span class="date">29/04/2017</span>
-											</div>
-										</li>
-										<li class="news-new-item">
-											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ URL::asset('assets/images/news-new/2.jpg') }}" alt=""></a></div>
-											<div class="news-new-item-description">
-												<h4><a class="description-title" title="" href="">Bán gấp nhà phố Hào Nam ngõ to ô tô đỗ cách nhà 5m, 30m2, 4 tầng ô tô đỗ cách nhà 5m. Giá 3,95 tỷ</a></h4>
-                        						<div class="description-info">
-                        							<div class="price"><label>Giá<span>:</span></label>4.8 Tỷ</div>
-						                            <div class="area"><label>Diện tích<span>:</span></label>214 m²</div>
-						                            <div class="location"><label>Vị trí<span>:</span></label>Thủ Dầu Một - Bình Dương</div>
-                        						</div>
-                        						<span class="date">29/04/2017</span>
-											</div>
-										</li>
-										<li class="news-new-item">
-											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ URL::asset('assets/images/news-new/2.jpg') }}" alt=""></a></div>
-											<div class="news-new-item-description">
-												<h4><a class="description-title" title="" href="">Bán gấp nhà phố Hào Nam ngõ to ô tô đỗ cách nhà 5m, 30m2, 4 tầng ô tô đỗ cách nhà 5m. Giá 3,95 tỷ</a></h4>
-                        						<div class="description-info">
-                        							<div class="price"><label>Giá<span>:</span></label>4.8 Tỷ</div>
-						                            <div class="area"><label>Diện tích<span>:</span></label>214 m²</div>
-						                            <div class="location"><label>Vị trí<span>:</span></label>Thủ Dầu Một - Bình Dương</div>
-                        						</div>
-                        						<span class="date">29/04/2017</span>
-											</div>
-										</li>
-										<li class="news-new-item">
-											<div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ URL::asset('assets/images/news-new/2.jpg') }}" alt=""></a></div>
-											<div class="news-new-item-description">
-												<h4><a class="description-title" title="" href="">Bán gấp nhà phố Hào Nam ngõ to ô tô đỗ cách nhà 5m, 30m2, 4 tầng ô tô đỗ cách nhà 5m. Giá 3,95 tỷ</a></h4>
-                        						<div class="description-info">
-                        							<div class="price"><label>Giá<span>:</span></label>4.8 Tỷ</div>
-						                            <div class="area"><label>Diện tích<span>:</span></label>214 m²</div>
-						                            <div class="location"><label>Vị trí<span>:</span></label>Thủ Dầu Một - Bình Dương</div>
-                        						</div>
-                        						<span class="date">29/04/2017</span>
-											</div>
-										</li>
+										</li>	
+										@endforeach									
 									</ul>
 									<div class="extra">
 										<a title="" href="">&gt;&gt; Xem thêm các tin rao nhà đất tương tự</a>

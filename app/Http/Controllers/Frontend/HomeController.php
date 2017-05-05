@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\EstateType;
 use App\Models\Cate;
-use App\Models\SanPham;
+use App\Models\Product;
 use App\Models\SpThuocTinh;
 use App\Models\SpHinh;
 use App\Models\ThuocTinh;
@@ -66,40 +66,32 @@ class HomeController extends Controller
         return view('frontend.home.ajax-slider');
     }
     public function index(Request $request)
-    {             
+    {    
         $productArr = [];
         $hoverInfo = [];
         $loaiSp = EstateType::where('status', 1)->get();
-        $bannerArr = [];
-        foreach( $loaiSp as $loai){
-            $query = SanPham::where('status', 1);
-           
-            $query->where('estate_type_id', $loai->id);
-            
-            $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
-            ->select('product_img.image_url', 'product.*')
-            ->where('product_img.image_url', '<>', '')                                         
-            ->orderBy('product.id', 'desc');
-
-            
-            $query->limit(32);
-            
-            if( $loai->home_style > 0 ){
-                $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-            }
-            
-            $productArr[$loai->id] = $query->get()->toArray();
-            
-            $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-            $seo = $settingArr;
-            $seo['title'] = $settingArr['site_title'];
-            $seo['description'] = $settingArr['site_description'];
-            $seo['keywords'] = $settingArr['site_keywords'];
-            $socialImage = $settingArr['banner'];
-        }    
+        $bannerArr = [];          
         $articlesArr = Articles::where(['cate_id' => 1])->orderBy('id', 'desc')->get();
-                
-        return view('frontend.home.index', compact('productArr', 'hoverInfo', 'bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess'));
+        $hotProduct = Product::where('status', 1)
+                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+                    ->select('product_img.image_url as image_urls', 'product.*')
+                    ->where('product_img.image_url', '<>', '')                                         
+                    ->orderBy('product.id', 'desc')->limit(10)->get();
+        
+        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
+        $seo = $settingArr;
+        $seo['title'] = $settingArr['site_title'];
+        $seo['description'] = $settingArr['site_description'];
+        $seo['keywords'] = $settingArr['site_keywords'];
+        $socialImage = $settingArr['banner'];
+
+        $tinThiTruong = Articles::where('cate_id', 7)->limit(6)->get()->toArray();
+        $phongthuy = Articles::where('cate_id', 4)->limit(6)->get()->toArray();
+        $tuvanluat = Articles::where('cate_id', 5)->limit(6)->get()->toArray();
+        $khonggiansong = Articles::where('cate_id', 1)->limit(6)->get()->toArray();
+
+        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy'));
+
     }
 
     public function getNoti(){
@@ -118,7 +110,7 @@ class HomeController extends Controller
     {
         $tu_khoa = $request->keyword;       
 
-        $productArr = SanPham::where('product.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('estate_type.status', 1)                        
+        $productArr = Product::where('product.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('estate_type.status', 1)                        
                         ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                        
                         ->join('estate_type', 'estate_type.id', '=', 'product.estate_type_id')
                         ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
