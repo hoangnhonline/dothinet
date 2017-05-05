@@ -32,6 +32,7 @@
     28 => 'SammyK\\LaravelFacebookSdk\\LaravelFacebookSdkServiceProvider',
     29 => 'Intervention\\Image\\ImageServiceProvider',
     30 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    31 => 'Weidner\\Goutte\\GoutteServiceProvider',
   ),
   'eager' => 
   array (
@@ -122,6 +123,7 @@
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    'goutte' => 'Weidner\\Goutte\\GoutteServiceProvider',
   ),
   'when' => 
   array (
@@ -165,6 +167,9 @@
     array (
     ),
     'Laravel\\Socialite\\SocialiteServiceProvider' => 
+    array (
+    ),
+    'Weidner\\Goutte\\GoutteServiceProvider' => 
     array (
     ),
   ),
