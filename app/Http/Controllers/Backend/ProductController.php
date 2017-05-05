@@ -25,7 +25,7 @@ use App\Models\District;
 use App\Models\Ward;
 use App\Models\Street;
 use App\Models\PriceUnit;
-use App\Models\Projects;
+use App\Models\Project;
 
 
 
@@ -41,58 +41,48 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;
-        $arrSearch['is_hot'] = $is_hot = isset($request->is_hot) ? $request->is_hot : null;
-        $arrSearch['is_sale'] = $is_sale = isset($request->is_sale) ? $request->is_sale : null;
+        $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;        
+        $arrSearch['type'] = $type = isset($request->type) ? $request->type : 1;
         $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
-        $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : null;
-
-        $arrSearch['het_hang'] = $het_hang = isset($request->het_hang) ? $request->het_hang : null;
-        $arrSearch['chua_nhap_gia'] = $chua_nhap_gia = isset($request->chua_nhap_gia) ? $request->chua_nhap_gia : null;
-        $arrSearch['thieu_can_nang'] = $thieu_can_nang = isset($request->thieu_can_nang) ? $request->thieu_can_nang : null;
-        $arrSearch['thieu_kich_thuoc'] = $thieu_kich_thuoc = isset($request->thieu_kich_thuoc) ? $request->thieu_kich_thuoc : null;
+        $arrSearch['district_id'] = $district_id = isset($request->district_id) ? $request->district_id : 2;
+        $arrSearch['ward_id'] = $ward_id = isset($request->ward_id) ? $request->ward_id : null;
+        $arrSearch['project_id'] = $project_id = isset($request->project_id) ? $request->project_id : null;
+        $arrSearch['street_id'] = $street_id = isset($request->street_id) ? $request->street_id : null;
 
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
         
         $query = Product::where('product.status', $status);
-        if( $is_hot ){
-            $query->where('product.is_hot', $is_hot);
-        }
-        if( $is_sale ){
-            $query->where('product.is_sale', $is_sale);
-        }
+        
         if( $estate_type_id ){
             $query->where('product.estate_type_id', $estate_type_id);
         }
-        if( $cate_id ){
-            $query->where('product.cate_id', $cate_id);
+        if( $district_id ){
+            $query->where('product.district_id', $district_id);
         }
-        if( $het_hang ){
-            $query->where('product.so_luong_ton', 0);
+        if( $ward_id ){
+            $query->where('product.ward_id', $ward_id);
         }
-        if( $chua_nhap_gia ){
-            $query->where('product.price', 0);
+        if( $project_id ){
+            $query->where('product.project_id', $project_id);
         }
-        if( $thieu_can_nang ){
-            $query->where('product.can_nang', 0);
-        }
-        if( $thieu_kich_thuoc ){
-            $query->where('product.chieu_dai', 0);
-            $query->orWhere('product.chieu_rong', 0);
-            $query->orWhere('product.chieu_cao', 0);
-        }
+        
         if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');
-            $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
+            $query->where('product.name', 'LIKE', '%'.$name.'%');            
         }
         //$query->join('users', 'users.id', '=', 'product.created_user');
         $query->join('city', 'city.id', '=', 'product.city_id');        
+        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id'); 
         $query->orderBy('product.id', 'desc');   
-        $items = $query->paginate(50);
-        $cityList = City::all();  
-        $districtList = District::all();
+        $items = $query->select(['product_img.image_url as image_urls','product.*'])->paginate(50);
 
-        return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'districtList'));
+        $cityList = City::all();  
+        $estateTypeArr = EstateType::where('type', $type)->get(); 
+        $districtList = District::where('city_id', 1)->get();
+       // var_dump($detail->district_id);die;
+        $wardList = Ward::where('district_id', $district_id)->get();
+        $streetList = Street::where('district_id', $district_id)->get();
+        $projectList = Project::where('district_id', $district_id)->get();
+        return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));
     }
     public function short(Request $request)
     {
@@ -245,30 +235,21 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $estate_type_id = $request->estate_type_id ? $request->estate_type_id : null;
-        $cate_id = $request->cate_id ? $request->cate_id : null;
-        $cateArr = $loaiThuocTinhArr = (object) [];
-        $thuocTinhArr = [];
-        $estateTypeArr = EstateType::all();
+        $type = $request->type ? $request->type : 1;    
         
-        if( $estate_type_id ){
+        if( $type ){
             
-            $cateArr = Cate::where('estate_type_id', $estate_type_id)->select('id', 'name')->orderBy('display_order', 'desc')->get();
+            $estateTypeArr = EstateType::where('type', $type)->select('id', 'name')->orderBy('display_order', 'desc')->get();            
             
-            $loaiThuocTinhArr = LoaiThuocTinh::where('estate_type_id', $estate_type_id)->orderBy('display_order')->get();
-
-            if( $loaiThuocTinhArr->count() > 0){
-                foreach ($loaiThuocTinhArr as $value) {
-
-                    $thuocTinhArr[$value->id]['id'] = $value->id;
-                    $thuocTinhArr[$value->id]['name'] = $value->name;
-
-                    $thuocTinhArr[$value->id]['child'] = ThuocTinh::where('loai_thuoc_tinh_id', $value->id)->select('id', 'name')->orderBy('display_order')->get()->toArray();
-                }
-                
-            }
-        }        
-        $mucDichArr = [];
-        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'thuocTinhArr', 'cate_id', 'mucDichArr'));
+        }       
+        $priceUnitList = PriceUnit::all();
+        $districtList = District::where('city_id', 1)->get();
+       // var_dump($detail->district_id);die;
+        $district_id = $request->district_id ? $request->district_id : 2;
+        $wardList = Ward::where('district_id', $district_id)->get();
+        $streetList = Street::where('district_id', $district_id)->get();
+        $projectList = Project::where('district_id', $district_id)->get();
+        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList'));
     }
 
     /**
@@ -282,98 +263,39 @@ class ProductController extends Controller
         $dataArr = $request->all();        
         
         $this->validate($request,[
-            'name' => 'required',
-            'slug' => 'required' ,
-            'price' => 'required|numeric',
-            'so_luong_ton' => 'required|numeric',
-            'can_nang' => 'required|numeric',
-            'chieu_dai' => 'required|numeric',
-            'chieu_rong' => 'required|numeric',
-            'chieu_cao' => 'required|numeric',
+            'title' => 'required',
+            'slug' => 'required',
+            'price' => 'required',
+            'district_id' => 'required',
+            'estate_type_id' => 'required',
+            'type' => 'required'
         ],
         [
-            'name.required' => 'Bạn chưa nhập tên sản phẩm',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'price.numeric' => 'Vui lòng nhập giá hợp lệ',
-            'price.required' => 'Bạn chưa nhập giá',
-            'so_luong_ton.required' => 'Bạn chưa nhập số lượng tồn',
-            'so_luong_ton.numeric' => 'Vui lòng nhập số lượng tồn hợp lệ',
-            'can_nang.required' => 'Bạn chưa nhập cân nặng',
-            'can_nang.numeric' => 'Vui lòng nhập cân nặng hợp lệ',
-            'chieu_dai.required' => 'Bạn chưa nhập chiều dài',
-            'chieu_dai.numeric' => 'Vui lòng nhập chiều dài hợp lệ',
-            'chieu_rong.required' => 'Bạn chưa nhập chiều rộng',
-            'chieu_rong.numeric' => 'Vui lòng nhập chiều rộng hợp lệ',
-            'chieu_cao.required' => 'Bạn chưa nhập chiều cao',
-            'chieu_cao.numeric' => 'Vui lòng nhập chiều cao hợp lệ',
+            'title.required' => 'Bạn chưa nhập tên sản phẩm',
+            'slug.required' => 'Bạn chưa nhập slug',            
+            'price.required' => 'Bạn chưa nhập giá'            
         ]);
-
-        $dataArr['is_primary'] = isset($dataArr['is_primary']) ? 1 : 0;
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
-        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;        
-        
-        $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
+                  
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
-        $dataArr['alias_extend'] = Helper::stripUnicode($dataArr['name_extend']);
+        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
 
-        $dataArr['sp_phukien'] = rtrim( $dataArr['str_sp_phukien'], ',');
-        $dataArr['sp_sosanh'] = rtrim( $dataArr['str_sp_sosanh'], ',');
-        $dataArr['sp_tuongtu'] = rtrim( $dataArr['str_sp_tuongtu'], ',');
-        
         $dataArr['status'] = 1;
-
         $dataArr['created_user'] = Auth::user()->id;
-
-        $dataArr['updated_user'] = Auth::user()->id;
-
-        if($dataArr['image_pro'] && $dataArr['pro_name']){
-            
-            $tmp = explode('/', $dataArr['image_pro']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('icho.upload_path').$dataArr['image_pro'], config('icho.upload_path').$destionation);
-            
-            $dataArr['image_pro'] = $destionation;
-        }  
+        $dataArr['updated_user'] = Auth::user()->id;      
+        $dataArr['city_id'] = 1;       
 
         $rs = Product::create($dataArr);
 
         $product_id = $rs->id;
-
-        if(!empty($dataArr['no_from'])){
-            foreach($dataArr['no_from'] as $no => $from){
-                if($dataArr['no_to'][$no] > 0 && $dataArr['price_multi'][$no] > 0){
-                    $d['no_from'] = $from;
-                    $d['no_to'] = $dataArr['no_to'][$no];
-                    $d['price'] = $dataArr['price_multi'][$no];
-                    $d['product_id'] = $product_id;
-                    ProductPrice::create($d);
-                }
-            }
-        }
-        //muc_dich
-        $mucDichArr = $request->muc_dich;
-        SpMucDich::where('product_id', $product_id)->delete();
-        if(!empty($mucDichArr)){
-            foreach ($mucDichArr as $muc_dich) {
-                SpMucDich::create(['product_id' => $product_id, 'muc_dich' => $muc_dich]);
-            }
-        }
-
-        $this->storeThuocTinh( $product_id, $dataArr);
+        
 
         $this->storeImage( $product_id, $dataArr);
         $this->storeMeta($product_id, 0, $dataArr);
         Session::flash('message', 'Tạo mới sản phẩm thành công');
 
-        return redirect()->route('product.index', ['estate_type_id' => $dataArr['estate_type_id'], 'cate_id' => $dataArr['cate_id']]);
+        return redirect()->route('product.index', ['estate_type_id' => $dataArr['estate_type_id'], 'type' => $dataArr['type']]);
     }
 
     public function storeMeta( $id, $meta_id, $dataArr ){
@@ -485,13 +407,12 @@ class ProductController extends Controller
     * @return Response
     */
     public function edit($id)
-    {
-        $thuocTinhArr = $phuKienArr = $soSanhArr = $tuongTuArr = [];
+    {        
         $hinhArr = (object) [];
         $detail = Product::find($id);
-
+       // var_dump($detail->type);die;
         $hinhArr = ProductImg::where('product_id', $id)->lists('image_url', 'id');     
-        $estateTypeArr = EstateType::all();
+        $estateTypeArr = EstateType::where('type', $detail->type)->get();
         
         $estate_type_id = $detail->estate_type_id;             
         
@@ -500,8 +421,13 @@ class ProductController extends Controller
         if ( $detail->meta_id > 0){
             $meta = MetaData::find( $detail->meta_id );
         }               
-            
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta'));
+        $priceUnitList = PriceUnit::all();
+        $districtList = District::where('city_id', 1)->get();
+       // var_dump($detail->district_id);die;
+        $wardList = Ward::where('district_id', $detail->district_id)->get();
+        $streetList = Street::where('district_id', $detail->district_id)->get();
+        $projectList = Project::where('district_id', $detail->district_id)->get();
+        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList'));
     }
     public function ajaxDetail(Request $request)
     {       
@@ -521,94 +447,35 @@ class ProductController extends Controller
         $dataArr = $request->all();
         
         $this->validate($request,[
-            'name' => 'required',
+            'title' => 'required',
             'slug' => 'required',
-            'price' => 'required|numeric',
-            'so_luong_ton' => 'required|numeric',
-            'can_nang' => 'required|numeric',
-            'chieu_dai' => 'required|numeric',
-            'chieu_rong' => 'required|numeric',
-            'chieu_cao' => 'required|numeric',
+            'price' => 'required',
+            'district_id' => 'required',
+            'estate_type_id' => 'required',
+            'type' => 'required'
         ],
         [
-            'name.required' => 'Bạn chưa nhập tên sản phẩm',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'price.numeric' => 'Vui lòng nhập giá hợp lệ',
-            'price.required' => 'Bạn chưa nhập giá',
-            'so_luong_ton.required' => 'Bạn chưa nhập số lượng tồn',
-            'so_luong_ton.numeric' => 'Vui lòng nhập số lượng tồn hợp lệ',
-            'can_nang.required' => 'Bạn chưa nhập cân nặng',
-            'can_nang.numeric' => 'Vui lòng nhập cân nặng hợp lệ',
-            'chieu_dai.required' => 'Bạn chưa nhập chiều dài',
-            'chieu_dai.numeric' => 'Vui lòng nhập chiều dài hợp lệ',
-            'chieu_rong.required' => 'Bạn chưa nhập chiều rộng',
-            'chieu_rong.numeric' => 'Vui lòng nhập chiều rộng hợp lệ',
-            'chieu_cao.required' => 'Bạn chưa nhập chiều cao',
-            'chieu_cao.numeric' => 'Vui lòng nhập chiều cao hợp lệ',
+            'title.required' => 'Bạn chưa nhập tên sản phẩm',
+            'slug.required' => 'Bạn chưa nhập slug',            
+            'price.required' => 'Bạn chưa nhập giá'            
         ]);
-
-        $dataArr['is_primary'] = isset($dataArr['is_primary']) ? 1 : 0;
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
-        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;                
+                  
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
-        $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
-
-        $dataArr['alias_extend'] = Helper::stripUnicode($dataArr['name_extend']);
-
-        $dataArr['sp_phukien'] = rtrim( $dataArr['str_sp_phukien'], ',');
-        $soSanhArr = isset($dataArr['sp_sosanh']) ? $dataArr['sp_sosanh'] : [];        
-        $dataArr['sp_tuongtu'] = rtrim( $dataArr['str_sp_tuongtu'], ',');
-
-        $dataArr['updated_user'] = Auth::user()->id;
-        //echo "<pre>";
-        //print_r($dataArr);die;
-        if($dataArr['image_pro'] && $dataArr['pro_name']){
-            
-            $tmp = explode('/', $dataArr['image_pro']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('icho.upload_path').$dataArr['image_pro'], config('icho.upload_path').$destionation);
-            
-            $dataArr['image_pro'] = $destionation;
-        }  
+        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
+        $dataArr['city_id'] = 1;
         $model = Product::find($dataArr['id']);
 
         $model->update($dataArr);
         
         $product_id = $dataArr['id'];
-        ProductPrice::where('product_id', $product_id)->delete();
-        if(!empty($dataArr['no_from'])){
-            foreach($dataArr['no_from'] as $no => $from){
-                if($dataArr['no_to'][$no] > 0 && $dataArr['price_multi'][$no] > 0){
-                    $d['no_from'] = $from;
-                    $d['no_to'] = $dataArr['no_to'][$no];
-                    $d['price'] = $dataArr['price_multi'][$no];
-                    $d['product_id'] = $product_id;
-                    ProductPrice::create($d);
-                }
-            }
-        }
-        //muc_dich
-        $mucDichArr = $request->muc_dich;
-        SpMucDich::where('product_id', $product_id)->delete();
-        if(!empty($mucDichArr)){
-            foreach ($mucDichArr as $muc_dich) {
-                SpMucDich::create(['product_id' => $product_id, 'muc_dich' => $muc_dich]);
-            }
-        }
-
-        $this->storeThuocTinh( $product_id, $dataArr);
+        
+        
 
         $this->storeMeta( $product_id, $dataArr['meta_id'], $dataArr);
         $this->storeImage( $product_id, $dataArr);
-        $this->storeSoSanh( $product_id, $soSanhArr);
+    
 
         Session::flash('message', 'Chỉnh sửa sản phẩm thành công');
 

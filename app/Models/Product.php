@@ -25,6 +25,7 @@ class Product extends Model  {
      */
     protected $fillable = [
                             'title', 
+                            'slug', 
                             'description', 
                             'type', 
                             'estate_type_id', 
@@ -53,7 +54,8 @@ class Product extends Model  {
                             'url_dothi', 
                             'status', 
                             'meta_id',
-                            'customer_id'
+                            'customer_id',
+                            'thumbnail_id'
                         ];
 
     

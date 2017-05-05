@@ -16,11 +16,26 @@ use App\Models\District;
 use App\Models\PriceUnit;
 use App\Models\Product;
 use App\Models\Articles;
+use App\Models\ProductImg;
+
 
 
 class CrawlerController extends Controller
 {
     public function articles(){
+        $prAll = Product::all();
+        foreach ($prAll as $value) {
+            $pro = Product::find($value->id);
+            $image_url = $pro->image_url;
+            $product_id = $pro->id;
+            if($image_url){
+                $rs = ProductImg::create(['product_id' => $product_id, 'image_url' => $image_url, 'display_order' => 1]);
+                $thumbnail_id = $rs->id;
+                $pro->thumbnail_id = $thumbnail_id;
+                $pro->save();
+            }            
+        }
+        die;
         $arr = [];
         set_time_limit(10000);
         $url = 'https://dothi.net/tu-van-luat.htm';

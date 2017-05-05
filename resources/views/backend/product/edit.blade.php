@@ -46,8 +46,7 @@
 
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin cơ bản</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
                                     
                   </ul>
@@ -55,112 +54,126 @@
                   <!-- Tab panes -->
                   <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="home">
+                      <div class="form-group col-md-6  pleft-5">
+                          <label for="email">Loại <span class="red-star">*</span></label>
+                            <select class="form-control" name="type" id="type">
+                                <option value="1" {{ old('type', $detail->type) == 1 ? "selected" : "" }}>Bán</option>
+                                <option value="2" {{ old('type', $detail->type) == 2 ? "selected" : "" }}>Cho thuê</option>
+                            </select>
+                        </div>
                         <div class="form-group col-md-6 none-padding">
-                          <label for="email">Danh mục cha<span class="red-star">*</span></label>
+                          <label for="email">Danh mục<span class="red-star">*</span></label>
                           <select class="form-control" name="estate_type_id" id="estate_type_id">
                             <option value="">--Chọn--</option>
                             @foreach( $estateTypeArr as $value )
                             <option value="{{ $value->id }}"
-                            <?php 
-                            if( old('estate_type_id') && old('estate_type_id') == $value->id ){ 
-                              echo "selected";
-                            }else if( $detail->estate_type_id == $value->id ){
-                              echo "selected";
-                            }else{
-                              echo "";
-                            }
-                            ?>
+                            {{ old('estate_type_id', $detail->estate_type_id) == $value->id ? "selected" : "" }}                           
 
                             >{{ $value->name }}</option>
                             @endforeach
                           </select>
                         </div>
-                          <div class="form-group col-md-6 none-padding pleft-5">
-                          <label for="email">Danh mục con<span class="red-star">*</span></label>
+                        <div class="form-group col-md-6  pleft-5">
+                          <label for="email">Quận <span class="red-star">*</span></label>
+                            <select class="form-control" name="district_id" id="district_id">
+                                @foreach( $districtList as $value )
+                                <option value="{{ $value->id }}"
+                                {{ old('district_id', $detail->district_id) == $value->id ? "selected" : "" }}                           
 
-                          <select class="form-control" name="cate_id" id="cate_id">
-                           
+                                >{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 none-padding">
+                          <label for="email">Phường</label>
+                          <select class="form-control" name="ward_id" id="ward_id">
+                            <option value="">--Chọn--</option>
+                            @foreach( $wardList as $value )
+                            <option value="{{ $value->id }}"
+                            {{ old('ward_id', $detail->ward_id) == $value->id ? "selected" : "" }}                           
+
+                            >{{ $value->name }}</option>
+                            @endforeach
                           </select>
-                        </div>  
+                        </div>
+                        <div class="form-group col-md-6  pleft-5">
+                          <label for="email">Đường</label>
+                            <select class="form-control" name="street_id" id="street_id">
+                                @foreach( $streetList as $value )
+                                <option value="{{ $value->id }}"
+                                {{ old('street_id', $detail->street_id) == $value->id ? "selected" : "" }}                           
+
+                                >{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 none-padding">
+                          <label for="email">Dự án</label>
+                          <select class="form-control" name="project_id" id="project_id">
+                            <option value="">--Chọn--</option>
+                            @foreach( $projectList as $value )
+                            <option value="{{ $value->id }}"
+                            {{ old('project_id', $detail->project_id) == $value->id ? "selected" : "" }}
+                            >{{ $value->name }}</option>
+                            @endforeach
+                          </select>
+                        </div>
                         <div class="form-group" >                  
                           <label>Tên <span class="red-star">*</span></label>
-                          <input type="text" class="form-control" name="name" id="name" value="{{ old('name') ? old('name') : $detail->name }}">
+                          <input type="text" class="form-control" name="title" id="title" value="{{ old('title', $detail->title) }}">
                         </div>
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') ? old('slug') : $detail->slug }}">
+                          <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug', $detail->slug) }}">
                         </div>
-                       
-                        <div class="col-md-6 none-padding">
-                          <div class="checkbox">
-                              <label><input type="checkbox" name="is_hot" value="1" {{ $detail->is_hot == 1 ? "checked" : "" }}> Sản phẩm HOT </label>
-                          </div>                          
+                        <div class="form-group col-md-6  pleft-5" >                  
+                            <label>Giá<span class="red-star">*</span></label>
+                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price', $detail->price) }}">
                         </div>
-                        <div class="col-md-6 none-padding pleft-5">
-                            <div class="checkbox">
-                              <label><input type="checkbox" name="is_sale" value="1" {{ $detail->is_sale == 1 ? "checked" : "" }}> Sản phẩm sale </label>
+                        <div class="form-group col-md-6 none-padding" >                  
+                            <label>Đơn vị giá<span class="red-star">*</span></label>
+                            <select class="form-control" name="price_unit_id" id="price_unit_id">
+                              <option value="">--Chọn--</option>
+                              @foreach( $priceUnitList as $value )
+                              <option value="{{ $value->id }}"
+                              {{ old('price_unit_id', $detail->price_unit_id) == $value->id ? "selected" : "" }}                           
+
+                              >{{ $value->name }}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 none-padding">
+                          <label>Diện tích</label>                  
+                          <input type="text" class="form-control" name="area" id="area" value="{{ old('area', $detail->area) }}">                        
+                        </div>
+                        <div class="form-group col-md-4 none-padding pleft-5">
+                            <label>Địa điểm</label>
+                             <input type="text" class="form-control" name="full_address" id="full_address" value="{{ old('full_address', $detail->full_address) }}">  
+                        </div>
+                        <div class=" form-group col-md-4 none-padding pleft-5">
+                          <label>Mặt tiền<span class="red-star">*</span></label>                  
+                          <input type="text" class="form-control" name="front_face" id="front_face" value="{{ old('front_face', $detail->front_face) }}">                        
+                        </div>
+                        <div class="form-group col-md-4 none-padding">
+                          <label>Đường trước nhà<span class="red-star">*</span></label>                  
+                          <input type="text" class="form-control" name="street_wide" id="street_wide" value="{{ old('street_wide', $detail->street_wide) }}">                        
+                        </div>
+                        <div class="form-group col-md-4 none-padding pleft-5">
+                          <label>Số tầng<span class="red-star">*</span></label>                  
+                          <input type="text" class="form-control" name="no_floor" id="no_floor" value="{{ old('no_floor', $detail->no_floor) }}">                        
+                        </div>
+                        <div class="form-group col-md-4 none-padding pleft-5">
+                          <label>Số phòng<span class="red-star">*</span></label>                  
+                          <input type="text" class="form-control" name="no_room" id="no_room" value="{{ old('no_room', $detail->no_room) }}">                        
+                        </div>
+                        <div class="form-group form-group col-md-12 none-padding">
+                            <label>Mô tả</label>
+                            <textarea class="form-control" rows="4" name="description" id="description">{{ old('description', $detail->description) }}</textarea>
                           </div>
-                        </div>
-                        <div class="form-group" >                  
-                            <label>Giá hiển thị ( 1 sản phẩm)<span class="red-star">*</span></label>
-                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : $detail->price}}">
-                        </div>
+                          <div class="clearfix"></div>
+                        <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
-                    <div role="tabpanel" class="tab-pane" id="profile">
-                      <div class="col-md-4 none-padding">
-                        <label>Số lượng tồn<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton') ? old('so_luong_ton') : $detail->so_luong_ton }}">                        
-                      </div>
-                      <div class="col-md-4 none-padding pleft-5">
-                          <label>Màu sắc</label>
-                          <select name="color_id" id="color_id" class="form-control">
-                              
-                          </select>
-                      </div>
-                      <div class="col-md-4 none-padding pleft-5">
-                        <label>Cân nặng<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="can_nang" id="can_nang" value="{{ old('can_nang') ? old('can_nang') : $detail->can_nang }}">                        
-                      </div>
-                      <div class="col-md-4 none-padding">
-                        <label>Chiều dài<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="chieu_dai" id="chieu_dai" value="{{ old('chieu_dai') ? old('chieu_dai') : $detail->chieu_dai }}">                        
-                      </div>
-                      <div class="col-md-4 none-padding pleft-5">
-                        <label>Chiều rộng<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="chieu_rong" id="chieu_rong" value="{{ old('chieu_rong') ? old('chieu_rong') : $detail->chieu_rong }}">                        
-                      </div>
-                      <div class="col-md-4 none-padding pleft-5">
-                        <label>Chiều cao<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="chieu_cao" id="chieu_cao" value="{{ old('chieu_cao') ? old('chieu_cao') : $detail->chieu_cao }}">                        
-                      </div>
                       
-                      <div class="clearfix"></div> 
-                      <div class="form-group">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="is_primary" value="1" {{ $detail->is_primary == 1 ? "checked" : "" }}> Sản phẩm đại diện </label>
-                        </div>                                                  
-                          <input type="text" class="form-control" placeholder="Tên đại diện hiển thị" name="name_primary" id="name_primary" value="{{ old('name_primary') ? old('name_primary') : $detail->name_primary }}">
-                      </div>
-                      <div class="form-group">
-                          
-                      </div>
-                      
-                      <div class="form-group col-md-6 none-padding">
-                          <label>Mô tả ngắn</label>
-                          <textarea class="form-control" rows="4" name="mo_ta" id="mo_ta">{{ old('mo_ta') ? old('mo_ta') : $detail->mo_ta }}</textarea>
-                        </div>
-                      <div class="form-group col-md-6 none-padding pleft-5">
-                        <label>Khuyến mãi</label>
-                        <textarea class="form-control" rows="4" name="khuyen_mai" id="khuyen_mai">{{ old('khuyen_mai') ? old('khuyen_mai') : $detail->khuyen_mai }}</textarea>
-                      </div>
-                       
-                      <div class="form-group">
-                        <label>Chi tiết</label>
-                        <textarea class="form-control" rows="10" name="chi_tiet" id="chi_tiet">{{ old('chi_tiet') ? old('chi_tiet') : $detail->chi_tiet }}</textarea>
-                      </div>
-
-
-                    </div><!--end thong tin chi tiet-->  
                      <div role="tabpanel" class="tab-pane" id="settings">
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
                          
@@ -200,7 +213,7 @@
              
               <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
               <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index', ['estate_type_id' => $detail->estate_type_id, 'cate_id' => $detail->cate_id])}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index', ['estate_type_id' => $detail->estate_type_id])}}">Hủy</a>
             </div>
             
         </div>
@@ -247,9 +260,7 @@
   </section>
   <!-- /.content -->
 </div>
-@include ('backend.product.search-modal')
-<input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple') }}">
-<input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
+
 <style type="text/css">
   .nav-tabs>li.active>a{
     color:#FFF !important;
@@ -257,46 +268,13 @@
   }
 
 </style>
+<input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple') }}">
+<input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
 @stop
+
 @section('javascript_page')
 <script type="text/javascript">
-function filterAjax(type){  
-  var str_params = $('#formSearchAjax').serialize();
-  $.ajax({
-          url: '{{ route("product.ajax-search") }}',
-          type: "POST",
-          async: true,      
-          data: str_params + '&search_type=' + type,
-          beforeSend:function(){
-            $('#contentSearch').html('<div style="text-align:center"><img src="{{ URL::asset('backend/dist/img/loading.gif')}}"></div>');
-          },        
-          success: function (response) {
-            $('#contentSearch').html(response);
-            $('#myModalSearch').modal('show');
-            //$('.selectpicker').selectpicker();            
-            //check lai nhung checkbox da checked
-            if( type == "phukien"){
-              var str_checked = $('#str_sp_phukien').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }else if( type == "tuongtu"){
-              var str_checked = $('#str_sp_tuongtu').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }else{
-              var str_checked = $('#str_sp_sosanh').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }
-          }
-    });
-}
+
 $(document).on('click', '.remove-image', function(){
 /*  var obj = $(this);
   var is_thumbnail = obj.parents('col-md-3').find("input[name=thumbnail_id]").is(":checked");
@@ -306,61 +284,7 @@ $(document).on('click', '.remove-image', function(){
     $(this).parents('.col-md-3').remove();
   }
 });
-$(document).on('click', '.checkSelect', function(){
-  var type = $('#search_type').val();
-  var obj = $(this);
-  if( type == "phukien"){
-    var str_sp_phukien = $('#str_sp_phukien').val();
-    if(obj.prop('checked') == true){
-      str_sp_phukien += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_phukien = str_sp_phukien.replace(str, '');
-    }
-    $('#str_sp_phukien').val(str_sp_phukien);
-  }else if( type == "tuongtu"){
-    var str_sp_tuongtu = $('#str_sp_tuongtu').val();
-    if(obj.prop('checked') == true){
-      str_sp_tuongtu += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_tuongtu = str_sp_tuongtu.replace(str, '');
-    }
-    $('#str_sp_tuongtu').val(str_sp_tuongtu);
-  }else{ // so sanh
-    var str_sp_sosanh = $('#str_sp_sosanh').val();
-    if(obj.prop('checked') == true){
-      str_sp_sosanh += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_sosanh = str_sp_sosanh.replace(str, '');
-    }
-    $('#str_sp_sosanh').val(str_sp_sosanh);
-  }
-});
-$(document).on('click', '.btnRemoveRelated', function(){
-  if( confirm ("Bạn có chắc chắn không ?")){
-    var obj = $(this);
-    var type = obj.attr('data-type');
-    var value = obj.attr('data-value');
-    var str_sp = $('#str_sp_' + type).val();
-    console.log(str_sp);
-      var str = value + ',';
-      console.log(value);
-      console.log(str);
-      str_sp = str_sp.replace(str, '');
-    console.log(str_sp);
-    $('#str_sp_' + type).val(str_sp);
-    $('#row-'+ type + '-' + value).remove();
-    
 
-
-
-  }
-});
-$(document).on('change', '#estate_type_id_search, #cate_id_search', function(){
-  filterAjax($('#search_type').val());
-});
 $(document).on('click', '#btnSearchAjax', function(){
   filterAjax($('#search_type').val());
 });
@@ -370,108 +294,12 @@ $(document).on('keypress', '#name_search', function(e){
       filterAjax($('#search_type').val());
   }
 });
-$(document).on('click', 'button.btnSaveSearch',function(){
-  var type = $('#search_type').val();  
-  if (type == "phukien"){
-    str_value = $('#str_sp_phukien').val();
-  }else if( type == "tuongtu"){
-    str_value = $('#str_sp_tuongtu').val();
-  }else{
-    str_value = $('#str_sp_sosanh').val();
-  }
-  if( str_value != '' ){
-    
-    $.ajax({
-          url: '{{ route("product.ajax-save-related") }}',
-          type: "POST",
-          async: true,      
-          data: {          
-            type : type,    
-            str_value : str_value,
-            _token: "{{ csrf_token() }}"
-          },     
-          success: function (response) {
-            if (type == "phukien"){
-              
-              $('#dataPhuKien').html(response);
 
-            }else if( type == "tuongtu"){
-
-              $('#dataTuongTu').html(response);
-
-            }else{
-
-              $('#dataSoSanh').html(response);
-
-            }
-            $('#myModalSearch').modal('hide');
-            
-          }
-    });
-    
-  }else{
-    alert('Vui lòng chọn ít nhất 1 sản phẩm.');
-    return false;
-  }
-
-});
     $(document).ready(function(){
-      $('#btnUploadPro').click(function(){        
-        $('#file-pro').click();
-      });      
-      var files = "";
-      $('#file-pro').change(function(e){
-         files = e.target.files;
-         
-         if(files != ''){
-           var dataForm = new FormData();        
-          $.each(files, function(key, value) {
-             dataForm.append('file', value);
-          });   
-          
-          dataForm.append('date_dir', 1);
-          dataForm.append('folder', 'tmp');
-
-          $.ajax({
-            url: $('#route_upload_tmp_image').val(),
-            type: "POST",
-            async: false,      
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              if(response.image_path){
-                $('#thumbnail_image_pro').attr('src',$('#upload_url').val() + response.image_path);
-                $( '#image_pro' ).val( response.image_path );
-                $( '#pro_name' ).val( response.image_name );
-              }
-              console.log(response.image_path);
-                //window.location.reload();
-            },
-            error: function(response){                             
-                var errors = response.responseJSON;
-                for (var key in errors) {
-                  
-                }
-                //$('#btnLoading').hide();
-                //$('#btnSave').show();
-            }
-          });
-        }
-      });
-      $('.btnLienQuan').click(function(){
-        var type = $(this).attr('data-value');
-        if( type == "phukien") {
-          $('#label-search').html("phụ kiện đi kèm");
-        }else if( type == "tuongtu" ){
-          $('#label-search').html("sản phẩm tương tự");
-        }else{
-          $('#label-search').html("sản phẩm so sánh");
-        }
-        filterAjax(type);
-      });      
-      $('#estate_type_id').change(function(){
-        location.href="{{ route('product.create') }}?estate_type_id=" + $(this).val();
+     
+      
+      $('#type').change(function(){
+        location.href="{{ route('product.create') }}?type=" + $(this).val();
       })
       $(".select2").select2();
       $('#dataForm').submit(function(){
@@ -489,31 +317,10 @@ $(document).on('click', 'button.btnSaveSearch',function(){
         //$('#btnSave').hide();
         $('#btnLoading').show();
       });
-      var editor = CKEDITOR.replace( 'chi_tiet',{
+    
+      var editor3 = CKEDITOR.replace( 'description',{
           language : 'vi',
-          height: 300,
-          filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
-          filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
-          filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
-          filebrowserUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=files') }}",
-          filebrowserImageUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=images') }}",
-          filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}"
-      });
-      var editor2 = CKEDITOR.replace( 'khuyen_mai',{
-          language : 'vi',
-          height : 100,
-          toolbarGroups : [
-            
-            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-            { name: 'links', groups: [ 'links' ] },           
-            '/',
-            
-          ]
-      });
-      var editor3 = CKEDITOR.replace( 'mo_ta',{
-          language : 'vi',
-          height : 100,
+          height : 300,
           toolbarGroups : [
             
             { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
@@ -566,7 +373,7 @@ $(document).on('click', 'button.btnSaveSearch',function(){
       });
      
 
-      $('#name').change(function(){
+      $('#title').change(function(){
          var name = $.trim( $(this).val() );
          if( name != '' && $('#slug').val() == ''){
             $.ajax({
@@ -591,34 +398,7 @@ $(document).on('click', 'button.btnSaveSearch',function(){
               }
             });
          }
-      });  
-       $('#name_extend').change(function(){
-         var name = $.trim( $(this).val() );
-         if( name != '' && $('#slug_extend').val() == ''){
-            $.ajax({
-              url: $('#route_get_slug').val(),
-              type: "POST",
-              async: false,      
-              data: {
-                str : name
-              },              
-              success: function (response) {
-                if( response.str ){                  
-                  $('#slug_extend').val( response.str );
-                }                
-              },
-              error: function(response){                             
-                  var errors = response.responseJSON;
-                  for (var key in errors) {
-                    
-                  }
-                  //$('#btnLoading').hide();
-                  //$('#btnSave').show();
-              }
-            });
-         }
-      });     
-     
+      }); 
       
     });
     
