@@ -10,10 +10,10 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
@@ -34,6 +34,7 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         ),
         'W' => 
         array (
+            'Weidner\\Goutte\\' => 15,
             'Webmozart\\Assert\\' => 17,
         ),
         'T' => 
@@ -58,6 +59,7 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
+            'Symfony\\Component\\BrowserKit\\' => 29,
             'SuperClosure\\' => 13,
             'SammyK\\LaravelFacebookSdk\\' => 26,
         ),
@@ -88,6 +90,7 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'Goutte\\' => 7,
         ),
         'F' => 
         array (
@@ -122,6 +125,10 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         'XdgBaseDir\\' => 
         array (
             0 => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src',
+        ),
+        'Weidner\\Goutte\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/weidner/goutte/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -195,6 +202,10 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
+        'Symfony\\Component\\BrowserKit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/browser-kit',
+        ),
         'SuperClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src',
@@ -255,6 +266,10 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Goutte\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fabpot/goutte/Goutte',
         ),
         'Faker\\' => 
         array (
@@ -970,6 +985,8 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'Goutte\\Client' => __DIR__ . '/..' . '/fabpot/goutte/Goutte/Client.php',
+        'Goutte\\Tests\\ClientTest' => __DIR__ . '/..' . '/fabpot/goutte/Goutte/Tests/ClientTest.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
         'GuzzleHttp\\ClientInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/ClientInterface.php',
         'GuzzleHttp\\Cookie\\CookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/CookieJar.php',
@@ -3137,6 +3154,12 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         'SuperClosure\\SerializableClosure' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/SerializableClosure.php',
         'SuperClosure\\Serializer' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Serializer.php',
         'SuperClosure\\SerializerInterface' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/SerializerInterface.php',
+        'Symfony\\Component\\BrowserKit\\Client' => __DIR__ . '/..' . '/symfony/browser-kit/Client.php',
+        'Symfony\\Component\\BrowserKit\\Cookie' => __DIR__ . '/..' . '/symfony/browser-kit/Cookie.php',
+        'Symfony\\Component\\BrowserKit\\CookieJar' => __DIR__ . '/..' . '/symfony/browser-kit/CookieJar.php',
+        'Symfony\\Component\\BrowserKit\\History' => __DIR__ . '/..' . '/symfony/browser-kit/History.php',
+        'Symfony\\Component\\BrowserKit\\Request' => __DIR__ . '/..' . '/symfony/browser-kit/Request.php',
+        'Symfony\\Component\\BrowserKit\\Response' => __DIR__ . '/..' . '/symfony/browser-kit/Response.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\Command\\Command' => __DIR__ . '/..' . '/symfony/console/Command/Command.php',
         'Symfony\\Component\\Console\\Command\\HelpCommand' => __DIR__ . '/..' . '/symfony/console/Command/HelpCommand.php',
@@ -3648,6 +3671,8 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
+        'Weidner\\Goutte\\GoutteFacade' => __DIR__ . '/..' . '/weidner/goutte/src/GoutteFacade.php',
+        'Weidner\\Goutte\\GoutteServiceProvider' => __DIR__ . '/..' . '/weidner/goutte/src/GoutteServiceProvider.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',

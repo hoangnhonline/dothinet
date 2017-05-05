@@ -399,8 +399,8 @@ class CartController extends Controller
                 function($message) use ($emailArr, $order_id) {
                     $message->subject('Xác nhận đơn hàng hàng #'.$order_id);
                     $message->to($emailArr);
-                    $message->from('icho.vn@gmail.com', 'iCho.vn');
-                    $message->sender('icho.vn@gmail.com', 'iCho.vn');
+                    $message->from('icho.vn@gmail.com', 'NhaDat');
+                    $message->sender('icho.vn@gmail.com', 'NhaDat');
             });
         }
         

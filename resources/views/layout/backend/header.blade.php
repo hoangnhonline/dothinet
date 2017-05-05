@@ -2,9 +2,9 @@
   <!-- Logo -->
   <a href="{{ Auth::user()->email != "huongll@icho.vn" ? route('product.index') : route('product.short') }}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>iCho.vn</b></span>
+    <span class="logo-mini"><b>NhaDat</b></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>iCho.vn</b></span>
+    <span class="logo-lg"><b>NhaDat</b></span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">

@@ -32,7 +32,7 @@ class Helper
           $seo = $arrSeo[url()->current()];
         }
         if(empty($seo)){
-          $seo['title'] = $seo['description'] = $seo['keywords'] = "Trang chủ iCho.vn";
+          $seo['title'] = $seo['description'] = $seo['keywords'] = "Trang chủ NhaDat";
         }      
         return $seo;
     }

@@ -13,9 +13,308 @@ use App\Models\Project;
 use App\Models\Street;
 use App\Models\Ward;
 use App\Models\District;
+use App\Models\PriceUnit;
+use App\Models\Product;
+use App\Models\Articles;
+use App\Models\ProductImg;
+
+
 
 class CrawlerController extends Controller
 {
+    public function articles(){
+        $prAll = Product::all();
+        foreach ($prAll as $value) {
+            $pro = Product::find($value->id);
+            $image_url = $pro->image_url;
+            $product_id = $pro->id;
+            if($image_url){
+                $rs = ProductImg::create(['product_id' => $product_id, 'image_url' => $image_url, 'display_order' => 1]);
+                $thumbnail_id = $rs->id;
+                $pro->thumbnail_id = $thumbnail_id;
+                $pro->save();
+            }            
+        }
+        die;
+        $arr = [];
+        set_time_limit(10000);
+        $url = 'https://dothi.net/tu-van-luat.htm';
+        $crawler = Goutte::request('GET', $url);
+           $crawler->filter('.news-list ul li')->each(function ($node) use ($arr){
+             
+                $title = $link = $price = $price_old = $sale_percent = $image_url = $description = '';  
+                
+                if($node->filter('.litext a')->count() > 0){
+                    $title = $node->filter('.litext a')->text();
+                }
+                if($node->filter('.litext p')->count() > 0){
+                    $description = $node->filter('.litext p')->text();
+                }                                
+                if($node->filter('img')->count() > 0){
+                    $image_url = $node->filter('img')->attr('src');                    
+                    $image_url = str_replace('crop/203x134//', '', $image_url);
+                   /* if($image_url){
+                        $this->saveImageDoThi($image_url);
+                    }
+                    */
+                }                
+                
+                $url_dothi = "https://dothi.net".$node->filter('a')->attr('href');
+            
+                $this->saveArticlesDoThi($url_dothi, $title, $image_url, $url_dothi, $description);  
+                echo "</hr>";              
+                         
+             });  
+    
+        return $arr;
+    }
+    public function saveArticlesDoThi($url, $title, $image_url, $url_dothi, $description){
+      
+        $crawler = Goutte::request('GET', $url);   
+        echo $url;
+        //price
+        $content = $crawler->filter('.nd-content')->html();
+        if($crawler->filter('.nd-source')->count() > 0){
+            $content.= $crawler->filter('.nd-source')->html();
+        }
+
+        $arrData = [
+                    'title' => $title, 
+                    'description' => $description, 
+                    'slug' => Helper::changeFileName($title),
+                    'alias' => Helper::stripUnicode($title),
+                    'image_url' => $image_url,             
+                    'content' => trim($content),
+                    'cate_id' => 5,
+                    'status' => 1, 
+                    'meta_id' => 0,
+                    'created_user' => 1,
+                    'updated_user' => 1
+                ];
+
+        Articles::create($arrData);
+    }
+    public function product(){
+        $arr = [];
+        set_time_limit(10000);
+        $url = 'https://dothi.net/ban-nha-rieng-thu-duc.htm';
+        $crawler = Goutte::request('GET', $url);
+           $crawler->filter('.listProduct li')->each(function ($node) use ($arr){
+             
+                $title = $link = $price = $price_old = $sale_percent = $image_url = '';  
+                
+                if($node->filter('h3 a.vip5')->count() > 0){
+                    $title = $node->filter('h3 a.vip5')->text();
+                }                
+                if($node->filter('img')->count() > 0){
+                    $image_url = $node->filter('img')->attr('src');
+                    $image_url = str_replace('crop/170x115/', '', $image_url);
+                   /* if($image_url){
+                        $this->saveImageDoThi($image_url);
+                    }
+                    */
+                }                
+                
+                $url_dothi = "https://dothi.net".$node->filter('a')->attr('href');
+                $this->saveArticlesDoThi($url_dothi, $title, $image_url, $url_dothi);  
+                echo "<hr>";              
+                         
+             });  
+    
+        return $arr;
+    }
+    public function saveProductDoThi($url, $title, $image_url, $url_dothi){
+      
+        $crawler = Goutte::request('GET', $url);   
+
+        //price
+        $price = $crawler->filter('.spanprice')->text();
+        $arrTmp = $this->processPrice($price, 1);
+        $price = $arrTmp['price'];
+        $price_unit_id = $arrTmp['price_unit_id'];
+
+        // area
+        $tmparea = $crawler->filter('.pd-price')->text();
+        $tmp1 = explode('Diện tích:', $tmparea);
+        $area = trim(end($tmp1));
+
+        //description        
+        $description = trim($crawler->filter('.pd-desc-content')->html());
+        //no_room
+        if($crawler->filter('#tbl1 tr')->eq(6)->filter('td')->eq(1)->count() > 0){
+            $no_room = trim($crawler->filter('#tbl1 tr')->eq(6)->filter('td')->eq(1)->text());
+        }else{
+            $no_room = '';
+        }
+        if($crawler->filter('#tbl1 tr')->eq(7)->filter('td')->eq(1)->count() > 0){
+            //street_wide
+            $street_wide = trim($crawler->filter('#tbl1 tr')->eq(7)->filter('td')->eq(1)->text());
+        }else{
+            $street_wide = '';
+        }
+        //var_dump($street_wide);       
+        if($crawler->filter('#tbl1 tr')->eq(9)->filter('td')->eq(1)->count() > 0){
+            //no_floor
+            $no_floor = trim($crawler->filter('#tbl1 tr')->eq(9)->filter('td')->eq(1)->text());
+        }else{
+            $no_floor = '';
+        }
+        //var_dump($no_floor);
+        if($crawler->filter('#tbl1 tr')->eq(10)->filter('td')->eq(1)->count() > 0){
+            //no_wc
+            $no_wc = trim($crawler->filter('#tbl1 tr')->eq(10)->filter('td')->eq(1)->text());
+        }else{
+            $no_wc = '';
+        }
+        //var_dump($no_wc);
+        if($crawler->filter('#tbl2 tr')->eq(0)->filter('td')->eq(1)->count() > 0){
+            $contact_name = trim($crawler->filter('#tbl2 tr')->eq(0)->filter('td')->eq(1)->text());
+        }else{
+            $contact_name = '';
+        }
+        if($crawler->filter('#tbl2 tr')->eq(1)->filter('td')->eq(1)->count() > 0){
+            $contact_address = trim($crawler->filter('#tbl2 tr')->eq(1)->filter('td')->eq(1)->text());
+        }else{
+            $contact_address = '';
+        }
+        if($crawler->filter('#tbl2 tr')->eq(2)->filter('td')->eq(1)->count() > 0){
+            $contact_phone = trim($crawler->filter('#tbl2 tr')->eq(2)->filter('td')->eq(1)->text());
+        }else{
+            $contact_phone = '';
+        }
+        if($crawler->filter('#tbl2 tr')->eq(3)->filter('td')->eq(1)->count() > 0){
+            $contact_mobile = trim($crawler->filter('#tbl2 tr')->eq(3)->filter('td')->eq(1)->text());
+        }else{
+            $contact_mobile = '';
+        }
+        if($crawler->filter('#tbl2 tr')->eq(4)->filter('td')->eq(1)->filter('script')->count() > 0){
+            $contact_email = trim($crawler->filter('#tbl2 tr')->eq(4)->filter('td')->eq(1)->filter('script')->text());        
+        }else{
+            $contact_email = '';
+        }
+
+        $arrData = [
+                    'title' => $title, 
+                    'description' => $description, 
+                    'type' => 1, 
+                    'estate_type_id' => 2, 
+                    'city_id' => 1, 
+                    'district_id' => 19, 
+                    'ward_id' => 0, 
+                    'street_id' => 0, 
+                    'project_id' => 0, 
+                    'price' => $price,
+                    'price_unit_id' => $price_unit_id > 0 ? $price_unit_id : 0, 
+                    'area' => $area, 
+                    'full_address' => '', 
+                    'front_face' => '', 
+                    'street_wide' => $street_wide,
+                    'no_floor' => $no_floor, 
+                    'no_room' => $no_room, 
+                    'direction_id' => 0,      
+                    'no_wc' => $no_wc,
+                    'image_url' => $image_url, 
+                    'video_url', 
+                    'contact_name' => $contact_name, 
+                    'contact_address' => $contact_address, 
+                    'contact_phone' => $contact_phone,
+                    'contact_mobile' => $contact_mobile, 
+                    'contact_email' => $contact_email, 
+                    'url_dothi' => $url_dothi, 
+                    'status' => 1, 
+                    'meta_id' => 0,
+                    'customer_id' => 0
+                ];
+
+        Product::create($arrData);
+    }
+    
+    public function processPrice($price, $type){        
+        $tmp = explode(' ', trim($price));
+        
+        $text = $tmp[1];
+        
+        $text = str_replace('m²', 'm2', $text);
+        if($text != ''){
+        
+            $price_unit_id = PriceUnit::where('name', $text)->where('type', $type)->first()->id;
+        
+        }
+        $price = $tmp[0];
+        return ['price' => $price, 'price_unit_id' => $price_unit_id];
+        
+    }
+    public function saveImageDoThi($image_url){
+        set_time_limit(10000);
+        
+            if($image_url){
+                $saveto = str_replace("https://img.dothi.net/", "", $image_url);
+                $tmp = explode('/', $saveto);
+            
+                $dir = str_replace(end($tmp), "", $saveto);
+                
+                if(!is_dir(public_path() ."/uploads/".$dir)){
+                    mkdir(public_path() ."/uploads/".$dir,0777, true);
+                }
+                var_dump($image_url);
+                 echo "<hr>";
+                var_dump('save_to', $saveto);
+                 echo "<hr>";
+                $this->grab_image($image_url, $saveto);
+            }
+         
+    }
+    
+    public function grab_image($url,$saveto){
+        
+        $ch = curl_init ($url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+        $raw=curl_exec($ch);
+        
+        if($raw){
+            curl_close ($ch);
+            if(!file_exists($saveto)){
+                $fp = fopen($saveto,'x');
+                fwrite($fp, $raw);
+                fclose($fp);
+            }
+        }
+        
+    }
+    public function crawlerProduct(){
+        set_time_limit(10000);    
+        $url = 'https://dothi.net/ban-nha-rieng-quan-2.htm';        
+        $chs = curl_init();            
+        curl_setopt($chs, CURLOPT_URL, $url);
+        curl_setopt($chs, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($chs, CURLOPT_HEADER, 0);
+        $result = curl_exec($chs);
+        curl_close($chs);
+        // Create a DOM object
+        $crawler = new simple_html_dom();
+        // Load HTML from a string
+        $crawler->load($result);
+        $dataArr['title'] = "";
+        $dataArr['img'] = "";
+        $dataArr['price'] = "";
+        $dataArr['price_old'] = "";
+        
+        if($crawler->find('a.vip5', 0)){
+            $dataArr['title'] = trim($crawler->find('h1.item-name', 0)->innertext);
+        }
+        if($crawler->find('meta[property="og:image"]', 0)){
+            $dataArr['img'] = $crawler->find('meta[property="og:image"]', 0)->content;
+        }
+        if($crawler->find('#span-price', 0)){
+            $dataArr['price'] = $crawler->find('#span-price', 0)->innertext;    
+        }
+        if($crawler->find('.old-price-item span', 1)){
+            $dataArr['price_old'] = $crawler->find('.old-price-item span', 1)->innertext;    
+        }
+        return $dataArr;
+    }
     public function street(){
         set_time_limit(10000);
         $districtArr = [54,61,71];
@@ -420,85 +719,7 @@ class CrawlerController extends Controller
         }
         return $site;
     }
-    public function tiki($url, $loai_id, $cate_id, $type){
-        $arr = [];
-        set_time_limit(10000);
-        for($page = 1; $page <= 1; $page++){ 
-             //$crawler = Goutte::request('GET', 'https://tiki.vn/laptop/c2742?order=discount_percent%2Cdesc&page='.$page);   
-             //var_dump('https://tiki.vn/laptop/c2742?order=discount_percent%2Cdesc&page='.$page);             
-            
-            
-             $chs = curl_init();
 
-            // set URL and other appropriate options
-            curl_setopt($chs, CURLOPT_URL, $url);
-            curl_setopt($chs, CURLOPT_RETURNTRANSFER, 1); 
-            curl_setopt($chs, CURLOPT_HEADER, 0);
-
-            // grab URL and pass it to the browser
-            $result = curl_exec($chs);
-
-            // close cURL resource, and free up system resources
-            curl_close($chs);
-         // Create a DOM object
-            $crawler = new simple_html_dom();
-            // Load HTML from a string
-            $crawler->load($result);
-            foreach($crawler->find('div.product-item') as $node){          
-               $title = $link = $price = $price_old = $sale_percent = $image_url = '';
-                $title = $content = $image_url = $link = "";
-                $count_img = count($node->find('span.image img'));
-                
-                    if($count_img == 2){
-                     $image_url = $node->find('span.image img',1)->src;
-                    }
-                    if($count_img == 1){
-                     $image_url = $node->find('span.image img',0)->src;
-                    }  
-                    if($count_img == 3){
-                     $image_url = $node->find('span.image img',2)->src;
-                    }                  
-                    
-                    $link = $node->find('a', 0)->href;
-                    $link = strstr($link, '?', true);
-                   
-                    if($node->find('span.title', 0)){
-                     $title = trim($node->find('span.title', 0)->innertext);                   
-                    }
-                 if($node->find('.price-sale', 0)){
-                    $price_tmp = $node->find('.price-sale', 0)->innertext;
-                    $tmpArr = explode('<span', $price_tmp);
-                    $price = $tmpArr[0];                    
-                }
-                if($node->find('.price-regular', 0)){
-                    $price_old = $node->find('.price-regular', 0)->innertext;                   
-                }
-                if($node->find('.sale-tag', 0)){
-                  $sale_percent = $node->find('.sale-tag', 0)->innertext;                            
-              }
-              $params =  [
-                    'name' => $title,
-                    'url' => $link,
-                    'aff_price' => $price,
-                    'aff_price_old' => $price_old,
-                    'aff_sale_percent' => $sale_percent,
-                    'thumbnail_url' => $image_url,
-                    'loai_id' => $loai_id,
-                    'cate_id' => $cate_id,
-                    'is_aff' => 1,
-                    'type' => $type,
-                    'site_id' => 2,
-                    'status' => 1,
-                    'created_user' => Auth::user()->id, 
-                    'updated_user'=>Auth::user()->id
-                ];  
-                  
-                SanPham::create($params);
-            };
-              
-        }
-        return $arr;
-    }
     public function detail(Request $request){
     	set_time_limit(10000);
     	$all = Link::where('id', '>=', 1000)->where('id', '<', 1001)->where('status', 1)->get();
@@ -579,49 +800,33 @@ class CrawlerController extends Controller
     	}  	
     	
     }
+    
     public function saveImage(Request $request){
-    	set_time_limit(10000);
-    	$all = Link::all();
-    	$i = 0;
-    	foreach($all as $value){
+        set_time_limit(10000);
+        $all = Link::all();
+        $i = 0;
+        foreach($all as $value){
 
-    		$image_url = $value->image_url;
-    		if($image_url){
-	    		$saveto = str_replace("http://www.androidgiare.vn/wp-content/", "", $image_url);
-	    		$tmp = explode('/', $saveto);
-	    	
-	    		$dir = str_replace(end($tmp), "", $saveto);
-	    		
-	    		if(!is_dir(public_path() ."/".$dir)){
-	    			mkdir(public_path() ."/".$dir, true);
-	    		}
-	    		var_dump($image_url);
-	    		var_dump($saveto);
-	    		$this->grab_image($image_url, $saveto);
-	    		$i++;
-	    		echo $i." - ".$value->id;
-	    		echo "<hr>";
-    		}
-    	}
+            $image_url = $value->image_url;
+            if($image_url){
+                $saveto = str_replace("http://www.androidgiare.vn/wp-content/", "", $image_url);
+                $tmp = explode('/', $saveto);
+            
+                $dir = str_replace(end($tmp), "", $saveto);
+                
+                if(!is_dir(public_path() ."/".$dir)){
+                    mkdir(public_path() ."/".$dir,0777, true);
+                }
+                var_dump($image_url);
+                echo "<hr>";
+                var_dump($saveto);
+                $this->grab_image($image_url, $saveto);
+                $i++;
+                echo $i." - ".$value->id;
+                echo "<hr>";
+            }
+        }
     }
-    public function grab_image($url,$saveto){
-    	var_dump($url);
-	    $ch = curl_init ($url);
-	    curl_setopt($ch, CURLOPT_HEADER, 0);
-	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	    curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
-	    $raw=curl_exec($ch);
-	    var_dump($raw);die;
-	    if($raw){
-		    curl_close ($ch);
-		    if(!file_exists($saveto)){
-		        $fp = fopen($saveto,'x');
-			    fwrite($fp, $raw);
-			    fclose($fp);
-		    }
-		}
-	    
-	}
     public static function changeFileName($str) {
         $str = self::stripUnicode($str);
         $str = str_replace("?", "", $str);

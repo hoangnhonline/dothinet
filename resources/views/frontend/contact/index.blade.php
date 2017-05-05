@@ -19,7 +19,7 @@
                         <span class="page-heading-title2">THÔNG TIN Liên hệ</span>
                     </h3>               
                     <div class="content">
-                        <h4>iCho.vn - Chợ Công Nghệ Giá Sỉ</h4>                        
+                        <h4>NhaDat - Chợ Công Nghệ Giá Sỉ</h4>                        
                         <p>Hotline: <span class="tel">1900 63 69 75</span></p>                        
                         <p>Email: <a href="mailto:muahang@icho.vn">muahang@icho.vn</a></p>
                     </div>
@@ -36,7 +36,7 @@
 	                @endif	
                     <div class="contact-form-box">
                         <div class="form-selector">                            
-                            <textarea style="font-size:14px" class="form-control input-sm" rows="8" id="content" name="content" placeholder="Nhập nội dung bạn muốn liên hệ hoặc góp ý với iCho.vn">{{ old('content') }}</textarea>
+                            <textarea style="font-size:14px" class="form-control input-sm" rows="8" id="content" name="content" placeholder="Nhập nội dung bạn muốn liên hệ hoặc góp ý với NhaDat">{{ old('content') }}</textarea>
 
                         </div>
                         <input type="hidden" name="type" value="1">                        

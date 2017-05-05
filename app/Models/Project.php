@@ -43,7 +43,8 @@ class Project extends Model  {
                             'status', 
                             'meta_id',      
                             'id_dothi',                     
-                            'display_order'];
+                            'display_order'
+                        ];
 
     
 }

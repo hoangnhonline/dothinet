@@ -23,7 +23,7 @@
     <meta property="og:title" content="@yield('title')" />
     <meta property="og:description" content="@yield('site_description')" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:site_name" content="iCho.vn" />
+    <meta property="og:site_name" content="NhaDat" />
     <?php $socialImage = isset($socialImage) ? $socialImage : $settingArr['banner']; ?>
     <meta property="og:image" content="{{ Helper::showImage($socialImage) }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -141,7 +141,7 @@
         <div class="container">
           <ul class="row">
             <li class="col-sm-5 col-xs-12 block-contact-ft">
-              <p>Giới thiệu về <a href="#" title="" class="urlweb">iCho.vn</a> - Thành viên của IPL</p>
+              <p>Giới thiệu về <a href="#" title="" class="urlweb">NhaDat</a> - Thành viên của IPL</p>
             </li>
             <li class="col-sm-5 col-xs-12 block-phone-ft">
               <p>Tổng đài: 1900 636 975 (7:30 - 22:00)</p>
@@ -187,7 +187,7 @@
       </section><!-- /block-ftm -->
       <section class="container-fluid block-ftb">
         <div class="container">
-          <p>iCho.vn mở bán tại thành phố Hồ Chí Minh</p>
+          <p>NhaDat mở bán tại thành phố Hồ Chí Minh</p>
         </div>
       </section><!-- /block-ftb -->
     </footer><!-- /footer -->

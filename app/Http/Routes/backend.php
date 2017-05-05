@@ -106,6 +106,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::get('{id}/destroy', ['as' => 'loai-sp.destroy', 'uses' => 'LoaiSpController@destroy']);
         Route::get('{id}/destroy-thuoc-tinh', ['as' => 'loai-sp.destroyThuocTinh', 'uses' => 'LoaiSpController@destroyThuocTinh']);
     });
+    Route::group(['prefix' => 'estate-type'], function () {
+        Route::get('/', ['as' => 'estate-type.index', 'uses' => 'EstateTypeController@index']);
+        Route::get('/create', ['as' => 'estate-type.create', 'uses' => 'EstateTypeController@create']);       
+        Route::post('/store', ['as' => 'estate-type.store', 'uses' => 'EstateTypeController@store']);
+        Route::get('{id}/edit',   ['as' => 'estate-type.edit', 'uses' => 'EstateTypeController@edit']);
+        Route::post('/update', ['as' => 'estate-type.update', 'uses' => 'EstateTypeController@update']);
+        Route::get('{id}/destroy', ['as' => 'estate-type.destroy', 'uses' => 'EstateTypeController@destroy']);        
+    });
     Route::group(['prefix' => 'convert'], function () {
         Route::get('/', ['as' => 'convert.index', 'uses' => 'ConvertController@index']);
     });
@@ -138,7 +146,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
     Route::group(['prefix' => 'banner'], function () {
         Route::get('/', ['as' => 'banner.index', 'uses' => 'BannerController@index']);
         Route::get('/create/', ['as' => 'banner.create', 'uses' => 'BannerController@create']);
-        Route::get('/list', ['as' => 'banner.list', 'uses' => 'BannerController@list']);
+        Route::get('/list', ['as' => 'banner.list', 'uses' => 'BannerController@lists']);
         Route::post('/store', ['as' => 'banner.store', 'uses' => 'BannerController@store']);
         Route::get('/edit',   ['as' => 'banner.edit', 'uses' => 'BannerController@edit']);
         Route::post('/update', ['as' => 'banner.update', 'uses' => 'BannerController@update']);
