@@ -56,7 +56,7 @@ return array(
     'App\\Http\\Controllers\\Frontend\\EventController' => $baseDir . '/app/Http/Controllers/Frontend/EventController.php',
     'App\\Http\\Controllers\\Frontend\\HomeController' => $baseDir . '/app/Http/Controllers/Frontend/HomeController.php',
     'App\\Http\\Controllers\\Frontend\\LapRapController' => $baseDir . '/app/Http/Controllers/Frontend/LapRapController.php',
-    'App\\Http\\Controllers\\Frontend\\NewsletterController' => $baseDir . '/app/Http/Controllers/Frontend/NewsletterController.php',
+    'App\\Http\\Controllers\\Frontend\\NewsletterController' => $baseDir . '/app/Http/Controllers/Frontend/PageController.php',
     'App\\Http\\Controllers\\Frontend\\OrderController' => $baseDir . '/app/Http/Controllers/Frontend/OrderController.php',
     'App\\Http\\Controllers\\Frontend\\WardController' => $baseDir . '/app/Http/Controllers/Frontend/WardController.php',
     'App\\Http\\Controllers\\SocialAuthController' => $baseDir . '/app/Http/Controllers/SocialAuthController.php',

@@ -403,7 +403,7 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         'App\\Http\\Controllers\\Frontend\\EventController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/EventController.php',
         'App\\Http\\Controllers\\Frontend\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/HomeController.php',
         'App\\Http\\Controllers\\Frontend\\LapRapController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/LapRapController.php',
-        'App\\Http\\Controllers\\Frontend\\NewsletterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/NewsletterController.php',
+        'App\\Http\\Controllers\\Frontend\\NewsletterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/PageController.php',
         'App\\Http\\Controllers\\Frontend\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/OrderController.php',
         'App\\Http\\Controllers\\Frontend\\WardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/WardController.php',
         'App\\Http\\Controllers\\SocialAuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/SocialAuthController.php',
