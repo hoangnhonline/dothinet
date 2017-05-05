@@ -15,7 +15,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default btn-sm" href="{{ route('product.index', ['loai_id' => $detail->loai_id, 'cate_id' => $detail->cate_id]) }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('product.index', ['estate_type_id' => $detail->estate_type_id, 'cate_id' => $detail->cate_id]) }}" style="margin-bottom:5px">Quay lại</a>
     <a class="btn btn-primary btn-sm" href="{{ route('chi-tiet', $detail->slug ) }}" target="_blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
     <form role="form" method="POST" action="{{ route('product.update') }}" id="dataForm">
     <div class="row">
@@ -49,9 +49,7 @@
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin cơ bản</a></li>
                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
-                    <li role="presentation"><a href="#thuoctinh" aria-controls="thuoctinh" role="tab" data-toggle="tab">Thuộc tính</a></li>
-                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Thông tin liên quan</a></li> 
-                    <li role="presentation"><a href="#quatang" aria-controls="messages" role="tab" data-toggle="tab">Quà tặng</a></li>                   
+                                    
                   </ul>
 
                   <!-- Tab panes -->
@@ -59,14 +57,14 @@
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div class="form-group col-md-6 none-padding">
                           <label for="email">Danh mục cha<span class="red-star">*</span></label>
-                          <select class="form-control" name="loai_id" id="loai_id">
+                          <select class="form-control" name="estate_type_id" id="estate_type_id">
                             <option value="">--Chọn--</option>
-                            @foreach( $loaiSpArr as $value )
+                            @foreach( $estateTypeArr as $value )
                             <option value="{{ $value->id }}"
                             <?php 
-                            if( old('loai_id') && old('loai_id') == $value->id ){ 
+                            if( old('estate_type_id') && old('estate_type_id') == $value->id ){ 
                               echo "selected";
-                            }else if( $detail->loai_id == $value->id ){
+                            }else if( $detail->estate_type_id == $value->id ){
                               echo "selected";
                             }else{
                               echo "";
@@ -81,20 +79,7 @@
                           <label for="email">Danh mục con<span class="red-star">*</span></label>
 
                           <select class="form-control" name="cate_id" id="cate_id">
-                            <option value="">--Chọn--</option>
-                            @foreach( $cateArr as $value )
-                            <option value="{{ $value->id }}" 
-                              <?php 
-                            if( old('cate_id') && old('cate_id') == $value->id ){ 
-                              echo "selected";
-                            }else if( $detail->cate_id == $value->id ){
-                              echo "selected";
-                            }else{
-                              echo "";
-                            }
-                            ?>
-                            >{{ $value->name }}</option>
-                            @endforeach
+                           
                           </select>
                         </div>  
                         <div class="form-group" >                  
@@ -105,14 +90,7 @@
                           <label>Slug <span class="red-star">*</span></label>                  
                           <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') ? old('slug') : $detail->slug }}">
                         </div>
-                        <div class="form-group" >                  
-                          <label>Tên mở rộng</label>
-                          <input type="text" class="form-control" name="name_extend" id="name_extend" value="{{ old('name_extend')  ? old('name_extend') : $detail->name_extend }}">
-                        </div>
-                        <div class="form-group">                  
-                          <label>Slug mở rộng</label>                  
-                          <input type="text" class="form-control" name="slug_extend" id="slug_extend" value="{{ old('slug_extend') ? old('slug_extend') : $detail->slug_extend }}">
-                        </div>
+                       
                         <div class="col-md-6 none-padding">
                           <div class="checkbox">
                               <label><input type="checkbox" name="is_hot" value="1" {{ $detail->is_hot == 1 ? "checked" : "" }}> Sản phẩm HOT </label>
@@ -127,42 +105,6 @@
                             <label>Giá hiển thị ( 1 sản phẩm)<span class="red-star">*</span></label>
                             <input type="text" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : $detail->price}}">
                         </div>
-                        <?php 
-                        $noPrice = $priceArr->count();
-                        $conLai = 5-$noPrice;
-                        ?>
-                        @if($noPrice > 0)
-                          @foreach($priceArr as $prices)
-                            <div class="form-group col-md-12 none-padding" >                  
-                            <div class="col-md-3 none-padding">
-                                <input type="text" class="form-control" name="no_from[]" placeholder="Số lượng từ" value="{{ $prices->no_from }}">
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="no_to[]" placeholder="Số lượng đến" value="{{ $prices->no_to }}">
-                            </div>
-                            <div class="col-md-6 none-padding">
-                              <input type="text" class="form-control" name="price_multi[]" placeholder="Giá tương ứng" value="{{ $prices->price }}">
-                            </div>
-                          </div>
-                          @endforeach
-                        @endif
-                        @if($conLai > 0)
-                        @for($k1 = 0; $k1 < $conLai ; $k1++)
-                        <div class="form-group col-md-12 none-padding" >                  
-                          <div class="col-md-3 none-padding">
-                              <input type="text" class="form-control" name="no_from[]" placeholder="Số lượng từ">
-                          </div>
-                          <div class="col-md-3">
-                              <input type="text" class="form-control" name="no_to[]" placeholder="Số lượng đến">
-                          </div>
-                          <div class="col-md-6 none-padding">
-                            <input type="text" class="form-control" name="price_multi[]" placeholder="Giá tương ứng">
-                          </div>
-                        </div>
-                        @endfor
-                        @endif
-                        
-                        <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
                     <div role="tabpanel" class="tab-pane" id="profile">
                       <div class="col-md-4 none-padding">
@@ -172,12 +114,7 @@
                       <div class="col-md-4 none-padding pleft-5">
                           <label>Màu sắc</label>
                           <select name="color_id" id="color_id" class="form-control">
-                              <option value="">--chọn--</option>
-                              @if( $colorArr->count() > 0)
-                                @foreach( $colorArr as $color )
-                                    <option value="{{ $color->id }}" {{ $detail->color_id == $color->id ? "selected" : "" }}>{{ $color->name }}</option>
-                                @endforeach
-                              @endif
+                              
                           </select>
                       </div>
                       <div class="col-md-4 none-padding pleft-5">
@@ -196,12 +133,7 @@
                         <label>Chiều cao<span class="red-star">*</span></label>                  
                         <input type="text" class="form-control" name="chieu_cao" id="chieu_cao" value="{{ old('chieu_cao') ? old('chieu_cao') : $detail->chieu_cao }}">                        
                       </div>
-                      @if($detail->loai_id == 7)
-                      <div class="form-group">
-                        <label>Số khe RAM (Mainboard)</label>                  
-                        <input type="text" class="form-control" name="khe_ram" id="khe_ram" value="{{ old('khe_ram') ? old('khe_ram') : $detail->khe_ram }}">                        
-                      </div>
-                      @endif
+                      
                       <div class="clearfix"></div> 
                       <div class="form-group">
                         <div class="checkbox">
@@ -258,129 +190,17 @@
                         </div>
 
                      </div><!--end hinh anh-->
-                     <div role="tabpanel" class="tab-pane" id="thuoctinh">
                      
-                     @if( !empty( $thuocTinhArr ))
-                     <table class="table table-responsive table-bordered">
-                      @foreach($thuocTinhArr as $loaithuoctinh)
-                        <tr style="background-color:#CCC">
-                          <td colspan="2">{{ $loaithuoctinh['name']}}</td>
-                        </tr>
-                        @if( !empty($loaithuoctinh['child']))
-                          @foreach( $loaithuoctinh['child'] as $thuoctinh)
-                          <tr>
-                            <td width="150">{{ $thuoctinh['name']}}</td>
-                            <td><input type="text" class="form-control" name="thuoc_tinh[{{ $thuoctinh['id'] }}]" value="{{ isset($spThuocTinhArr[$thuoctinh['id']]) ?  $spThuocTinhArr[$thuoctinh['id']] : "" }}" ></td>
-                          </tr>
-                          @endforeach
-                        @endif
-                      @endforeach
-                      </table>
-                     @endif
-                     
-                     </div>
-                     <div role="tabpanel" class="tab-pane" id="messages">                      
-                        <div class="col-md-4">
-                            <button class="btn btn-warning btn-sm btnLienQuan" data-value="phukien" type="button" id="btnPhuKien">Phụ kiện đi kèm</button>
-                            <div class="clearfix"></div>
-                            <div id="dataPhuKien" class="col-md-12 none-padding" style="min-height:150px; margin-top:5px">
-                              <table class="table table-responsive table-bordered">
-                                @if( $phuKienArr->count() > 0 )
-                                @foreach($phuKienArr as $id => $name)
-                                  <tr id="row-phukien-{{ $id }}">
-                                    <td width="80%">{{ $name }} 
-                                    <input type="hidden" name="sp_phukien[]" value="{{ $id }}">
-                                    </td>
-                                    <td>      
-                                    <button class="btn btn-sm btn-danger btnRemoveRelated" type="button" data-value="{{ $id }}" data-type="phukien">Xóa</button>
-                                    </td>
-                                  </tr>
-                                 
-                                @endforeach
-                                @endif
-                                </table>
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning btn-sm btnLienQuan" data-value="tuongtu" type="button" id="btnTuongTu">Sản phẩm tương tự</button>
-                            <div class="clearfix"></div>
-                            <div id="dataTuongTu" class="col-md-12 none-padding" style="min-height:150px; margin-top:5px">
-                                <table class="table table-responsive table-bordered">
-                                @if( $tuongTuArr->count() > 0 )
-                                @foreach($tuongTuArr as $id => $name)
-                                  <tr id="row-tuongtu-{{ $id }}">
-                                    <td width="80%">{{ $name }} 
-                                    <input type="hidden" name="sp_tuongtu[]" value="{{ $id }}">
-                                    </td>
-                                    <td>      
-                                    <button class="btn btn-sm btn-danger btnRemoveRelated" type="button" data-value="{{ $id }}" data-type="tuongtu">Xóa</button>
-                                    </td>
-                                  </tr>
-                                 
-                                @endforeach
-                                @endif
-                                </table>
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning btn-sm btnLienQuan" data-value="sosanh" type="button" id="btnSoSanh">Sản phẩm so sánh</button>
-                            <div class="clearfix"></div>
-                            <div id="dataSoSanh" class="col-md-12 none-padding" style="min-height:150px; margin-top:5px">
-                                 <table class="table table-responsive table-bordered">
-                                @if( $soSanhArr->count() > 0 )
-                                @foreach($soSanhArr as $id => $name)
-                                  <tr id="row-sosanh-{{ $id }}">
-                                    <td width="80%">{{ $name }} 
-                                    <input type="hidden" name="sp_sosanh[]" value="{{ $id }}">
-                                    </td>
-                                    <td>      
-                                    <button class="btn btn-sm btn-danger btnRemoveRelated" type="button" data-value="{{ $id }}" data-type="sosanh">Xóa</button>
-                                    </td>
-                                  </tr>
-                                 
-                                @endforeach
-                                @endif
-                                </table>
-
-                            </div>
-                        </div>                        
-                        <div class="clearfix"></div>
-                     </div><!--end thong tin lien quan -->
-                     <div role="tabpanel" class="tab-pane" id="quatang">
-                        <div class="col-md-12 none-padding pleft-5">
-                          <label>Kiểu hiển thị</label>
-                          <select name="pro_style" id="pro_style" class="form-control">
-                              <option value="0">Không có quà</option>
-                              <option value="1" {{ $detail->pro_style == 1 ? "selected" : "" }}>Hover ảnh</option>
-                              <option value="2" {{ $detail->pro_style == 2 ? "selected" : "" }}>Icon phía trên</option>                         </select>
-                        </div>
-                        <div class="form-group col-md-12" style="margin-top:10px;margin-bottom:10px">  
-                          <label class="col-md-3 row">Ảnh quà tặng </label>
-                          <div class="col-md-9">
-                            <img id="thumbnail_image_pro" src="{{ $detail->image_pro ? Helper::showImage($detail->image_pro) : URL::asset('backend/dist/img/img.png') }}" class="img-thumbnail" width="150">
-                            
-                            <input type="file" id="file-pro" style="display:none" />
-                         
-                            <button class="btn btn-default" id="btnUploadPro" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                          </div>
-                          <div style="clear:both"></div>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div><!--end quatang -->
                   </div>
 
                 </div>
                   
             </div>
             <div class="box-footer">
-              <input type="hidden" name="str_sp_sosanh" id="str_sp_sosanh" value="{{ old('str_sp_sosanh') ? old('str_sp_sosanh') : $detail->sp_sosanh . ',' }}" >
-              <input type="hidden" name="str_sp_tuongtu" id="str_sp_tuongtu" value="{{ old('str_sp_tuongtu') ? old('str_sp_tuongtu') : $detail->sp_tuongtu. ',' }}" >
-              <input type="hidden" name="str_sp_phukien" id="str_sp_phukien" value="{{ old('str_sp_phukien') ? old('str_sp_phukien') : $detail->sp_phukien. ',' }}" >
+             
               <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
               <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index', ['loai_id' => $detail->loai_id, 'cate_id' => $detail->cate_id])}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index', ['estate_type_id' => $detail->estate_type_id, 'cate_id' => $detail->cate_id])}}">Hủy</a>
             </div>
             
         </div>
@@ -421,8 +241,7 @@
       </div>
       <!--/.col (left) -->      
     </div>
-<input type="hidden" name="image_pro" id="image_pro" value="{{ $detail->image_pro }}"/> 
-<input type="hidden" name="pro_name" id="pro_name" value="{{ old('pro_name') }}"/>
+
     </form>
     <!-- /.row -->
   </section>
@@ -539,7 +358,7 @@ $(document).on('click', '.btnRemoveRelated', function(){
 
   }
 });
-$(document).on('change', '#loai_id_search, #cate_id_search', function(){
+$(document).on('change', '#estate_type_id_search, #cate_id_search', function(){
   filterAjax($('#search_type').val());
 });
 $(document).on('click', '#btnSearchAjax', function(){
@@ -651,8 +470,8 @@ $(document).on('click', 'button.btnSaveSearch',function(){
         }
         filterAjax(type);
       });      
-      $('#loai_id').change(function(){
-        location.href="{{ route('product.create') }}?loai_id=" + $(this).val();
+      $('#estate_type_id').change(function(){
+        location.href="{{ route('product.create') }}?estate_type_id=" + $(this).val();
       })
       $(".select2").select2();
       $('#dataForm').submit(function(){

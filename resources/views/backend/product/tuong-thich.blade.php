@@ -194,7 +194,7 @@
 @section('javascript_page')
 <script type="text/javascript">
 function filterAjax(cate_id){  
-  $('#loai_id_search').val(7);
+  $('#estate_type_id_search').val(7);
   $('#cate_id_search').val(cate_id);  
   var str_params = $('#formSearchAjaxTuongThich').serialize();
   $.ajax({

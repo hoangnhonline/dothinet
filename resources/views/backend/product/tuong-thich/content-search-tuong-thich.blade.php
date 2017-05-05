@@ -7,7 +7,7 @@
         <div class="panel-body">
           <form class="form-inline" id="formSearchAjaxTuongThich" role="form" method="GET" action="{{ route('product.ajax-search-tuong-thich') }}">            
             
-            <input type="hidden" name="loai_id" id="loai_id_search" value="7">            
+            <input type="hidden" name="estate_type_id" id="estate_type_id_search" value="7">            
 
               <input type="hidden" name="cate_id" id="cate_id_search" value="{{ $cate_id }}">                
             <div class="form-group">
@@ -73,7 +73,7 @@
               @endforeach
             @else
             <tr>
-              <td colspan="9">{{ $arrSearch['loai_id'] == -1 ? "Vui lòng chọn danh mục để lọc" :  "Không có dữ liệu." }}</td>
+              <td colspan="9">{{ $arrSearch['estate_type_id'] == -1 ? "Vui lòng chọn danh mục để lọc" :  "Không có dữ liệu." }}</td>
             </tr>
             @endif
 

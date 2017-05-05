@@ -120,7 +120,7 @@
             </div>
 
             <div id="footer-menu-box">
-                <p class="text-center">Copyrights &#169; 2016 iCho.vn. All Rights Reserved.</p>
+                <p class="text-center">Copyrights &#169; 2016 NhaDat. All Rights Reserved.</p>
             </div><!-- /#footer-menu-box -->
         </div>
 </footer>

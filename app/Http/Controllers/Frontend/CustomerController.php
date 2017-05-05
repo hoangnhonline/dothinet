@@ -79,10 +79,10 @@ class CustomerController extends Controller
         ],[
             'email_reset.required' => 'Vui lòng nhập email.',
             'email_reset.email' => 'Vui lòng nhập email hợp lệ.',
-            'email_reset.exists' => 'Email không tồn tại trong hệ thống iCho.vn.',
+            'email_reset.exists' => 'Email không tồn tại trong hệ thống NhaDat.',
         ]);
         $email = $request->email_reset;
-        $key = md5($request->email_reset.time().'iCho.vn');
+        $key = md5($request->email_reset.time().'NhaDat');
         $customer = Customer::where('email', $email)->first();
         $customer->key_reset = $key;
         $customer->save();
@@ -93,8 +93,8 @@ class CustomerController extends Controller
             function($message) use ($email) {
                 $message->subject('Yêu cầu thay đổi mật khẩu');
                 $message->to($email);
-                $message->from('icho.vn@gmail.com', 'iCho.vn');
-                $message->sender('icho.vn@gmail.com', 'iCho.vn');
+                $message->from('icho.vn@gmail.com', 'NhaDat');
+                $message->sender('icho.vn@gmail.com', 'NhaDat');
         });
     }
     public function resetPassword(Request $request){

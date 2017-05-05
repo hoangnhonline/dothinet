@@ -59,7 +59,7 @@
                               </label>
                             </div>
                             <div class="col-lg-5 col-md-11 col-sm-11 col-xs-10">
-                              <label for="radioIsUserIcho" class="control-label is-large">Tôi là thành viên iCho.vn</label>
+                              <label for="radioIsUserIcho" class="control-label is-large">Tôi là thành viên NhaDat</label>
                             </div>
                           </div>
                           <div class="form-group-row row row-style-3">

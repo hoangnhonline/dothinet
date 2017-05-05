@@ -15,7 +15,7 @@
         <meta property="og:title" content="@yield('title')" />
         <meta property="og:description" content="@yield('site_description')" />
         <meta property="og:url" content="{{ url()->current() }}" />
-        <meta property="og:site_name" content="iCho.vn" />
+        <meta property="og:site_name" content="NhaDat" />
         <?php $socialImage = isset($socialImage) ? $socialImage : $settingArr['banner']; ?>
         <meta property="og:image" content="{{ Helper::showImage($socialImage) }}" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -126,12 +126,12 @@
                           </div>
                           <div class="form-group">
                               <label class="checkbox-inline" style="padding-left:0px">
-                                <input type="checkbox"> Nhận các thông tin và chương trình khuyến mãi của iCho.vn qua email.
+                                <input type="checkbox"> Nhận các thông tin và chương trình khuyến mãi của NhaDat qua email.
                               </label>
                           </div>
                           <div class="form-group policy-group">
                             <div class="input-wrap">
-                              <p class="policy">Khi bạn nhấn Đăng ký, bạn  đã đồng ý thực hiện mọi giao dịch mua bán theo <a target="_blank" href="#">điều kiện sử dụng và chính sách của iCho.vn</a>.</p>
+                              <p class="policy">Khi bạn nhấn Đăng ký, bạn  đã đồng ý thực hiện mọi giao dịch mua bán theo <a target="_blank" href="#">điều kiện sử dụng và chính sách của NhaDat</a>.</p>
                             </div>
                           </div>
                           <div class="form-group last">
@@ -142,7 +142,7 @@
                         </div>
 
                         <div class="col-sm-6">
-                          <p class="text" style="margin-bottom:5px">Đăng nhập vào iCho.vn bằng facebook</p>
+                          <p class="text" style="margin-bottom:5px">Đăng nhập vào NhaDat bằng facebook</p>
                           <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup" title="Đăng nhập bằng Facebook" data-url="#"> <i class="fa fa-facebook"></i> <span>Đăng nhập bằng</span><span> Facebook</span> </a> </div>
                         </div>
                       </form>
@@ -289,7 +289,7 @@
       <div class="fb-page" data-tabs="messages" data-href="https://www.facebook.com/www.icho.vn" data-width="320px" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
           <div class="fb-xfbml-parse-ignore">
               <blockquote cite="https://www.facebook.com/www.icho.vn">
-                  <a href="https://www.facebook.com/www.icho.vn">iCho.vn</a>
+                  <a href="https://www.facebook.com/www.icho.vn">NhaDat</a>
               </blockquote>
           </div>
       </div>

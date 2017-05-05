@@ -6,19 +6,28 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\SanPham;
-use App\Models\LoaiSp;
+use App\Models\Product;
+use App\Models\EstateType;
 use App\Models\Cate;
 use App\Models\Color;
 use App\Models\LoaiThuocTinh;
 use App\Models\ThuocTinh;
 use App\Models\SpThuocTinh;
-use App\Models\SpHinh;
+use App\Models\ProductImg;
 use App\Models\MetaData;
 use App\Models\Compare;
 use App\Models\SpTuongThich;
 use App\Models\ProductPrice;
 use App\Models\SpMucDich;
+
+use App\Models\City;
+use App\Models\District;
+use App\Models\Ward;
+use App\Models\Street;
+use App\Models\PriceUnit;
+use App\Models\Projects;
+
+
 
 use Helper, File, Session, Auth, Hash, URL;
 
@@ -35,7 +44,7 @@ class ProductController extends Controller
         $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;
         $arrSearch['is_hot'] = $is_hot = isset($request->is_hot) ? $request->is_hot : null;
         $arrSearch['is_sale'] = $is_sale = isset($request->is_sale) ? $request->is_sale : null;
-        $arrSearch['loai_id'] = $loai_id = isset($request->loai_id) ? $request->loai_id : null;
+        $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
         $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : null;
 
         $arrSearch['het_hang'] = $het_hang = isset($request->het_hang) ? $request->het_hang : null;
@@ -45,15 +54,15 @@ class ProductController extends Controller
 
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
         
-        $query = SanPham::where('product.status', $status);
+        $query = Product::where('product.status', $status);
         if( $is_hot ){
             $query->where('product.is_hot', $is_hot);
         }
         if( $is_sale ){
             $query->where('product.is_sale', $is_sale);
         }
-        if( $loai_id ){
-            $query->where('product.loai_id', $loai_id);
+        if( $estate_type_id ){
+            $query->where('product.estate_type_id', $estate_type_id);
         }
         if( $cate_id ){
             $query->where('product.cate_id', $cate_id);
@@ -76,34 +85,26 @@ class ProductController extends Controller
             $query->where('product.name', 'LIKE', '%'.$name.'%');
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }
-        $query->join('users', 'users.id', '=', 'product.created_user');
-        $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');
-        $query->join('cate', 'cate.id', '=', 'product.cate_id');
-        $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id');        
-        $query->orderBy('product.id', 'desc');
-        $items = $query->select(['sp_hinh.image_url','product.*','product.id as sp_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'loai_sp.name as ten_loai', 'cate.name as ten_cate'])
-        ->paginate(50);   
+        //$query->join('users', 'users.id', '=', 'product.created_user');
+        $query->join('city', 'city.id', '=', 'product.city_id');        
+        $query->orderBy('product.id', 'desc');   
+        $items = $query->paginate(50);
+        $cityList = City::all();  
+        $districtList = District::all();
 
-        $loaiSpArr = LoaiSp::all();  
-        if( $loai_id ){
-            $cateArr = Cate::where('loai_id', $loai_id)->orderBy('display_order', 'desc')->get();
-        }else{
-            $cateArr = (object) [];
-        }
-
-        return view('backend.product.index', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr'));
+        return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'districtList'));
     }
     public function short(Request $request)
     {
         
         $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;
-        $arrSearch['loai_id'] = $loai_id = isset($request->loai_id) ? $request->loai_id : null;
+        $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
         $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : null;
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
         
-        $query = SanPham::where('product.status', $status);
-        if( $loai_id ){
-            $query->where('product.loai_id', $loai_id);
+        $query = Product::where('product.status', $status);
+        if( $estate_type_id ){
+            $query->where('product.estate_type_id', $estate_type_id);
         }
         if( $cate_id ){
             $query->where('product.cate_id', $cate_id);
@@ -113,25 +114,25 @@ class ProductController extends Controller
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }        
         $query->orderBy('product.id', 'desc');
-        $items = $query->select(['product.*','product.id as sp_id' , 'product.created_at as time_created'])
+        $items = $query->select(['product.*','product.id as product_id' , 'product.created_at as time_created'])
         ->paginate(50);
 
-        $loaiSpArr = LoaiSp::all();  
-        if( $loai_id ){
-            $cateArr = Cate::where('loai_id', $loai_id)->orderBy('display_order', 'desc')->get();
+        $estateTypeArr = EstateType::all();  
+        if( $estate_type_id ){
+            $cateArr = Cate::where('estate_type_id', $estate_type_id)->orderBy('display_order', 'desc')->get();
         }else{
             $cateArr = (object) [];
         }
 
-        return view('backend.product.short', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr'));
+        return view('backend.product.short', compact( 'items', 'arrSearch', 'estateTypeArr', 'cateArr'));
     }
     public function spTuongThich(Request $request){
         
         $id = $request->id;
         
-        $detail = SanPham::find($id);
+        $detail = Product::find($id);
 
-        $loaiSpArr = LoaiSp::all();  
+        $estateTypeArr = EstateType::all();  
         
         $tmpArr = SpTuongThich::where('sp_1', $id)->get();
         
@@ -140,7 +141,7 @@ class ProductController extends Controller
         if( $tmpArr->count() > 0){
             foreach ($tmpArr as $value) {
                 $spSelected[$value->cate_id][] = $value->sp_2;
-                $productArr[$value->sp_2] = SanPham::find($value->sp_2);
+                $productArr[$value->sp_2] = Product::find($value->sp_2);
                 if($value->cate_id == 31){
                     $str_sp_bo_mach_chinh .= $value->sp_2.",";
                 }
@@ -165,20 +166,20 @@ class ProductController extends Controller
             }
         }
 
-        $cateArr = Cate::where('loai_id', 7)->orderBy('display_order', 'desc')->get();
+        $cateArr = Cate::where('estate_type_id', 7)->orderBy('display_order', 'desc')->get();
         
-        return view('backend.product.tuong-thich', compact( 'detail', 'loaiSpArr', 'cateArr', 'spSelected', 'productArr', 'str_sp_bo_mach_chinh','str_sp_bo_vi_xu_ly', 'str_sp_card_man_hinh', 'str_sp_bo_nho', 'str_sp_case', 'str_sp_nguon'));   
+        return view('backend.product.tuong-thich', compact( 'detail', 'estateTypeArr',  'spSelected', 'productArr', 'str_sp_bo_mach_chinh','str_sp_bo_vi_xu_ly', 'str_sp_card_man_hinh', 'str_sp_bo_nho', 'str_sp_case', 'str_sp_nguon'));   
     }
     public function ajaxSearch(Request $request){    
         $search_type = $request->search_type;
-        $arrSearch['loai_id'] = $loai_id = isset($request->loai_id) ? $request->loai_id : -1;
+        $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : -1;
         $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : -1;
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
         
-        $query = SanPham::whereRaw('1');
+        $query = Product::whereRaw('1');
         
-        if( $loai_id ){
-            $query->where('product.loai_id', $loai_id);
+        if( $estate_type_id ){
+            $query->where('product.estate_type_id', $estate_type_id);
         }
         if( $cate_id ){
             $query->where('product.cate_id', $cate_id);
@@ -188,33 +189,29 @@ class ProductController extends Controller
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }
         $query->join('users', 'users.id', '=', 'product.created_user');
-        $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');
+        $query->join('estate_type', 'estate_type.id', '=', 'product.estate_type_id');
         $query->join('cate', 'cate.id', '=', 'product.cate_id');
-        $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id');        
+        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id');        
         $query->orderBy('product.id', 'desc');
-        $items = $query->select(['sp_hinh.image_url','product.*','product.id as sp_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'loai_sp.name as ten_loai', 'cate.name as ten_cate'])
+        $items = $query->select(['product_img.image_url','product.*','product.id as product_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'estate_type.name as ten_loai', 'cate.name as ten_cate'])
         ->paginate(1000);
 
-        $loaiSpArr = LoaiSp::all();  
-        if( $loai_id ){
-            $cateArr = Cate::where('loai_id', $loai_id)->orderBy('display_order', 'desc')->get();
-        }else{
-            $cateArr = (object) [];
-        }
+        $estateTypeArr = EstateType::all();  
+        
 
-        return view('backend.product.content-search', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr', 'search_type'));
+        return view('backend.product.content-search', compact( 'items', 'arrSearch', 'estateTypeArr',  'search_type'));
     }
 
     public function ajaxSearchTuongThich(Request $request){    
         $search_type = $request->search_type;
-        $arrSearch['loai_id'] = $loai_id = 7;
+        $arrSearch['estate_type_id'] = $estate_type_id = 7;
         $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : -1;
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
         
-        $query = SanPham::whereRaw('1');
+        $query = Product::whereRaw('1');
         
         
-        $query->where('product.loai_id', 7);
+        $query->where('product.estate_type_id', 7);
         
         if( $cate_id ){
             $query->where('product.cate_id', $cate_id);
@@ -224,21 +221,21 @@ class ProductController extends Controller
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }
         $query->join('users', 'users.id', '=', 'product.created_user');
-        $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');
+        $query->join('estate_type', 'estate_type.id', '=', 'product.estate_type_id');
         $query->join('cate', 'cate.id', '=', 'product.cate_id');
-        $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id');        
+        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id');        
         $query->orderBy('product.id', 'desc');
-        $items = $query->select(['sp_hinh.image_url','product.*','product.id as sp_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'loai_sp.name as ten_loai', 'cate.name as ten_cate'])
+        $items = $query->select(['product_img.image_url','product.*','product.id as product_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'estate_type.name as ten_loai', 'cate.name as ten_cate'])
         ->paginate(1000);
 
-        $loaiSpArr = LoaiSp::all();  
-        if( $loai_id ){
-            $cateArr = Cate::where('loai_id', $loai_id)->orderBy('display_order', 'desc')->get();
+        $estateTypeArr = EstateType::all();  
+        if( $estate_type_id ){
+            $cateArr = Cate::where('estate_type_id', $estate_type_id)->orderBy('display_order', 'desc')->get();
         }else{
             $cateArr = (object) [];
         }
 
-        return view('backend.product.tuong-thich.content-search-tuong-thich', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr', 'search_type', 'cate_id'));
+        return view('backend.product.tuong-thich.content-search-tuong-thich', compact( 'items', 'arrSearch', 'estateTypeArr',  'search_type', 'cate_id'));
     }
     /**
     * Show the form for creating a new resource.
@@ -247,17 +244,17 @@ class ProductController extends Controller
     */
     public function create(Request $request)
     {
-        $loai_id = $request->loai_id ? $request->loai_id : null;
+        $estate_type_id = $request->estate_type_id ? $request->estate_type_id : null;
         $cate_id = $request->cate_id ? $request->cate_id : null;
         $cateArr = $loaiThuocTinhArr = (object) [];
         $thuocTinhArr = [];
-        $loaiSpArr = LoaiSp::all();
+        $estateTypeArr = EstateType::all();
         
-        if( $loai_id ){
+        if( $estate_type_id ){
             
-            $cateArr = Cate::where('loai_id', $loai_id)->select('id', 'name')->orderBy('display_order', 'desc')->get();
+            $cateArr = Cate::where('estate_type_id', $estate_type_id)->select('id', 'name')->orderBy('display_order', 'desc')->get();
             
-            $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $loai_id)->orderBy('display_order')->get();
+            $loaiThuocTinhArr = LoaiThuocTinh::where('estate_type_id', $estate_type_id)->orderBy('display_order')->get();
 
             if( $loaiThuocTinhArr->count() > 0){
                 foreach ($loaiThuocTinhArr as $value) {
@@ -269,10 +266,9 @@ class ProductController extends Controller
                 }
                 
             }
-        }
-        $colorArr = Color::all();
+        }        
         $mucDichArr = [];
-        return view('backend.product.create', compact('loaiSpArr', 'cateArr', 'colorArr', 'loai_id', 'thuocTinhArr', 'cate_id', 'mucDichArr'));
+        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'thuocTinhArr', 'cate_id', 'mucDichArr'));
     }
 
     /**
@@ -347,9 +343,9 @@ class ProductController extends Controller
             $dataArr['image_pro'] = $destionation;
         }  
 
-        $rs = SanPham::create($dataArr);
+        $rs = Product::create($dataArr);
 
-        $sp_id = $rs->id;
+        $product_id = $rs->id;
 
         if(!empty($dataArr['no_from'])){
             foreach($dataArr['no_from'] as $no => $from){
@@ -357,27 +353,27 @@ class ProductController extends Controller
                     $d['no_from'] = $from;
                     $d['no_to'] = $dataArr['no_to'][$no];
                     $d['price'] = $dataArr['price_multi'][$no];
-                    $d['product_id'] = $sp_id;
+                    $d['product_id'] = $product_id;
                     ProductPrice::create($d);
                 }
             }
         }
         //muc_dich
         $mucDichArr = $request->muc_dich;
-        SpMucDich::where('sp_id', $sp_id)->delete();
+        SpMucDich::where('product_id', $product_id)->delete();
         if(!empty($mucDichArr)){
             foreach ($mucDichArr as $muc_dich) {
-                SpMucDich::create(['sp_id' => $sp_id, 'muc_dich' => $muc_dich]);
+                SpMucDich::create(['product_id' => $product_id, 'muc_dich' => $muc_dich]);
             }
         }
 
-        $this->storeThuocTinh( $sp_id, $dataArr);
+        $this->storeThuocTinh( $product_id, $dataArr);
 
-        $this->storeImage( $sp_id, $dataArr);
-        $this->storeMeta($sp_id, 0, $dataArr);
+        $this->storeImage( $product_id, $dataArr);
+        $this->storeMeta($product_id, 0, $dataArr);
         Session::flash('message', 'Tạo mới sản phẩm thành công');
 
-        return redirect()->route('product.index', ['loai_id' => $dataArr['loai_id'], 'cate_id' => $dataArr['cate_id']]);
+        return redirect()->route('product.index', ['estate_type_id' => $dataArr['estate_type_id'], 'cate_id' => $dataArr['cate_id']]);
     }
 
     public function storeMeta( $id, $meta_id, $dataArr ){
@@ -389,7 +385,7 @@ class ProductController extends Controller
             $rs = MetaData::create( $arrData );
             $meta_id = $rs->id;
             //var_dump($meta_id);die;
-            $modelSp = SanPham::find( $id );
+            $modelSp = Product::find( $id );
             $modelSp->meta_id = $meta_id;
             $modelSp->save();
         }else {
@@ -399,7 +395,7 @@ class ProductController extends Controller
     }
     public function storeThuocTinh($id, $dataArr){
         
-        SpThuocTinh::where('sp_id', $id)->delete();
+        SpThuocTinh::where('product_id', $id)->delete();
 
         if( !empty($dataArr['thuoc_tinh'])){
             foreach( $dataArr['thuoc_tinh'] as $k => $value){
@@ -408,18 +404,18 @@ class ProductController extends Controller
                 }
             }
             
-            SpThuocTinh::create(['sp_id' => $id, 'thuoc_tinh' => json_encode($dataArr['thuoc_tinh'])]);
+            SpThuocTinh::create(['product_id' => $id, 'thuoc_tinh' => json_encode($dataArr['thuoc_tinh'])]);
         }
     }
 
     public function storeImage($id, $dataArr){        
         //process old image
         $imageIdArr = isset($dataArr['image_id']) ? $dataArr['image_id'] : [];
-        $hinhXoaArr = SpHinh::where('sp_id', $id)->whereNotIn('id', $imageIdArr)->lists('id');
+        $hinhXoaArr = ProductImg::where('product_id', $id)->whereNotIn('id', $imageIdArr)->lists('id');
         if( $hinhXoaArr )
         {
             foreach ($hinhXoaArr as $image_id_xoa) {
-                $model = SpHinh::find($image_id_xoa);
+                $model = ProductImg::find($image_id_xoa);
                 $urlXoa = config('icho.upload_path')."/".$model->image_url;
                 if(is_file($urlXoa)){
                     unlink($urlXoa);
@@ -458,14 +454,14 @@ class ProductController extends Controller
             }
             if( !empty($imageArr['name']) ){
                 foreach ($imageArr['name'] as $key => $name) {
-                    $rs = SpHinh::create(['sp_id' => $id, 'image_url' => $name, 'display_order' => 1]);                
+                    $rs = ProductImg::create(['product_id' => $id, 'image_url' => $name, 'display_order' => 1]);                
                     $image_id = $rs->id;
                     if( $imageArr['is_thumbnail'][$key] == 1){
                         $thumbnail_id = $image_id;
                     }
                 }
             }
-            $model = SanPham::find( $id );
+            $model = Product::find( $id );
             $model->thumbnail_id = $thumbnail_id;
             $model->save();
         }
@@ -481,125 +477,7 @@ class ProductController extends Controller
     {
     //
     }
-    public function saveSpTuongThich(Request $request){
-        $id = $request->id;
-        
-        $detail = SanPham::find($id);
-        
-        $sp_tuongthich_bo_mach_chinh = $request->sp_tuongthich_31;
-        $sp_tuongthich_bo_vi_xu_ly = $request->sp_tuongthich_32;
-        $sp_tuongthich_card_man_hinh = $request->sp_tuongthich_85;
-        $sp_tuongthich_bo_nho = $request->sp_tuongthich_35;
-
-        $sp_tuongthich_nguon = $request->sp_tuongthich_33;
-        $sp_tuongthich_case = $request->sp_tuongthich_89;
-        
-        SpTuongThich::where(['sp_1' => $id, 'cate_id' => 31])->delete();
-        SpTuongThich::where(['sp_1' => $id, 'cate_id' => 32])->delete();
-        SpTuongThich::where(['sp_1' => $id, 'cate_id' => 35])->delete();
-        SpTuongThich::where(['sp_1' => $id, 'cate_id' => 85])->delete();
-        SpTuongThich::where(['sp_1' => $id, 'cate_id' => 33])->delete();
-        SpTuongThich::where(['sp_1' => $id, 'cate_id' => 89])->delete();
-
-        SpTuongThich::where(['sp_2' => $id, 'cate_id' => $detail->cate_id])->delete();
-
-        if( !empty($sp_tuongthich_bo_mach_chinh)){
-            foreach( $sp_tuongthich_bo_mach_chinh as $sp_2){
-                if( $sp_2 > 0){
-                    $check1 = SpTuongThich::where('sp_1', $id)->where('sp_2', $sp_2)->first();
-                    $check2 = SpTuongThich::where('sp_1', $sp_2)->where('sp_2', $id)->first();
-                    if( !$check1 && !$check2){
-                        SpTuongThich::create(['sp_1' => $id, 'sp_2' => $sp_2, 'cate_id' => 31]);
-                        SpTuongThich::create(['sp_1' => $sp_2, 'sp_2' => $id, 'cate_id' => $detail->cate_id]);
-                    }
-                }
-            }
-        }
-        if( !empty($sp_tuongthich_bo_vi_xu_ly)){
-            foreach( $sp_tuongthich_bo_vi_xu_ly as $sp_2){
-                if( $sp_2 > 0){
-                    $check1 = SpTuongThich::where('sp_1', $id)->where('sp_2', $sp_2)->first();
-                    $check2 = SpTuongThich::where('sp_1', $sp_2)->where('sp_2', $id)->first();
-                    if( !$check1 && !$check2){
-                        SpTuongThich::create(['sp_1' => $id, 'sp_2' => $sp_2, 'cate_id' => 32]);
-                        SpTuongThich::create(['sp_1' => $sp_2, 'sp_2' => $id, 'cate_id' => $detail->cate_id]);
-                    }
-                }
-            }
-        }
-        if( !empty($sp_tuongthich_bo_nho)){
-            foreach( $sp_tuongthich_bo_nho as $sp_2){
-                if( $sp_2 > 0){
-                    $check1 = SpTuongThich::where('sp_1', $id)->where('sp_2', $sp_2)->first();
-                    $check2 = SpTuongThich::where('sp_1', $sp_2)->where('sp_2', $id)->first();
-                    if( !$check1 && !$check2){
-                        SpTuongThich::create(['sp_1' => $id, 'sp_2' => $sp_2, 'cate_id' => 35]);
-                        SpTuongThich::create(['sp_1' => $sp_2, 'sp_2' => $id, 'cate_id' => $detail->cate_id]);
-                    }
-                }
-            }
-        }
-        if( !empty($sp_tuongthich_card_man_hinh)){
-            foreach( $sp_tuongthich_card_man_hinh as $sp_2){
-                if( $sp_2 > 0){
-                    $check1 = SpTuongThich::where('sp_1', $id)->where('sp_2', $sp_2)->first();
-                    $check2 = SpTuongThich::where('sp_1', $sp_2)->where('sp_2', $id)->first();
-                    if( !$check1 && !$check2){
-                        SpTuongThich::create(['sp_1' => $id, 'sp_2' => $sp_2, 'cate_id' => 85]);
-                        SpTuongThich::create(['sp_1' => $sp_2, 'sp_2' => $id, 'cate_id' => $detail->cate_id]);
-                    }
-                }
-            }
-        }
-        if( !empty($sp_tuongthich_nguon)){
-            foreach( $sp_tuongthich_nguon as $sp_2){
-                if( $sp_2 > 0){
-                    $check1 = SpTuongThich::where('sp_1', $id)->where('sp_2', $sp_2)->first();
-                    $check2 = SpTuongThich::where('sp_1', $sp_2)->where('sp_2', $id)->first();
-                    if( !$check1 && !$check2){
-                        SpTuongThich::create(['sp_1' => $id, 'sp_2' => $sp_2, 'cate_id' => 33]);
-                        SpTuongThich::create(['sp_1' => $sp_2, 'sp_2' => $id, 'cate_id' => $detail->cate_id]);
-                    }
-                }
-            }
-        }
-        if( !empty($sp_tuongthich_case)){
-            foreach( $sp_tuongthich_case as $sp_2){
-                if( $sp_2 > 0){
-                    $check1 = SpTuongThich::where('sp_1', $id)->where('sp_2', $sp_2)->first();
-                    $check2 = SpTuongThich::where('sp_1', $sp_2)->where('sp_2', $id)->first();
-                    if( !$check1 && !$check2){
-                        SpTuongThich::create(['sp_1' => $id, 'sp_2' => $sp_2, 'cate_id' => 89]);
-                        SpTuongThich::create(['sp_1' => $sp_2, 'sp_2' => $id, 'cate_id' => $detail->cate_id]);
-                    }
-                }
-            }
-        }
-        return redirect($request->back_url);
-        
-    }
-    public function ajaxSaveRelated(Request $request){
-        $type = $request->type;
-        $dataArr = (object) [];
-        $str_value = $request->str_value;
-        if( $str_value ){
-            $tmpArr = explode(',', $str_value);
-            $dataArr = SanPham::whereIn( 'id', $tmpArr)->select('id', 'name', 'name_extend', 'price', 'price_sale', 'is_sale')->get();
-        }
-        return view('backend.product.save-related', compact('dataArr' , 'type'));
-
-    }
-    public function ajaxSaveTuongThich(Request $request){
-        $cate_id = $request->cate_id;
-        $dataArr = (object) [];
-        $str_value = $request->str_value;
-        if( $str_value ){
-            $tmpArr = explode(',', $str_value);
-            $dataArr = SanPham::whereIn( 'id', $tmpArr)->select('id', 'name', 'name_extend', 'price', 'price_sale', 'is_sale')->get();
-        }
-        return view('backend.product.tuong-thich.save-tuong-thich', compact('dataArr' , 'cate_id'));
-
-    }
+    
     /**
     * Show the form for editing the specified resource.
     *
@@ -610,56 +488,25 @@ class ProductController extends Controller
     {
         $thuocTinhArr = $phuKienArr = $soSanhArr = $tuongTuArr = [];
         $hinhArr = (object) [];
-        $detail = SanPham::find($id);
+        $detail = Product::find($id);
 
-        $hinhArr = SpHinh::where('sp_id', $id)->lists('image_url', 'id');
-        //var_dump("<pre>", $hinhArr);die;
-        $tmp = SpThuocTinh::where('sp_id', $id)->select('thuoc_tinh')->first();
-
-        if( $tmp ){
-            $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
-        }
-        $tmpPhuKien = explode(",", $detail->sp_phukien);
-        $phuKienArr = SanPham::whereIn('id', $tmpPhuKien)->lists('name', 'id');
-        //get compare
-        $compare1 = Compare::where('sp_1', $id)->lists('sp_2')->toArray();              
-        $compare2 = Compare::where('sp_2', $id)->lists('sp_1')->toArray();        
-        $tmpSoSanh = array_merge($compare1, $compare2); 
-        $soSanhArr = SanPham::whereIn('id', $tmpSoSanh)->lists('name', 'id');
-
-        $tmpTuongTu = explode(",", $detail->sp_tuongtu);
-        $tuongTuArr = SanPham::whereIn('id', $tmpTuongTu)->lists('name', 'id');
-
-        $loaiSpArr = LoaiSp::all();
+        $hinhArr = ProductImg::where('product_id', $id)->lists('image_url', 'id');     
+        $estateTypeArr = EstateType::all();
         
-        $loai_id = $detail->loai_id; 
-            
-        $cateArr = Cate::where('loai_id', $loai_id)->select('id', 'name')->orderBy('display_order', 'desc')->get();
+        $estate_type_id = $detail->estate_type_id;             
         
-        $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $loai_id)->orderBy('display_order')->get();
+       
         $meta = (object) [];
         if ( $detail->meta_id > 0){
             $meta = MetaData::find( $detail->meta_id );
-        }       
-        if( $loaiThuocTinhArr->count() > 0){
-            foreach ($loaiThuocTinhArr as $value) {
-
-                $thuocTinhArr[$value->id]['id'] = $value->id;
-                $thuocTinhArr[$value->id]['name'] = $value->name;
-
-                $thuocTinhArr[$value->id]['child'] = ThuocTinh::where('loai_thuoc_tinh_id', $value->id)->select('id', 'name')->orderBy('display_order')->get()->toArray();
-            }
+        }               
             
-        }        
-        $colorArr = Color::all();  
-        $priceArr = ProductPrice::where('product_id', $id)->get();
-            
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'thuocTinhArr', 'spThuocTinhArr', 'colorArr', 'loaiSpArr', 'cateArr', 'meta', 'phuKienArr', 'tuongTuArr', 'soSanhArr', 'priceArr'));
+        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta'));
     }
     public function ajaxDetail(Request $request)
     {       
         $id = $request->id;
-        $detail = SanPham::find($id);
+        $detail = Product::find($id);
         return view('backend.product.ajax-detail', compact( 'detail' ));
     }
     /**
@@ -731,41 +578,41 @@ class ProductController extends Controller
             
             $dataArr['image_pro'] = $destionation;
         }  
-        $model = SanPham::find($dataArr['id']);
+        $model = Product::find($dataArr['id']);
 
         $model->update($dataArr);
         
-        $sp_id = $dataArr['id'];
-        ProductPrice::where('product_id', $sp_id)->delete();
+        $product_id = $dataArr['id'];
+        ProductPrice::where('product_id', $product_id)->delete();
         if(!empty($dataArr['no_from'])){
             foreach($dataArr['no_from'] as $no => $from){
                 if($dataArr['no_to'][$no] > 0 && $dataArr['price_multi'][$no] > 0){
                     $d['no_from'] = $from;
                     $d['no_to'] = $dataArr['no_to'][$no];
                     $d['price'] = $dataArr['price_multi'][$no];
-                    $d['product_id'] = $sp_id;
+                    $d['product_id'] = $product_id;
                     ProductPrice::create($d);
                 }
             }
         }
         //muc_dich
         $mucDichArr = $request->muc_dich;
-        SpMucDich::where('sp_id', $sp_id)->delete();
+        SpMucDich::where('product_id', $product_id)->delete();
         if(!empty($mucDichArr)){
             foreach ($mucDichArr as $muc_dich) {
-                SpMucDich::create(['sp_id' => $sp_id, 'muc_dich' => $muc_dich]);
+                SpMucDich::create(['product_id' => $product_id, 'muc_dich' => $muc_dich]);
             }
         }
 
-        $this->storeThuocTinh( $sp_id, $dataArr);
+        $this->storeThuocTinh( $product_id, $dataArr);
 
-        $this->storeMeta( $sp_id, $dataArr['meta_id'], $dataArr);
-        $this->storeImage( $sp_id, $dataArr);
-        $this->storeSoSanh( $sp_id, $soSanhArr);
+        $this->storeMeta( $product_id, $dataArr['meta_id'], $dataArr);
+        $this->storeImage( $product_id, $dataArr);
+        $this->storeSoSanh( $product_id, $soSanhArr);
 
         Session::flash('message', 'Chỉnh sửa sản phẩm thành công');
 
-        return redirect()->route('product.edit', $sp_id);
+        return redirect()->route('product.edit', $product_id);
         
     }
     public function ajaxSaveInfo(Request $request){
@@ -776,11 +623,11 @@ class ProductController extends Controller
         
         $dataArr['updated_user'] = Auth::user()->id;
         
-        $model = SanPham::find($dataArr['id']);
+        $model = Product::find($dataArr['id']);
 
         $model->update($dataArr);
         
-        $sp_id = $dataArr['id'];        
+        $product_id = $dataArr['id'];        
 
         Session::flash('message', 'Chỉnh sửa sản phẩm thành công');
 
@@ -811,11 +658,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         // delete
-        $model = SanPham::find($id);        
+        $model = Product::find($id);        
         $model->delete();
-        SpHinh::where('sp_id', $id)->delete();
-        SpMucDich::where('sp_id', $id)->delete();
-        SpThuocTinh::where('sp_id', $id)->delete();
+        ProductImg::where('product_id', $id)->delete();
+        SpMucDich::where('product_id', $id)->delete();
+        SpThuocTinh::where('product_id', $id)->delete();
         SpTuongThich::where('sp_1', $id)->delete();
         SpTuongThich::where('sp_2', $id)->delete();
         // redirect

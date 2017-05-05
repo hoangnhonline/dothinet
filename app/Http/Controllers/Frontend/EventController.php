@@ -26,7 +26,7 @@ class EventController extends Controller
         $dt = Carbon::now()->format('Y-m-d H:i:s');
 
         $dataList = Events::where('from_date', '<=', $dt)->where('to_date', '>=', $dt)->where('status', 1)->get();
-        $seo['title'] = $seo['description'] = $seo['keywords'] = "Chương trình khuyến mãi - iCho.vn";                
+        $seo['title'] = $seo['description'] = $seo['keywords'] = "Chương trình khuyến mãi - NhaDat";                
         
         $socialImage = "";
         return view('frontend.event.index', compact('seo', 'socialImage', 'dataList'));

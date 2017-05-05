@@ -27,10 +27,10 @@
             
             <div class="form-group">
               <label for="email">Danh mục cha&nbsp;</label>
-              <select class="form-control" name="loai_id" id="loai_id">
+              <select class="form-control" name="estate_type_id" id="estate_type_id">
                 <option value="">--Tất cả--</option>
-                @foreach( $loaiSpArr as $value )
-                <option value="{{ $value->id }}" {{ $value->id == $arrSearch['loai_id'] ? "selected" : "" }}>{{ $value->name }}</option>
+                @foreach( $estateTypeArr as $value )
+                <option value="{{ $value->id }}" {{ $value->id == $arrSearch['estate_type_id'] ? "selected" : "" }}>{{ $value->name }}</option>
                 @endforeach
               </select>
             </div>
@@ -179,7 +179,7 @@ $(document).ready(function(){
     obj.parent().parent().parent().submit(); 
   });
   
-  $('#loai_id').change(function(){
+  $('#estate_type_id').change(function(){
     $('#cate_id').val('');
     $('#searchForm').submit();
   });

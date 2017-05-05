@@ -68,8 +68,8 @@
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>                       
                 <td>                  
-                  @if($item->full_name != '')
-                  {{ $item->full_name }}</br>
+                  @if($item->name != '')
+                  {{ $item->name }}</br>
                   @endif
                   @if($item->email != '')
                   <a href="{{ route( 'customer.edit', [ 'id' => $item->id ]) }}">{{ $item->email }}</a> -

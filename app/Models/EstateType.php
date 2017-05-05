@@ -23,6 +23,6 @@ class EstateType extends Model  {
      *
      * @var array
      */
-    protected $fillable = [ 'name', 'slug', 'type', 'display_order', 'status'];
+    protected $fillable = [ 'name', 'slug', 'type', 'display_order', 'status', 'meta_id'];
         
 }

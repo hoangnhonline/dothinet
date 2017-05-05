@@ -23,7 +23,7 @@ $vangLaiArr = Session::get('vanglai');
                         <div class="row row-style-6">
                           <div class="col-lg-4 col-md-3 visible-lg-block visible-md-block"> <img src="{{ URL::asset('assets/images/thanh-cong.png') }}" class="img-responsive" alt="Image" height="178" width="195"> </div>
                           <div class="col-lg-8 col-md-9">
-                            <h3>Cảm ơn bạn đã mua hàng tại iCho.vn!</h3>
+                            <h3>Cảm ơn bạn đã mua hàng tại NhaDat!</h3>
                             
                             <!-- BEGIN ORDER INFO -->
                             <p>Mã số đơn hàng của bạn: </p>
@@ -38,7 +38,7 @@ $vangLaiArr = Session::get('vanglai');
                               @endif
                               <br>
                             <div class="alert alert-success" role="alert">
-                              <p>Nhằm giúp việc xử lý đơn hàng nhanh hơn nữa, iCho.vn sẽ không gọi điện cho bạn để xác nhận đơn hàng.</p>
+                              <p>Nhằm giúp việc xử lý đơn hàng nhanh hơn nữa, NhaDat sẽ không gọi điện cho bạn để xác nhận đơn hàng.</p>
                             </div>                            
                           </div>
                         </div>

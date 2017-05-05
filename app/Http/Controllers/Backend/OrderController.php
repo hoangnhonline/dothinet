@@ -101,10 +101,10 @@ class OrderController extends Controller
                         'order'    => $order
                     ],
                     function($message) use ($customer, $method_id) {
-                        $message->subject('Cảm ơn bạn đã đặt hàng tại iCho.vn');
+                        $message->subject('Cảm ơn bạn đã đặt hàng tại NhaDat');
                         $message->to($customer->email);
-                        $message->from('icho.vn@gmail.com', 'iCho.vn');
-                        $message->sender('icho.vn@gmail.com', 'iCho.vn');
+                        $message->from('icho.vn@gmail.com', 'NhaDat');
+                        $message->sender('icho.vn@gmail.com', 'NhaDat');
                 });*/
                 break;
             case "3":
