@@ -55,7 +55,8 @@ class Product extends Model  {
                             'status', 
                             'meta_id',
                             'customer_id',
-                            'thumbnail_id'
+                            'thumbnail_id',
+                            'cart_status'
                         ];
 
     
