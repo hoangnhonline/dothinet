@@ -3,7 +3,7 @@
     @include('frontend.partials.main-header')
     @include('frontend.partials.home-menu')
   @endsection
-  
+@include('frontend.home.search')  
 @include('frontend.home.content')
 
 @include('frontend.home.slider')

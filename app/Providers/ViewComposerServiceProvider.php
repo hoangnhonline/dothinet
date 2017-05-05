@@ -5,6 +5,8 @@ use Illuminate\Support\ServiceProvider;
 use Hash;
 use App\Models\Settings;
 use App\Models\EstateType;
+use App\Models\ArticlesCate;
+use App\Models\District;
 
 //use App\Models\Entity\SuperStar\Account\Traits\Behavior\SS_Shortcut_Icon;
 
@@ -53,10 +55,10 @@ class ViewComposerServiceProvider extends ServiceProvider
 				}
 			}
 	        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-	       // var_dump("<pre>", $menuDoc);die;   
-	        //var_dump("<pre>", $loaiSpKey);die;
+	        $articleCate = ArticlesCate::orderBy('display_order', 'desc')->get();	     
+	        $districtList = District::where('city_id', 1)->get();
 			$view->with( ['loaiSpKey' => [], 'menuNgang' => [], 'menuDoc' => [], 'loaiSpHot' => [], 'settingArr' => $settingArr, 
-			'banList' => $banList, 'thueList' => $thueList] );
+			'banList' => $banList, 'thueList' => $thueList, 'articleCate' => $articleCate, 'districtList' => $districtList] );
 			
 		});
 	}

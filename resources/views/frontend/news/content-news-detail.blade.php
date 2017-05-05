@@ -1,115 +1,67 @@
 @include('frontend.partials.meta')
 @section('content')
-<div class="columns-container">
-    <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
-            <span class="navigation-pipe">&nbsp;</span>
-            @if($detail->cate_id == 1)
-            <a class="home" href="{{ route('news-list', 'tin-tuc') }}" title="Tin tức">Tin tức</a>            
-            @elseif($detail->cate_id == 2)
-            <a class="home" href="{{ route('chuong-trinh-khuyen-mai') }}" title="Khuyến mãi">Khuyến mãi</a>        
-            @else
-            <a class="home" href="{{ route('news-list', 'kinh-nghiem-hay') }}" title="Kinh nghiệm hay">Kinh nghiệm hay</a>            
-            @endif
+<section class="col-sm-8 col-xs-12 block-sitemain">
+
+    <article class="block block-breadcrumb">
+        <div class="block-contents">
+            <ul>
+                <li class="active"><h2><a href="/tin-tuc.htm">Phong thủy</a></h2></li>
+            </ul>
         </div>
-        <!-- ./breadcrumb -->
-        <!-- row -->
-        <div class="row">
-            <!-- Left colunm -->
-            <div class="column col-xs-12 col-sm-3" id="left_column">
-               
-                <!-- Popular Posts -->
-                <div class="block left-module">
-                    <p class="title_block">Tin hot</p>
-                    <div class="block_content">
-                        <!-- layered -->
-                        <div class="layered">
-                            <div class="layered-content">
-                                <ul class="blog-list-sidebar clearfix">
-                                    @if( $hotArr )
-                                    @foreach( $hotArr as $articles)
-                                    <li>
-                                        <div class="post-thumb">
-                                            <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}"><img src="{{ Helper::showImage($articles->image_url) }}" alt="{{ $articles->title }}" style="min-height:50px"></a>
-                                        </div>
-                                        <div class="post-info">
-                                            <h2 class="entry_title" style="text-align:justify;font-size:14px;font-weight:normal"><a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}">{{ $articles->title }}</a></h2>
-                                            <div class="post-meta">
-                                                <span class="date"><i class="fa fa-calendar"></i> {{ date('d-m-Y', strtotime($articles->created_at)) }}</span>                                               
-                                            </div>
-                                        </div>
-                                    </li>
-                                    @endforeach
-                                    @endif          
-                                </ul>
+    </article><!-- /block-breadcrumb -->
+
+    <article class="block block-cate-news-detail block-news-new-detail">
+        <h1>{{ $detail->title }}</h1>
+        <div class="nd-time">{{ date('d-m-Y H:i', strtotime($detail->created_at)) }}</div>
+        <!--<div class="block-news-new-related">
+            <p>Cùng chủ đề : <b><a href="#" title="">Thị trường BDS 2017</a></b></p>
+            <ul>
+                <li><a href="#" title="">Cần có “hàng rào” pháp lý để sàng lọc dự án condotel</a></li>
+                <li><a href="#" title="">Nguy cơ “mất cả chì lẫn chài” vì ăn theo hạ tầng</a></li>
+                <li><a href="#" title="">Bất động sản giá rẻ trở thành "vùng trũng" hút dòng tiền đầu tư mạnh mẽ</a></li>
+            </ul>
+        </div><!-- /block-news-new-related -->
+        <h2>{{ $detail->description }}</h2>
+        <div class="block-news-new-content">
+            <?php echo $detail->content; ?>
+        </div><!-- /block-news-new-content -->
+        <div class="block-news-new-content-source"><em>(Theo Vietnamnet)</em> <br> &nbsp;</em></div><!-- /block-news-new-content-source -->
+    </article><!-- /block-news-new-detail -->
+
+    <article class="block block-all-news-new">
+        <div class="block-title block-title-common">
+            <h3><span class="icon-tile"><i class="fa fa-th-list"></i></span> Các tin mới nhất</h3>
+        </div>
+        <div class="block-contents">
+            <div class="all-news-new-list">
+                <div class="row">
+                    @if( $otherArr )
+                    @foreach( $otherArr as $articles)
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="all-news-new-item clearfix">
+                            <div class="all-news-new-img">
+                                <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="">
+                                    <img  src="{{ Helper::showImage($articles->image_url) }}" alt="" style="height:80px !important; width:120px !important; "> 
+                                </a>
+                            </div>
+                            <div class="all-news-new-info" style="height:77px !important">
+                                <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="">
+                                    {{ $articles->title }}
+                                </a>
                             </div>
                         </div>
-                        <!-- ./layered -->
-                    </div>
+                    </div><!-- /col-sm-6 col-xs-12 --> 
+                    @endforeach
+                    @endif
                 </div>
-                <!-- ./Popular Posts -->                        
-                @include('frontend.partials.banner-slidebar')
-               
+                <a href="#" title="" class="viewall">
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                    <i>Xem tất cả</i>
+                </a>
             </div>
-            <!-- ./left colunm -->
-            <!-- Center colunm-->
-            <div class="center_column col-xs-12 col-sm-9" id="center_column">
-                <h1 class="page-heading">
-                    <span class="page-heading-title2">{{ $detail->title }}</span>
-                </h1>
-                <article class="entry-detail">
-                    <div class="entry-meta-data">
-                        
-                        <span class="date"><i class="fa fa-calendar"></i> {{ date('d-m-Y H:i', strtotime($detail->created_at)) }}</span>
-                       
-                    </div>                
-                    <div class="content-text clearfix">
-                       <?php echo $detail->content; ?>
-                    </div>
-                    <!--<div class="entry-tags">
-                        <span>Tags:</span>
-                        <a href="#">beauty,</a>
-                        <a href="#">medicine,</a>
-                        <a href="#">health</a>
-                    </div>-->
-                </article>
-                <!-- Related Posts -->
-                <div class="single-box">
-                    <p style="font-size:20px;font-weight:bold">Tin khác</p>
-                    <ul class="related-posts owl-carousel" data-dots="false" data-loop="true" data-nav = "true" data-margin = "30" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":2},"1000":{"items":3}}'>                       
-                        @if( $otherArr )
-                        @foreach( $otherArr as $articles)
-                        <li class="post-item">
-                            <article class="entry">
-                                <div class="entry-thumb image-hover2">
-                                    <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}">
-                                        <img class="lazy" data-original="{{ Helper::showImage($articles->image_url) }}" alt="{{ $articles->title }}" style="max-height:145px">
-                                    </a>
-                                </div>
-                                <div class="entry-ci">
-                                    <h3 class="entry-title"><a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}">{{ $articles->title }}</a></h3>
-                                    <div class="entry-meta-data">                                       
-                                        <span class="date">
-                                            <i class="fa fa-calendar"></i> {{ date('d-m-Y', strtotime($articles->created_at)) }}
-                                        </span>
-                                    </div>
-                                    <div class="entry-more">
-                                        <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}">Chi tiết</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </li>
-                        @endforeach
-                        @endif          
-                    </ul>
-                </div>               
-           
-            </div>
-            <!-- ./ Center colunm -->
         </div>
-        <!-- ./row-->
-    </div>
-</div>
+    </article><!-- /block-news-with-region -->
+
+</section><!-- /block-site-left -->
+
 @endsection

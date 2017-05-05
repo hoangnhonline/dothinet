@@ -51,7 +51,8 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::post('/set-service', ['as' => 'set-service', 'uses' => 'CartController@setService']);
     
     Route::get('san-pham/{slug}', ['as' => 'chi-tiet', 'uses' => 'DetailController@index']);
-    Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'HomeController@newsDetail']);
+    Route::get('tin-tuc/{slug}', ['as' => 'news-list', 'uses' => 'NewsController@newsList']);
+    Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'NewsController@newsDetail']);
     Route::get('{slugLoaiSp}/gia-{slugGia}', ['as' => 'theo-gia-danh-muc-cha', 'uses' => 'CateController@theoGia']);
 
     Route::get('{slugLoaiSp}/ban-chay/', ['as' => 'ban-chay', 'uses' => 'CateController@banChay']);
@@ -91,8 +92,8 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::post('/dang-ki-newsletter', ['as' => 'register.newsletter', 'uses' => 'HomeController@registerNews']);
     Route::get('/cap-nhat-thong-tin', ['as' => 'cap-nhat-thong-tin', 'uses' => 'CartController@updateUserInformation']);
 
-    Route::get('/{slug}', ['as' => 'news-list', 'uses' => 'HomeController@newsList']);
-    Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'HomeController@newsDetail']);
+    //Route::get('/{slug}', ['as' => 'news-list', 'uses' => 'HomeController@newsList']);
+    //Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'HomeController@newsDetail']);
     Route::post('/get-district', ['as' => 'get-district', 'uses' => 'DistrictController@getDistrict']);
     Route::post('/get-ward', ['as' => 'get-ward', 'uses' => 'WardController@getWard']);
     Route::post('/customer/update', ['as' => 'update-customer', 'uses' => 'CustomerController@update']);

@@ -6,25 +6,25 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\EstateType;
-use App\Models\Cate;
+
 use App\Models\Product;
-use App\Models\SpThuocTinh;
-use App\Models\SpHinh;
-use App\Models\ThuocTinh;
-use App\Models\LoaiThuocTinh;
+
+
 use App\Models\Banner;
-use App\Models\HoverInfo;
+
 use App\Models\Location;
-use App\Models\TinhThanh;
+use App\Models\City;
+use App\Models\District;
+use App\Models\Ward;
+use App\Models\Street;
+use App\Models\Project;
 use App\Models\Articles;
 use App\Models\ArticlesCate;
 use App\Models\Customer;
 use App\Models\Newsletter;
 use App\Models\PriceRange;
 use App\Models\Settings;
-use App\Models\LinkSite;
-use App\Models\LinkImage;
-use App\Models\CustomerNotification;
+
 use Helper, File, Session, Auth, Hash;
 
 class HomeController extends Controller
@@ -37,6 +37,12 @@ class HomeController extends Controller
         
        
 
+    }
+    public function getChild(Request $request){
+        $module = $request->mod;
+        $id = $request->id;
+        $column = $request->col;
+        return Helper::getChild($module, $column, $id);
     }
     /**
     * Display a listing of the resource.
@@ -90,6 +96,8 @@ class HomeController extends Controller
         $tuvanluat = Articles::where('cate_id', 5)->limit(6)->get()->toArray();
         $khonggiansong = Articles::where('cate_id', 1)->limit(6)->get()->toArray();
 
+        
+        
         return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy'));
 
     }
@@ -143,51 +151,7 @@ class HomeController extends Controller
         return view('frontend.contact.index', compact('seo', 'socialImage'));
     }
 
-    public function newsList(Request $request)
-    {
-        $slug = $request->slug;
-        $cateArr = $cateActiveArr = $moviesActiveArr = [];
-       
-        $cateDetail = ArticlesCate::where('slug' , $slug)->first();
-
-        $title = trim($cateDetail->meta_title) ? $cateDetail->meta_title : $cateDetail->name;
-
-        $articlesArr = Articles::where('cate_id', $cateDetail->id)->orderBy('id', 'desc')->paginate(10);
-
-        $hotArr = Articles::where( ['cate_id' => $cateDetail->id, 'is_hot' => 1] )->orderBy('id', 'desc')->limit(5)->get();
-        $seo['title'] = $cateDetail->meta_title ? $cateDetail->meta_title : $cateDetail->title;
-        $seo['description'] = $cateDetail->meta_description ? $cateDetail->meta_description : $cateDetail->title;
-        $seo['keywords'] = $cateDetail->meta_keywords ? $cateDetail->meta_keywords : $cateDetail->title;
-        $socialImage = $cateDetail->image_url;       
-        return view('frontend.news.index', compact('title', 'hotArr', 'articlesArr', 'cateDetail', 'seo', 'socialImage'));
-    }      
-
-     public function newsDetail(Request $request)
-    {     
-        $id = $request->id;
-
-        $detail = Articles::where( 'id', $id )
-                ->select('id', 'title', 'slug', 'description', 'image_url', 'content', 'meta_title', 'meta_description', 'meta_keywords', 'custom_text', 'created_at', 'cate_id')
-                ->first();
-        $is_km = $is_news = $is_kn = 0;
-        if( $detail ){           
-
-            $title = trim($detail->meta_title) ? $detail->meta_title : $detail->title;
-
-            $hotArr = Articles::where( ['cate_id' => 1, 'is_hot' => 1] )->where('id', '<>', $id)->orderBy('id', 'desc')->limit(5)->get();
-            $otherArr = Articles::where( ['cate_id' => 1] )->where('id', '<>', $id)->orderBy('id', 'desc')->limit(5)->get();
-            $seo['title'] = $detail->meta_title ? $detail->meta_title : $detail->title;
-            $seo['description'] = $detail->meta_description ? $detail->meta_description : $detail->title;
-            $seo['keywords'] = $detail->meta_keywords ? $detail->meta_keywords : $detail->title;
-            $socialImage = $detail->image_url; 
-            $is_km = $detail->cate_id == 2 ? 1 : 0;
-            $is_news = $detail->cate_id == 1 ? 1 : 0;
-            $is_kn = $detail->cate_id == 4 ? 1 : 0;
-            return view('frontend.news.news-detail', compact('title',  'hotArr', 'detail', 'otherArr', 'seo', 'socialImage', 'is_km', 'is_news', 'is_kn'));
-        }else{
-            return view('erros.404');
-        }
-    }
+    
 
     public function registerNews(Request $request)
     {

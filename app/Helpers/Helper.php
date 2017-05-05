@@ -12,7 +12,22 @@ class Helper
     {
         return strtoupper($string);
     }
-
+    public static function getChild($table, $column, $parent_id){
+        $listData = DB::table($table)->where($column, $parent_id)->get();
+        if($table == 'ward'){
+            echo "<option class='option-lv0' selected='selected'>Phường/Xã</option>";
+        }elseif($table == 'street'){
+            echo "<option class='option-lv0' selected='selected'>Đường/Phố</option>";
+        }else{
+             echo "<option class='option-lv0' selected='selected'>Dự án</option>";
+        }
+        if(!empty(  (array) $listData  )){
+            
+            foreach($listData as $data){
+                echo "<option value=".$data->id.">".$data->name."</option>";
+            }
+        }
+    }
     public static function showImage($image_url, $type = 'original'){
 
         //return strpos($image_url, 'http') === false ? config('icho.upload_url') . $type . '/' . $image_url : $image_url;        
