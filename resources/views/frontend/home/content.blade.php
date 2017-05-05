@@ -6,12 +6,12 @@
       <div class="col-sm-7 col-xs-12">
         <div class="block-news-default-item" style="height:346px">
           <div class="block-thumb">
-            <a href="#" title="">
+            <a href="{{ route('news-detail', ['slug' => $tinThiTruong[0]['slug'], 'id' => $tinThiTruong[0]['id']]) }}" title="">
               <img src="{{ $tinThiTruong[0]['image_url'] ? Helper::showImage($tinThiTruong[0]['image_url']) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
             </a>
           </div>
           <h2 class="block-title">
-                  <a href="#" title="">{{ $tinThiTruong[0]['title'] }}</a>
+                  <a href="{{ route('news-detail', ['slug' => $tinThiTruong[0]['slug'], 'id' => $tinThiTruong[0]['id']]) }}" title="">{{ $tinThiTruong[0]['title'] }}</a>
               </h2>
             </div><!-- /block-news-default-item -->
       </div>
@@ -24,7 +24,7 @@
           <?php $i++; 
           ?>
           @if($i > 1)
-          <li><h3><a href="#" title="">{{ $tin['title'] }}</a></h3></li>
+          <li><h3><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></h3></li>
           @endif
           @endforeach
         </ul>
@@ -94,16 +94,23 @@
         <div class="block-contents">
           <div class="news-fengshui clearfix">
             <div class="fengshui-news-hot">
-                    <a href="#" title=""><img src="{{ URL::asset('assets/images/news-fengshui/1.jpg') }}" alt=""></a>
-                    <h4><a href="#">Cách chọn vật phẩm phong thủy cho người mệnh Thủy</a></h4>
+              <a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}" title="">
+                <img src="{{ $phongthuy[0]['image_url'] ? Helper::showImage($phongthuy[0]['image_url']) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+              </a>    
+                    
+                    <h4><a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}">{{ $phongthuy[0]['title'] }}</a></h4>
                 </div>
                 <div class="fengshui-news-list">
                   <ul>
-                    <li><a href="#" title="">Lỗi phong thủy nghiêm trọng khiến thần tài không bao giờ ghé thăm nhà bạn</a></li>
-                    <li><a href="#" title="">Treo ảnh cưới trong phòng ngủ, tưởng treo đúng hóa ra lại là sai lầm</a></li>
-                    <li><a href="#" title="">Cách bố trí bàn ăn chuẩn, hợp phong thủy để khỏe mạnh, hạnh phúc</a></li>
-                    <li><a href="#" title="">Nhà đã "khó" mà hay đặt những vật này ở ban công thì muôn đời vẫn nghèo</a></li>
-                    <li><a href="#" title="">Cách bài trí gương phong thủy giúp tăng lợi nhuận kinh doanh và hạnh phúc cho mọi gia đình</a></li>
+                    <?php $i =0; ?>
+                  @foreach($phongthuy as $tin)
+                  <?php $i++; 
+                  ?>
+                  @if($i > 1)
+                  <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></li>
+                  @endif
+                  @endforeach
+                    
                   </ul>
                 </div>
           </div>
@@ -121,15 +128,22 @@
         <div class="block-contents">
           <div class="news-fengshui clearfix">
             <div class="fengshui-news-hot">
-                    <a href="#" title=""><img src="{{ URL::asset('assets/images/news-fengshui/1.jpg') }}" alt=""></a>
-                    <h4><a href="#">Lý do tuyệt đối không nên sơn toàn bộ bếp màu trắng</a></h4>
+                    <a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}" title="">
+                <img src="{{ $khonggiansong[0]['image_url'] ? Helper::showImage($khonggiansong[0]['image_url']) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+              </a>    
+                    
+                    <h4><a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}">{{ $khonggiansong[0]['title'] }}</a></h4>
                 </div>
                 <div class="fengshui-news-list">
                   <ul>
-                    <li><a href="#" title="">Thiết kế biệt thự sân golf trên khu đất 1.000m2</a></li>
-                    <li><a href="#" title="">Biệt thự kính xinh đẹp tràn ngập ánh sáng tự nhiên ở Hà Lan</a></li>
-                    <li><a href="#" title="">Ngôi nhà Hà Nội có mặt tiền hình chiếc khiên</a></li>
-                    <li><a href="#" title="">Ngôi nhà 2 tầng thiết kế theo phong cách "resort" nghỉ dưỡng đẹp như tranh vẽ</a></li>
+                     <?php $i =0; ?>
+                      @foreach($khonggiansong as $tin)
+                      <?php $i++; 
+                      ?>
+                      @if($i > 1)
+                      <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></li>
+                      @endif
+                      @endforeach
                   </ul>
                 </div>
           </div>
@@ -138,48 +152,7 @@
     </div>
   </article><!-- /block-fengshui -->
 
-  <article class="block block-inews row">
-    <div class="block-advisory">
-      <div class="col-sm-6 col-xs-6">
-        <div class="block-title block-title-common">
-          <h3><span class="icon-tile2"><img src="{{ URL::asset('assets/images/icon-tvl.png') }}" alt=""> Tư vấn luật</h3>
-        </div>
-        <div class="block-contents">
-          <div class="inews-advisory-hot">
-                          <a href=""><img src="{{ URL::asset('assets/images/news-advisory/1.jpg') }}" alt=""></a>
-                          <h3><a href="" title="">Thủ tục, chi phí cấp sổ đỏ</a></h3>
-                      </div>
-                      <div class="advisory-list">
-                        <ul>
-                          <li><a href="" title="">Nhà đất chưa có sổ đỏ có được thế chấp?</a></li>
-                          <li><a href="" title="">Nhà đất chưa có sổ đỏ có được thế chấp?</a></li>
-                          <li><a href="" title="">Nhà đất chưa có sổ đỏ có được thế chấp?</a></li>
-                        </ul>
-                      </div>
-        </div>
-      </div>
-    </div>
-    <div class="block-architectural">
-      <div class="col-sm-6 col-xs-6">
-        <div class="block-title block-title-common">
-          <h3><span class="icon-tile2"><img src="{{ URL::asset('assets/images/icon-tkkt.png') }}" alt=""> Thiết kế kiến trúc</h3>
-        </div>
-        <div class="block-contents">
-          <div class="inews-architectural-hot">
-                          <a href=""><img src="{{ URL::asset('assets/images/news-architectural/1.jpg') }}" alt=""></a>
-                          <h3><a href="" title="">Thủ tục, chi phí cấp sổ đỏ</a></h3>
-                      </div>
-                      <div class="architectural-list">
-                        <ul>
-                          <li><a href="" title="">Nhà đất chưa có sổ đỏ có được thế chấp?</a></li>
-                          <li><a href="" title="">Nhà đất chưa có sổ đỏ có được thế chấp?</a></li>
-                          <li><a href="" title="">Nhà đất chưa có sổ đỏ có được thế chấp?</a></li>
-                        </ul>
-                      </div>
-        </div>
-      </div>
-    </div>
-  </article><!-- /block-inews -->
+
 
 </section><!-- /block-site-left -->
 @endsection

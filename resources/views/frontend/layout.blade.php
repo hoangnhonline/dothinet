@@ -133,11 +133,12 @@
 						</div>
 						<div class="block-contents">
 							<ul class="block-list-sidebar block-icon-title">
-								<li><h4><a href="#" title="">Sập bẫy 'mua nhà giá cao'</a></h4></li>
-								<li><h4><a href="#" title="">Mua nhà Hà Nội phải lên Sơn La lấy sổ đỏ</a></h4></li>
-								<li><h4><a href="#" title="">Nhà giàu Sài Gòn săn căn hộ cao cấp vì an ninh và nơi đỗ ôtô</a></h4></li>
-								<li><h4><a href="#" title="">Giá đất Đà Nẵng tăng lên ngang mặt bằng phố cổ</a></h4></li>
-								<li><h4><a href="#" title="">"Nóng" chỗ để xe tại nhiều chung cư</a></h4></li>
+								@foreach($tinRandom as $tin)
+		                      
+		                      <li><h4><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></h4></li>
+		                     
+		                      @endforeach
+								
 							</ul>
 						</div>
 					</article><!-- /block-news-sidebar -->

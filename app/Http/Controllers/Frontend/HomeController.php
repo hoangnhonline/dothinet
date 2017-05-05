@@ -95,10 +95,8 @@ class HomeController extends Controller
         $phongthuy = Articles::where('cate_id', 4)->limit(6)->get()->toArray();
         $tuvanluat = Articles::where('cate_id', 5)->limit(6)->get()->toArray();
         $khonggiansong = Articles::where('cate_id', 1)->limit(6)->get()->toArray();
-
         
-        
-        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy'));
+        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy', 'tinRandom'));
 
     }
 
