@@ -25,7 +25,7 @@ class UserController extends Controller
             'password' => Hash::make('matkhaucuatui'),
             'role' => 1,
             'status' => 1
-        ));*/
+        ));*/       
         return view('backend.login');
     }
 
