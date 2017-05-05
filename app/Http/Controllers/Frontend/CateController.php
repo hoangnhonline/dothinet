@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\LoaiSp;
+use App\Models\EstateType;
 use App\Models\Cate;
 use App\Models\SanPham;
 use App\Models\SpThuocTinh;
@@ -40,12 +40,12 @@ class CateController extends Controller
     {   
         $productArr = [];
         $slug = $request->slug;
-        $rs = LoaiSp::where('slug', $slug)->first();
+        $rs = EstateType::where('slug', $slug)->first();
         
         if($rs){//danh muc cha
-            $loai_id = $rs->id;
+            $estate_type_id = $rs->id;
             
-            $query = SanPham::where('loai_id', $loai_id)
+            $query = SanPham::where('estate_type_id', $estate_type_id)
                 ->where('so_luong_ton', '>', 0)
                 ->where('price', '>', 0)
                 ->where('chieu_dai', '>', 0)
@@ -68,7 +68,7 @@ class CateController extends Controller
 
            
 
-            $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
+            $hoverInfo = HoverInfo::where('estate_type_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
             $socialImage = $rs->banner_menu;
             if( $rs->meta_id > 0){
                $seo = MetaData::find( $rs->meta_id )->toArray();
@@ -94,19 +94,19 @@ class CateController extends Controller
     {
 
         $productArr = [];
-        $slugLoaiSp = $request->slugLoaiSp;
+        $slugEstateType = $request->slugEstateType;
        
-        $rs = LoaiSp::where('slug', $slugLoaiSp)->first();
+        $rs = EstateType::where('slug', $slugEstateType)->first();
         if(!$rs){
             return redirect()->route('home');
         }
-        $loai_id = $rs->id;
+        $estate_type_id = $rs->id;
        
 
-        $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
+        $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
 
         
-        $query = SanPham::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+        $query = SanPham::where('estate_type_id', $estate_type_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
                 ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
                 ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
                 ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')              
@@ -119,7 +119,7 @@ class CateController extends Controller
                 $query->orderBy('is_hot', 'desc')
                 ->orderBy('product.id', 'desc');
                 $productArr = $query->limit(24)->get();
-        $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();  
+        $hoverInfo = HoverInfo::where('estate_type_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();  
         $seo = Helper::seo();      
         return view('frontend.cate.ban-chay', compact('productArr', 'cateArr', 'rs', 'rsCate', 'hoverInfo', 'seo'));
     }  
@@ -127,19 +127,19 @@ class CateController extends Controller
     {
 
         $productArr = [];
-        $slugLoaiSp = $request->slugLoaiSp;
+        $slugEstateType = $request->slugEstateType;
        
-        $rs = LoaiSp::where('slug', $slugLoaiSp)->first();
+        $rs = EstateType::where('slug', $slugEstateType)->first();
         if(!$rs){
             return redirect()->route('home');
         }
-        $loai_id = $rs->id;
+        $estate_type_id = $rs->id;
        
 
-        $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
+        $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
 
         
-        $query = SanPham::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+        $query = SanPham::where('estate_type_id', $estate_type_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
                 ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
                 ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
                 ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh');
@@ -152,7 +152,7 @@ class CateController extends Controller
 
                     ->orderBy('is_hot', 'desc');
                 $productArr = $query->limit(48)->paginate(24);
-        $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();        
+        $hoverInfo = HoverInfo::where('estate_type_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();        
         $seo['title'] = $seo['description'] = $seo['keywords'] = $rs->name ." sản phẩm mới";
         return view('frontend.cate.san-pham-moi', compact('productArr', 'cateArr', 'rs', 'rsCate', 'hoverInfo', 'seo'));
     } 
@@ -160,19 +160,19 @@ class CateController extends Controller
     {
 
         $productArr = [];
-        $slugLoaiSp = $request->slugLoaiSp;
+        $slugEstateType = $request->slugEstateType;
        
-        $rs = LoaiSp::where('slug', $slugLoaiSp)->first();
+        $rs = EstateType::where('slug', $slugEstateType)->first();
         if(!$rs){
             return redirect()->route('home');
         }
-        $loai_id = $rs->id;
+        $estate_type_id = $rs->id;
        
 
-        $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
+        $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
 
         
-        $productArr = SanPham::where('loai_id', $loai_id)->where('is_sale', 1)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+        $productArr = SanPham::where('estate_type_id', $estate_type_id)->where('is_sale', 1)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
                 ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
                 ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
                 ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')
@@ -180,7 +180,7 @@ class CateController extends Controller
                 ->orderBy('product.id', 'desc')
                 ->orderBy('is_hot', 'desc')
                 ->limit(48)->paginate(24);
-        $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();        
+        $hoverInfo = HoverInfo::where('estate_type_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();        
          $seo['title'] = $seo['description'] = $seo['keywords'] = $rs->name ." giảm giá";
         return view('frontend.cate.giam-gia', compact('productArr', 'cateArr', 'rs', 'rsCate', 'hoverInfo', 'seo'));
     } 
@@ -188,24 +188,24 @@ class CateController extends Controller
     {
 
         $productArr = [];
-        $slugLoaiSp = $request->slugLoaiSp;
+        $slugEstateType = $request->slugEstateType;
         $slugGia = $request->slugGia; 
         
         
-        $rs = LoaiSp::where('slug', $slugLoaiSp)->first();
+        $rs = EstateType::where('slug', $slugEstateType)->first();
         if(!$rs){
             return redirect()->route('home');
         }
-        $loai_id = $rs->id;
+        $estate_type_id = $rs->id;
         
-        $tmp = DB::table('price_range')->where('loai_id', $loai_id)->where('alias', $slugGia)->first();
+        $tmp = DB::table('price_range')->where('estate_type_id', $estate_type_id)->where('alias', $slugGia)->first();
         $title = $tmp->name;
         $from = $tmp->from;
         $to = $tmp->to;        
-        $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
+        $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
 
         
-        $query = SanPham::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+        $query = SanPham::where('estate_type_id', $estate_type_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
                 ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
                 ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
                 ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')
@@ -219,7 +219,7 @@ class CateController extends Controller
                 $query->orderBy('product.id', 'desc')
                 ->orderBy('is_hot', 'desc');
                 $productArr = $query->paginate(24);                
-        $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();        
+        $hoverInfo = HoverInfo::where('estate_type_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();        
         
         $seo['title'] = $seo['description'] = $seo['keywords'] = $rs->name ." ".$title;
 
@@ -302,20 +302,20 @@ class CateController extends Controller
     {
 
         $productArr = [];
-        $slugLoaiSp = $request->slugLoaiSp;
+        $slugEstateType = $request->slugEstateType;
         $slug = $request->slug;
-        $rs = LoaiSp::where('slug', $slugLoaiSp)->first();
+        $rs = EstateType::where('slug', $slugEstateType)->first();
         if(!$rs){
             return redirect()->route('home');
         }
-        $loai_id = $rs->id;
-        $rsCate = Cate::where(['loai_id' => $loai_id, 'slug' => $slug])->first();
+        $estate_type_id = $rs->id;
+        $rsCate = Cate::where(['estate_type_id' => $estate_type_id, 'slug' => $slug])->first();
         $cate_id = $rsCate->id;
 
-        $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
+        $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
 
         
-        $query = SanPham::where('cate_id', $rsCate->id)->where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+        $query = SanPham::where('cate_id', $rsCate->id)->where('estate_type_id', $estate_type_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
                 ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
                 ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
                 ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh');
@@ -326,7 +326,7 @@ class CateController extends Controller
                     }
                 $query->orderBy('product.id', 'desc');
                 $productArr = $query->paginate(24);
-        $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();  
+        $hoverInfo = HoverInfo::where('estate_type_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();  
         $socialImage = $rsCate->icon_url;
         if( $rsCate->meta_id > 0){            
            $seo = MetaData::find( $rsCate->meta_id )->toArray();           

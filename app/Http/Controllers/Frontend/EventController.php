@@ -55,10 +55,10 @@ class EventController extends Controller
         $dataList = ProductEvent::where('event_id', $event_id)->where('product_event.status', 1)
                     ->join('product', 'product.id', '=', 'product_event.sp_id')                    
                     ->join('sp_hinh', 'product.thumbnail_id', '=', 'sp_hinh.id')
-                    ->join('loai_sp', 'product.loai_id', '=', 'loai_sp.id')
+                    ->join('estate_type', 'product.estate_type_id', '=', 'estate_type.id')
                     ->join('cate', 'product.cate_id', '=', 'cate.id')                    
                     ->where('product_event.so_luong', '>', 0)
-                    ->select('product.*', 'sp_hinh.*', 'loai_sp.name as ten_loai', 'cate.name as ten_cate', 'product_event.*', 'product.id as sp_id')
+                    ->select('product.*', 'sp_hinh.*', 'estate_type.name as ten_loai', 'cate.name as ten_cate', 'product_event.*', 'product.id as sp_id')
                     ->orderBy('product.price_sale')
                     ->orderBy('product.price')
                     ->get();

@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\LoaiSp;
+use App\Models\EstateType;
 use App\Models\Cate;
 use App\Models\SanPham;
 use App\Models\SpThuocTinh;
@@ -37,7 +37,7 @@ class LapRapController extends Controller
        
         $spFreeList = [];
            
-        $cateList = Cate::where(['status' => 1, 'loai_id' => 7])->orderBy('display_order')->get();        
+        $cateList = Cate::where(['status' => 1, 'estate_type_id' => 7])->orderBy('display_order')->get();        
         foreach($cateList as $cate){
             
             $spFreeList[$cate->id] = SanPham::where('cate_id', $cate->id)->orderBy('id', 'DESC')->limit(20)->get();
@@ -104,17 +104,17 @@ class LapRapController extends Controller
 
         $productArr = [];
         
-        $loai_id = 3;
+        $estate_type_id = 3;
         $slug = $request->path();
         $tmp = $this->getMucDich($slug);
         $muc_dich = $tmp['muc_dich'];
         $title = $tmp['title'];
         if( $muc_dich > 0){
-            $loaiSp = LoaiSp::find($loai_id);
+            $loaiSp = EstateType::find($estate_type_id);
 
-            $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
+            $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
             
-            $productArr = SanPham::where('loai_id', $loai_id)
+            $productArr = SanPham::where('estate_type_id', $estate_type_id)
                     ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
                     ->join('sp_mucdich', 'sp_mucdich.sp_id', '=','product.id')
                     ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
@@ -122,7 +122,7 @@ class LapRapController extends Controller
                     ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')
                     ->orderBy('product.id', 'desc')
                     ->limit(8)->get();
-            $hoverInfo = HoverInfo::where('loai_id', 3)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
+            $hoverInfo = HoverInfo::where('estate_type_id', 3)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
         }       
         $seo = Helper::seo();
         $lap_rap = 1;

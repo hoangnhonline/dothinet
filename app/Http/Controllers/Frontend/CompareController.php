@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\LoaiSp;
+use App\Models\EstateType;
 use App\Models\Cate;
 use App\Models\SanPham;
 use App\Models\SpThuocTinh;
@@ -56,11 +56,11 @@ class CompareController extends Controller
                     $spThuocTinhArr[$sp_id] = json_decode( $tmp->thuoc_tinh, true);
                 }
                 $tmpDetail = SanPham::find( $sp_id );
-                $loai_id = $tmpDetail->loai_id;
+                $estate_type_id = $tmpDetail->estate_type_id;
             }
         }        
         
-        $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $loai_id)->orderBy('display_order')->get();        
+        $loaiThuocTinhArr = LoaiThuocTinh::where('estate_type_id', $estate_type_id)->orderBy('display_order')->get();        
 
         if( $loaiThuocTinhArr->count() > 0){
             foreach ($loaiThuocTinhArr as $value) {

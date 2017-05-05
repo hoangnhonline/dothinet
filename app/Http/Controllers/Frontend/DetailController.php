@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\LoaiSp;
+use App\Models\EstateType;
 use App\Models\Cate;
 use App\Models\SanPham;
 use App\Models\SpThuocTinh;
@@ -42,11 +42,11 @@ class DetailController extends Controller
 
         $spThuocTinhArr = $productArr = [];
         $slug = $request->slug;
-        $detail = SanPham::where('slug', $slug)->where('cate_id', '>', 0)->where('loai_id', '>', 0)->first();
+        $detail = SanPham::where('slug', $slug)->where('cate_id', '>', 0)->where('estate_type_id', '>', 0)->first();
         if(!$detail){
             return redirect()->route('home');
         }
-        $rsLoai = LoaiSp::find( $detail->loai_id );
+        $rsLoai = EstateType::find( $detail->estate_type_id );
         $rsCate = Cate::find( $detail->cate_id );
 
         $hinhArr = SpHinh::where('sp_id', $detail->id)->get()->toArray();
@@ -57,7 +57,7 @@ class DetailController extends Controller
             $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
         }
         if ( $spThuocTinhArr ){
-            $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $detail->loai_id)->orderBy('display_order')->get();            
+            $loaiThuocTinhArr = LoaiThuocTinh::where('estate_type_id', $detail->estate_type_id)->orderBy('display_order')->get();            
            
             if( $loaiThuocTinhArr->count() > 0){
                 foreach ($loaiThuocTinhArr as $value) {
@@ -150,17 +150,17 @@ class DetailController extends Controller
     {
 
         $productArr = [];
-        $slugLoaiSp = $request->slugLoaiSp;
+        $slugEstateType = $request->slugEstateType;
         $slug = $request->slug;
-        $rs = LoaiSp::where('slug', $slugLoaiSp)->first();
-        $loai_id = $rs->id;
-        $rsCate = Cate::where(['loai_id' => $loai_id, 'slug' => $slug])->first();
+        $rs = EstateType::where('slug', $slugEstateType)->first();
+        $estate_type_id = $rs->id;
+        $rsCate = Cate::where(['estate_type_id' => $estate_type_id, 'slug' => $slug])->first();
         $cate_id = $rsCate->id;
 
-        $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
+        $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
 
         
-        $productArr = SanPham::where('cate_id', $rsCate->id)->where('loai_id', $loai_id)
+        $productArr = SanPham::where('cate_id', $rsCate->id)->where('estate_type_id', $estate_type_id)
                 ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
                 ->select('sp_hinh.image_url', 'product.*')
                 //->where('sp_hinh.image_url', '<>', '')

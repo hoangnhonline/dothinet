@@ -3,6 +3,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Hash;
+use App\Models\Settings;
 //use App\Models\Entity\SuperStar\Account\Traits\Behavior\SS_Shortcut_Icon;
 
 /**
@@ -68,12 +69,12 @@ class ViewComposerServiceProvider extends ServiceProvider
 	            		$loaiSpHot[$value->id]['child'] = $child;
 	            	}	                
 	            }
-	        }    
+	        }  */  
 	        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
 	       // var_dump("<pre>", $menuDoc);die;   
 	        //var_dump("<pre>", $loaiSpKey);die;
-			$view->with( ['loaiSpKey' => $loaiSpKey, 'menuNgang' => $menuNgang, 'menuDoc' => $menuDoc, 'loaiSpHot' => $loaiSpHot, 'settingArr' => $settingArr] );
-			*/
+			$view->with( ['loaiSpKey' => [], 'menuNgang' => [], 'menuDoc' => [], 'loaiSpHot' => [], 'settingArr' => $settingArr] );
+			
 		});
 	}
 	

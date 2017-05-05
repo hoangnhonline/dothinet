@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\LoaiSp;
+use App\Models\EstateType;
 use App\Models\Cate;
 use App\Models\SanPham;
 use App\Models\SpThuocTinh;
@@ -69,30 +69,16 @@ class HomeController extends Controller
     {             
         $productArr = [];
         $hoverInfo = [];
-        $loaiSp = LoaiSp::where('status', 1)->get();
+        $loaiSp = EstateType::where('status', 1)->get();
         $bannerArr = [];
         foreach( $loaiSp as $loai){
-            $query = SanPham::where('so_luong_ton', '>', 0)
-                            ->where('price', '>', 0)
-                            ->where('chieu_dai', '>', 0)
-                            ->where('chieu_rong', '>', 0)
-                            ->where('chieu_cao', '>', 0)
-                            ->where('can_nang', '>', 0);
+            $query = SanPham::where('status', 1);
            
-            $query->where('loai_id', $loai->id);
+            $query->where('estate_type_id', $loai->id);
             
-            $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
-            ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
-            ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')
-            ->where('sp_hinh.image_url', '<>', '');
-            if($loai->price_sort == 0){
-                $query->where('price', '>', 0)->orderBy('product.price', 'asc');
-            }else{
-                $query->where('price', '>', 0)->orderBy('product.price', 'desc');
-            }
-            $query->orderBy('product.is_hot', 'desc')
-            ->orderBy('product.is_sale', 'desc')
-            ->orderBy('product.display_order', 'desc')
+            $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+            ->select('product_img.image_url', 'product.*')
+            ->where('product_img.image_url', '<>', '')                                         
             ->orderBy('product.id', 'desc');
 
             
@@ -101,8 +87,7 @@ class HomeController extends Controller
             if( $loai->home_style > 0 ){
                 $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
             }
-
-            $hoverInfo[$loai->id] = HoverInfo::where('loai_id', $loai->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->limit(8)->get();
+            
             $productArr[$loai->id] = $query->get()->toArray();
             
             $settingArr = Settings::whereRaw('1')->lists('value', 'name');
@@ -112,7 +97,7 @@ class HomeController extends Controller
             $seo['keywords'] = $settingArr['site_keywords'];
             $socialImage = $settingArr['banner'];
         }    
-        $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
+        $articlesArr = Articles::where(['cate_id' => 1])->orderBy('id', 'desc')->get();
                 
         return view('frontend.home.index', compact('productArr', 'hoverInfo', 'bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess'));
     }
@@ -133,22 +118,17 @@ class HomeController extends Controller
     {
         $tu_khoa = $request->keyword;       
 
-        $productArr = SanPham::where('product.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('loai_sp.status', 1)
-                        ->where('chieu_dai', '>', 0)
-                        ->where('chieu_rong', '>', 0)
-                        ->where('chieu_cao', '>', 0)
-                        ->where('can_nang', '>', 0)
-                        ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
-                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','product.id')
-                        ->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id')
-                        ->select('sp_hinh.image_url', 'product.*', 'thuoc_tinh')
+        $productArr = SanPham::where('product.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('estate_type.status', 1)                        
+                        ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                        
+                        ->join('estate_type', 'estate_type.id', '=', 'product.estate_type_id')
+                        ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
                         ->orderBy('id', 'desc')->paginate(20);
         $seo['title'] = $seo['description'] =$seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";
         $hoverInfo = [];
         if($productArr->count() > 0){
             $hoverInfoTmp = HoverInfo::orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
             foreach($hoverInfoTmp as $value){
-                $hoverInfo[$value->loai_id][] = $value;
+                $hoverInfo[$value->estate_type_id][] = $value;
             }
         }
         //var_dump("<pre>", $hoverInfo);die;
