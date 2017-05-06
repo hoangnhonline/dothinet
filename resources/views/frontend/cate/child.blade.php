@@ -120,4 +120,3 @@
 </section>
 @endsection
 
-@include('frontend.partials.footer')

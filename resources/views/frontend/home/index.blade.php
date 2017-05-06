@@ -7,5 +7,3 @@
 @include('frontend.home.content')
 
 @include('frontend.home.slider')
-
-@include('frontend.partials.footer')

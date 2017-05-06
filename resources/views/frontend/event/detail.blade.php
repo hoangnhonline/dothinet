@@ -129,7 +129,7 @@
 </div>
 @endsection
 
-@include('frontend.partials.footer')
+
 
 @section('javascript_page')
 

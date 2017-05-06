@@ -88,4 +88,3 @@
 </div>
 @endsection
 
-@include('frontend.partials.footer')

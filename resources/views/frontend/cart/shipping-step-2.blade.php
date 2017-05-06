@@ -241,7 +241,7 @@ $vangLaiArr = Session::get('vanglai');
         </div><!-- /.page-content -->    
 </section>
 @endsection
-@include('frontend.partials.footer')
+
 @section('javascript_page')
    <script type="text/javascript">
     $(document).ready(function() {

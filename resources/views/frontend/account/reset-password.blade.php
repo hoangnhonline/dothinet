@@ -73,7 +73,7 @@
 <!-- ./page wapper--> 
 @endsection
 
-@include('frontend.partials.footer')
+
 
 @section('javascript_page')
 <script type="text/javascript">

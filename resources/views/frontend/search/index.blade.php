@@ -103,4 +103,3 @@
 </style>
 @endsection
 <div class='clearfix'></div>
-@include('frontend.partials.footer')

@@ -94,14 +94,14 @@
 						<a href="#">BĐS bán</a>
 						<ul class="level0 submenu">
 							@foreach($banList as $ban)
-							<li class="level1"><a href="#">{{ $ban->name }}</a></li>							
+							<li class="level1"><a href="{{ route('danh-muc', $ban->slug ) }}">{{ $ban->name }}</a></li>							
 							@endforeach
 						</ul>
 					</li><!-- END MENU SHOP -->
 					<li class="level0"><a href="#">BĐS cho thuê</a>
 						<ul class="level0 submenu">
 							@foreach($thueList as $thue)
-							<li class="level1"><a href="#">{{ $thue->name }}</a></li>							
+							<li class="level1"><a href="{{ route('danh-muc', $thue->slug ) }}">{{ $thue->name }}</a></li>							
 							@endforeach
 						</ul>
 					</li><!-- END MENU BLOG -->

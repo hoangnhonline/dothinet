@@ -49,10 +49,10 @@ Route::group(['namespace' => 'Frontend'], function()
 
     Route::post('/send-contact', ['as' => 'send-contact', 'uses' => 'ContactController@store']);
     Route::post('/set-service', ['as' => 'set-service', 'uses' => 'CartController@setService']);
-    
-    Route::get('san-pham/{slug}', ['as' => 'chi-tiet', 'uses' => 'DetailController@index']);
     Route::get('tin-tuc/{slug}', ['as' => 'news-list', 'uses' => 'NewsController@newsList']);
-    Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'NewsController@newsDetail']);
+    Route::get('{slugLoaiSp}/{slug}-{id}.html', ['as' => 'chi-tiet', 'uses' => 'DetailController@index']);
+    
+    Route::get('/tin-tuc/{slug}-p{id}.html', ['as' => 'news-detail', 'uses' => 'NewsController@newsDetail']);
     Route::get('{slugLoaiSp}/gia-{slugGia}', ['as' => 'theo-gia-danh-muc-cha', 'uses' => 'CateController@theoGia']);
 
     Route::get('{slugLoaiSp}/ban-chay/', ['as' => 'ban-chay', 'uses' => 'CateController@banChay']);
@@ -103,7 +103,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/tim-kiem.html', ['as' => 'search', 'uses' => 'HomeController@search']);
     Route::get('so-sanh.html', ['as' => 'so-sanh', 'uses' => 'CompareController@index']);
     Route::get('lien-he.html', ['as' => 'contact', 'uses' => 'HomeController@contact']);
-    Route::get('{slug}.html', ['as' => 'danh-muc-cha', 'uses' => 'CateController@index']);
+    Route::get('{slug}.html', ['as' => 'danh-muc', 'uses' => 'ProductController@cate']);
 
 });
 

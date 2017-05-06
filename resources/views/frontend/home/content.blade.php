@@ -42,15 +42,15 @@
           <ul>
             @foreach($hotProduct as $product)
             <li class="news-new-item">                      
-              <div class="news-new-item-head"><a id="" href=""><img id="" title="" src="{{ $product->image_urls ? Helper::showImage($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt=""></a></div>
+              <div class="news-new-item-head"><a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImage($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt=""></a></div>
               <div class="news-new-item-description">
-                <h4><a class="description-title vip1" title="" href="">{{ $product->title }}</a></h4>
-                            <div class="description-info">
-                              <div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
-                                <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }}</div>
-                                <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}</div>
-                            </div>
-                            <span class="date">{{ date('d/m/Y', strtotime($product->updated_at)) }}</span>
+                <h4><a class="description-title vip1" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}">{{ $product->title }}</a></h4>
+                    <div class="description-info">
+                      <div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
+                        <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }}</div>
+                        <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}</div>
+                    </div>
+                    <span class="date">{{ date('d/m/Y', strtotime($product->updated_at)) }}</span>
               </div>
             </li> 
             @endforeach                 

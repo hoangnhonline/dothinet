@@ -7,8 +7,6 @@
 
 @include('frontend.detail.content')
 
-@include('frontend.partials.footer')
-
 @section('javascript_page')
 
 

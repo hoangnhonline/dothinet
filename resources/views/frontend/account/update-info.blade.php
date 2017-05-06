@@ -126,7 +126,7 @@
 <div class="clearfix"></div>
 @endsection
 
-@include('frontend.partials.footer')
+
 @section('javascript_page')
    <script type="text/javascript">
     var customer_district_id = '{{ $customer->district_id }}';

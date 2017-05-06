@@ -78,9 +78,10 @@ class HomeController extends Controller
         $loaiSp = EstateType::where('status', 1)->get();
         $bannerArr = [];          
         $articlesArr = Articles::where(['cate_id' => 1])->orderBy('id', 'desc')->get();
-        $hotProduct = Product::where('status', 1)
+        $hotProduct = Product::where('product.slug', '<>', '')
                     ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
-                    ->select('product_img.image_url as image_urls', 'product.*')
+                    ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
+                    ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
                     ->where('product_img.image_url', '<>', '')                                         
                     ->orderBy('product.id', 'desc')->limit(10)->get();
         

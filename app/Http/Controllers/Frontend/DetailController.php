@@ -5,18 +5,15 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Product;
+use App\Models\District;
+use App\Models\Ward;
+use App\Models\Street;
+use App\Models\Project;
 use App\Models\EstateType;
-use App\Models\Cate;
-use App\Models\SanPham;
-use App\Models\SpThuocTinh;
-use App\Models\SpHinh;
-use App\Models\ThuocTinh;
-use App\Models\LoaiThuocTinh;
-use App\Models\Banner;
-use App\Models\Location;
-use App\Models\TinhThanh;
 use App\Models\MetaData;
-use App\Models\Compare;
+use App\Models\ProductImg;
 
 use Helper, File, Session, Auth;
 
@@ -42,62 +39,13 @@ class DetailController extends Controller
 
         $spThuocTinhArr = $productArr = [];
         $slug = $request->slug;
-        $detail = SanPham::where('slug', $slug)->where('cate_id', '>', 0)->where('estate_type_id', '>', 0)->first();
+        $detail = Product::where('slug', $slug)->where('estate_type_id', '>', 0)->first();
         if(!$detail){
             return redirect()->route('home');
         }
         $rsLoai = EstateType::find( $detail->estate_type_id );
-        $rsCate = Cate::find( $detail->cate_id );
 
-        $hinhArr = SpHinh::where('sp_id', $detail->id)->get()->toArray();
-        // hien thuoc tinh
-        $tmp = SpThuocTinh::where('sp_id', $detail->id)->select('thuoc_tinh')->first();
-        
-        if( $tmp ){
-            $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
-        }
-        if ( $spThuocTinhArr ){
-            $loaiThuocTinhArr = LoaiThuocTinh::where('estate_type_id', $detail->estate_type_id)->orderBy('display_order')->get();            
-           
-            if( $loaiThuocTinhArr->count() > 0){
-                foreach ($loaiThuocTinhArr as $value) {
-
-                    $thuocTinhArr[$value->id]['id'] = $value->id;
-                    $thuocTinhArr[$value->id]['name'] = $value->name;
-
-                    $thuocTinhArr[$value->id]['child'] = ThuocTinh::where('loai_thuoc_tinh_id', $value->id)->select('id', 'name')->orderBy('display_order')->get()->toArray();
-                }
-                
-            }        
-        }
-        
-        // sp phu kien
-        $phuKienArr = $tuongtuArr = [];
-        if( $detail->sp_phukien ){
-            $phuKienArr = explode(',', $detail->sp_phukien);
-        }        
-        if( $detail->sp_tuongtu ){
-            $tuongtuArr = explode(',', $detail->sp_tuongtu);
-        }       
-         //get compare
-        $compare1 = Compare::where('sp_1', $detail->id)->lists('sp_2')->toArray();              
-        $compare2 = Compare::where('sp_2', $detail->id)->lists('sp_1')->toArray();        
-        $sosanhArr = array_merge($compare1, $compare2);
-        //var_dump($sosanhArr);die;
-        $tmpArr = array_merge($phuKienArr, $tuongtuArr, $sosanhArr);
-        
-        if( !empty($tmpArr)){
-            $productTmpArr = SanPham::whereIn('product.id', $tmpArr)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
-                ->select('product.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url', 'is_sale')->get();
-            foreach($productTmpArr as $product){
-                $productArr[$product->sp_id] = $product;
-            }
-        }
-        $lienquanArr = SanPham::where('product.cate_id', $detail->cate_id)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
-                ->where('product.id', '<>', $detail->id)
-                ->select('product.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url', 'is_sale')->orderBy('product.id', 'desc')->limit(10)->get();        
+        $hinhArr = ProductImg::where('product_id', $detail->id)->get()->toArray();
 
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
@@ -108,9 +56,9 @@ class DetailController extends Controller
             $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name;
         }               
         
-        $socialImage = SpHinh::find($detail->thumbnail_id)->image_url;
+        $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
 
-        return view('frontend.detail.index', compact('detail', 'rsLoai', 'rsCate', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'phuKienArr', 'tuongtuArr', 'sosanhArr', 'lienquanArr', 'seo', 'socialImage'));
+        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage'));
     }
 
     public function ajaxTab(Request $request){
@@ -160,7 +108,7 @@ class DetailController extends Controller
         $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
 
         
-        $productArr = SanPham::where('cate_id', $rsCate->id)->where('estate_type_id', $estate_type_id)
+        $productArr = Product::where('cate_id', $rsCate->id)->where('estate_type_id', $estate_type_id)
                 ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
                 ->select('sp_hinh.image_url', 'product.*')
                 //->where('sp_hinh.image_url', '<>', '')
