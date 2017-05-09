@@ -56,8 +56,9 @@ class DetailController extends Controller
             $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name;
         }               
         
-        $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
-
+        if($detail->thumbnail_id > 0){
+            $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
+        }
         return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage'));
     }
 

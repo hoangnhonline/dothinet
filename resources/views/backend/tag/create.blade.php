@@ -41,11 +41,22 @@
               @endif
                 <div class="form-group">
                   <label for="email">Loại </label>
-                  <select class="form-control" name="type">                                
-                    <option value="1" {{ 1 ==  old('type') ? "selected" : "" }}>Phim</option>
+                  <select class="form-control" name="type" id="type">                                
+                    <option value="1" {{ 1 ==  old('type') ? "selected" : "" }}>BĐS</option>
                     <option value="2" {{ 2 ==  old('type') ? "selected" : "" }}>Bài viết</option>
-                    <!--<option value="3" {{ 3 ==  old('type') ? "selected" : "" }}>Ảnh</option>-->
+                    <option value="3" {{ 3 ==  old('type') ? "selected" : "" }}>Tiện ích xung quanh</option>
                   </select>
+                </div>
+                <div class="form-group" id="div_tien_ich" @if(old('type') != 3 ) style="display:none" @endif>
+                  <label for="email">Quận</label>
+                    <select class="form-control" name="district_id" id="district_id" data-live-search="true">
+                        @foreach( $districtList as $value )
+                        <option value="{{ $value->id }}"
+                        {{ old('district_id') == $value->id ? "selected" : "" }}                           
+
+                        >{{ $value->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                  <!-- text input -->
                 <div class="form-group">
@@ -114,6 +125,14 @@
 @section('javascript_page')
 <script type="text/javascript">
 $(document).ready(function(){
+  $('#type').change(function(){
+    var type = $(this).val();
+    if(type != 3){
+      $('#div_tien_ich').hide();
+    }else{
+      $('#div_tien_ich').show();
+    }
+  });
   $('#name').change(function(){
          var name = $.trim( $(this).val() );
          if( name != '' && $('#slug').val() == ''){

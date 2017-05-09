@@ -59,5 +59,13 @@ class Product extends Model  {
                             'cart_status'
                         ];
 
-    
+    public static function productTag( $id )
+    {
+        $arr = [];
+        $rs = TagObjects::where( ['type' => 1, 'object_id' => $id] )->lists('tag_id');
+        if( $rs ){
+            $arr = $rs->toArray();
+        }
+        return $arr;
+    }
 }

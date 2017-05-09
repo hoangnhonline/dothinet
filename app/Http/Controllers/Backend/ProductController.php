@@ -9,25 +9,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\EstateType;
 use App\Models\Cate;
-use App\Models\Color;
-use App\Models\LoaiThuocTinh;
-use App\Models\ThuocTinh;
-use App\Models\SpThuocTinh;
 use App\Models\ProductImg;
 use App\Models\MetaData;
-use App\Models\Compare;
-use App\Models\SpTuongThich;
-use App\Models\ProductPrice;
-use App\Models\SpMucDich;
-
 use App\Models\City;
 use App\Models\District;
 use App\Models\Ward;
 use App\Models\Street;
 use App\Models\PriceUnit;
 use App\Models\Project;
-
-
+use App\Models\Tag;
+use App\Models\TagObjects;
 
 use Helper, File, Session, Auth, Hash, URL;
 
@@ -72,8 +63,9 @@ class ProductController extends Controller
         //$query->join('users', 'users.id', '=', 'product.created_user');
         $query->join('city', 'city.id', '=', 'product.city_id');        
         $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id'); 
+        $query->join('estate_type', 'product.estate_type_id', '=','estate_type.id'); 
         $query->orderBy('product.id', 'desc');   
-        $items = $query->select(['product_img.image_url as image_urls','product.*'])->paginate(50);
+        $items = $query->select(['product_img.image_url as image_urls','product.*', 'estate_type.slug as slug_loai'])->paginate(50);
 
         $cityList = City::all();  
         $estateTypeArr = EstateType::where('type', $type)->get(); 
@@ -84,82 +76,7 @@ class ProductController extends Controller
         $projectList = Project::where('district_id', $district_id)->get();
         return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));
     }
-    public function short(Request $request)
-    {
-        
-        $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;
-        $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
-        $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : null;
-        $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
-        
-        $query = Product::where('product.status', $status);
-        if( $estate_type_id ){
-            $query->where('product.estate_type_id', $estate_type_id);
-        }
-        if( $cate_id ){
-            $query->where('product.cate_id', $cate_id);
-        }
-        if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');
-            $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
-        }        
-        $query->orderBy('product.id', 'desc');
-        $items = $query->select(['product.*','product.id as product_id' , 'product.created_at as time_created'])
-        ->paginate(50);
-
-        $estateTypeArr = EstateType::all();  
-        if( $estate_type_id ){
-            $cateArr = Cate::where('estate_type_id', $estate_type_id)->orderBy('display_order', 'desc')->get();
-        }else{
-            $cateArr = (object) [];
-        }
-
-        return view('backend.product.short', compact( 'items', 'arrSearch', 'estateTypeArr', 'cateArr'));
-    }
-    public function spTuongThich(Request $request){
-        
-        $id = $request->id;
-        
-        $detail = Product::find($id);
-
-        $estateTypeArr = EstateType::all();  
-        
-        $tmpArr = SpTuongThich::where('sp_1', $id)->get();
-        
-        $spSelected = $productArr = [];
-        $str_sp_bo_mach_chinh = $str_sp_bo_vi_xu_ly = $str_sp_card_man_hinh = $str_sp_bo_nho = $str_sp_nguon = $str_sp_case = "";
-        if( $tmpArr->count() > 0){
-            foreach ($tmpArr as $value) {
-                $spSelected[$value->cate_id][] = $value->sp_2;
-                $productArr[$value->sp_2] = Product::find($value->sp_2);
-                if($value->cate_id == 31){
-                    $str_sp_bo_mach_chinh .= $value->sp_2.",";
-                }
-                if($value->cate_id == 32){
-                    $str_sp_bo_vi_xu_ly .= $value->sp_2.",";
-                }
-                if($value->cate_id == 35){
-                    $str_sp_bo_nho .= $value->sp_2.",";
-                }
-                if($value->cate_id == 85){
-                    $str_sp_card_man_hinh .= $value->sp_2.",";
-                }
-                if($value->cate_id == 85){
-                    $str_sp_card_man_hinh .= $value->sp_2.",";
-                }
-                if($value->cate_id == 33){
-                    $str_sp_nguon .= $value->sp_2.",";
-                }
-                if($value->cate_id == 89){
-                    $str_sp_case .= $value->sp_2.",";
-                }
-            }
-        }
-
-        $cateArr = Cate::where('estate_type_id', 7)->orderBy('display_order', 'desc')->get();
-        
-        return view('backend.product.tuong-thich', compact( 'detail', 'estateTypeArr',  'spSelected', 'productArr', 'str_sp_bo_mach_chinh','str_sp_bo_vi_xu_ly', 'str_sp_card_man_hinh', 'str_sp_bo_nho', 'str_sp_case', 'str_sp_nguon'));   
-    }
+    
     public function ajaxSearch(Request $request){    
         $search_type = $request->search_type;
         $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : -1;
@@ -192,41 +109,7 @@ class ProductController extends Controller
         return view('backend.product.content-search', compact( 'items', 'arrSearch', 'estateTypeArr',  'search_type'));
     }
 
-    public function ajaxSearchTuongThich(Request $request){    
-        $search_type = $request->search_type;
-        $arrSearch['estate_type_id'] = $estate_type_id = 7;
-        $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : -1;
-        $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
-        
-        $query = Product::whereRaw('1');
-        
-        
-        $query->where('product.estate_type_id', 7);
-        
-        if( $cate_id ){
-            $query->where('product.cate_id', $cate_id);
-        }
-        if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');
-            $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
-        }
-        $query->join('users', 'users.id', '=', 'product.created_user');
-        $query->join('estate_type', 'estate_type.id', '=', 'product.estate_type_id');
-        $query->join('cate', 'cate.id', '=', 'product.cate_id');
-        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id');        
-        $query->orderBy('product.id', 'desc');
-        $items = $query->select(['product_img.image_url','product.*','product.id as product_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'estate_type.name as ten_loai', 'cate.name as ten_cate'])
-        ->paginate(1000);
-
-        $estateTypeArr = EstateType::all();  
-        if( $estate_type_id ){
-            $cateArr = Cate::where('estate_type_id', $estate_type_id)->orderBy('display_order', 'desc')->get();
-        }else{
-            $cateArr = (object) [];
-        }
-
-        return view('backend.product.tuong-thich.content-search-tuong-thich', compact( 'items', 'arrSearch', 'estateTypeArr',  'search_type', 'cate_id'));
-    }
+   
     /**
     * Show the form for creating a new resource.
     *
@@ -234,6 +117,7 @@ class ProductController extends Controller
     */
     public function create(Request $request)
     {
+        $tagArr = Tag::where('type', 1)->get();
         $estate_type_id = $request->estate_type_id ? $request->estate_type_id : null;
         $type = $request->type ? $request->type : 1;    
         
@@ -249,7 +133,7 @@ class ProductController extends Controller
         $wardList = Ward::where('district_id', $district_id)->get();
         $streetList = Street::where('district_id', $district_id)->get();
         $projectList = Project::where('district_id', $district_id)->get();
-        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList'));
+        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr'));
     }
 
     /**
@@ -293,11 +177,26 @@ class ProductController extends Controller
 
         $this->storeImage( $product_id, $dataArr);
         $this->storeMeta($product_id, 0, $dataArr);
+        $this->processRelation($dataArr, $product_id);
         Session::flash('message', 'Tạo mới sản phẩm thành công');
 
         return redirect()->route('product.index', ['estate_type_id' => $dataArr['estate_type_id'], 'type' => $dataArr['type']]);
     }
+    private function processRelation($dataArr, $object_id, $type = 'add'){
+    
+        if( $type == 'edit'){
+          
+            TagObjects::deleteTags( $object_id, 1);
 
+        }
+        // xu ly tags
+        if( !empty( $dataArr['tags'] ) && $object_id ){
+            foreach ($dataArr['tags'] as $tag_id) {
+                TagObjects::create(['object_id' => $object_id, 'tag_id' => $tag_id, 'type' => 1]);
+            }
+        }
+      
+    }
     public function storeMeta( $id, $meta_id, $dataArr ){
        
         $arrData = ['title' => $dataArr['meta_title'], 'description' => $dataArr['meta_description'], 'keywords'=> $dataArr['meta_keywords'], 'custom_text' => $dataArr['custom_text'], 'updated_user' => Auth::user()->id];
@@ -408,6 +307,7 @@ class ProductController extends Controller
     */
     public function edit($id)
     {        
+        $tagArr = Tag::where('type', 1)->get();
         $hinhArr = (object) [];
         $detail = Product::find($id);
        // var_dump($detail->type);die;
@@ -415,7 +315,7 @@ class ProductController extends Controller
         $estateTypeArr = EstateType::where('type', $detail->type)->get();
         
         $estate_type_id = $detail->estate_type_id;             
-        
+        $detailEstate = EstateType::find($estate_type_id);
        
         $meta = (object) [];
         if ( $detail->meta_id > 0){
@@ -427,7 +327,10 @@ class ProductController extends Controller
         $wardList = Ward::where('district_id', $detail->district_id)->get();
         $streetList = Street::where('district_id', $detail->district_id)->get();
         $projectList = Project::where('district_id', $detail->district_id)->get();
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList'));
+
+        $tagSelected = Product::productTag($id);
+
+        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr'));
     }
     public function ajaxDetail(Request $request)
     {       

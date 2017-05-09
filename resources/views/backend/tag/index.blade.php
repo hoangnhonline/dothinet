@@ -30,16 +30,28 @@
             <div class="form-group">
               <label for="email">Loại :</label>
               <select class="form-control" name="type" id="type">                                
-                <option value="1" {{ 1 == $type ? "selected" : "" }}>Phim</option>
+                <option value="1" {{ 1 == $type ? "selected" : "" }}>BĐS</option>
                 <option value="2" {{ 2 == $type ? "selected" : "" }}>Bài viết</option>
-                <!--<option value="3" {{ 3 == $type ? "selected" : "" }}>Ảnh</option>-->
+                <option value="3" {{ 3 ==  $type ? "selected" : "" }}>Tiện ích xung quanh</option>              
               </select>
             </div>
+            <div class="form-group" id="div_tien_ich" @if( $type != 3 ) style="display:none" @endif>
+                <label for="email">&nbsp;&nbsp;&nbsp;Quận</label>
+                  <select class="form-control" name="district_id" id="district_id" data-live-search="true">
+                    <option value="">--Tất cả--</option>
+                      @foreach( $districtList as $value )
+                      <option value="{{ $value->id }}"
+                      {{ $district_id == $value->id ? "selected" : "" }}                           
+
+                      >{{ $value->name }}</option>
+                      @endforeach
+                  </select>
+              </div>
             <div class="form-group">
-              <label for="email">Từ khóa :</label>
+              <label for="email">&nbsp;&nbsp;&nbsp;Từ khóa :</label>
               <input type="text" class="form-control" id="name" name="name" value="{{ $name }}">
             </div>       
-            <button type="submit" class="btn btn-primary" style="margin-top:-10px">Lọc</button>
+            <button type="submit" class="btn btn-primary">Lọc</button>
           </form>         
         </div>
       </div>
@@ -121,13 +133,8 @@ function callDelete(name, url){
   return flag;
 }
 $(document).ready(function(){
-  $('#type').change(function(){
-    var name = $.trim($('#name').val());
-    var url = $('#route_tag_index').val() + "?type=" + $('#type').val();
-    if( name != ''){
-      url += '&name=' + name;
-    }
-    location.href = url;
+  $('#type, #district_id').change(function(){
+    $(this).parents('form').submit();
   });
   $('#table-list-data tbody').sortable({
         placeholder: 'placeholder',

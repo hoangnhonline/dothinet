@@ -164,6 +164,21 @@
                           <label>Số phòng<span class="red-star">*</span></label>                  
                           <input type="text" class="form-control" name="no_room" id="no_room" value="{{ old('no_room') }}">                        
                         </div>
+                        <div class="input-group">
+                        <label>Tags</label>
+                        <select class="form-control select2" name="tags[]" id="tags" multiple="multiple">                  
+                          @if( $tagArr->count() > 0)
+                            @foreach( $tagArr as $value )
+                            <option value="{{ $value->id }}" {{ (old('tags') && in_array($value->id, old('tags'))) ? "selected" : "" }}>{{ $value->name }}</option>
+                            @endforeach
+                          @endif
+                        </select>
+                        <span class="input-group-btn">
+                          <button style="margin-top:24px" class="btn btn-primary" id="btnAddTag" type="button" data-value="3">
+                            Tạo mới
+                          </button>
+                        </span>
+                      </div>
                         <div class="form-group form-group col-md-12 none-padding">
                             <label>Mô tả</label>
                             <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
@@ -243,7 +258,39 @@
   </section>
   <!-- /.content -->
 </div>
-@include ('backend.product.search-modal')
+<!-- Modal -->
+<div id="tagModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+    <form method="POST" action="{{ route('tag.ajax-save') }}" id="formAjaxTag">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tạo mới tag</h4>
+      </div>
+      <div class="modal-body" id="contentTag">
+          <input type="hidden" name="type" value="1">
+           <!-- text input -->
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Tags<span class="red-star">*</span></label>
+              <textarea class="form-control" name="str_tag" id="str_tag" rows="4" >{{ old('str_tag') }}</textarea>
+            </div>
+            
+          </div>
+          <div classs="clearfix"></div>
+      </div>
+      <div style="clear:both"></div>
+      <div class="modal-footer" style="text-align:center">
+        <button type="button" class="btn btn-primary" id="btnSaveTagAjax"> Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseModalTag">Close</button>
+      </div>
+      </form>
+    </div>
+
+  </div>
+</div>
 <input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple') }}">
 <input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
 <style type="text/css">
@@ -256,48 +303,67 @@
 @stop
 @section('javascript_page')
 <script type="text/javascript">
-function filterAjax(type){  
-  var str_params = $('#formSearchAjax').serialize();
-  $.ajax({
-          url: '{{ route("product.ajax-search") }}',
-          type: "POST",
-          async: true,      
-          data: str_params + '&search_type=' + type,
-          beforeSend:function(){
-            $('#contentSearch').html('<div style="text-align:center"><img src="{{ URL::asset('backend/dist/img/loading.gif')}}"></div>');
-          },        
-          success: function (response) {
-            $('#contentSearch').html(response);
-            $('#myModalSearch').modal('show');
-            //$('.selectpicker').selectpicker();            
-            //check lai nhung checkbox da checked
-            if( type == "phukien"){
-              var str_checked = $('#str_sp_phukien').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }else if( type == "tuongtu"){
-              var str_checked = $('#str_sp_tuongtu').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }else{
-              var str_checked = $('#str_sp_sosanh').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }
-          }
-    });
-}
+$(document).ready(function(){
+  $('#btnAddTag').click(function(){
+      $('#tagModal').modal('show');
+  });
+});
 $(document).on('click', '.remove-image', function(){
   if( confirm ("Bạn có chắc chắn không ?")){
     $(this).parents('.col-md-3').remove();
   }
 });
+$(document).on('click', '#btnSaveTagAjax', function(){
+    $.ajax({
+      url : $('#formAjaxTag').attr('action'),
+      data: $('#formAjaxTag').serialize(),
+      type : "post", 
+      success : function(str_id){          
+        $('#btnCloseModalTag').click();
+        $.ajax({
+          url : "{{ route('tag.ajax-list') }}",
+          data: { 
+            type : 1 ,
+            tagSelected : $('#tags').val(),
+            str_id : str_id
+          },
+          type : "get", 
+          success : function(data){
+              $('#tags').html(data);
+              $('#tags').select2('refresh');
+              
+          }
+        });
+      }
+    });
+ }); 
+ $('#contentTag #name').change(function(){
+       var name = $.trim( $(this).val() );
+       if( name != '' && $('#contentTag #slug').val() == ''){
+          $.ajax({
+            url: $('#route_get_slug').val(),
+            type: "POST",
+            async: false,      
+            data: {
+              str : name
+            },              
+            success: function (response) {
+              if( response.str ){                  
+                $('#contentTag #slug').val( response.str );
+              }                
+            },
+            error: function(response){                             
+                var errors = response.responseJSON;
+                for (var key in errors) {
+                  
+                }
+                //$('#btnLoading').hide();
+                //$('#btnSave').show();
+            }
+          });
+       }
+    });
+
 $(document).on('click', '.checkSelect', function(){
   var type = $('#search_type').val();
   var obj = $(this);

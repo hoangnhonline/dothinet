@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
-use App\Models\SystemMetadata;
+use App\Models\District;
+use App\Models\Metadata;
 use Helper, File, Session, Auth;
 
 class TagController extends Controller
@@ -23,14 +24,18 @@ class TagController extends Controller
         $type = isset($request->type) ? $request->type : 1;
 
         $name = isset($request->name) && $request->name != '' ? $request->name : '';
+        $district_id = isset($request->district_id) && $request->district_id != '' ? $request->district_id : 0;
 
         $query = Tag::where('type', $type);
         if( $name !='' ){
             $query->where('name', 'LIKE', '%'.$name.'%');
         }
+        if( $district_id > 0 ){
+            $query->where('district_id', '=', $district_id);
+        }
         $items = $query->orderBy('id', 'desc')->paginate(50);
-
-        return view('backend.tag.index', compact( 'items', 'type', 'name'));
+        $districtList = District::where('city_id', 1)->get();
+        return view('backend.tag.index', compact( 'items', 'type', 'name', 'districtList', 'district_id'));
     }
     public function ajaxList(Request $request){
 
@@ -45,8 +50,9 @@ class TagController extends Controller
         $query = Tag::where('type', $type);
         
         $tagArr = $query->orderBy('id', 'desc')->get();
+        $districtList = District::where('city_id', 1)->get();
 
-        return view('backend.tag.ajax-list', compact( 'tagArr', 'type', 'tagSelected'));
+        return view('backend.tag.ajax-list', compact( 'tagArr', 'type', 'tagSelected', 'districtList'));
     }
     /**
     * Show the form for creating a new resource.
@@ -93,7 +99,7 @@ class TagController extends Controller
         $metaArr['meta_keywords'] = $dataArr['meta_keywords'];
         $metaArr['custom_text'] = $dataArr['custom_text'];
         
-        $rsMeta = SystemMetadata::create( $metaArr );
+        $rsMeta = Metadata::create( $metaArr );
 
         if( $rsMeta->id ){
             $modelTag = Tag::find($object_id);
@@ -156,10 +162,10 @@ class TagController extends Controller
         $metadata = (object) [];
         $detail = Tag::find($id);
         if( $detail->meta_id > 0){
-            $metadata = SystemMetadata::find( $detail->meta_id );
+            $metadata = Metadata::find( $detail->meta_id );
         }
-
-        return view('backend.tag.edit', compact( 'detail', 'metadata'));
+        $districtList = District::where('city_id', 1)->get();
+        return view('backend.tag.edit', compact( 'detail', 'metadata', 'districtList'));
     }
 
     /**
@@ -197,7 +203,7 @@ class TagController extends Controller
             $metaArr['meta_keywords'] = $dataArr['meta_keywords'];
             $metaArr['custom_text'] = $dataArr['custom_text'];
             $metaArr['id'] = $dataArr['meta_id'];
-            $modelMetadata = SystemMetadata::find( $dataArr['meta_id'] );
+            $modelMetadata = Metadata::find( $dataArr['meta_id'] );
             $modelMetadata->update( $metaArr );
         }
 
