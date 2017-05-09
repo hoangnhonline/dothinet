@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2017 at 01:29 AM
+-- Generation Time: May 09, 2017 at 06:53 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -1370,7 +1370,10 @@ INSERT INTO `meta_data` (`id`, `title`, `description`, `keywords`, `custom_text`
 (1, 'dfhsdfh', 'dhdfh', 'sdfhsdf', 'hdfhdf', 1, 1, '2017-05-05 15:39:06', '2017-05-05 15:39:06'),
 (2, 'fsdgdsfhsdf', 'dfsh', 'sdfhdfh', 'dfhsdfhsdfhdfh', 1, 1, '2017-05-05 17:39:09', '2017-05-05 17:41:34'),
 (3, '', '', '', '', 1, 1, '2017-05-05 17:45:59', '2017-05-05 17:45:59'),
-(4, '', '', '', '', 1, 1, '2017-05-05 18:02:08', '2017-05-05 18:02:08');
+(4, '', '', '', '', 1, 1, '2017-05-05 18:02:08', '2017-05-05 18:02:08'),
+(5, NULL, NULL, NULL, '', 0, 0, '2017-05-09 22:15:04', '2017-05-09 22:15:04'),
+(6, '', '', '', '', 1, 1, '2017-05-09 22:38:11', '2017-05-09 22:38:11'),
+(7, '', '', '', '', 1, 1, '2017-05-09 22:38:28', '2017-05-09 22:38:28');
 
 -- --------------------------------------------------------
 
@@ -2151,7 +2154,9 @@ INSERT INTO `product` (`id`, `title`, `slug`, `description`, `type`, `thumbnail_
 (50, 'Bán nhà mới nguyên căn-3 lầu tại đường Einstein- P.Bình Thọ- Thủ Đức', 'bán-nhà-mói-nguyen-can-3-làu-tai-duong-einstein-pbinh-tho-thu-duc', 'Bán nhà nguyên căn đầy đủ tiện nghi rất thuận tiện để ở ngang 8m dài 6.5m, 3 lầu, 2 phòng ngủ, 1 nhà bếp, 1 phòng khách,1 phòng thờ, sân phơi tại số 25Q, đường Einstein,KP4, P.Bình Thọ,Q.Thủ Đức, TP.HCM. Nhà mới xây có đầy đủ giường ngủ, bàn ghế Sopha Chilai, bộ bàn ăn,kệ bếp trên dưới bằng gỗ,bếp gas Rinnai,tủ đựng giày,tủ quần áo âm tường, máy hút khói,quầy bar,Ti Vi,Tủ Lạnh, Máy Giặt, Máy Lạnh Daikin, internet , truyền hình cáp, nước máy, nước nóng năng lượng mặt trời,bồn cầu +lababo Linax, vòi sen nóng lạnh  đầy đủ....Khu dân cư xung quanh là biệt thự làng đại học Thủ Đức, dân trí cao và gần CA.Phường nên rất an toàn. Tọa lạc vị trí thuận tiện gần trạm xe cao tốc Suối Tiên- Bến Thành, chợ, trường học,TT y tế,trung tâm hành chính Q.Thủ Đức, gần trung tâm mua sắm Nguyễn Kim, Vincom...đường thoáng rộng thuận tiện việc đi lại và đi làm vào TT TP.HCM hay KCN Bình Dương, Đồng Nai. Dể thương lượng tuyệt vời để ở thuận lợi cho con cái xin nhập học các trường điểm của quận,...ĐT LHệ 0909,874,984 Gặp Mr.Vi-Chính Chủ. Đặc biệt ưu tiên cho giáo viên,công nhân viên chức có nhu cầu thiện chí mua.\r<br>Ưu tiên cho người liên hệ trước.Giá đề nghị 3.160.000 VND.\r<br>Hiện tại đang cho thuê 10tr/tháng.', 1, 48, 2, 1, 19, 0, 0, 0, '3', 8, 'Không xác định', '', '', '5 m', 3, 2, 0, 2, 'https://img.dothi.net/2017/05/04/20170504202510-0e8f_wm.jpg', NULL, 'Mr.Vi', '', '', '0909874984', '', 'https://dothi.net/ban-nha-rieng-duong-einstein-phuong-binh-tho/ban-nha-moi-nguyen-can3-lau-tai-duong-einstein-pbinh-tho-thu-duc-pr7845971.htm', 1, 1, 0, NULL, NULL, 0, '2017-05-05 13:43:26', '2017-05-05 18:27:23'),
 (51, 'Nhà đường Số 8 chợ Bình Triệu, Thủ Đức đúc 3 tầng, sân thượng', 'nha-duong-so-8-cho-binh-trieu-thu-duc-duc-3-tang-san-thuong', 'Nhà ngay chợ Bình Triệu, đối diện trường Đại học Luật.<br>Nhà mới xây nội thất cao cấp, sang trọng Nhà đúc 3 tầng, gồm có sân, 1 PK, 4 PN, 4 nhà tắm, WC, sân thượng rộng. Khu dân cư đông, an ninh, đường xe hơi vào được.<br>Vị trí: Nhà ngay cầu Bình Triệu, gần chợ, trường. Gần đường Phạm Văn Đồng chỉ 1 km, giáp ranh Bình Thạnh, di chuyển vào Q. 1, Q. 3 chỉ 15 phút xe máy, Thuận tiện lưu thông về Phú Nhuận, Q. 12, Gò Vấp, Q. 9, Q. 2….<br><br>Diện tích: 4x14m, DTSD hơn 140 mét vuông (đúc một trệt, hai lầu, sân thượng).<br>Giá 3,15 tỷ.<br>Pháp lý sổ hồng riêng, bao công chứng, sang tên(hỗ trợ vay vốn ngân hàng đến 70 %).<br>(Khuyến mãi tặng tủ bếp, kệ bếp, tủ âm tường, máy năng lượng mặt trời, chiết khấu thêm cho khách hàng 3%, trị giá 40 triệu. Nhanh tay chỉ còn 2 căn còn lại).<br>Liên hệ trực tiếp chủ đầu tư 0909685597 (Miễn môi giới, trung gian).', 1, 49, 2, 1, 19, 0, 0, 0, '3', 8, '56 m²', '', '', '', 3, 4, 0, 0, 'https://img.dothi.net/2017/04/05/20170405194458-1c76_wm.jpg', NULL, 'Vũ Văn Luyện', 'Bình Chánh - Hồ Chí Minh', '', '0988715847', '', 'https://dothi.net/ban-nha-rieng-duong-so-8-phuong-hiep-binh-chanh/nha-duong-so-8-cho-binh-trieu-thu-duc-duc-3-tang-san-thuong-pr7717373.htm', 1, 1, 0, NULL, NULL, 0, '2017-05-05 13:43:27', '2017-05-05 18:27:23'),
 (52, 'Nhà gần chợ Bình Triệu, Thủ Đức đúc 3 tầng, sân thượng, có sân để xe hơi 7 chỗ', 'nha-gan-cho-binh-trieu-thu-duc-duc-3-tang-san-thuong-co-san-de-xe-hoi-7-cho', 'Nhà bán Quốc Lộ 13, Quận Thủ Đức. Nhà mới xây, thiết kế đẹp, nội thất cao cấp, sang trọng.<br>Diện tích 4x21m.<br>(Xây dựng 4x14m, có sân để xe hơi), Đúc một trệt, hai lầu, sân thượng. Gồm sân để xe hơi 7 chỗ, 1 PK, 4 PN, phòng ăn, bếp rộng, 4 nhà tắm, WC, sân thượng trước sau rộng. Khu dân cư an ninh, yên tĩnh, đường trước nhà 8 mét, xe ô tô đỗ cửa. Gồm:<br>Tầng 1: Sân để xe hơi 7 chỗ, 1 PK, phòng ăn, bếp, nhà tắm, WC, giếng trời.<br>Tầng 2: Hai phòng ngủ, nhà tắm, WC, banconl.<br>Tầng 3: Hai phòng ngủ, nhà tắm, WC, banconl.<br>Tầng thượng: Chuồng cu, nhà Tắm, WC, Sân thượng rộng trước sau.<br><br>Vị trí: Nhà gần Quốc Lộ 13(Đang chuẩn bị mở rộng), gần chợ, trường học, Vincom, Coop Max Bình Triệu, bến xe Miền Đông, gần khu đô thị Vạn Phúc, công viên lớn nhất đang xây ven sông Sài Gòn.<br>Nhà cách trường Đại Học Luật, chợ Bình triệu gần 1 Km, giáp ranh Bình Thạnh, cách trung Tâm Quận 1 chỉ 15 phút xe máy, thuận tiện lưu thông vào Quận 9, Q2, Phú Nhuận, Gò Vấp, Q3…và đi khu vực Bình Dương.<br>DT 4x21m (Đúc một trệt, hai lầu, sân thượng. DTSD hơn 200 mét vuông).<br>Pháp lý sổ hồng riêng, bao công chứng sang tên (hỗ trợ vay vốn ngân hàng đến 70 %).<br>Giá: 3,15 tỷ.<br>(Chương trình khuyến mãi và chiết khấu trong tháng này: Tặng tủ bếp, kệ bếp, máy năng lượng mặt trời. Chiết khấu lên đến 3 % cho khách hàng, tổng giá trị hơn 30 triệu).<br>Liên hệ chủ đầu tư: 0909685597.', 1, 50, 2, 1, 19, 0, 0, 0, '3', 8, '84 m²', '', '', '8 m', 0, 4, 0, 4, 'https://img.dothi.net/2017/04/02/20170402201354-4d8f_wm.jpg', NULL, 'Vũ Văn Luyện', 'Bình Chánh - Hồ Chí Minh', '', '0988715847', '', 'https://dothi.net/ban-nha-rieng-duong-quoc-lo-13-phuong-hiep-binh-phuoc/nha-gan-cho-binh-trieu-thu-duc-duc-3-tang-san-thuong-co-san-de-xe-hoi-7-cho-pr7692609.htm', 1, 1, 0, NULL, NULL, 0, '2017-05-05 13:43:28', '2017-05-05 18:27:23'),
-(53, 'sdvgasdgsdg ádgh', NULL, '<p>sdgasdg g asd&nbsp;</p>\r\n', 1, 13, 8, 1, 2, 4, 4, 9, 'sdga', 4, '24', '445', '5656', '4', 54, 65, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', 1, 1, 4, NULL, NULL, NULL, '2017-05-05 18:02:08', '2017-05-05 18:02:08');
+(53, 'sdvgasdgsdg ádgh', NULL, '<p>sdgasdg g asd&nbsp;</p>\r\n', 1, 13, 8, 1, 2, 4, 4, 9, 'sdga', 4, '24', '445', '5656', '4', 54, 65, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', 1, 1, 4, NULL, NULL, NULL, '2017-05-05 18:02:08', '2017-05-05 18:02:08'),
+(54, 'dgasg ', 'dgasg', '', 1, 0, 8, 1, 2, 3, 1, 17, '11', 2, 'dd', 'e', '11', '11', 11, 11, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', 1, 1, 6, NULL, NULL, NULL, '2017-05-09 22:38:11', '2017-05-09 22:38:11'),
+(55, 'dgasg ', 'dgasg', '', 1, 51, 8, 1, 2, 3, 1, 17, '11', 2, 'dd', 'e', '11', '11', 11, 11, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', 1, 1, 7, NULL, NULL, NULL, '2017-05-09 22:38:28', '2017-05-09 22:46:57');
 
 -- --------------------------------------------------------
 
@@ -2210,7 +2215,10 @@ INSERT INTO `product_img` (`id`, `product_id`, `image_url`, `display_order`) VAL
 (47, 49, 'https://img.dothi.net/2017/05/05/20170505085058-5209_wm.jpg', 1),
 (48, 50, 'https://img.dothi.net/2017/05/04/20170504202510-0e8f_wm.jpg', 1),
 (49, 51, 'https://img.dothi.net/2017/04/05/20170405194458-1c76_wm.jpg', 1),
-(50, 52, 'https://img.dothi.net/2017/04/02/20170402201354-4d8f_wm.jpg', 1);
+(50, 52, 'https://img.dothi.net/2017/04/02/20170402201354-4d8f_wm.jpg', 1),
+(51, 55, '2017/05/09/chrysanthemum-1494344815.jpg', 1),
+(52, 55, '2017/05/09/desert-1494344815.jpg', 1),
+(53, 55, '2017/05/09/hydrangeas-1494344815.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -3757,15 +3765,32 @@ INSERT INTO `street` (`id`, `name`, `slug`, `prefix`, `display_order`, `district
 --
 
 CREATE TABLE `tag` (
-  `id` int(11) NOT NULL,
-  `tag_name` varchar(255) NOT NULL,
-  `tag_name_kd` varchar(255) NOT NULL,
-  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1 : bds 2 : tin tuc ',
-  `meta_title` varchar(255) DEFAULT NULL,
-  `meta_description` varchar(255) DEFAULT NULL,
-  `meta_keyword` varchar(255) DEFAULT NULL,
-  `seo_text` text
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL,
+  `meta_id` bigint(20) DEFAULT NULL,
+  `slug` varchar(255) NOT NULL,
+  `type` tinyint(1) NOT NULL COMMENT '1 bds 2 tin tuc 3 tien ich',
+  `name` varchar(255) NOT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `description` varchar(32) DEFAULT NULL,
+  `district_id` int(11) DEFAULT NULL COMMENT 'danh cho tien ich',
+  `created_user` tinyint(4) NOT NULL,
+  `updated_user` tinyint(4) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `tag`
+--
+
+INSERT INTO `tag` (`id`, `meta_id`, `slug`, `type`, `name`, `alias`, `description`, `district_id`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, 0, 'gan-truong-hoc', 3, 'Gần trường học', 'Gan truong hoc', 'gan truong hoc\r\n', 9, 1, 1, '2017-05-09 21:45:49', '2017-05-09 21:49:55'),
+(2, NULL, 'abc-def', 1, 'abc def', 'abc def', '', 1, 1, 1, '2017-05-09 22:14:13', '2017-05-09 22:14:13'),
+(3, 5, 'bcd-ecfg', 1, 'bcd ềcfg', 'bcd ecfg', '', 1, 1, 1, '2017-05-09 22:15:04', '2017-05-09 22:15:04'),
+(4, NULL, 'abcdgasgsg', 1, 'abcdgasgsg', NULL, NULL, NULL, 1, 1, '2017-05-09 22:23:42', '2017-05-09 22:23:42'),
+(5, NULL, 'dgadsgsgds', 1, 'dgadsgsgds', NULL, NULL, NULL, 1, 1, '2017-05-09 22:23:42', '2017-05-09 22:23:42'),
+(6, NULL, 'dsgasdgasdgklsdg', 1, 'dsgasdgasdgklsdg', NULL, NULL, NULL, 1, 1, '2017-05-09 22:23:42', '2017-05-09 22:23:42'),
+(7, NULL, 'sfadsgadsgads', 1, 'sfadsgadsgads', NULL, NULL, NULL, 1, 1, '2017-05-09 22:23:42', '2017-05-09 22:23:42');
 
 -- --------------------------------------------------------
 
@@ -3787,7 +3812,11 @@ CREATE TABLE `tag_objects` (
 INSERT INTO `tag_objects` (`object_id`, `tag_id`, `type`, `object_type`) VALUES
 (2, 8, 1, 4),
 (3, 1, 1, 4),
-(3, 7, 1, 4);
+(3, 7, 1, 4),
+(55, 2, 1, 1),
+(55, 3, 1, 1),
+(55, 4, 1, 1),
+(55, 5, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4166,10 +4195,7 @@ ALTER TABLE `street`
 -- Indexes for table `tag`
 --
 ALTER TABLE `tag`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `tag_name_kd` (`tag_name_kd`),
-  ADD UNIQUE KEY `tag_name_2` (`tag_name`);
-ALTER TABLE `tag` ADD FULLTEXT KEY `tag_name` (`tag_name`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tag_objects`
@@ -4301,7 +4327,7 @@ ALTER TABLE `legal`
 -- AUTO_INCREMENT for table `meta_data`
 --
 ALTER TABLE `meta_data`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `newsletter`
 --
@@ -4326,12 +4352,12 @@ ALTER TABLE `price_unit`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT for table `product_img`
 --
 ALTER TABLE `product_img`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `project`
 --
@@ -4361,7 +4387,7 @@ ALTER TABLE `street`
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `text`
 --
