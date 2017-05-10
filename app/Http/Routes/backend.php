@@ -16,7 +16,22 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::get('/', ['as' => 'report.index', 'uses' => 'ReportController@index']);     
         Route::post('/search-price-other-site', ['as' => 'crawler.search-price-other-site', 'uses' => 'CompareController@search']);
     });
-    
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('/', ['as' => 'cart.index', 'uses' => 'CartController@index']);
+        Route::get('/create', ['as' => 'cart.create', 'uses' => 'CartController@create']);
+        Route::post('/store', ['as' => 'cart.store', 'uses' => 'CartController@store']);
+        Route::get('{id}/edit',   ['as' => 'cart.edit', 'uses' => 'CartController@edit']);
+        Route::post('/update', ['as' => 'cart.update', 'uses' => 'CartController@update']);
+        Route::get('{id}/destroy', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
+    });
+    Route::group(['prefix' => 'cart-product'], function () {
+        Route::get('/', ['as' => 'cart-product.index', 'uses' => 'CartProductController@index']);
+        Route::get('/create', ['as' => 'cart-product.create', 'uses' => 'CartProductController@create']);
+        Route::post('/store', ['as' => 'cart-product.store', 'uses' => 'CartProductController@store']);
+        Route::get('{id}/edit',   ['as' => 'cart-product.edit', 'uses' => 'CartProductController@edit']);
+        Route::post('/update', ['as' => 'cart-product.update', 'uses' => 'CartProductController@update']);
+        Route::get('{id}/destroy', ['as' => 'cart-product.destroy', 'uses' => 'CartProductController@destroy']);
+    });
     Route::group(['prefix' => 'pages'], function () {
         Route::get('/', ['as' => 'pages.index', 'uses' => 'PagesController@index']);
         Route::get('/create', ['as' => 'pages.create', 'uses' => 'PagesController@create']);

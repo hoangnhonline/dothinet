@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\CartProduct;
 use Helper, File, Session, Auth;
 
 class CartController extends Controller
@@ -18,8 +19,16 @@ class CartController extends Controller
     */
     public function index(Request $request)
     {
-        $items = Cart::all();
-        return view('backend.cart.index', compact( 'items' ));
+        $type = isset($request->type) ? $request->type : 1;
+        
+        $name = isset($request->name) && $request->name != '' ? $request->name : '';
+        
+        $query = Cart::where('type', $type);
+        if( $name !='' ){
+            $query->where('name', 'LIKE', '%'.$name.'%');
+        }
+        $items = $query->paginate(1000);
+        return view('backend.cart.index', compact( 'items', 'type', 'name'));
     }
 
     /**
@@ -27,9 +36,10 @@ class CartController extends Controller
     *
     * @return Response
     */
-    public function create()
+    public function create(Request $request)
     {
-        return view('backend.cart.create');
+        $type = $request->type ? $request->type : 1;
+        return view('backend.cart.create', compact('type'));
     }
 
     /**
@@ -57,7 +67,7 @@ class CartController extends Controller
 
         Session::flash('message', 'Tạo mới giỏ hàng thành công');
 
-        return redirect()->route('cart.index');
+        return redirect()->route('cart.index', ['type' => $dataArr['type']]);
     }
 
     /**

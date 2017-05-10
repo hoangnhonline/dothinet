@@ -19,9 +19,10 @@ class CartProductController extends Controller
     */
     public function index(Request $request)
     {
-        $items = CartProduct::where('cart_id', $request->cart_id);
+        $cart_id = $request->cart_id;
+        $items = CartProduct::where('cart_id', $request->cart_id)->paginate(48);
         $cartDetail = Cart::find($request->cart_id);
-        return view('backend.cart-product.index', compact( 'items', 'cartDetail'));
+        return view('backend.cart-product.index', compact( 'items', 'cartDetail', 'cart_id'));
     }
 
     /**

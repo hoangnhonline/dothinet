@@ -29,7 +29,12 @@
           <li {{ in_array(\Request::route()->getName(), ['estate-type.index', 'estate-type.edit', 'estate-type.create']) ? "class=active" : "" }}><a href="{{ route('estate-type.index') }}"><i class="fa fa-circle-o"></i> Danh mục</a></li>
         </ul>
       </li>
-      
+      <li {{ in_array(\Request::route()->getName(), ['cart.create', 'cart.edit', 'cart.index','cart-product.create', 'cart-product.edit', 'cart-product.index']) ? "class=active" : "" }}>
+        <a href="{{ route('cart.index') }}">
+          <i class="fa fa-pencil-square-o"></i> 
+          <span>Giỏ hàng</span>         
+        </a>       
+      </li>
       <li {{ in_array(\Request::route()->getName(), ['customer.edit', 'customer.index']) ? "class=active" : "" }}>
         <a href="{{ route('customer.index') }}">
           <i class="fa fa-pencil-square-o"></i> 
