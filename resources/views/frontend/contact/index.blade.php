@@ -66,7 +66,7 @@
                         <div class="col-sm-12" style="margin-bottom:20px">
                             <div class="introduce-title">Thông tin Công ty</div>
                             <ul id="introduce-company"  class="introduce-list">
-                                <li><a href="{{ route('danh-muc-cha', 'gioi-thieu') }}">Giới thiệu</a></li>
+                                <li><a href="{{ route('danh-muc', 'gioi-thieu') }}">Giới thiệu</a></li>
                                 <li><a href="{{ route('chuong-trinh-khuyen-mai') }}">Khuyến mãi</a></li>
                                 <li><a href="{{ route('contact') }}">Liên hệ</a></li>
                             </ul>
@@ -74,10 +74,10 @@
                         <div class="col-sm-12">
                             <div class="introduce-title">CHÍNH SÁCH</div>
                             <ul id = "introduce-support"  class="introduce-list">
-                                <li><a href="{{ route('danh-muc-cha', 'bao-mat-thong-tin') }}">Bảo mật thông tin</a></li>
-                                <li><a href="{{ route('danh-muc-cha', 'phuong-thuc-thanh-toan') }}">Phương thức thanh toán</a></li>
-                                <li><a href="{{ route('danh-muc-cha', 'hinh-thuc-van-chuyen') }}">Hình thức vận chuyển</a></li>
-                                <li><a href="{{ route('danh-muc-cha', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>
+                                <li><a href="{{ route('danh-muc', 'bao-mat-thong-tin') }}">Bảo mật thông tin</a></li>
+                                <li><a href="{{ route('danh-muc', 'phuong-thuc-thanh-toan') }}">Phương thức thanh toán</a></li>
+                                <li><a href="{{ route('danh-muc', 'hinh-thuc-van-chuyen') }}">Hình thức vận chuyển</a></li>
+                                <li><a href="{{ route('danh-muc', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>
                             </ul>
                         </div>
                     </div>

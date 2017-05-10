@@ -5,7 +5,7 @@
 <article class="block block-breadcrumb">
   <ul class="breadcrumb">
     <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
-    <li class="active"><a href="{{ route('danh-muc-cha', $detailPage->slug) }}" title="{{ $detailPage->title }}">{{ $detailPage->title }}</a></li>
+    <li class="active"><a href="{{ route('danh-muc', $detailPage->slug) }}" title="{{ $detailPage->title }}">{{ $detailPage->title }}</a></li>
   </ul>
 </article><!-- /block-breadcrumb -->
 <section class="block-content">
@@ -23,11 +23,11 @@
                       <div class="layered layered-category">
                           <div class="layered-content">
                               <ul class="tree-menu">
-                                  <li {{ $detailPage->slug == 'gioi-thieu' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc-cha', 'gioi-thieu') }}">Giới thiệu</a></li>                               
-                                  <li {{ $detailPage->slug == 'bao-mat-thong-tin' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc-cha', 'bao-mat-thong-tin') }}">Bảo mật thông tin</a></li>                      
-                                  <li {{ $detailPage->slug == 'phuong-thuc-thanh-toan' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc-cha', 'phuong-thuc-thanh-toan') }}">Phương thức thanh toán</a></li>
-                                  <li {{ $detailPage->slug == 'hinh-thuc-van-chuyen' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc-cha', 'hinh-thuc-van-chuyen') }}">Hình thức vận chuyển</a></li>
-                                  <li {{ $detailPage->slug == 'chinh-sach-bao-hanh' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc-cha', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>                                 
+                                  <li {{ $detailPage->slug == 'gioi-thieu' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'gioi-thieu') }}">Giới thiệu</a></li>                               
+                                  <li {{ $detailPage->slug == 'bao-mat-thong-tin' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'bao-mat-thong-tin') }}">Bảo mật thông tin</a></li>                      
+                                  <li {{ $detailPage->slug == 'phuong-thuc-thanh-toan' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'phuong-thuc-thanh-toan') }}">Phương thức thanh toán</a></li>
+                                  <li {{ $detailPage->slug == 'hinh-thuc-van-chuyen' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'hinh-thuc-van-chuyen') }}">Hình thức vận chuyển</a></li>
+                                  <li {{ $detailPage->slug == 'chinh-sach-bao-hanh' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>                                 
                               </ul>
                           </div>
                       </div>

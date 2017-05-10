@@ -82,7 +82,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::get('{id}/destroy', ['as' => 'events.destroy', 'uses' => 'EventsController@destroy']);
         Route::get('destroy-product/{event_id}/{sp_id}', ['as' => 'events.destroy-product', 'uses' => 'EventsController@destroyProduct']);
         Route::get('/product-event/{event_id}', ['as' => 'events.product-event', 'uses' => 'EventsController@productEvent']);
-        Route::post('/ajax-search', ['as' => 'events.ajax-search', 'uses' => 'EventsController@ajaxSearch']);
+        Route::post('/ajax-search', ['as' => 'events.ajax-search', 'uses' => 'EventsController@ajaxSearch']);        
         Route::post('/ajax-save-product', ['as' => 'events.ajax-save-product', 'uses' => 'EventsController@ajaxSaveProduct']);
     });
     Route::group(['prefix' => 'tinh'], function () {
@@ -153,21 +153,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::get('{id}/destroy', ['as' => 'banner.destroy', 'uses' => 'BannerController@destroy']);
     });
     Route::group(['prefix' => 'product'], function () {
-        Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
-        Route::get('/short', ['as' => 'product.short', 'uses' => 'ProductController@short']);
+        Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);        
         Route::get('/ajax-get-detail-product', ['as' => 'ajax-get-detail-product', 'uses' => 'ProductController@ajaxDetail']);        
-        Route::get('/create/', ['as' => 'product.create', 'uses' => 'ProductController@create']);
-        Route::get('/tuong-thich', ['as' => 'product.tuong-thich', 'uses' => 'ProductController@spTuongThich']);
-        Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);
-        Route::post('/ajax-save-info', ['as' => 'product.ajax-save-info', 'uses' => 'ProductController@ajaxSaveInfo']);
+        Route::get('/create/', ['as' => 'product.create', 'uses' => 'ProductController@create']);        
+        Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);        
         Route::get('{id}/edit',   ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
-        Route::post('/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);
-        Route::post('/ajax-search', ['as' => 'product.ajax-search', 'uses' => 'ProductController@ajaxSearch']);
-        Route::post('/ajax-search-tuong-thich', ['as' => 'product.ajax-search-tuong-thich', 'uses' => 'ProductController@ajaxSearchTuongThich']);
+        Route::post('/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);       
         Route::get('{id}/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
-        Route::post('/ajax-save-related', ['as' => 'product.ajax-save-related', 'uses' => 'ProductController@ajaxSaveRelated']);
-        Route::post('/ajax-save-tuong-thich', ['as' => 'product.ajax-save-tuong-thich', 'uses' => 'ProductController@ajaxSaveTuongThich']);        
-        Route::post('/save-sp-tuong-thich', ['as' => 'product.save-sp-tuong-thich', 'uses' => 'ProductController@saveSpTuongThich']);        
+        Route::get('/ajax-get-tien-ich', ['as' => 'product.ajax-get-tien-ich', 'uses' => 'ProductController@ajaxGetTienIch']);
 
     });
     Route::post('/tmp-upload', ['as' => 'image.tmp-upload', 'uses' => 'UploadController@tmpUpload']);

@@ -34,7 +34,7 @@
                   <option value="2" {{ $type == 2 ? "selected" : "" }}>Cho thuê</option>
               </select>
             </div>            
-            <button type="submit" class="btn btn-default btn-sm">Lọc</button>
+            <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
           </form>         
         </div>
       </div>

@@ -13,7 +13,7 @@
         <div class="breadcrumb clearfix">
             <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
             <span class="navigation-pipe">&nbsp;</span>
-            <a class="home" href="{{ route('danh-muc-cha', $rs->slug) }}" title="{{ $rs->name }}">{{ $rs->name }}</a>
+            <a class="home" href="{{ route('danh-muc', $rs->slug) }}" title="{{ $rs->name }}">{{ $rs->name }}</a>
             <span class="navigation-pipe">&nbsp;</span>
             <span class="navigation_page">{{ $title }}</span>
         </div>

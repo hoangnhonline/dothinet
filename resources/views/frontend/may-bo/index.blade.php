@@ -13,7 +13,7 @@
         <div class="breadcrumb clearfix">
             <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
             <span class="navigation-pipe">&nbsp;</span>
-            <a class="home" href="{{ route('danh-muc-cha', $loaiSp->slug) }}" title="{{ $loaiSp->name }}">{{ $loaiSp->name }}</a>
+            <a class="home" href="{{ route('danh-muc', $loaiSp->slug) }}" title="{{ $loaiSp->name }}">{{ $loaiSp->name }}</a>
             <span class="navigation-pipe">&nbsp;</span>
             <span class="navigation_page">{{ $title }}</span>
         </div>

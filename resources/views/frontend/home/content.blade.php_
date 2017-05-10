@@ -15,7 +15,7 @@
                     <nav class="navbar nav-menu show-brand" >
                       <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                          <div class="navbar-brand" style="background-color:{{ $loai['bg_color'] }}"><a title="{{ $loai['name'] }}" href="{{ route('danh-muc-cha', $loai['slug']) }}"><img  alt="{{ $loai['name']}}" class="lazy" data-original="{{ Helper::showImage($loai['icon_url']) }}" />{{ $loai['name']}}</a></div>
+                          <div class="navbar-brand" style="background-color:{{ $loai['bg_color'] }}"><a title="{{ $loai['name'] }}" href="{{ route('danh-muc', $loai['slug']) }}"><img  alt="{{ $loai['name']}}" class="lazy" data-original="{{ Helper::showImage($loai['icon_url']) }}" />{{ $loai['name']}}</a></div>
                           <span class="toggle-menu"></span>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse">
@@ -176,7 +176,7 @@
                 <nav class="navbar nav-menu show-brand">
                   <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                      <div class="navbar-brand" style="background-color:{{ $loai['bg_color'] }}"><a title="{{ $loai['name'] }}" href="{{ route('danh-muc-cha', $loai['slug']) }}"><img  alt="{{ $loai['name']}}" class="lazy" data-original="{{ Helper::showImage($loai['icon_url']) }}" />{{ $loai['name']}}</a></div>
+                      <div class="navbar-brand" style="background-color:{{ $loai['bg_color'] }}"><a title="{{ $loai['name'] }}" href="{{ route('danh-muc', $loai['slug']) }}"><img  alt="{{ $loai['name']}}" class="lazy" data-original="{{ Helper::showImage($loai['icon_url']) }}" />{{ $loai['name']}}</a></div>
                       <span class="toggle-menu"></span>  
                       <div class="collapse navbar-collapse">
                           <ul class="nav navbar-nav">
@@ -288,7 +288,7 @@
                     <nav class="navbar nav-menu show-brand">
                       <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                           <div class="navbar-brand" style="background-color:{{ $loai['bg_color'] }}"><a title="{{ $loai['name'] }}" href="{{ route('danh-muc-cha', $loai['slug']) }}"><img class="lazy"  alt="{{ $loai['name']}}" data-original="{{ Helper::showImage($loai['icon_url']) }}" />{{ $loai['name']}}</a></div>
+                           <div class="navbar-brand" style="background-color:{{ $loai['bg_color'] }}"><a title="{{ $loai['name'] }}" href="{{ route('danh-muc', $loai['slug']) }}"><img class="lazy"  alt="{{ $loai['name']}}" data-original="{{ Helper::showImage($loai['icon_url']) }}" />{{ $loai['name']}}</a></div>
                           <span class="toggle-menu"></span>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse">           
@@ -454,7 +454,7 @@
                     <nav class="navbar nav-menu show-brand">
                       <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                           <div class="navbar-brand" style="background-color:{{ $loai['bg_color'] }}"><a title="{{ $loai['name'] }}" href="{{ route('danh-muc-cha', $loai['slug']) }}"><img  alt="{{ $loai['name']}}" class="lazy" data-original="{{ Helper::showImage($loai['icon_url']) }}" />{{ $loai['name']}}</a></div>
+                           <div class="navbar-brand" style="background-color:{{ $loai['bg_color'] }}"><a title="{{ $loai['name'] }}" href="{{ route('danh-muc', $loai['slug']) }}"><img  alt="{{ $loai['name']}}" class="lazy" data-original="{{ Helper::showImage($loai['icon_url']) }}" />{{ $loai['name']}}</a></div>
                           <span class="toggle-menu"></span>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse">           

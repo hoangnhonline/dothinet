@@ -15,7 +15,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('pages.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('pages.index') }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('pages.store') }}">
     <div class="row">
       <!-- left column -->
@@ -85,8 +85,8 @@
             <input type="hidden" name="image_url" id="image_url" value="{{ old('image_url') }}"/>          
             <input type="hidden" name="image_name" id="image_name" value="{{ old('image_name') }}"/>
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('pages.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default" class="btn btn-primary btn-sm" href="{{ route('pages.index')}}">Hủy</a>
             </div>
             
         </div>

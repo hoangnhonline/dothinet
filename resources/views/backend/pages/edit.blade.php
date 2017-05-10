@@ -15,8 +15,8 @@
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('pages.index') }}" style="margin-bottom:5px">Quay lại</a>
-    <a class="btn btn-primary btn-sm" href="{{ route('danh-muc-cha', $detail->slug ) }}" target="_blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
+    <a class="btn btn-default btn-sm" href="{{ route('pages.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-primary btn-sm" href="{{ route('danh-muc', $detail->slug ) }}" target="_blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
     <form role="form" method="POST" action="{{ route('pages.update') }}">
     <div class="row">
       <!-- left column -->
@@ -91,8 +91,8 @@
             <input type="hidden" name="image_url" id="image_url" value="{{ $detail->image_url }}"/>          
             <input type="hidden" name="image_name" id="image_name" value="{{ $detail->image_name }}"/>
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('pages.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" href="{{ route('pages.index')}}">Hủy</a>
             </div>
             
         </div>

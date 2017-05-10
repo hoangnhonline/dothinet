@@ -76,7 +76,11 @@ class ProductController extends Controller
         $projectList = Project::where('district_id', $district_id)->get();
         return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));
     }
-    
+    public function ajaxGetTienIch(Request $request){
+        $district_id = $request->district_id;
+        $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
+        return view('backend.product.ajax-get-tien-ich', compact( 'tienIchLists'));   
+    }
     public function ajaxSearch(Request $request){    
         $search_type = $request->search_type;
         $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : -1;
@@ -133,7 +137,10 @@ class ProductController extends Controller
         $wardList = Ward::where('district_id', $district_id)->get();
         $streetList = Street::where('district_id', $district_id)->get();
         $projectList = Project::where('district_id', $district_id)->get();
-        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr'));
+
+        $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
+
+        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists'));
     }
 
     /**
@@ -187,12 +194,20 @@ class ProductController extends Controller
         if( $type == 'edit'){
           
             TagObjects::deleteTags( $object_id, 1);
+            TagObjects::deleteTags( $object_id, 3);
 
         }
         // xu ly tags
         if( !empty( $dataArr['tags'] ) && $object_id ){
             foreach ($dataArr['tags'] as $tag_id) {
                 TagObjects::create(['object_id' => $object_id, 'tag_id' => $tag_id, 'type' => 1]);
+            }
+        }
+
+        // xu ly tien ich
+        if( !empty( $dataArr['tien_ich'] ) && $object_id ){
+            foreach ($dataArr['tien_ich'] as $tag_id) {
+                TagObjects::create(['object_id' => $object_id, 'tag_id' => $tag_id, 'type' => 3]);
             }
         }
       
@@ -329,8 +344,10 @@ class ProductController extends Controller
         $projectList = Project::where('district_id', $detail->district_id)->get();
 
         $tagSelected = Product::productTag($id);
+        $tienIchSelected = Product::productTienIch($id);
+        $tienIchLists = Tag::where(['type' => 3, 'district_id' => $detail->district_id])->get();
 
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr'));
+        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr', 'tienIchLists', 'tienIchSelected'));
     }
     public function ajaxDetail(Request $request)
     {       
@@ -374,11 +391,9 @@ class ProductController extends Controller
         
         $product_id = $dataArr['id'];
         
-        
-
         $this->storeMeta( $product_id, $dataArr['meta_id'], $dataArr);
         $this->storeImage( $product_id, $dataArr);
-    
+        $this->processRelation($dataArr, $product_id, 'edit');
 
         Session::flash('message', 'Chỉnh sửa sản phẩm thành công');
 

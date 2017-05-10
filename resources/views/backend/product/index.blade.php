@@ -79,7 +79,7 @@
               <input type="text" class="form-control" name="name" value="{{ $arrSearch['name'] }}">
             </div>           
             
-            <button type="submit" style="margin-top:-5px" class="btn btn-primary btn-sm">Lọc</button>
+            <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
           </form>         
         </div>
       </div>

@@ -14,7 +14,7 @@
                             @foreach( $menuDoc as $loai)
                             <?php $count ++; ?>
                             <li <?php if($count > 11 ) echo 'class="cat-link-orther"'; ?>>
-                                <a class="parent" href="{{ route('danh-muc-cha', $loai['slug']) }}"><img class="icon-menu" alt="icon {{ $loai['name'] }}" src="{{ Helper::showImage($loai['icon_mau']) }}" />{{ $loai['name'] }}</a>
+                                <a class="parent" href="{{ route('danh-muc', $loai['slug']) }}"><img class="icon-menu" alt="icon {{ $loai['name'] }}" src="{{ Helper::showImage($loai['icon_mau']) }}" />{{ $loai['name'] }}</a>
                                 @if( !empty($loai['child']) )
                                  <?php $countSubMenu = 0;                                                            
                                             ?>
@@ -34,7 +34,7 @@
 
                                                 ?>
                                                 @foreach($priceArr as $price)
-                                                <li><a href="{{ route('theo-gia-danh-muc-cha',['slugLoaiSp' => $loai['slug'], 'slugGia' => $price->alias]) }}">{{ $price->name }}</a></li>
+                                                <li><a href="{{ route('theo-gia-danh-muc',['slugLoaiSp' => $loai['slug'], 'slugGia' => $price->alias]) }}">{{ $price->name }}</a></li>
                                                 @endforeach                                            
                                             </ul>
                                         </div>

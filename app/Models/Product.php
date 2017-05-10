@@ -68,4 +68,14 @@ class Product extends Model  {
         }
         return $arr;
     }
+    public static function productTienIch( $id )
+    {
+        $arr = [];
+        $rs = TagObjects::where( ['type' => 3, 'object_id' => $id] )->lists('tag_id');
+        if( $rs ){
+            $arr = $rs->toArray();
+        }
+        return $arr;
+    }
+    
 }

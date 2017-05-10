@@ -5,7 +5,7 @@
         <div class="breadcrumb clearfix noprint">
             <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
             <span class="navigation-pipe">&nbsp;</span>
-            <a href="{{ route('danh-muc-cha', $rsLoai->slug) }}" title="{{ $rsCate->name }}">{{ $rsLoai->name }}</a>
+            <a href="{{ route('danh-muc', $rsLoai->slug) }}" title="{{ $rsCate->name }}">{{ $rsLoai->name }}</a>
             <span class="navigation-pipe">&nbsp;</span>
             <a href="{{ route('danh-muc-con', [$rsLoai->slug, $rsCate->slug]) }}" title="{{ $rsCate->name }}">{{ $rsCate->name }}</a>            
             <span class="navigation-pipe">&nbsp;</span>

@@ -45,8 +45,9 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
+                    <li role="presentation"><a href="#tien-ich" aria-controls="tien-ich" role="tab" data-toggle="tab">Tiện ích</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
-                                    
+                    <li role="presentation"><a href="#ban-do" aria-controls="ban-do" role="tab" data-toggle="tab">Bản đồ</a></li>
                   </ul>
 
                   <!-- Tab panes -->
@@ -186,7 +187,24 @@
                           <div class="clearfix"></div>
                         <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
-                      
+                     <div role="tabpanel" class="tab-pane" id="tien-ich">
+                        <div class="form-group" style="margin-top:10px;margin-bottom:10px" id="load-tien-ich"> 
+                              @if($tienIchLists)
+                                <?php $i_ti = 0; ?>
+                                @foreach($tienIchLists as $ti)
+                                <?php $i_ti++; ?>
+                                <div class="col-md-4">
+                                  <input type="checkbox" value="{{ $ti->id }}" name="tien_ich[]" id="tien_ich_{{ $i_ti }}"> 
+                                  <label style="cursor:poiter;text-transform:uppercase; font-weight:normal" for="tien_ich_{{ $i_ti }}">{{ $ti->name }}</label>
+                                </div>
+                                @endforeach 
+                              @else
+                              <p>Chưa có tiện ích nào.</p>
+                              @endif
+                              <div class="clearfix"></div>
+                        </div>
+
+                     </div><!--end tien ich--> 
                      <div role="tabpanel" class="tab-pane" id="settings">
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
                          
@@ -202,7 +220,12 @@
                         </div>
 
                      </div><!--end hinh anh-->
-                     
+                      <div role="tabpanel" class="tab-pane" id="ban-do">
+                        <div class="form-group" style="margin-top:10px;margin-bottom:10px"> 
+                         sdfasgdg
+                        </div>
+
+                     </div><!--end ban do--> 
                   </div>
 
                 </div>
@@ -293,6 +316,7 @@
 </div>
 <input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple') }}">
 <input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
+<input type="hidden" id="route_get_tien_ich" value="{{ route('product.ajax-get-tien-ich') }}">
 <style type="text/css">
   .nav-tabs>li.active>a{
     color:#FFF !important;
@@ -364,174 +388,17 @@ $(document).on('click', '#btnSaveTagAjax', function(){
        }
     });
 
-$(document).on('click', '.checkSelect', function(){
-  var type = $('#search_type').val();
-  var obj = $(this);
-  if( type == "phukien"){
-    var str_sp_phukien = $('#str_sp_phukien').val();
-    if(obj.prop('checked') == true){
-      str_sp_phukien += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_phukien = str_sp_phukien.replace(str, '');
-    }
-    $('#str_sp_phukien').val(str_sp_phukien);
-  }else if( type == "tuongtu"){
-    var str_sp_tuongtu = $('#str_sp_tuongtu').val();
-    if(obj.prop('checked') == true){
-      str_sp_tuongtu += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_tuongtu = str_sp_tuongtu.replace(str, '');
-    }
-    $('#str_sp_tuongtu').val(str_sp_tuongtu);
-  }else{ // so sanh
-    var str_sp_sosanh = $('#str_sp_sosanh').val();
-    if(obj.prop('checked') == true){
-      str_sp_sosanh += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_sosanh = str_sp_sosanh.replace(str, '');
-    }
-    $('#str_sp_sosanh').val(str_sp_sosanh);
-  }
-});
-$(document).on('click', '.btnRemoveRelated', function(){
-  if( confirm ("Bạn có chắc chắn không ?")){
-    var obj = $(this);
-    var type = obj.attr('data-type');
-    var value = obj.attr('data-value');
-    var str_sp = $('#str_sp_' + type).val();
-    console.log(str_sp);
-      var str = value + ',';
-      console.log(value);
-      console.log(str);
-      str_sp = str_sp.replace(str, '');
-    console.log(str_sp);
-    $('#str_sp_' + type).val(str_sp);
-    $('#row-'+ type + '-' + value).remove();
-    
 
 
-
-  }
-});
-
-$(document).on('click', '#btnSearchAjax', function(){
-  filterAjax($('#search_type').val());
-});
-$(document).on('keypress', '#name_search', function(e){
-  if(e.which == 13) {
-      e.preventDefault();
-      filterAjax($('#search_type').val());
-  }
-});
-$(document).on('click', 'button.btnSaveSearch',function(){
-  var type = $('#search_type').val();  
-  if (type == "phukien"){
-    str_value = $('#str_sp_phukien').val();
-  }else if( type == "tuongtu"){
-    str_value = $('#str_sp_tuongtu').val();
-  }else{
-    str_value = $('#str_sp_sosanh').val();
-  }
-  if( str_value != '' ){
-    
-    $.ajax({
-          url: '{{ route("product.ajax-save-related") }}',
-          type: "POST",
-          async: true,      
-          data: {          
-            type : type,    
-            str_value : str_value,
-            _token: "{{ csrf_token() }}"
-          },     
-          success: function (response) {
-            if (type == "phukien"){
-              
-              $('#dataPhuKien').html(response);
-
-            }else if( type == "tuongtu"){
-
-              $('#dataTuongTu').html(response);
-
-            }else{
-
-              $('#dataSoSanh').html(response);
-
-            }
-            $('#myModalSearch').modal('hide');
-            
-          }
-    });
-    
-  }else{
-    alert('Vui lòng chọn ít nhất 1 sản phẩm.');
-    return false;
-  }
-
-});
     $(document).ready(function(){
-      $('#btnUploadPro').click(function(){        
-        $('#file-pro').click();
-      });      
-      var files = "";
-      $('#file-pro').change(function(e){
-         files = e.target.files;
-         
-         if(files != ''){
-           var dataForm = new FormData();        
-          $.each(files, function(key, value) {
-             dataForm.append('file', value);
-          });   
-          
-          dataForm.append('date_dir', 1);
-          dataForm.append('folder', 'tmp');
-
-          $.ajax({
-            url: $('#route_upload_tmp_image').val(),
-            type: "POST",
-            async: false,      
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              if(response.image_path){
-                $('#thumbnail_image_pro').attr('src',$('#upload_url').val() + response.image_path);
-                $( '#image_pro' ).val( response.image_path );
-                $( '#pro_name' ).val( response.image_name );
-              }
-              console.log(response.image_path);
-                //window.location.reload();
-            },
-            error: function(response){                             
-                var errors = response.responseJSON;
-                for (var key in errors) {
-                  
-                }
-                //$('#btnLoading').hide();
-                //$('#btnSave').show();
-            }
-          });
-        }
-      });
+     
          
       $('#type').change(function(){
         location.href="{{ route('product.create') }}?type=" + $(this).val();
       })
       $(".select2").select2();
       $('#dataForm').submit(function(){
-        /*var no_cate = $('input[name="category_id[]"]:checked').length;
-        if( no_cate == 0){
-          swal("Lỗi!", "Chọn ít nhất 1 thể loại!", "error");
-          return false;
-        }
-        var no_country = $('input[name="country_id[]"]:checked').length;
-        if( no_country == 0){
-          swal("Lỗi!", "Chọn ít nhất 1 quốc gia!", "error");
-          return false;
-        }        
-        */
+        
         $('#btnSave').hide();
         $('#btnLoading').show();
       });
@@ -618,6 +485,21 @@ $(document).on('click', 'button.btnSaveSearch',function(){
          }
       });
       
+      $('#district_id').change(function(){
+         
+            $.ajax({
+              url: $('#route_get_tien_ich').val(),
+              type: "GET",
+              async: false,      
+              data: {
+                district_id : $(this).val()
+              },              
+              success: function (response) {
+                $('#load-tien-ich').html(response)             
+              }
+            });
+        
+      });
     });
     
 </script>

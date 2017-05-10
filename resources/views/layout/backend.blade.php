@@ -33,7 +33,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" >
 <div class="wrapper">
   @include('layout.backend.header')
   @if(Auth::user()->email != "huongll@icho.vn" && \Request::route()->getName() != "compare.index" )

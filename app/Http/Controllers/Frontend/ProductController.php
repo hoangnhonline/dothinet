@@ -13,6 +13,7 @@ use App\Models\Street;
 use App\Models\Project;
 use App\Models\EstateType;
 use App\Models\MetaData;
+use App\Models\Pages;
 use Helper, File, Session, Auth;
 use Mail;
 

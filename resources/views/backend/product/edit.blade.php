@@ -47,7 +47,9 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
+                    <li role="presentation"><a href="#tien-ich" aria-controls="tien-ich" role="tab" data-toggle="tab">Tiện ích</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
+                    <li role="presentation"><a href="#ban-do" aria-controls="ban-do" role="tab" data-toggle="tab">Bản đồ</a></li>
                                     
                   </ul>
 
@@ -188,7 +190,24 @@
                           <div class="clearfix"></div>
                         <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
-                      
+                      <div role="tabpanel" class="tab-pane" id="tien-ich">
+                        <div class="form-group" style="margin-top:10px;margin-bottom:10px" id="load-tien-ich"> 
+                              @if($tienIchLists)
+                                <?php $i_ti = 0; ?>
+                                @foreach($tienIchLists as $ti)
+                                <?php $i_ti++; ?>
+                                <div class="col-md-4">
+                                  <input type="checkbox" value="{{ $ti->id }}" {{ in_array($value->id, $tienIchSelected) || (old('tien_ich') && in_array($value->id, old('tien_ich'))) ? "selected" : "" }} name="tien_ich[]" id="tien_ich_{{ $i_ti }}"> 
+                                  <label style="cursor:poiter;text-transform:uppercase; font-weight:normal" for="tien_ich_{{ $i_ti }}">{{ $ti->name }}</label>
+                                </div>
+                                @endforeach 
+                              @else
+                              <p>Chưa có tiện ích nào.</p>
+                              @endif
+                              <div class="clearfix"></div>
+                        </div>
+
+                     </div><!--end tien ich-->
                      <div role="tabpanel" class="tab-pane" id="settings">
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
                          
@@ -218,7 +237,12 @@
                         </div>
 
                      </div><!--end hinh anh-->
-                     
+                     <div role="tabpanel" class="tab-pane" id="ban-do">
+                        <div class="form-group" style="margin-top:10px;margin-bottom:10px"> 
+                         sdfasgdg
+                        </div>
+
+                     </div><!--end ban do-->
                   </div>
 
                 </div>
@@ -404,19 +428,8 @@ $(document).on('keypress', '#name_search', function(e){
         location.href="{{ route('product.create') }}?type=" + $(this).val();
       })
       $(".select2").select2();
-      $('#dataForm').submit(function(){
-        /*var no_cate = $('input[name="category_id[]"]:checked').length;
-        if( no_cate == 0){
-          swal("Lỗi!", "Chọn ít nhất 1 thể loại!", "error");
-          return false;
-        }
-        var no_country = $('input[name="country_id[]"]:checked').length;
-        if( no_country == 0){
-          swal("Lỗi!", "Chọn ít nhất 1 quốc gia!", "error");
-          return false;
-        }        
-        */
-        //$('#btnSave').hide();
+      $('#dataForm').submit(function(){      
+        $('#btnSave').hide();
         $('#btnLoading').show();
       });
     

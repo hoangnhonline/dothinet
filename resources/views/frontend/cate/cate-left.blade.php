@@ -30,7 +30,7 @@
 
                         ?>
                         @foreach($priceArr as $price)                                   
-                        <li><span></span><a href="{{ route('theo-gia-danh-muc-cha',['slugLoaiSp' => $rs->slug, 'slugGia' => $price->alias]) }}">{{ $price->name }}</a></li>
+                        <li><span></span><a href="{{ route('theo-gia-danh-muc',['slugLoaiSp' => $rs->slug, 'slugGia' => $price->alias]) }}">{{ $price->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
