@@ -239,7 +239,10 @@
                      </div><!--end hinh anh-->
                      <div role="tabpanel" class="tab-pane" id="ban-do">
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px"> 
-                         sdfasgdg
+                         <div id="panel" style="margin-left: -260px" style="line-height: normal">
+                              <input id="searchTextField" type="text" size="50" style="height: 20px;">
+                          </div>
+                          <div id="map-canvas"></div>
                         </div>
 
                      </div><!--end ban do-->
@@ -249,7 +252,8 @@
                   
             </div>
             <div class="box-footer">
-             
+              <input type="hidden" name="latt" id="latitude" value="{{ old('latt', $detail->latt) }}" />
+              <input type="hidden" name="longt" id="longitude" value="{{ old('longt', $detail->longt) }}" />
               <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
               <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
               <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index', ['estate_type_id' => $detail->estate_type_id])}}">Hủy</a>
@@ -307,6 +311,39 @@
   }
 
 </style>
+<style>
+      #map-canvas, #map_canvas {
+        height: 350px;
+        width:100%;
+    }
+
+    @media print {
+        html, body {
+            height: auto;
+        }
+
+        #map-canvas, #map_canvas {
+            height: 350px;
+            width:100%;
+        }
+    }
+
+    #panel {
+        position: absolute;
+        left: 60%;
+        margin-left: -100px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+    }
+    input {
+        border: 1px solid  rgba(0, 0, 0, 0.5);
+    }
+    input.notfound {
+        border: 2px solid  rgba(255, 0, 0, 0.4);
+    }
+</style>
 <!-- Modal -->
 <div id="tagModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
@@ -345,8 +382,137 @@
 @stop
 
 @section('javascript_page')
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAhxs7FQ3DcyDm8Mt7nCGD05BjUskp_k7w&amp;libraries=places"></script>
 <script type="text/javascript">
+
+
 $(document).ready(function(){
+  var geocoder = new google.maps.Geocoder();
+
+    function geocodePosition(pos) {
+        geocoder.geocode({
+            latLng: pos
+        }, function(responses) {
+        });
+    }
+    function initialize() {
+        @if($detail->longt && $detail->latt)
+        var latLng = new google.maps.LatLng({{ $detail->longt }}, {{ $detail->latt }});        
+        @else
+        var latLng = new google.maps.LatLng(10.753151, 106.73088499999994);
+        @endif
+        
+        var mapOptions = {
+            center: latLng,
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+                mapOptions);
+        var input = /** @type {HTMLInputElement} */(document.getElementById('searchTextField'));
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.bindTo('bounds', map);
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: latLng
+        });
+        geocodePosition(marker.getPosition());
+            pos = marker.getPosition();
+
+            var latitude = 0;
+            var longitude = 0;
+            var countIndex = 0;
+            $.each(pos, function(index, value) {
+                countIndex++;
+                if(countIndex==1) latitude = value;
+                if(countIndex==2) {longitude = value;return;}
+            });
+
+            geocoder.geocode({
+                latLng: pos
+            }, function(responses) {
+                if (responses && responses.length > 0) {
+                    $('#latitude').val(latitude);
+                    $('#longitude').val(longitude);
+                }
+            });
+        marker.setDraggable(true);
+        geocodePosition(latLng);
+
+        google.maps.event.addListener(marker, 'dragend', function() {
+            geocodePosition(marker.getPosition());
+            pos = marker.getPosition();
+
+
+            var latitude = 0;
+            var longitude = 0;
+            var countIndex = 0;
+            $.each(pos, function(index, value) {
+                countIndex++;
+                if(countIndex==1) latitude = value;
+                if(countIndex==2) {longitude = value;return;}
+            });
+
+
+            geocoder.geocode({
+                latLng: pos
+            }, function(responses) {
+                if (responses && responses.length > 0) {
+                    $('#latitude').val(latitude);
+                    $('#longitude').val(longitude);
+                }
+            });
+        });
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            marker.setVisible(false);
+            input.className = '';
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                // Inform the user that the place was not found and return.
+                input.className = 'notfound';
+                return;
+            }
+
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);  // Why 17? Because it looks good.
+            }
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+
+            // geocodePosition(marker.getPosition());
+            pos = marker.getPosition();
+
+            var latitude = 0;
+            var longitude = 0;
+            var countIndex = 0;
+            $.each(pos, function(index, value) {
+                    countIndex++;
+                    if(countIndex==1) latitude = value;
+                    if(countIndex==2) {longitude = value;return;}
+            });
+
+
+            geocoder.geocode({
+                latLng: pos
+            }, function(responses) {
+                if (responses && responses.length > 0) {
+                    $('#latitude').val(latitude);
+                    $('#longitude').val(longitude);
+                }
+            });
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+$('#searchTextField').on('keypress', function(e) {
+        return e.which !== 13;
+    });
   $('#btnAddTag').click(function(){
       $('#tagModal').modal('show');
   });

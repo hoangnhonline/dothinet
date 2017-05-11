@@ -54,13 +54,9 @@ class UserController extends Controller
         if (Auth::validate($dataArr)) {
 
             if (Auth::attempt($dataArr)) {
-              if($request->email == "huongll@icho.vn"){
-                return redirect()->route('product.short');
-              }else{
-                return redirect()->route('product.index');
-              }
               
-
+                return redirect()->route('dashboard.index');
+              
             }
 
         }else {

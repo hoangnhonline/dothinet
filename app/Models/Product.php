@@ -56,7 +56,9 @@ class Product extends Model  {
                             'meta_id',
                             'customer_id',
                             'thumbnail_id',
-                            'cart_status'
+                            'cart_status',
+                            'longt',
+                            'latt'
                         ];
 
     public static function productTag( $id )

@@ -18,7 +18,35 @@ class SettingsController  extends Controller
 
         return view('backend.settings.index', compact( 'settingArr'));
     }
+     public function noti(Request $request)
+    {              
+        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
 
+        return view('backend.settings.noti', compact( 'settingArr'));
+    }
+    public function dashboard(Request $request)
+    {              
+        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
+
+        return view('backend.dashboard.index', compact( 'settingArr'));
+    }
+    public function storeNoti(Request $request){
+
+        $dataArr = $request->all();
+
+        $dataArr['updated_user'] = Auth::user()->id;
+
+        unset($dataArr['_token']);       
+
+        foreach( $dataArr as $key => $value ){
+            $data['value'] = $value;
+            Settings::where( 'name' , $key)->update($data);
+        }
+
+        Session::flash('message', 'Cập nhật thành công.');
+
+        return redirect()->route('settings.noti');
+    }
     public function update(Request $request){
 
     	$dataArr = $request->all();

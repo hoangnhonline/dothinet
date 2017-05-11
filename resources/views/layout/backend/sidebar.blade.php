@@ -95,7 +95,7 @@
           <span>Banner</span>          
         </a>       
       </li>      
-      <li class="treeview {{ in_array(\Request::route()->getName(), ['account.index', 'info-seo.index', 'settings.index']) ? 'active' : '' }}">
+      <li class="treeview {{ in_array(\Request::route()->getName(), ['account.index', 'info-seo.index', 'settings.index', 'settings.noti']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa  fa-gears"></i>
           <span>Cài đặt</span>
@@ -104,6 +104,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
+          
+        <li {{ \Request::route()->getName() == "settings.noti" ? "class=active" : "" }}><a href="{{ route('settings.noti') }}"><i class="fa fa-circle-o"></i> Thông báo chung</a></li>
           <li {{ \Request::route()->getName() == "settings.index" ? "class=active" : "" }}><a href="{{ route('settings.index') }}"><i class="fa fa-circle-o"></i> Thông tin NhaDat</a></li>
           <li {{ \Request::route()->getName() == "info-seo.index" ? "class=active" : "" }}><a href="{{ route('info-seo.index') }}"><i class="fa fa-circle-o"></i> Cài đặt SEO</a></li>
           <li {{ \Request::route()->getName() == "account.index" ? "class=active" : "" }}><a href="{{ route('account.index') }}"><i class="fa fa-circle-o"></i> Users</a></li>          

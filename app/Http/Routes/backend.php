@@ -5,17 +5,21 @@ Route::post('backend/login', ['as' => 'backend.check-login', 'uses' => 'Backend\
 Route::get('backend/logout', ['as' => 'backend.logout', 'uses' => 'Backend\UserController@logout']);
 Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => 'isAdmin'], function()
 {    
+    Route::get('dashboard', ['as' => 'dashboard.index', 'uses' => "SettingsController@dashboard"]);
     Route::group(['prefix' => 'compare'], function () {
         Route::get('/', ['as' => 'compare.index', 'uses' => 'CompareController@index']);
     });
     Route::group(['prefix' => 'settings'], function () {
         Route::get('/', ['as' => 'settings.index', 'uses' => 'SettingsController@index']);
         Route::post('/update', ['as' => 'settings.update', 'uses' => 'SettingsController@update']);
+        Route::get('/noti', ['as' => 'settings.noti', 'uses' => 'SettingsController@noti']);        
+        Route::post('/storeNoti', ['as' => 'settings.store-noti', 'uses' => 'SettingsController@storeNoti']);
     });
     Route::group(['prefix' => 'report'], function () {
         Route::get('/', ['as' => 'report.index', 'uses' => 'ReportController@index']);     
         Route::post('/search-price-other-site', ['as' => 'crawler.search-price-other-site', 'uses' => 'CompareController@search']);
     });
+
     Route::group(['prefix' => 'cart'], function () {
         Route::get('/', ['as' => 'cart.index', 'uses' => 'CartController@index']);
         Route::get('/create', ['as' => 'cart.create', 'uses' => 'CartController@create']);
