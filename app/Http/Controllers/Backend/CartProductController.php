@@ -22,6 +22,7 @@ class CartProductController extends Controller
         $cart_id = $request->cart_id;
         $items = CartProduct::where('cart_id', $request->cart_id)->paginate(48);
         $cartDetail = Cart::find($request->cart_id);
+
         return view('backend.cart-product.index', compact( 'items', 'cartDetail', 'cart_id'));
     }
 
@@ -35,7 +36,7 @@ class CartProductController extends Controller
         $cart_id = $request->cart_id;
 
         $cartDetail = Cart::find($cart_id);
-
+  
         return view('backend.cart-product.create', compact('cart_id', 'cartDetail'));
     }
 
@@ -56,8 +57,7 @@ class CartProductController extends Controller
             'name.required' => 'Bạn chưa nhập tên'
             
         ]);
-
-        $dataArr['slug'] = Helper::changeFileName($dataArr['name']);  
+        
         $dataArr['user_id'] = Auth::user()->id;
 
         CartProduct::create($dataArr);
@@ -118,7 +118,7 @@ class CartProductController extends Controller
 
         Session::flash('message', 'Cập nhật thành công');
 
-        return redirect()->route('cart-product.edit', $dataArr['id']);
+        return redirect()->route('cart-product.index', ['cart_id' => $dataArr['cart_id']]);
     }
 
     /**

@@ -3,17 +3,32 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>Tags</h1>
+    <h1>
+       @if($cartDetail->type == 1)
+      Căn hộ
+      @else
+      Nền
+      @endif
+      của
+      <span style="color:red">{{ $cartDetail->name }}</span>
+    </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('tag.index') }}">Tags</a></li>
+      <li><a href="{{ route('cart-product.index', ['cart_id' => $cart_id]) }}">
+      @if($cartDetail->type == 1)
+      Căn hộ
+      @else
+      Nền
+      @endif</a></li>
       <li class="active">Chỉnh sửa</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default btn-sm " href="{{ route('tag.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm " href="{{ route('cart-product.index', ['cart_id' => $cart_id]) }}" style="margin-bottom:5px">Quay lại</a>
+    <form role="form" method="POST" action="{{ route('cart-product.update') }}">
+    <input type="hidden" name="id" value="{{ $detail->id }}" >
     <div class="row">
       <!-- left column -->
 
@@ -23,12 +38,13 @@
           <div class="box-header with-border">
             <h3 class="box-title">Chỉnh sửa</h3>
           </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-          <form role="form" method="POST" action="{{ route('tag.update') }}">
+          <!-- /.box-header -->               
             {!! csrf_field() !!}
-            <input type="hidden" name="id" value="{{ $detail->id }}">
+
             <div class="box-body">
+              @if(Session::has('message'))
+              <p class="alert alert-info" >{{ Session::get('message') }}</p>
+              @endif
               @if (count($errors) > 0)
                   <div class="alert alert-danger">
                       <ul>
@@ -37,44 +53,63 @@
                           @endforeach
                       </ul>
                   </div>
-              @endif
-              <div class="form-group">
-                <label for="email">Loại </label>
-                <select class="form-control" name="type" id="type">                                
-                  <option value="1" {{ 1 ==  $detail->type ? "selected" : "" }}>BĐS</option>
-                  <option value="2" {{ 2 ==  $detail->type ? "selected" : "" }}>Bài viết</option>
-                  <option value="3" {{ 3 ==  $detail->type ? "selected" : "" }}>Tiện ích xung quanh</option>
-                </select>
-              </div>
-              <div class="form-group" id="div_tien_ich" @if( old('type', $detail->type) != 3 ) style="display:none" @endif>
-                <label for="email">Quận</label>
-                  <select class="form-control" name="district_id" id="district_id" data-live-search="true">
-                      @foreach( $districtList as $value )
-                      <option value="{{ $value->id }}"
-                      {{ old('district_id') == $value->id ? "selected" : "" }}                           
+              @endif                
+                 <!-- text input -->
+                <div class="form-group col-md-6">
+                  <label>Tên <span class="red-star">*</span></label>
+                  <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $detail->name) }}">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Diện tích </label>
+                  <input type="text" class="form-control" name="area" id="area" value="{{ old('area', $detail->area) }}">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Giá </label>
+                  <input type="text" class="form-control" name="price" id="price" value="{{ old('price', $detail->price) }}">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Hướng </label>
+                  <input type="text" class="form-control" name="direction" id="direction" value="{{ old('direction', $detail->direction) }}">
+                </div>
+                <input type="hidden" name="cart_id" value="{{ $cart_id }}" >
+                <input type="hidden" name="type" value="{{ $cartDetail->type }}">
+                @if($cartDetail->type == 1)
+                <div class="form-group col-md-6">
+                  <label>Lầu </label>
+                  <input type="text" class="form-control" name="floor" id="floor" value="{{ old('floor', $detail->price) }}">
+                </div>
 
-                      >{{ $value->name }}</option>
-                      @endforeach
+                <div class="form-group col-md-6">
+                  <label>Số phòng </label>
+                  <input type="text" class="form-control" name="no_room" id="no_room" value="{{ old('no_room', $detail->no_room) }}">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Số WC </label>
+                  <input type="text" class="form-control" name="no_wc" id="no_wc" value="{{ old('no_wc', $detail->no_wc) }}">
+                </div>               
+                @endif
+                <div class="form-group col-md-6">
+                  <label>Hoa hồng </label>
+                  <input type="text" class="form-control" name="hoa_hong" id="hoa_hong" value="{{ old('hoa_hong', $detail->hoa_hong) }}">
+                </div> 
+                <div class="form-group col-md-12">
+                  <label for="email">Trạng thái </label>
+                  <select class="form-control" name="status" id="status">                                
+                    <option value="1" {{ 1 ==  old('status', $detail->status) ? "selected" : "" }}>Chưa bán</option>
+                    <option value="2" {{ 2 ==  old('status', $detail->status) ? "selected" : "" }}>Đã bán</option>
+                    <option value="3" {{ 3 ==  old('status', $detail->status) ? "selected" : "" }}>Đã cọc</option>
                   </select>
-              </div>
-               <!-- text input -->
-              <div class="form-group">
-                <label>Tag <span class="red-star">*</span></label>
-                <input type="text" class="form-control" name="name" id="name" value="{{ $detail->name }}">
-              </div>
-              <div class="form-group">
-                <label>Slug <span class="red-star">*</span></label>
-                <input type="text" class="form-control" name="slug" id="slug" value="{{ $detail->slug }}">
-              </div>
-              <!-- textarea -->
-              <div class="form-group">
-                <label>Mô tả</label>
-                <textarea class="form-control" rows="4" name="description" id="description">{{ $detail->description }}</textarea>
-              </div>            
-            </div>                    
+                </div>
+                <!-- textarea -->
+                <div class="form-group col-md-12">
+                  <label>Ghi chú</label>
+                  <textarea class="form-control" rows="3" name="notes" id="notes">{{ old('notes', $detail->notes) }}</textarea>
+                </div>            
+                <div class="clearfix"></div>    
+            </div>                        
             <div class="box-footer">
               <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('tag.index')}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('cart-product.index', ['cart_id' => $cart_id])}}">Hủy</a>
             </div>
             
         </div>
@@ -83,32 +118,7 @@
       </div>
       <div class="col-md-5">
         <!-- general form elements -->
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Thông tin SEO</h3>
-          </div>
-         <div class="box-body">
-              <input type="hidden" name="meta_id" value="{{ $detail->meta_id }}">
-              <div class="form-group">
-                <label>Meta title </label>
-                <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{ !empty((array)$metadata) ? $meta->title : "" }}">
-              </div>
-              <!-- textarea -->
-              <div class="form-group">
-                <label>Meta desciption</label>
-                <textarea class="form-control" rows="6" name="meta_description" id="meta_description">{{ !empty((array)$metadata) ? $meta->description : "" }}</textarea>
-              </div>  
-
-              <div class="form-group">
-                <label>Meta keywords</label>
-                <textarea class="form-control" rows="4" name="meta_keywords" id="meta_keywords">{{ !empty((array)$metadata) ? $meta->keywords : "" }}</textarea>
-              </div>  
-              <div class="form-group">
-                <label>Custom text</label>
-                <textarea class="form-control" rows="6" name="custom_text" id="custom_text">{{ !empty((array)$metadata) ? $meta->custom_text : ""  }}</textarea>
-              </div>
-            
-          </div>   
+       
         <!-- /.box -->     
 
       </div>
@@ -119,45 +129,6 @@
   </section>
   <!-- /.content -->
 </div>
-
 @stop
 @section('javascript_page')
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#type').change(function(){
-      var type = $(this).val();
-      if(type != 3){
-        $('#div_tien_ich').hide();
-      }else{
-        $('#div_tien_ich').show();
-      }
-    });
-    $('#name').change(function(){
-         var name = $.trim( $(this).val() );
-         if( name != '' && $('#slug').val() == ''){
-            $.ajax({
-              url: $('#route_get_slug').val(),
-              type: "POST",
-              async: false,      
-              data: {
-                str : name
-              },              
-              success: function (response) {
-                if( response.str ){                  
-                  $('#slug').val( response.str );
-                }                
-              },
-              error: function(response){                             
-                  var errors = response.responseJSON;
-                  for (var key in errors) {
-                    
-                  }
-                  //$('#btnLoading').hide();
-                  //$('#btnSave').show();
-              }
-            });
-         }
-      });
-  });
-</script>>
 @stop

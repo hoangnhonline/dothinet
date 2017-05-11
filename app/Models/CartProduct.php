@@ -35,7 +35,8 @@ class CartProduct extends Model  {
                             'display_order',
                             'hoa_hong',
                             'status',
-                            'user_id'
+                            'user_id',
+                            'notes'
                         ];
     
 }
