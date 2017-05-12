@@ -4,7 +4,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Danh mục bài viết 
+    Danh mục bài viết
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -59,9 +59,9 @@
                 
                 <a class="btn btn-default btn-sm" href="{{ route('news-list', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
                   <a class="btn btn-primary" href="{{ route('articles.index', ['id' => $item->id])}}" ><span class="badge">{{ $item->articles->count() }}</span> Bài viết </a>
-                  <a href="{{ route( 'articles-cate.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'articles-cate.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   @if( $item->articles->count() == 0)
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'articles-cate.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'articles-cate.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                   @endif
                 </td>
               </tr> 

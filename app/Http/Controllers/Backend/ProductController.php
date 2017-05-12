@@ -19,6 +19,7 @@ use App\Models\PriceUnit;
 use App\Models\Project;
 use App\Models\Tag;
 use App\Models\TagObjects;
+use App\Models\Direction;
 
 use Helper, File, Session, Auth, Hash, URL;
 
@@ -32,7 +33,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;        
+        $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;   
+        $arrSearch['cart_status'] = $cart_status = isset($request->cart_status) ? $request->cart_status : 1;     
         $arrSearch['type'] = $type = isset($request->type) ? $request->type : 1;
         $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
         $arrSearch['district_id'] = $district_id = isset($request->district_id) ? $request->district_id : 2;
@@ -46,6 +48,9 @@ class ProductController extends Controller
         
         if( $estate_type_id ){
             $query->where('product.estate_type_id', $estate_type_id);
+        }
+        if( $cart_status ){
+            $query->where('product.cart_status', $cart_status);
         }
         if( $district_id ){
             $query->where('product.district_id', $district_id);
@@ -122,6 +127,7 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $tagArr = Tag::where('type', 1)->get();
+        $directionArr = Direction::all();
         $estate_type_id = $request->estate_type_id ? $request->estate_type_id : null;
         $type = $request->type ? $request->type : 1;    
         
@@ -140,7 +146,7 @@ class ProductController extends Controller
 
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
 
-        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists'));
+        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr'));
     }
 
     /**
@@ -346,8 +352,8 @@ class ProductController extends Controller
         $tagSelected = Product::productTag($id);
         $tienIchSelected = Product::productTienIch($id);
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $detail->district_id])->get();
-
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr', 'tienIchLists', 'tienIchSelected'));
+        $directionArr = Direction::all();
+        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr', 'tienIchLists', 'tienIchSelected', 'directionArr'));
     }
     public function ajaxDetail(Request $request)
     {       

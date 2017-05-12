@@ -82,8 +82,8 @@
                   {{ $loaiSp[$item->loai_id] }}
                 </td>                               
                 <td style="white-space:nowrap">                  
-                  <a href="{{ route( 'thuoc-tinh.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning">Chỉnh sửa</a>                                   
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'thuoc-tinh.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger">Xóa</a>
+                  <a href="{{ route( 'thuoc-tinh.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                                   
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'thuoc-tinh.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                   
                 </td>
               </tr> 

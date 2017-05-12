@@ -26,22 +26,28 @@
           <h3 class="panel-title">Bộ lọc</h3>
         </div>
         <div class="panel-body">
-          <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('product.index') }}">
-           
-          
-            
-            <div class="form-group">
-              <label for="email">Loại</label>
+          <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('product.index') }}">            
+            <div class="form-group">              
               <select class="form-control" name="type" id="type">
+                  <option value="">--Loại--</option>
                   <option value="1" {{ $arrSearch['type'] == 1 ? "selected" : "" }}>Bán</option>
                   <option value="2" {{ $arrSearch['type'] == 2 ? "selected" : "" }}>Cho thuê</option>
               </select>
             </div>
+            <div class="form-group">              
+              <select class="form-control" name="cart_status" id="cart_status">
+                  <option value="">--Trạng thái--</option>
+                  <option value="1" {{ $arrSearch['cart_status'] == 1 ? "selected" : "" }}>
+                    {{ $arrSearch['type'] == 1 ? "Chưa bán" : "Còn trống" }}
+                  </option>
+                  <option value="2" {{ $arrSearch['cart_status'] == 2 ? "selected" : "" }}>
+                    {{ $arrSearch['type'] == 1 ? "Đã bán" : "Đã thuê" }}
+                  </option>
+              </select>
+            </div>
               <div class="form-group">
-              <label for="email">Danh mục con</label>
-
               <select class="form-control" name="estate_type_id" id="estate_type_id">
-                <option value="">--Tất cả--</option>
+                <option value="">--Danh mục--</option>
                 @foreach( $estateTypeArr as $value )
                   <option value="{{ $value->id }}"
                   {{ $arrSearch['estate_type_id'] == $value->id ? "selected" : "" }}                          
@@ -50,10 +56,9 @@
                   @endforeach
               </select>
             </div>
-            <div class="form-group">
-              <label for="email">Quận</label>
+            <div class="form-group">              
               <select class="form-control" name="district_id" id="district_id">
-                <option value="">--Tất cả--</option>
+                <option value="">--Quận--</option>
                   @foreach( $districtList as $value )
                     <option value="{{ $value->id }}"
                     {{ $arrSearch['district_id'] == $value->id ? "selected" : "" }}                        
@@ -62,10 +67,9 @@
                     @endforeach
               </select>
             </div>
-            <div class="form-group">
-              <label for="email">Phường</label>
+            <div class="form-group">              
               <select class="form-control" name="ward_id" id="ward_id">
-                <option value="">--Tất cả--</option>
+                <option value="">--Phường--</option>
                   @foreach( $wardList as $value )
                   <option value="{{ $value->id }}"
                   {{ $arrSearch['ward_id'] == $value->id ? "selected" : "" }}                       
@@ -74,9 +78,8 @@
                   @endforeach
               </select>
             </div>
-            <div class="form-group">
-              <label for="email"> Tiêu đề</label>
-              <input type="text" class="form-control" name="name" value="{{ $arrSearch['name'] }}">
+            <div class="form-group">              
+              <input type="text" placeholder="Tiêu đề" class="form-control" name="name" value="{{ $arrSearch['name'] }}">
             </div>           
             
             <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
@@ -145,9 +148,9 @@
                   <a class="btn btn-default btn-sm" href="{{ route('chi-tiet', [$item->slug_loai, $item->slug, $item->id] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
                   
                   
-                  <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
 
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
 
                 </td>
               </tr> 
@@ -205,7 +208,7 @@ $(document).ready(function(){
     obj.parent().parent().parent().submit(); 
   });
   
-  $('#estate_type_id, #type, #district_id, #ward_id').change(function(){    
+  $('#estate_type_id, #type, #district_id, #ward_id, #cart_status').change(function(){    
     $('#searchForm').submit();
   });  
   $('#table-list-data tbody').sortable({

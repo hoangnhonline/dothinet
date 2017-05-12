@@ -49,9 +49,9 @@
                   <a href="{{ route( 'color.edit', [ 'id' => $item->id ]) }}">{{ $item->name }}</a>
                 </td>
                 <td style="white-space:nowrap">                  
-                  <a href="{{ route( 'color.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'color.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   
-                  <a onclick="return callDelete('{{ $item->title }}','{{ route( 'color.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger">Xóa</a>                
+                  <a onclick="return callDelete('{{ $item->title }}','{{ route( 'color.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                
                   
                 </td>
               </tr> 

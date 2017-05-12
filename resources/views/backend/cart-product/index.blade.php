@@ -60,7 +60,10 @@
                 ">
                   <h4>{{ $item->name }}</h4>                 
                   <p style="margin-top:15px;text-align:left">
-                    <a style="color:#FFF;text-transform:uppercase" href="{{ route('cart-product.edit', ['id' => $item->id]) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a style="color:#FFF;text-transform:uppercase" class="btn-sm btn btn-warning" href="{{ route('cart-product.edit', ['id' => $item->id]) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a onclick="return callDelete('{{ $item->name }}','{{ route( 'cart-product.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
                   </p>
                   <span class="tip-content">
                     <table cellpadding="10" cellspacing="0">
@@ -140,6 +143,7 @@
     cursor: pointer;    
     border: 1px solid #CCC;
     text-align: center;
+    border-radius: 5px;
 }
 .chua-ban{
   background-color: #00c0ef;

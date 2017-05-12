@@ -9,7 +9,7 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('articles.index') }}">Bài viết</a></li>
-      <li class="active">Chỉnh sửa</li>
+      <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
     </ol>
   </section>
 
@@ -25,7 +25,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Chỉnh sửa</h3>
+            <h3 class="box-title"><span class="glyphicon glyphicon-pencil"></span></h3>
           </div>
           <!-- /.box-header -->               
             {!! csrf_field() !!}

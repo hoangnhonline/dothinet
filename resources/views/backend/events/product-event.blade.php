@@ -84,7 +84,7 @@
                 </td>
                 <td>                                 
                   
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'events.destroy-product', [ 'sp_id' => $item->sp_id, 'event_id' => $detail->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'events.destroy-product', [ 'sp_id' => $item->sp_id, 'event_id' => $detail->id ]) }}');" class="btn-sm btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
 
                 </td>
               </tr> 

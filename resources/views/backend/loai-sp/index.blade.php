@@ -87,9 +87,9 @@
                     {{ $item->banners->count() }}
                   </span> Banner </a>
                   @endif
-                  <a href="{{ route( 'loai-sp.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'loai-sp.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   @if( $item->cates->count() == 0)
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'loai-sp.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'loai-sp.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                   @endif
                 </td>
               </tr> 

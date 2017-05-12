@@ -63,9 +63,9 @@
                 </td>
                 <td style="white-space:nowrap; text-align:right">
                  
-                  <a href="{{ route( 'loai-sp.edit-thuoc-tinh', [ 'loai_id' => $item->loai_id,'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'loai-sp.edit-thuoc-tinh', [ 'loai_id' => $item->loai_id,'id' => $item->id ]) }}" class="btn-sm btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   
-                  <a onclick="return callDelete('{{ $item->text_hien_thi }}','{{ route( 'loai-sp.destroyThuocTinh', ['loai_id' => $item->loai_id, 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->text_hien_thi }}','{{ route( 'loai-sp.destroyThuocTinh', ['loai_id' => $item->loai_id, 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                  
                 </td>
               </tr> 

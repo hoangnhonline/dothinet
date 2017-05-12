@@ -52,45 +52,27 @@
           <div style="text-align:right">
             {{ $items->appends( ['name' => $name, 'type' => $type] )->links() }}
           </div>
-          <table class="table table-bordered" id="table-list-data">
-            <tr>
-              <th style="width: 1%">#</th>
-              <th>Tên</th>
-              <th width="1%;white-space:nowrap">Thao tác</th>
-            </tr>
-            <tbody>
-            @if( $items->count() > 0 )
-              <?php $i = 0; ?>
-              @foreach( $items as $item )
-                <?php $i ++; ?>
-              <tr id="row-{{ $item->id }}">
-                <td><span class="order">{{ $i }}</span></td>                
-                <td>                  
-                  <a href="{{ route( 'cart.edit', [ 'id' => $item->id ]) }}">{{ $item->name }}</a>
-                  
-                </td>                
-               
-
-                <td style="white-space:nowrap">  
-                  <a class="btn-sm btn btn-primary" href="{{ route('cart-product.index', ['cart_id' => $item->id]) }}" ><span class="badge">{{ $item->cartProduct->count() }}</span> 
-                  {{ ($type == 1) ? "Căn hộ" :  "Nền" }}
-                   </a>
+          @if( $items->count() > 0 )
+          <div class="col-md-12">
+            @foreach( $items as $item )
+            <div class="col-md-4" style="border:1px solid #CCC;padding:10px;text-align:center; border-radius:5px">
+              <h3><a href="{{ route( 'cart.edit', [ 'id' => $item->id ]) }}">{{ $item->name }}</a></h3>
+              <a class="btn-sm btn btn-primary" href="{{ route('cart-product.index', ['cart_id' => $item->id]) }}" ><span class="badge">{{ $item->cartProduct->count() }}</span> 
+                {{ ($type == 1) ? "Căn hộ" :  "Nền" }}
+                 </a>
+              
+                <a href="{{ route( 'cart.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </a>                  
                 
-                  <a href="{{ route( 'cart.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                  
-                  @if( $item->cartProduct->count() == 0)
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'cart.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>                  
-                  @endif
-                </td>
-              </tr> 
-              @endforeach
-            @else
-            <tr>
-              <td colspan="9">Không có dữ liệu.</td>
-            </tr>
-            @endif
-
-          </tbody>
-          </table>          
+                <a onclick="return callDelete('{{ $item->name }}','{{ route( 'cart.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>                  
+                
+            </div>
+            @endforeach
+          </div>
+          @endif                 
           <div style="text-align:right">          
             {{ $items->appends( ['name' => $name, 'type' => $type] )->links() }}
           </div>

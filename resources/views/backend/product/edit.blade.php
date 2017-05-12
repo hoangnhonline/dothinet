@@ -9,7 +9,7 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('product.index') }}">Sản phẩm</a></li>
-      <li class="active">Chỉnh sửa</li>
+      <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
     </ol>
   </section>
 
@@ -25,7 +25,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Chỉnh sửa</h3>
+            <h3 class="box-title"><span class="glyphicon glyphicon-pencil"></span></h3>
           </div>
           <!-- /.box-header -->               
             {!! csrf_field() !!}          
@@ -47,6 +47,7 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
+                    <li role="presentation"><a href="#lien-he" aria-controls="tien-ich" role="tab" data-toggle="tab">Thông tin liên hệ</a></li>
                     <li role="presentation"><a href="#tien-ich" aria-controls="tien-ich" role="tab" data-toggle="tab">Tiện ích</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
                     <li role="presentation"><a href="#ban-do" aria-controls="ban-do" role="tab" data-toggle="tab">Bản đồ</a></li>
@@ -144,29 +145,55 @@
                               @endforeach
                             </select>
                         </div>
+                        <div class="form-group col-md-12 none-padding">
+                            <label>Địa chỉ</label>
+                             <input type="text" class="form-control" name="full_address" id="full_address" value="{{ old('full_address', $detail->full_address) }}">  
+                        </div>
                         <div class="form-group col-md-4 none-padding">
                           <label>Diện tích</label>                  
                           <input type="text" class="form-control" name="area" id="area" value="{{ old('area', $detail->area) }}">                        
                         </div>
-                        <div class="form-group col-md-4 none-padding pleft-5">
-                            <label>Địa điểm</label>
-                             <input type="text" class="form-control" name="full_address" id="full_address" value="{{ old('full_address', $detail->full_address) }}">  
-                        </div>
+                        
                         <div class=" form-group col-md-4 none-padding pleft-5">
-                          <label>Mặt tiền<span class="red-star">*</span></label>                  
+                          <label>Mặt tiền</label>                  
                           <input type="text" class="form-control" name="front_face" id="front_face" value="{{ old('front_face', $detail->front_face) }}">                        
                         </div>
-                        <div class="form-group col-md-4 none-padding">
-                          <label>Đường trước nhà<span class="red-star">*</span></label>                  
+                        <div class="form-group col-md-4 none-padding pleft-5">
+                          <label>Đường trước nhà</label>                  
                           <input type="text" class="form-control" name="street_wide" id="street_wide" value="{{ old('street_wide', $detail->street_wide) }}">                        
                         </div>
-                        <div class="form-group col-md-4 none-padding pleft-5">
-                          <label>Số tầng<span class="red-star">*</span></label>                  
+                        <div class="form-group col-md-3 none-padding pleft-5">
+                          <label>Số tầng</label>                  
                           <input type="text" class="form-control" name="no_floor" id="no_floor" value="{{ old('no_floor', $detail->no_floor) }}">                        
                         </div>
-                        <div class="form-group col-md-4 none-padding pleft-5">
-                          <label>Số phòng<span class="red-star">*</span></label>                  
+                        <div class="form-group col-md-3 none-padding pleft-5">
+                          <label>Số phòng</label>                  
                           <input type="text" class="form-control" name="no_room" id="no_room" value="{{ old('no_room', $detail->no_room) }}">                        
+                        </div>
+                        <div class="form-group col-md-3 none-padding pleft-5">
+                          <label>Số WC</label>                  
+                          <input type="text" class="form-control" name="no_room" id="no_room" value="{{ old('no_room', $detail->no_room) }}">                        
+                        </div>
+                        <div class="form-group col-md-3 none-padding pleft-5">
+                          <label>Hướng</label>                  
+                          <select class="form-control" name="direction_id" id="direction_id">
+                            @if( $directionArr->count() > 0)
+                              @foreach( $directionArr as $value )
+                              <option value="{{ $value->id }}" {{ old('direction_id', $detail->direction_id) == $value->id  ? "selected" : "" }}>{{ $value->name }}</option>
+                              @endforeach
+                            @endif
+                          </select>                       
+                        </div>
+                        <div class="form-group col-md-12 none-padding" >                  
+                            <label>Trạng thái<span class="red-star">*</span></label>
+                            <select class="form-control" name="cart_status" id="cart_status">
+                              <option value="1" {{ old('cart_status', $detail->cart_status) == 1 ? "selected" : "" }}>
+                                {{ $detail->type == 1 ? "Chưa bán" : "Còn trống" }}
+                              </option>
+                              <option value="2" {{ old('cart_status', $detail->cart_status) == 2 ? "selected" : "" }}>
+                                {{ $detail->type == 1 ? "Đã bán" : "Đã thuê" }}
+                              </option>                              
+                            </select>
                         </div>
                         <div class="input-group">
                           <label>Tags</label>
@@ -183,13 +210,36 @@
                             </button>
                           </span>
                         </div>
-                        <div class="form-group form-group col-md-12 none-padding">
+                        <div class="form-group form-group col-md-12 none-padding" style="margin-top:10px">
                             <label>Mô tả</label>
                             <textarea class="form-control" rows="4" name="description" id="description">{{ old('description', $detail->description) }}</textarea>
                           </div>
                           <div class="clearfix"></div>
                         <div class="clearfix"></div>
-                    </div><!--end thong tin co ban-->                    
+                    </div><!--end thong tin co ban--> 
+                    <div role="tabpanel" class="tab-pane" id="lien-he">
+                        <div class="form-group col-md-6 " >                  
+                            <label>Họ tên</label>
+                            <input type="text" class="form-control" name="contact_name" id="contact_name" value="{{ old('contact_name', $detail->contact_name) }}">
+                        </div>
+                        <div class="form-group col-md-6 none-padding pleft-5" >                  
+                            <label>Địa chỉ</label>
+                            <input type="text" class="form-control" name="contact_address" id="contact_address" value="{{ old('contact_address', $detail->contact_address) }}">
+                        </div>                        
+                        <div class="form-group col-md-6 " >                  
+                            <label>Điện thoại</label>
+                            <input type="text" class="form-control" name="contact_phone" id="contact_phone" value="{{ old('contact_phone', $detail->contact_phone) }}">
+                        </div>
+                        <div class="form-group col-md-6 none-padding pleft-5" >                  
+                            <label>Di động</label>
+                            <input type="text" class="form-control" name="contact_mobile" id="contact_mobile" value="{{ old('contact_mobile', $detail->contact_mobile) }}">
+                        </div>
+                        <div class="form-group col-md-12 " >                  
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="contact_email" id="contact_email" value="{{ old('contact_email', $detail->contact_email) }}">
+                        </div>
+                        <div class="clearfix"></div>
+                     </div><!--end lien he -->                       
                       <div role="tabpanel" class="tab-pane" id="tien-ich">
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px" id="load-tien-ich"> 
                               @if($tienIchLists)
@@ -224,7 +274,7 @@
                                     <img class="img-thumbnail" src="{{ Helper::showImage($hinh) }}" style="width:100%">
                                     <div class="checkbox">                                   
                                       <label><input type="radio" name="thumbnail_id" class="thumb" value="{{ $k }}" {{ $detail->thumbnail_id == $k ? "checked" : "" }}> Ảnh đại diện </label>
-                                      <button class="btn btn-danger btn-sm remove-image" type="button" data-value="{{  $hinh }}" data-id="{{ $k }}" >Xóa</button>
+                                      <button class="btn btn-danger btn-sm remove-image" type="button" data-value="{{  $hinh }}" data-id="{{ $k }}" ><span class="glyphicon glyphicon-trash"></span></button>
                                     </div>
                                     <input type="hidden" name="image_id[]" value="{{ $k }}">
                                   </div>

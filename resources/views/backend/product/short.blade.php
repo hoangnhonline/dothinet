@@ -98,9 +98,9 @@
                 <td style="text-align:right">{{ number_format($item->so_luong_ton) }}</td>               
                 
                 <td style="white-space:nowrap; text-align:right">                 
-                  <button class="btn btn-warning btn-sm btnEdit" data-value="{{ $item->id }}">Chỉnh sửa</button>
+                  <button class="btn btn-warning btn-sm btnEdit" data-value="{{ $item->id }}"><span class="glyphicon glyphicon-pencil"></span></button>
 
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
 
                 </td>
               </tr> 

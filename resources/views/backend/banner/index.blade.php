@@ -58,9 +58,9 @@
                 </td>                                                             
                 <td>{{ $item->ads_url }}</td>
                 <td style="white-space:nowrap; text-align:right">                 
-                  <a href="{{ route( 'banner.edit', [ 'id' => $item->id , 'object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type'] ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'banner.edit', [ 'id' => $item->id , 'object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type'] ]) }}" class="btn-sm btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>                 
                 
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'banner.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'banner.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                 
                 </td>
               </tr> 
