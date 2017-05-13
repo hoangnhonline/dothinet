@@ -36,6 +36,9 @@
 							</h3>
 						</div>
 						<div class="block-contents">
+						@if(Session::has('message'))
+		                <p class="alert alert-info" >{{ Session::get('message') }}</p>
+		                @endif
 						@if (count($errors) > 0)
 		                  <div class="alert alert-danger">
 		                    <ul>
@@ -206,7 +209,7 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Tiêu đề <span>(*)</span>:</label>
 											<div class="col-sm-8">
-												<input type="email" class="form-control form-control2" placeholder="Vui lòng gõ tiếng Việt có dấu để tin đăng được kiểm duyệt nhanh hơn" name="title" id="title">
+												<input type="text" class="form-control form-control2" placeholder="Vui lòng gõ tiếng Việt có dấu để tin đăng được kiểm duyệt nhanh hơn" name="title" id="title">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
@@ -217,10 +220,12 @@
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Cập nhật hình ảnh:</label>
-											<div class="col-sm-8">
+											<div class="col-sm-8" >
 												<p class="text-red" style="padding-top: 12px; padding-bottom: 5px;">(Bạn có thể tải 16 ảnh và mỗi ảnh dung lượng không quá 4mb!)</p>
-												<input type="file" name="file-6[]" id="file-6" class="inputfile inputfile-5" data-multiple-caption="{count} files selected" multiple="">
-												<label for="file-6"></label>
+												<input type="file" id="file-image" class="inputfile inputfile-5" data-multiple-caption="{count} files selected" multiple="">
+												<label for="file-image"></label>
+												<div class="clearfix" style="margin-top:5px"></div>
+												<div id="div-image"></div>
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
@@ -282,33 +287,56 @@
 		</section>
 	</section>
 </section><!-- /main -->
+<input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple-fe') }}">
 @endsection
 @section('javascript_page')
 
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-      $('.btnMuaDetail').click(function() {
-        var product_id = $(this).attr('product-id');
-        add_product_to_cart(product_id);
+<script type="text/javascript">
+	$(document).on('click', '.remove-image', function(){
+  if( confirm ("Bạn có chắc chắn không ?")){
+    $(this).parents('.col-md-3').remove();
+  }
+});
+$(document).ready(function() {
+      var files = "";
+      $('#file-image').change(function(e){
+         files = e.target.files;
+         
+         if(files != ''){
+           var dataForm = new FormData();        
+          $.each(files, function(key, value) {
+             dataForm.append('file[]', value);
+          });   
+          
+          dataForm.append('date_dir', 0);
+          dataForm.append('folder', 'tmp');
+
+          $.ajax({
+            url: $('#route_upload_tmp_image_multiple').val(),
+            type: "POST",
+            async: false,      
+            data: dataForm,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $('#div-image').append(response);
+                if( $('input.thumb:checked').length == 0){
+                  $('input.thumb').eq(0).prop('checked', true);
+                }
+            },
+            error: function(response){                             
+                var errors = response.responseJSON;
+                for (var key in errors) {
+                  
+                }
+                //$('#btnLoading').hide();
+                //$('#btnSave').show();
+            }
+          });
+        }
       });
 
-      function add_product_to_cart(product_id) {
-        $.ajax({
-          url: "{{route('them-sanpham')}}",
-          method: "POST",
-          data : {
-            id: product_id
-          },
-          success : function(data){
-            location.href = '{{route("gio-hang")}}';
-          },
-          error : function(e) {
-            alert( JSON.stringify(e));
-          }
-        });
-      }
-
-		});
-	</script>
+});
+</script>
 @endsection

@@ -178,22 +178,76 @@ class DetailController extends Controller
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
         $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
 
-        $dataArr['status'] = 1;
+        $dataArr['status'] = 2;
         $dataArr['created_user'] = Auth::user()->id;
         $dataArr['updated_user'] = Auth::user()->id;      
-        $dataArr['city_id'] = 1;       
-
+        $dataArr['city_id'] = 1;      
+        unset($dataArr['thumbnail_id']); 
         $rs = Product::create($dataArr);
-
-        $product_id = $rs->id;
+        $product_id = $rs->id;         
+        $this->storeImage( $product_id, $dataArr);       
         
+        Session::flash('message', 'Đăng tin ký gửi thành công');
 
-        $this->storeImage( $product_id, $dataArr);
-        $this->storeMeta($product_id, 0, $dataArr);
-        $this->processRelation($dataArr, $product_id);
-        Session::flash('message', 'Tạo mới sản phẩm thành công');
+        return redirect()->route('ky-gui');
+    }
+    public function storeImage($id, $dataArr){        
+        //process old image
+        $imageIdArr = isset($dataArr['image_id']) ? $dataArr['image_id'] : [];
+        $hinhXoaArr = ProductImg::where('product_id', $id)->whereNotIn('id', $imageIdArr)->lists('id');
+        if( $hinhXoaArr )
+        {
+            foreach ($hinhXoaArr as $image_id_xoa) {
+                $model = ProductImg::find($image_id_xoa);
+                $urlXoa = config('icho.upload_path')."/".$model->image_url;
+                if(is_file($urlXoa)){
+                    unlink($urlXoa);
+                }
+                $model->delete();
+            }
+        }       
 
-        return redirect()->route('product.index', ['estate_type_id' => $dataArr['estate_type_id'], 'type' => $dataArr['type']]);
+        //process new image
+        if( isset( $dataArr['thumbnail_id'])){
+            $thumbnail_id = $dataArr['thumbnail_id'];
+
+            $imageArr = []; 
+
+            if( !empty( $dataArr['image_tmp_url'] )){
+
+                foreach ($dataArr['image_tmp_url'] as $k => $image_url) {
+
+                    if( $image_url && $dataArr['image_tmp_name'][$k] ){
+
+                        $tmp = explode('/', $image_url);
+
+                        if(!is_dir('uploads/'.date('Y/m/d'))){
+                            mkdir('uploads/'.date('Y/m/d'), 0777, true);
+                        }
+
+                        $destionation = date('Y/m/d'). '/'. end($tmp);
+                        
+                        File::move(config('icho.upload_path').$image_url, config('icho.upload_path').$destionation);
+
+                        $imageArr['name'][] = $destionation;
+
+                        $imageArr['is_thumbnail'][] = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
+                    }
+                }
+            }
+            if( !empty($imageArr['name']) ){
+                foreach ($imageArr['name'] as $key => $name) {
+                    $rs = ProductImg::create(['product_id' => $id, 'image_url' => $name, 'display_order' => 1]);                
+                    $image_id = $rs->id;
+                    if( $imageArr['is_thumbnail'][$key] == 1){
+                        $thumbnail_id = $image_id;
+                    }
+                }
+            }
+            $model = Product::find( $id );
+            $model->thumbnail_id = $thumbnail_id;
+            $model->save();
+        }
     }
     public function tags(Request $request)
     {

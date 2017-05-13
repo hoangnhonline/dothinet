@@ -180,7 +180,8 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::get('{id}/destroy', ['as' => 'banner.destroy', 'uses' => 'BannerController@destroy']);
     });
     Route::group(['prefix' => 'product'], function () {
-        Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);        
+        Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']); 
+        Route::get('/kygui', ['as' => 'product.kygui', 'uses' => 'ProductController@kygui']);        
         Route::get('/ajax-get-detail-product', ['as' => 'ajax-get-detail-product', 'uses' => 'ProductController@ajaxDetail']);        
         Route::get('/create/', ['as' => 'product.create', 'uses' => 'ProductController@create']);        
         Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);        
@@ -192,6 +193,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
     });
     Route::post('/tmp-upload', ['as' => 'image.tmp-upload', 'uses' => 'UploadController@tmpUpload']);
     Route::post('/tmp-upload-multiple', ['as' => 'image.tmp-upload-multiple', 'uses' => 'UploadController@tmpUploadMultiple']);
+        Route::post('/tmp-upload-multiple-fe', ['as' => 'image.tmp-upload-multiple-fe', 'uses' => 'UploadController@tmpUploadMultipleFE']);
     Route::post('/update-order', ['as' => 'update-order', 'uses' => 'GeneralController@updateOrder']);
     Route::post('/ck-upload', ['as' => 'ck-upload', 'uses' => 'UploadController@ckUpload']);
     Route::post('/get-slug', ['as' => 'get-slug', 'uses' => 'GeneralController@getSlug']);

@@ -336,7 +336,7 @@
 	<script src="{{ URL::asset('assets/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 	<!-- Js Common -->
 	<script src="{{ URL::asset('assets/js/common.js') }}"></script>
-
+	@yield('javascript_page')
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$.ajaxSetup({

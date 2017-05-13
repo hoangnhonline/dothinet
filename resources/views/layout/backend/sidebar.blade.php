@@ -39,6 +39,12 @@
           @endif
         </ul>
       </li>
+      <li {{ in_array(\Request::route()->getName(), ['product.kygui']) ? "class=active" : "" }}>
+        <a href="{{ route('product.kygui') }}">
+          <i class="fa fa-pencil-square-o"></i> 
+          <span>Tin ký gửi</span>         
+        </a>       
+      </li>
       <li {{ in_array(\Request::route()->getName(), ['cart.create', 'cart.edit', 'cart.index','cart-product.create', 'cart-product.edit', 'cart-product.index']) ? "class=active" : "" }}>
         <a href="{{ route('cart.index') }}">
           <i class="fa fa-pencil-square-o"></i> 

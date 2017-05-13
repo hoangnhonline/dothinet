@@ -87,6 +87,63 @@ class ProductController extends Controller
         $projectList = Project::where('district_id', $district_id)->get();
         return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));
     }
+    public function kygui(Request $request)
+    {
+
+        $arrSearch['status'] = $status = 2;   
+        $arrSearch['cart_status'] = $cart_status = isset($request->cart_status) ? $request->cart_status : 1;     
+        $arrSearch['type'] = $type = isset($request->type) ? $request->type : 1;
+        $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
+        $arrSearch['district_id'] = $district_id = isset($request->district_id) ? $request->district_id : 2;
+        $arrSearch['ward_id'] = $ward_id = isset($request->ward_id) ? $request->ward_id : null;
+        $arrSearch['project_id'] = $project_id = isset($request->project_id) ? $request->project_id : null;
+        $arrSearch['street_id'] = $street_id = isset($request->street_id) ? $request->street_id : null;
+
+        $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
+        
+
+
+        $query = Product::where('product.status', $status);
+        if( $type ){
+            $query->where('product.type', $type);
+        }
+        if( $estate_type_id ){
+            $query->where('product.estate_type_id', $estate_type_id);
+        }
+        if( $cart_status ){
+            $query->where('product.cart_status', $cart_status);
+        }
+        if( $district_id ){
+            $query->where('product.district_id', $district_id);
+        }
+        if( $ward_id ){
+            $query->where('product.ward_id', $ward_id);
+        }
+        if( $project_id ){
+            $query->where('product.project_id', $project_id);
+        }
+        if(Auth::user()->role == 1){
+            $query->where('product.created_user', Auth::user()->id);
+        }
+        if( $name != ''){
+            $query->where('product.name', 'LIKE', '%'.$name.'%');            
+        }
+        //$query->join('users', 'users.id', '=', 'product.created_user');
+        $query->join('city', 'city.id', '=', 'product.city_id');        
+        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id'); 
+        $query->join('estate_type', 'product.estate_type_id', '=','estate_type.id'); 
+        $query->orderBy('product.id', 'desc');   
+        $items = $query->select(['product_img.image_url as image_urls','product.*', 'estate_type.slug as slug_loai'])->paginate(50);
+
+        $cityList = City::all();  
+        $estateTypeArr = EstateType::where('type', $type)->get(); 
+        $districtList = District::where('city_id', 1)->get();
+       // var_dump($detail->district_id);die;
+        $wardList = Ward::where('district_id', $district_id)->get();
+        $streetList = Street::where('district_id', $district_id)->get();
+        $projectList = Project::where('district_id', $district_id)->get();
+        return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));
+    }
     public function ajaxGetTienIch(Request $request){
         $district_id = $request->district_id;
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
