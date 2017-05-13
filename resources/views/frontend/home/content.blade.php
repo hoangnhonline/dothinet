@@ -42,7 +42,9 @@
           <ul>
             @foreach($hotProduct as $product)
             <li class="news-new-item">                      
-              <div class="news-new-item-head"><a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImage($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt=""></a></div>
+              <div class="news-new-item-head">
+                <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImage($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" style="height:128px !important;width:100% !important;"></a>
+              </div>
               <div class="news-new-item-description">
                 <h4><a class="description-title vip1" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}">{{ $product->title }}</a></h4>
                     <div class="description-info">
