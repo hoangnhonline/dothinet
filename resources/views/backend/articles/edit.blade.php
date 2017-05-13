@@ -42,7 +42,7 @@
               @endif                
                 <div class="form-group">
                   <label for="email">Danh mục <span class="red-star">*</span></label>
-                  <select class="form-control select2" name="cate_id" id="cate_id">
+                  <select class="form-control" name="cate_id" id="cate_id">
                     <option value="">-- chọn --</option>
                     @if( $cateArr->count() > 0)
                       @foreach( $cateArr as $value )

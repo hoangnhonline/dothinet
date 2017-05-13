@@ -150,7 +150,11 @@ class ArticlesController extends Controller
         $tagSelected = [];
 
         $detail = Articles::find($id);
-        
+        if( Auth::user()->role == 1 ){
+            if($detail->created_user != Auth::user()->id){
+                return redirect()->route('dashboard.index');
+            }
+        }
         $cateArr = ArticlesCate::all();        
 
         $tmpArr = TagObjects::where(['type' => 2, 'object_id' => $id])->get();

@@ -19,6 +19,9 @@ class AccountController extends Controller
     */
     public function index(Request $request)
     {         
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         $role = $leader_id = 0;
         $role = Auth::user()->role;
         $query = Account::where('status', '>', 0);
@@ -41,7 +44,9 @@ class AccountController extends Controller
     }
     public function create()
     {        
-        
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         $modList = Account::where(['role' => 2, 'status' => 1])->get();
         
         return view('backend.account.create', compact('modList'));
@@ -92,7 +97,7 @@ class AccountController extends Controller
         
         $tmpPassword = str_random(10);
         $dataArr['leader_id'] = Auth::user()->role == 2 ? Auth::user()->id : $dataArr['leader_id'];
-        $dataArr['password'] = Hash::make( $tmpPassword );
+        $dataArr['password'] = Hash::make('123465@');
         
         $dataArr['created_user'] = Auth::user()->id;
 
@@ -114,6 +119,9 @@ class AccountController extends Controller
     }
     public function destroy($id)
     {
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         // delete
         $model = Account::find($id);
         $model->delete();
@@ -124,6 +132,9 @@ class AccountController extends Controller
     }
     public function edit($id)
     {
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         $detail = Account::find($id);
         
         return view('backend.account.edit', compact( 'detail'));

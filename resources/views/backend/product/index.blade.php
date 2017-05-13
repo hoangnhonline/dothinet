@@ -102,7 +102,8 @@
             <tr>
               <th style="width: 1%">#</th>
               <th width="100px">Hình ảnh</th>
-              <th style="text-align:center">Thông tin sản phẩm</th>                              
+              <th style="text-align:center">Thông tin sản phẩm</th>
+              <th width="120px">Trạng thái</th>                              
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
@@ -119,7 +120,7 @@
                   <img class="img-thumbnail lazy" width="80" data-original="{{ $item->image_urls ? Helper::showImage($item->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="Nổi bật" title="Nổi bật" />
                 </td>
                 <td>                  
-                  <a style="color:#333;font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a> <br />
+                  <a style="color:{{ $item->cart_status == 1 ? "#CCC" : "red" }};font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a> <br />
                   <strong style="color:#337ab7;font-style:italic"> {{ Helper::getName($item->estate_type_id, 'estate_type') }}</strong>
                   <p>
                     @if($item->street_id > 0)
@@ -143,6 +144,13 @@
                    </b>                    
                   </p>
                   
+                </td>
+                <td>                
+                  @if($item->type == 1)
+                    {{ $item->cart_status == 1 ? "Chưa bán" : "Đã bán" }}                  
+                  @else
+                    {{ $item->cart_status == 1 ? "Còn trống" : "Đã thuê" }}
+                  @endif
                 </td>
                 <td style="white-space:nowrap; text-align:right">
                   <a class="btn btn-default btn-sm" href="{{ route('chi-tiet', [$item->slug_loai, $item->slug, $item->id] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>

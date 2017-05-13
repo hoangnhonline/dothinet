@@ -20,6 +20,9 @@ class EstateTypeController extends Controller
     */
     public function index(Request $request)
     {
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         $type = $request->type ? $request->type : 1;
         $items = EstateType::where('status', 1)->where('type', $type)->orderBy('display_order', 'asc')->get();
         return view('backend.estate-type.index', compact( 'items', 'type'));
@@ -32,6 +35,9 @@ class EstateTypeController extends Controller
     */
     public function create(Request $request)
     {
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         $type = $request->type ? $request->type : 1; 
         return view('backend.estate-type.create', compact('type'));
     }
@@ -92,6 +98,9 @@ class EstateTypeController extends Controller
     */
     public function edit($id)
     {
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         $detail = EstateType::find($id);
 
         $meta = (object) [];

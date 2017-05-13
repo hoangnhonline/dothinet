@@ -50,7 +50,21 @@
                 <div class="form-group">
                   <label>Tên<span class="red-star">*</span></label>
                   <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
-                </div>                 
+                </div>  
+                @if($editorList && Auth::user()->role > 1)
+                <div class="form-group">
+                    <label>Nhân viên<span class="red-star">*</span></label>
+                    <div class="clearfix"></div>
+                    <?php $i = 0; ?>
+                    @foreach($editorList as $edi)
+                    <div class="col-md-3">
+                      <input type="checkbox" name="user_id[]" value="{{ $edi->id }}" id="user_id_{{ $i }}"><label for="user_id_{{ $i }}">{{ $edi->full_name }}</label>
+                    </div>
+                    <?php $i++; ?>
+                    @endforeach
+                    <div class="clearfix"></div>
+                </div>               
+                @endif
                               
             </div>                        
             <div class="box-footer">

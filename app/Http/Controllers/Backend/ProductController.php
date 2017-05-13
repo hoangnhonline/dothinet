@@ -44,8 +44,12 @@ class ProductController extends Controller
 
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
         
+
+
         $query = Product::where('product.status', $status);
-        
+        if( $type ){
+            $query->where('product.type', $type);
+        }
         if( $estate_type_id ){
             $query->where('product.estate_type_id', $estate_type_id);
         }
@@ -61,7 +65,9 @@ class ProductController extends Controller
         if( $project_id ){
             $query->where('product.project_id', $project_id);
         }
-        
+        if(Auth::user()->role == 1){
+            $query->where('product.created_user', Auth::user()->id);
+        }
         if( $name != ''){
             $query->where('product.name', 'LIKE', '%'.$name.'%');            
         }

@@ -14,12 +14,18 @@ class SettingsController  extends Controller
 {
     public function index(Request $request)
     {              
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');
 
         return view('backend.settings.index', compact( 'settingArr'));
     }
      public function noti(Request $request)
-    {              
+    {           
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }   
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');
 
         return view('backend.settings.noti', compact( 'settingArr'));

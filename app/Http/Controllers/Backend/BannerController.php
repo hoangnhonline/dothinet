@@ -20,6 +20,9 @@ class BannerController extends Controller
     */
     public function index(Request $request)
     {
+        if(Auth::user()->role == 1){
+            return redirect()->route('dashboard.index');
+        }
         $arrSearch['status'] = $status = isset($request->status) ? $request->status : null;
         $arrSearch['object_id'] = $object_id = $request->object_id;
         $arrSearch['object_type'] = $object_type = $request->object_type;

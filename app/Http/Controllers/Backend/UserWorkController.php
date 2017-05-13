@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\UserWork;
+use App\Models\Account;
+
 use Helper, File, Session, Auth;
 
 class UserWorkController extends Controller
@@ -19,7 +21,8 @@ class UserWorkController extends Controller
     public function index(Request $request)
     {
         $s['status'] = $status = isset($request->status) ? $request->status : -1;
-        $s['date_from'] = $date_from = isset($request->date_from) && $request->date_from !='' ? $request->date_from : date('d-m-Y');
+        $s['created_user'] = $created_user = isset($request->created_user) ? $request->created_user : -1;
+        $s['date_from'] = $date_from = isset($request->date_from) && $request->date_from !='' ? $request->date_from : '';
         $s['date_to'] = $date_to = isset($request->date_to) && $request->date_to !='' ? $request->date_to : date('d-m-Y');               
 
         $query = UserWork::whereRaw('1');
@@ -34,10 +37,21 @@ class UserWorkController extends Controller
             $dateToFormat = date('Y-m-d', strtotime($date_to));
             $query->whereRaw("work_date <= '".$dateToFormat."'");
         }
+        $userList = (object) [];
+        if(Auth::user()->role == 1 ){
+            $query->where('created_user', Auth::user()->id);
+        }elseif(Auth::user()->role == 2){ // leader
+            $query->where('leader_id', Auth::user()->id);
+            $userList = Account::where(['leader_id' => Auth::user()->id])->get();
+            if( $created_user > -1){
+                $query->where('created_user', $created_user);
+            }
+
+        }
         
-        $items = $query->orderBy('user_work.id', 'DESC')->paginate(20);
-        
-        return view('backend.user-work.index', compact( 'items', 's'));
+        $items = $query->orderBy('user_work.work_date', 'DESC')->paginate(20);
+
+        return view('backend.user-work.index', compact( 'items', 's', 'userList'));
     }
 
     /**
@@ -60,7 +74,8 @@ class UserWorkController extends Controller
     public function store(Request $request)
     {
         $dataArr = $request->all();
-        
+        $user_id = Auth::user()->id;
+        $detailUser = Account::find($user_id);
         $this->validate($request,[            
             'work_content' => 'required',
             'work_date' => 'required',
@@ -71,9 +86,9 @@ class UserWorkController extends Controller
         ]);               
         $dataArr['work_date'] = date('Y-m-d', strtotime($dataArr['work_date']));
         
-        $dataArr['created_user'] = Auth::user()->id;
+        $dataArr['created_user'] = $dataArr['updated_user'] = $user_id;
 
-        $dataArr['updated_user'] = Auth::user()->id;
+        $dataArr['leader_id'] = $detailUser->leader_id;        
 
         $rs = UserWork::create($dataArr);      
 
@@ -103,8 +118,9 @@ class UserWorkController extends Controller
     {
        
         $detail = UserWork::find($id);      
-
-        return view('backend.user-work.edit', compact('detail'));
+        $user_id = $detail->created_user;
+        $detailUser = Account::find($user_id);
+        return view('backend.user-work.edit', compact('detail', 'detailUser'));
     }
 
     /**
@@ -117,17 +133,23 @@ class UserWorkController extends Controller
     public function update(Request $request)
     {
         $dataArr = $request->all();
-        
-        $this->validate($request,[            
-            'work_content' => 'required',
-            'work_date' => 'required',
-        ],
-        [            
-            'work_content.required' => 'Bạn chưa nhập nội dung',            
-            'work_date.required' => 'Bạn chưa nhập ngày làm việc'
-        ]);               
-        
-        $dataArr['work_date'] = date('Y-m-d', strtotime($dataArr['work_date']));
+        if(Auth::user()->role == 1){
+            $this->validate($request,[            
+                'work_content' => 'required',
+                'work_date' => 'required',
+            ],
+            [            
+                'work_content.required' => 'Bạn chưa nhập nội dung',            
+                'work_date.required' => 'Bạn chưa nhập ngày làm việc'
+            ]);               
+        }else{
+            $this->validate($request,[            
+                'leader_comment' => 'required'                
+            ],
+            [            
+                'leader_comment.required' => 'Bạn chưa nhập nhận xét'
+            ]);               
+        }   
 
         $dataArr['updated_user'] = Auth::user()->id;
 

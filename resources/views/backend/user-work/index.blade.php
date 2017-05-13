@@ -26,7 +26,22 @@
           <h3 class="panel-title">Bộ lọc</h3>
         </div>
         <div class="panel-body">
-          <form class="form-inline" role="form" method="GET" action="{{ route('user-work.index') }}">  <div class="form-group">              
+          <form class="form-inline" role="form" method="GET" action="{{ route('user-work.index') }}">  <div class="form-group">
+            @if($userList && Auth::user()->role > 1)
+              <div class="form-group">
+                <label>Editor</label>                
+                <?php $i = 0; ?>
+                <select class="form-control" name="created_user" id="created_user">
+                  <option value="">Tất cả</option>
+                  @foreach($userList as $us)
+                  <option value="{{ $us->id }}" {{ $s['created_user'] == $us->id ? "selected" : "" }}>{{ $us->full_name }}</option> 
+                  <?php $i++; ?>
+                  @endforeach
+                </select>
+                <div class="clearfix"></div>
+            </div>     
+            @endif
+            <div class="form-group">
               <select class="form-control" name="status" id="status">
                 <option value=""
                 @if(-1 == $s['status'])
@@ -37,6 +52,7 @@
                  <option value="2" {{ $s['status'] == 2 ? "selected" : "" }}>Đã duyệt</option>
               </select>
             </div>          
+
             <div class="form-group">              
               <input type="text" class="form-control datepicker" placeholder="Từ ngày" name="date_from" value="{{ $s['date_from'] }}">
             </div> 
@@ -82,12 +98,20 @@
                 </td>
                 <td><?php echo $item->leader_comment; ?></td>
                 <td>                  
-                {{ $item->status == 1 ? "Chưa duyệt" : "Đã duyệt" }}
+                {{ $item->status == 1 ? "Mới" : ( $item->status == 2  ? "Đã duyệt" : "Không duyệt")  }}
                 </td>
                 <td style="white-space:nowrap">                            
+                  @if(Auth::user()->role == 1)
+                    @if($item->status == 1)
+                    <a href="{{ route( 'user-work.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
+                    
+                    <a onclick="return callDelete('{{ $item->title }}','{{ route( 'user-work.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                    @endif
+                  @else
                   <a href="{{ route( 'user-work.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   
                   <a onclick="return callDelete('{{ $item->title }}','{{ route( 'user-work.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                  @endif                  
                   
                 </td>
               </tr> 
@@ -131,9 +155,9 @@ function callDelete(name, url){
   return flag;
 }
 $(document).ready(function(){
- 
+ $('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
   $('.select2').select2();
-  $('#status').change(function(){
+  $('#status, #created_user').change(function(){
     $(this).parents('form').submit();
   });
   

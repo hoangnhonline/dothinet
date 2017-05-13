@@ -20,7 +20,9 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
+      @if(Auth::user()->role > 1)
       <a href="{{ route('cart.create', ['type' => $type]) }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
+      @endif
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Bộ lọc</h3>
@@ -60,7 +62,7 @@
               <a class="btn-sm btn btn-primary" href="{{ route('cart-product.index', ['cart_id' => $item->id]) }}" ><span class="badge">{{ $item->cartProduct->count() }}</span> 
                 {{ ($type == 1) ? "Căn hộ" :  "Nền" }}
                  </a>
-              
+                @if(Auth::user()->role > 1)
                 <a href="{{ route( 'cart.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </a>                  
@@ -68,11 +70,14 @@
                 <a onclick="return callDelete('{{ $item->name }}','{{ route( 'cart.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">
                   <span class="glyphicon glyphicon-trash"></span>
                 </a>                  
+                @endif
                 
             </div>
             @endforeach
           </div>
-          @endif                 
+          @else
+            <p>Chưa có dữ liệu.</p>
+          @endif             
           <div style="text-align:right">          
             {{ $items->appends( ['name' => $name, 'type' => $type] )->links() }}
           </div>

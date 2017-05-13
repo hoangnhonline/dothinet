@@ -84,9 +84,14 @@
       $(".select2").select2();
       var editor = CKEDITOR.replace( 'work_content',{
           language : 'vi',    
-          height : 500
+          height : 300
       });
-      
+      @if(Auth::user()->role > 1)
+      var editor = CKEDITOR.replace( 'leader_comment',{
+          language : 'vi',    
+          height : 300
+      });
+      @endif
     });
     
 </script>

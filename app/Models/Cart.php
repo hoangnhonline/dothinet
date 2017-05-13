@@ -33,4 +33,17 @@ class Cart extends Model  {
     public function cartProduct(){
         return $this->hasMany('App\Models\CartProduct', 'cart_id');
     }
+    public static function cartUser($cart_id){
+        $rs = UserCart::where('cart_id', $cart_id)->lists('user_id');
+        return $rs ? $rs->toArray() : [];
+    }
+    public static function checkUserAccess($cart_id, $user_id){
+        $arr = [];
+        $rs = UserCart::where('cart_id', $cart_id)->lists('user_id');
+        if($rs){
+            $arr = $rs->toArray();
+        }
+        return in_array($user_id, $arr) ? true : false;
+    }
+
 }
