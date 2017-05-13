@@ -171,6 +171,9 @@ class ProductController extends Controller
             'price' => 'required',
             'district_id' => 'required',
             'estate_type_id' => 'required',
+            'ward_id' => 'required',
+            'street_id' => 'required',
+            'price_unit_id' => 'required',
             'type' => 'required'
         ],
         [
@@ -178,7 +181,7 @@ class ProductController extends Controller
             'slug.required' => 'Bạn chưa nhập slug',            
             'price.required' => 'Bạn chưa nhập giá'            
         ]);
-                  
+           
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);

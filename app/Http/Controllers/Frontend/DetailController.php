@@ -144,6 +144,57 @@ class DetailController extends Controller
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
         return view('frontend.ky-gui.index', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr'));
     }
+    public function postKygui(Request $request){
+        $dataArr = $request->all();        
+        
+        $this->validate($request,[
+            'title' => 'required',            
+            'price' => 'required',
+            'district_id' => 'required',
+            'estate_type_id' => 'required',
+            'ward_id' => 'required',
+            'street_id' => 'required',
+            'price_unit_id' => 'required',
+            'type' => 'required',
+            'full_address' => 'required',
+            'contact_name' => 'required',
+            'contact_mobile' => 'required'
+        ],
+        [
+            'title.required' => 'Bạn chưa nhập tiêu đề',
+            'estate_type_id.required' => 'Bạn chưa chọn loại bất động sản',
+            'district_id.required' => 'Bạn chưa chọn quận/huyện',
+            'ward_id.required' => 'Bạn chưa chọn phường/xã',
+            'street_id.required' => 'Bạn chưa chọn đường/phố',
+            'price_unit_id.required' => 'Bạn chưa chọn đơn vị',
+            'full_address.required' => 'Bạn chưa nhập địa điểm',
+            'price.required' => 'Bạn chưa nhập giá',
+            'contact_name.required' => 'Bạn chưa nhập họ tên',
+            'contact_mobile.required' => 'Bạn chưa nhập di động'            
+        ]);
+        $dataArr['slug'] = Helper::changeFileName($dataArr['title']); 
+        $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
+        $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
+        $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
+        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
+
+        $dataArr['status'] = 1;
+        $dataArr['created_user'] = Auth::user()->id;
+        $dataArr['updated_user'] = Auth::user()->id;      
+        $dataArr['city_id'] = 1;       
+
+        $rs = Product::create($dataArr);
+
+        $product_id = $rs->id;
+        
+
+        $this->storeImage( $product_id, $dataArr);
+        $this->storeMeta($product_id, 0, $dataArr);
+        $this->processRelation($dataArr, $product_id);
+        Session::flash('message', 'Tạo mới sản phẩm thành công');
+
+        return redirect()->route('product.index', ['estate_type_id' => $dataArr['estate_type_id'], 'type' => $dataArr['type']]);
+    }
     public function tags(Request $request)
     {
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');

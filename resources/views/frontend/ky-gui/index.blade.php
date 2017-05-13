@@ -36,9 +36,19 @@
 							</h3>
 						</div>
 						<div class="block-contents">
+						@if (count($errors) > 0)
+		                  <div class="alert alert-danger">
+		                    <ul>
+		                        @foreach ($errors->all() as $error)
+		                            <li>{{ $error }}</li>
+		                        @endforeach
+		                    </ul>
+		                  </div>
+		                @endif
 							<div class="block-post-news">
 								<h4 class="titile-post-news">THÔNG TIN CƠ BẢN</h4>
-								<form method="" action="" class="block-hover-selectpicker">
+								<form method="POST" action="{{ route('post-ky-gui') }}" class="block-hover-selectpicker">
+									{!! csrf_field() !!}
 									<div class="form-horizontal">
 										<div class="form-group">
 											<label class="col-sm-3 control-label" style="padding-top: 3px;">Loại tin <span>(*)</span>:</label>
@@ -68,73 +78,82 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Vị trí <span>(*)</span>:</label>
 											<div class="col-sm-4">
-										  		<select class="selectpicker form-control">
-													<option selected="selected">Loại bất động sản</option>
-													<option class="option-lv1" value="bchcc">Bán căn hộ chung cư</option>
-													<option class="option-lv1" value="tccln">Tất cả các loại nhà bán</option>
-													<option class="option-lv2" value="bnr1">Bán nhà riêng</option>
-													<option class="option-lv2" value="bnr2">Bán nhà riêng</option>
-													<option class="option-lv2" value="bnr3">Bán nhà riêng</option>
-													<option class="option-lv1" value="tccldb">Tất cả các loại đất bán</option>
-													<option class="option-lv2" value="bdnda">Bán đất nền dự án</option>
-													<option class="option-lv2" value="bd">Bán đất</option>
-													<option class="option-lv1" value="bttknd">Bán trang trại, khu nghỉ dưỡng</option>
-													<option class="option-lv1" value="bknx">Bán kho, nhà xưởng</option>
-													<option class="option-lv1" value="blbdsk">Bán loại bất động sản khác</option>
+										  		<select class="selectpicker form-control" id="district_id" name="district_id">
+										  			<option value="">Quận/Huyện</option>
+													@foreach( $districtList as $value )
+					                                <option value="{{ $value->id }}"
+					                                {{ old('district_id', $district_id) == $value->id ? "selected" : "" }}                           
+
+					                                >{{ $value->name }}</option>
+					                                @endforeach
 												</select>
 											</div>
 											<div class="col-sm-4">
-										  		<select class="selectpicker form-control">
-													<option class="option-lv0" selected="selected">Quận/Huyện</option>
+										  		<select class="selectpicker form-control" id="ward_id" name="ward_id">
+													<option class="option-lv0" selected="selected" value="">Phường/Xã</option>
+													@foreach( $wardList as $value )
+						                            <option value="{{ $value->id }}"
+						                            {{ old('ward_id') == $value->id ? "selected" : "" }}                           
+
+						                            >{{ $value->name }}</option>
+						                            @endforeach
 												</select>
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label"></label>
 											<div class="col-sm-4">
-										  		<select class="selectpicker form-control">
-													<option class="option-lv0" selected="selected">Phường/Xã</option>
-													<option class="option-lv0" value="1">Bàu Hàm 2</option>
-													<option class="option-lv0" value="2">Dầu Giây</option>
-													<option class="option-lv0" value="3">Gia Kiệm</option>
-													<option class="option-lv0" value="4">Gia Tân 1</option>
-													<option class="option-lv0" value="5">Gia Tân 2</option>
-													<option class="option-lv0" value="6">Gia Tân 3</option>
-													<option class="option-lv0" value="7">Hưng Lộc</option>
-													<option class="option-lv0" value="7">Lộ 25</option>
-													<option class="option-lv0" value="9">Quang Trung</option>
+										  		<select class="selectpicker form-control" name="street_id" id="street_id">
+													<option class="option-lv0" selected="selected" value="">Đường/Phố</option>
+													@foreach( $streetList as $value )
+					                                <option value="{{ $value->id }}"
+					                                {{ old('street_id') == $value->id ? "selected" : "" }}                           
+
+					                                >{{ $value->name }}</option>
+					                                @endforeach
 													</select>
 												</select>
 											</div>
 											<div class="col-sm-4">
-										  		<select class="selectpicker form-control">
-													<option class="option-lv0" selected="selected">Đường/Phố</option>
+										  		<select class="selectpicker form-control" id="project_id" name="project_id">
+													<option class="option-lv0" selected="selected" value="">Dự án</option>
+													@foreach( $projectList as $value )
+						                            <option value="{{ $value->id }}"
+						                            {{ old('project_id') == $value->id ? "selected" : "" }}
+						                            >{{ $value->name }}</option>
+						                            @endforeach
 												</select>
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Giá:</label>
 											<div class="col-sm-4">
-										  		<input type="text" name="" class="form-control inline-block form-control2">
+										  		<input type="text" name="price" class="form-control inline-block form-control2">
 											</div>
 											<div class="col-sm-4 w158">
 												<span style="margin-right: 25px;">Đơn vị:</span>
-												<select class="selectpicker form-control">
-													<option class="option-lv0" selected="selected">Quận/Huyện</option>
+												<select class="form-control selectpicker" name="price_unit_id" id="price_unit_id">
+													<option value="" >--chọn--</option>
+													@foreach( $priceUnitList as $value )
+					                              <option value="{{ $value->id }}"
+					                              {{ old('price_unit_id') == $value->id ? "selected" : "" }}
+
+					                              >{{ $value->name }}</option>
+					                              @endforeach
 												</select>
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Diện tích:</label>
 											<div class="col-sm-4">
-												<input type="text" name="" class="form-control inline-block form-control2" style="width: 90%;">
+												<input type="text" name="area" class="form-control inline-block form-control2" style="width: 90%;">
 												<span class="inline-block" style="margin: 8px 0 0 5px;">m2</span>
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Địa điểm <span>(*)</span>:</label>
 											<div class="col-sm-8">
-												<input type="text" name="" class="form-control inline-block form-control2">
+												<input type="text" name="full_address" class="form-control inline-block form-control2">
 											</div>
 										</div><!-- /form-group -->
 
@@ -144,44 +163,40 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Mặt tiền:</label>
 											<div class="col-sm-4 block-col-width-left">
-										  		<input type="text" name="" class="form-control inline-block form-control2">
+										  		<input type="text" name="front_face" class="form-control inline-block form-control2">
 										  		<span class="inline-block" style="margin: 8px 0 0 5px;">m</span>
 											</div>
 											<div class="col-sm-5 block-col-width-right">
 												<span>Đường trước nhà:</span>
-												<input type="text" name="" class="form-control inline-block form-control2">
+												<input type="text" name="street_wide" class="form-control inline-block form-control2">
 												<span class="inline-block" style="margin: 8px 0 0 5px;">m</span>
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Số tầng:</label>
 											<div class="col-sm-4 block-col-width-left">
-										  		<input type="text" name="" class="form-control inline-block form-control2">
+										  		<input type="text" name="no_floor" class="form-control inline-block form-control2">
 											</div>
 											<div class="col-sm-4 block-col-width-right">
 												<span>Số phòng:</span>
-												<input type="text" name="" class="form-control inline-block form-control2">
+												<input type="text" name="no_room" class="form-control inline-block form-control2">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Hướng BĐS:</label>
 											<div class="col-sm-4 block-col-width-left">
-										  		<select class="selectpicker form-control">
-													<option value="-1" selected="selected">Chọn Hướng nhà</option>
-													<option value="0">Không xác định</option>
-													<option value="1">Đông</option>
-													<option value="2">Tây</option>
-													<option value="3">Nam</option>
-													<option value="4">Bắc</option>
-													<option value="5">Đông-Bắc</option>
-													<option value="6">Tây-Bắc</option>
-													<option value="7">Tây-Nam</option>
-													<option value="8">Đông-Nam</option>
+										  		<select class="selectpicker form-control" id="direction_id" name="direction_id">
+													<option value="" selected="selected">--chọn--</option>
+													@if( $directionArr->count() > 0)
+						                              @foreach( $directionArr as $value )
+						                              <option value="{{ $value->id }}" {{ old('direction_id') == $value->id  ? "selected" : "" }}>{{ $value->name }}</option>
+						                              @endforeach
+						                            @endif
 												</select>
 											</div>
 											<div class="col-sm-4 block-col-width-right">
 												<span>Số toilet:</span>
-												<input type="text" name="" class="form-control inline-block form-control2">
+												<input type="text" name="no_wc" class="form-control inline-block form-control2">
 											</div>
 										</div><!-- /form-group -->
 
@@ -191,13 +206,13 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Tiêu đề <span>(*)</span>:</label>
 											<div class="col-sm-8">
-												<input type="email" class="form-control form-control2" placeholder="Vui lòng gõ tiếng Việt có dấu để tin đăng được kiểm duyệt nhanh hơn">
+												<input type="email" class="form-control form-control2" placeholder="Vui lòng gõ tiếng Việt có dấu để tin đăng được kiểm duyệt nhanh hơn" name="title" id="title">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Nội dung mô tả <span>(*)</span>:</label>
 											<div class="col-sm-8">
-												<textarea rows="5" class="form-control form-control2"></textarea>
+												<textarea rows="5" class="form-control form-control2"></textarea name="description" id="description">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
@@ -226,36 +241,36 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Họ tên <span>(*)</span>:</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control form-control2" placeholder="">
+												<input type="text" class="form-control form-control2" placeholder="" name="contact_name">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Địa chỉ:</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control form-control2" placeholder="">
+												<input type="text" class="form-control form-control2" placeholder="" name="contact_address">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Điện thoại:</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control form-control2" placeholder="">
+												<input type="text" class="form-control form-control2" placeholder="" name="contact_phone">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Di động <span>(*)</span>:</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control form-control2" placeholder="">
+												<input type="text" class="form-control form-control2" placeholder="" name="contact_mobile">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Email:</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-contro form-control2" placeholder="">
+												<input type="text" class="form-contro form-control2" placeholder="" name="contact_email">
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group text-center">
 											<button type="button" class="btn btn-success"><i class="fa fa-eye"></i> XEM TRƯỚC</button>
-											<button type="button" class="btn btn-success"><i class="fa fa-check"></i> ĐĂNG TIN</button>
+											<button type="submit" class="btn btn-success"><i class="fa fa-check"></i> ĐĂNG TIN</button>
 											<button type="button" class="btn btn-primary"><i class="fa fa-times"></i> HỦY BỎ</button>
 										</div><!-- /form-group -->
 									</div>

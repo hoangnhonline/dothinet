@@ -638,7 +638,64 @@ $(document).on('keypress', '#name_search', function(e){
 });
 
     $(document).ready(function(){
-     
+     $('#district_id').change(function(){
+         
+            $.ajax({
+              url: $('#route_get_tien_ich').val(),
+              type: "GET",
+              async: false,      
+              data: {
+                district_id : $(this).val()
+              },              
+              success: function (response) {
+                $('#load-tien-ich').html(response)             
+              }
+            });
+
+            var district_id = $(this).val();
+          $.ajax({
+            url : '{{ route('get-child') }}',
+            data : {
+              mod : 'ward',
+              col : 'district_id',
+              id : district_id
+            },
+            type : 'POST',
+            dataType : 'html',
+            success : function(data){
+              $('#ward_id').html(data).selectpicker('refresh');
+            }
+          });
+
+          $.ajax({
+            url : '{{ route('get-child') }}',
+            data : {
+              mod : 'street',
+              col : 'district_id',
+              id : district_id
+            },
+            type : 'POST',
+            dataType : 'html',
+            success : function(data){
+              $('#street_id').html(data).selectpicker('refresh');
+            }
+          });
+
+          $.ajax({
+            url : '{{ route('get-child') }}',
+            data : {
+              mod : 'project',
+              col : 'district_id',
+              id : district_id
+            },
+            type : 'POST',
+            dataType : 'html',
+            success : function(data){
+              $('#project_id').html(data).selectpicker('refresh');
+            }
+          })
+        
+      });
       
       $('#type').change(function(){
         location.href="{{ route('product.create') }}?type=" + $(this).val();

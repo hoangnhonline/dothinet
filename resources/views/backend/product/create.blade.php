@@ -711,8 +711,52 @@ $(document).on('click', '#btnSaveTagAjax', function(){
                 $('#load-tien-ich').html(response)             
               }
             });
+
+            var district_id = $(this).val();
+          $.ajax({
+            url : '{{ route('get-child') }}',
+            data : {
+              mod : 'ward',
+              col : 'district_id',
+              id : district_id
+            },
+            type : 'POST',
+            dataType : 'html',
+            success : function(data){
+              $('#ward_id').html(data).selectpicker('refresh');
+            }
+          });
+
+          $.ajax({
+            url : '{{ route('get-child') }}',
+            data : {
+              mod : 'street',
+              col : 'district_id',
+              id : district_id
+            },
+            type : 'POST',
+            dataType : 'html',
+            success : function(data){
+              $('#street_id').html(data).selectpicker('refresh');
+            }
+          });
+
+          $.ajax({
+            url : '{{ route('get-child') }}',
+            data : {
+              mod : 'project',
+              col : 'district_id',
+              id : district_id
+            },
+            type : 'POST',
+            dataType : 'html',
+            success : function(data){
+              $('#project_id').html(data).selectpicker('refresh');
+            }
+          })
         
       });
+
     });
     
 </script>
