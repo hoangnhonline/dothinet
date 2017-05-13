@@ -1,6 +1,6 @@
 <header class="main-header">
   <!-- Logo -->
-  <a href="{{ Auth::user()->email != "huongll@icho.vn" ? route('product.index') : route('product.short') }}" class="logo">
+  <a href="{{ route('dashboard.index')}}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>NhaDat</b></span>
     <!-- logo for regular state and mobile devices -->

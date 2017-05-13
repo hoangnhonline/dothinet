@@ -15,6 +15,14 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
+      @if(Auth::user()->role == 3)      
+      <li {{ \Request::route()->getName() == "settings.noti" ? "class=active" : "" }}>
+        <a href="{{ route('settings.noti') }}">
+          <i class="fa fa-pencil-square-o"></i> 
+          <span>Thông báo chung</span>         
+        </a>       
+      </li>
+      @endif
       <li class="treeview {{ in_array(\Request::route()->getName(), ['product.index', 'product.create', 'product.edit', 'estate-type.index', 'estate-type.edit', 'estate-type.create', 'cate.index', 'cate.edit', 'cate.create']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-opencart"></i> 
@@ -124,7 +132,7 @@
         </a>
         <ul class="treeview-menu">
           @if(Auth::user()->role == 3)
-        <li {{ \Request::route()->getName() == "settings.noti" ? "class=active" : "" }}><a href="{{ route('settings.noti') }}"><i class="fa fa-circle-o"></i> Thông báo chung</a></li>
+        
           <li {{ \Request::route()->getName() == "settings.index" ? "class=active" : "" }}><a href="{{ route('settings.index') }}"><i class="fa fa-circle-o"></i> Thông tin NhaDat</a></li>
           <li {{ \Request::route()->getName() == "info-seo.index" ? "class=active" : "" }}><a href="{{ route('info-seo.index') }}"><i class="fa fa-circle-o"></i> Cài đặt SEO</a></li>
           @endif

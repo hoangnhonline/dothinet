@@ -58,7 +58,7 @@
           <div class="col-md-12">
             @foreach( $items as $item )
             <div class="col-md-4" style="border:1px solid #CCC;padding:10px;text-align:center; border-radius:5px">
-              <h3><a href="{{ route( 'cart.edit', [ 'id' => $item->id ]) }}">{{ $item->name }}</a></h3>
+              <h3><a href="{{ route('cart-product.index', ['cart_id' => $item->id]) }}">{{ $item->name }}</a></h3>
               <a class="btn-sm btn btn-primary" href="{{ route('cart-product.index', ['cart_id' => $item->id]) }}" ><span class="badge">{{ $item->cartProduct->count() }}</span> 
                 {{ ($type == 1) ? "Căn hộ" :  "Nền" }}
                  </a>
