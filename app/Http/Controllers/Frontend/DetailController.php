@@ -14,6 +14,9 @@ use App\Models\Project;
 use App\Models\EstateType;
 use App\Models\MetaData;
 use App\Models\ProductImg;
+use App\Models\Tag;
+use App\Models\Direction;
+use App\Models\PriceUnit;
 
 use Helper, File, Session, Auth;
 
@@ -118,7 +121,29 @@ class DetailController extends Controller
 
         return view('frontend.cate.child', compact('productArr', 'cateArr', 'rs', 'rsCate'));
     }
+    public function kygui(Request $request)
+    {
+        $tagArr = Tag::where('type', 1)->get();
+        $directionArr = Direction::all();
+        $estate_type_id = $request->estate_type_id ? $request->estate_type_id : null;
+        $type = $request->type ? $request->type : 1;    
+        
+        if( $type ){
+            
+            $estateTypeArr = EstateType::where('type', $type)->select('id', 'name')->orderBy('display_order', 'desc')->get();            
+            
+        }       
+        $priceUnitList = PriceUnit::all();
+        $districtList = District::where('city_id', 1)->get();
+       // var_dump($detail->district_id);die;
+        $district_id = $request->district_id ? $request->district_id : 2;
+        $wardList = Ward::where('district_id', $district_id)->get();
+        $streetList = Street::where('district_id', $district_id)->get();
+        $projectList = Project::where('district_id', $district_id)->get();
 
+        $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
+        return view('frontend.ky-gui.index', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr'));
+    }
     public function tags(Request $request)
     {
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');

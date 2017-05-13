@@ -4,9 +4,28 @@
 ------------------------*/
 
 /*----------------
+[Styles for devices(>1400px)]
+*/
+@media (min-width: 1600px) {
+	.block-no-route {
+        padding-top: 150px;
+	    font-size: 18px;
+	}
+}
+
+/*----------------
+[Styles for devices(>1400px)]
+*/
+@media (max-width: 1400px) {
+	.block-no-route {
+        padding-top: 40px;
+	    font-size: 18px;
+	}
+}
+
+/*----------------
 [Styles for devices(>1200px)]
 */
-
 @media (min-width: 1200px) {
 	.container {
 	    width: 1000px;
@@ -158,6 +177,4 @@
 /*----------------
 [Styles for devices(>475px)]
 */
-@media (max-width: 475px) {
-
-}
+@media (max-width: 475px) {}

@@ -125,7 +125,7 @@
 			<section class="row">
 				
 				@yield('content')
-
+				@if(\Request::route()->getName() != "ky-gui")
 				<section class="col-sm-4 col-xs-12 block-sitebar">
 					<article class="block-sidebar block-news-sidebar">
 						<div class="block-title-common">
@@ -237,6 +237,7 @@
 						</div>
 					</article><!-- /block-news-sidebar -->
 				</section><!-- /block-site-right -->
+				@endif
 			</section>
 		</section>
 	</section><!-- /main -->

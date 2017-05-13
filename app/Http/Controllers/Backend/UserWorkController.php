@@ -47,6 +47,8 @@ class UserWorkController extends Controller
                 $query->where('created_user', $created_user);
             }
 
+        }else{
+            $userList = Account::where('role', 1)->get();
         }
         
         $items = $query->orderBy('user_work.work_date', 'DESC')->paginate(20);

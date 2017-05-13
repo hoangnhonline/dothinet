@@ -45,6 +45,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/count-message', ['as' => 'count-message', 'uses' => 'HomeController@getNoti']);
     Route::get('/chuong-trinh-khuyen-mai', ['as' => 'chuong-trinh-khuyen-mai', 'uses' => 'EventController@index']);
     Route::get('event/{slug}', ['as' => 'detail-event', 'uses' => 'EventController@detail']);
+
    
 
     Route::post('/send-contact', ['as' => 'send-contact', 'uses' => 'ContactController@store']);
@@ -61,6 +62,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('{slugLoaiSp}/giam-gia/', ['as' => 'giam-gia', 'uses' => 'CateController@giamGia']);
 
     Route::get('/rap-may-tinh-online', ['as' => 'lap-rap', 'uses' => 'LapRapController@lapRap']);
+    Route::get('/dang-tin-ky-gui.html', ['as' => 'ky-gui', 'uses' => 'DetailController@kygui']);
     Route::post('tu-chon-cau-hinh/mua/', ['as' => 'mua-lap-rap', 'uses' => 'LapRapController@mua']);
     Route::post('tu-chon-cau-hinh/lay-san-pham-tuong-thich/', ['as' => 'lay-sp-tuong-thich', 'uses' => 'LapRapController@getTuongThich']);
     Route::post('tu-chon-cau-hinh/xem-cau-hinh', ['as' => 'xem-cau-hinh', 'uses' => 'LapRapController@xemCauHinh']);
