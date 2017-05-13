@@ -51,16 +51,33 @@
                 </div>                
                 <div class="form-group">
                   <label>Role</label>
-                  <select class="form-control" name="role" id="role">                             
-                    <option value="1" {{ old('role') == 1 || old('role') == NULL ? "selected" : "" }}>Editor</option>                  
-                    <option value="2" {{ old('role') == 2 ? "selected" : "" }}>Admin</option>                    
+                  <select class="form-control" name="role" id="role">      
+                    <option value="" >--Chọn role--</option>                       
+                    <option value="1" {{ old('role') == 1 ? "selected" : "" }}>Editor</option>                  
+                    @if(Auth::user()->role == 3)
+                    <option value="2" {{ old('role') == 2 ? "selected" : "" }}>Mod</option> 
+                    <option value="3" {{ old('role') == 3 ? "selected" : "" }}>Admin</option>                  
+                    @endif
                   </select>
-                </div>                            
+                </div> 
+                @if(Auth::user()->role == 3)
+                <div class="form-group" style="display:none" id="chon_mod">
+                  <label>Mod</label>
+                  <select class="form-control" name="leader_id" id="leader_id">
+                    <option value="">--Chọn Mod--</option>
+                    @if($modList)
+                      @foreach($modList as $mod)
+                    <option value="{{ $mod->id }}">{{ $mod->full_name }}</option> 
+                      @endforeach
+                    @endif                                
+                  </select>
+                </div> 
+                @endif                           
                 <div class="form-group">
                   <label>Trạng thái</label>
                   <select class="form-control" name="status" id="status">                                      
                     <option value="1" {{ old('status') == 1 || old('status') == NULL ? "selected" : "" }}>Mở</option>                  
-                    <option value="2" {{ old('status') == 2 ? "selected" : "" }}>Khóa</option>                    
+                    <option value="2" {{ old('status') == 2 ? "selected" : "" }}>Khóa</option>                  
                   </select>
                 </div>
             </div>
@@ -90,6 +107,15 @@
         $('#btnSave').hide();
         $('#btnLoading').show();
       });
+      @if(Auth::user()->role == 3)
+      $('#role').change(function(){
+        if($(this).val() == 1){
+          $('#chon_mod').show();
+        }else{
+          $('#chon_mod').hide();
+        }
+      });
+      @endif
     });
     
 </script>

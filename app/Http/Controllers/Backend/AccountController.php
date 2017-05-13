@@ -18,18 +18,33 @@ class AccountController extends Controller
     * @return Response
     */
     public function index(Request $request)
-    {          
-        $items = Account::where('role', '<', 3)->where('status', '>', 0)->orderBy('id')->get();        
-        
-        //$parentCate = Category::where('parent_id', 0)->where('type', 1)->orderBy('display_order')->get();
-        
-        return view('backend.account.index', compact('items'));
+    {         
+        $role = $leader_id = 0;
+        $role = Auth::user()->role;
+        $query = Account::where('status', '>', 0);
+
+        if( $role == 2){
+            $query->where(['role' => 1, 'leader_id' => Auth::user()->id]);
+        }else{
+            $role = $request->role ? $request->role : 0;
+            if($role > 0){
+                $query->where('role', $role);
+            }
+            $leader_id = $request->leader_id ? $request->leader_id : 0;
+            if($leader_id > 0){
+                $query->where('leader_id', $leader_id);
+            }
+        }
+        $items = $query->orderBy('id', 'desc')->get();
+        $modList = Account::where(['role' => 2, 'status' => 1])->get();
+        return view('backend.account.index', compact('items', 'role', 'leader_id', 'modList'));
     }
     public function create()
-    {         
-        //$parentCate = Category::where('parent_id', 0)->where('type', 1)->orderBy('display_order')->get();
-
-        return view('backend.account.create');
+    {        
+        
+        $modList = Account::where(['role' => 2, 'status' => 1])->get();
+        
+        return view('backend.account.create', compact('modList'));
     }
     public function changePass(){
         return view('backend.account.change-pass');   
@@ -76,7 +91,7 @@ class AccountController extends Controller
         ]);       
         
         $tmpPassword = str_random(10);
-
+        $dataArr['leader_id'] = Auth::user()->role == 2 ? Auth::user()->id : $dataArr['leader_id'];
         $dataArr['password'] = Hash::make( $tmpPassword );
         
         $dataArr['created_user'] = Auth::user()->id;
@@ -84,15 +99,16 @@ class AccountController extends Controller
         $dataArr['updated_user'] = Auth::user()->id;
 
         $rs = Account::create($dataArr);
+        /*
         if ( $rs->id > 0 ){
             Mail::send('backend.account.mail', ['full_name' => $request->full_name, 'password' => $tmpPassword, 'email' => $request->email], function ($message) use ($request) {
                 $message->from( config('mail.username'), config('mail.name'));
 
                 $message->to( $request->email, $request->full_name )->subject('Mật khẩu đăng nhập hệ thống');
             });   
-        }
+        }*/
 
-        Session::flash('message', 'Tạo mới tài khoản thành công. Mật khẩu đã được gửi đến email đăng ký.');
+        Session::flash('message', 'Tạo mới tài khoản thành công. Mật khẩu mặc định là : 123465@');
 
         return redirect()->route('account.index');
     }
@@ -103,7 +119,7 @@ class AccountController extends Controller
         $model->delete();
 
         // redirect
-        Session::flash('message', 'Xóa quốc gia thành công');
+        Session::flash('message', 'Xóa tài khoản thành công');
         return redirect()->route('account.index');
     }
     public function edit($id)

@@ -30,7 +30,10 @@ class ArticlesController extends Controller
         if( $cate_id > 0){
             $query->where('cate_id', $cate_id);
         }
-        
+        // check editor
+        if( Auth::user()->role == 1 ){
+            $query->where('created_user', Auth::user()->id);
+        }
         if( $title != ''){
             $query->where('alias', 'LIKE', '%'.$title.'%');
         }

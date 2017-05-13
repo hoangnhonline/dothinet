@@ -41,7 +41,7 @@
   @endif
 
   <!-- Content Wrapper. Contains page content -->
-  @yield('content')
+  @yield('content')  
   <div style="display: none" id="box_uploadimages">
     <div class="upload_wrapper block_auto">
         <div class="note" style="text-align:center;">Nhấn <strong>Ctrl</strong> để chọn nhiều hình.</div>

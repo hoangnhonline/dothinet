@@ -25,7 +25,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title"><span class="glyphicon glyphicon-pencil"></span></h3>
+            Chỉnh sửa
           </div>
           <!-- /.box-header -->               
             {!! csrf_field() !!}

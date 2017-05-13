@@ -36,6 +36,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/update', ['as' => 'cart-product.update', 'uses' => 'CartProductController@update']);
         Route::get('{id}/destroy', ['as' => 'cart-product.destroy', 'uses' => 'CartProductController@destroy']);
     });
+    Route::group(['prefix' => 'user-work'], function () {
+        Route::get('/', ['as' => 'user-work.index', 'uses' => 'UserWorkController@index']);
+        Route::get('/create', ['as' => 'user-work.create', 'uses' => 'UserWorkController@create']);
+        Route::post('/store', ['as' => 'user-work.store', 'uses' => 'UserWorkController@store']);
+        Route::get('{id}/edit',   ['as' => 'user-work.edit', 'uses' => 'UserWorkController@edit']);
+        Route::post('/update', ['as' => 'user-work.update', 'uses' => 'UserWorkController@update']);
+        Route::get('{id}/destroy', ['as' => 'user-work.destroy', 'uses' => 'UserWorkController@destroy']);
+    });
     Route::group(['prefix' => 'pages'], function () {
         Route::get('/', ['as' => 'pages.index', 'uses' => 'PagesController@index']);
         Route::get('/create', ['as' => 'pages.create', 'uses' => 'PagesController@create']);

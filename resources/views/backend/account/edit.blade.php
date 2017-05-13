@@ -9,7 +9,7 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('account.index') }}">Tài khoản</a></li>
-      <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
+      <li class="active">Chỉnh sửa</li>
     </ol>
   </section>
 
@@ -24,7 +24,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title"><span class="glyphicon glyphicon-pencil"></span></h3>
+            Chỉnh sửa
           </div>
           <!-- /.box-header -->               
             {!! csrf_field() !!}
@@ -48,14 +48,18 @@
                  <div class="form-group">
                   <label>Email <span class="red-star">*</span></label>
                   <input type="text" class="form-control" readonly="true" name="email" id="email" value="{{ $detail->email }}">
-                </div>                            
+                </div>
+                                         
                 <div class="form-group">
                   <label>Role</label>
                   <select class="form-control" name="role" id="role">                             
-                    <option value="1" {{ $detail->role == 1 ? "selected" : "" }}>Editor</option>                  
-                    <option value="2" {{ $detail->role == 2 ? "selected" : "" }}>Admin</option>                    
+                    <option value="1" {{ old('role', $detail->role) == 1 ? "selected" : "" }}>Editor</option>
+                    @if(Auth::user()->role == 3)                  
+                    <option value="2" {{ old('role', $detail->role) == 2 ? "selected" : "" }}>Mod</option>
+                    <option value="3" {{ old('role', $detail->role) == 3 ? "selected" : "" }}>Admin</option>
+                    @endif                    
                   </select>
-                </div>                            
+                </div>      
                 <div class="form-group">
                   <label>Trạng thái</label>
                   <select class="form-control" name="status" id="status">                                      

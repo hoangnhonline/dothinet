@@ -23,6 +23,6 @@ class UserWork extends Model  {
      *
      * @var array
      */
-    protected $fillable = [ 'user_id', 'work_content', 'work_date', 'leader_comment', 'status'];
+    protected $fillable = [ 'leader_id', 'work_content', 'work_date', 'leader_comment', 'status', 'created_user', 'updated_user'];
         
 }
