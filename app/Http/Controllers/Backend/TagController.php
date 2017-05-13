@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use App\Models\District;
-use App\Models\Metadata;
+use App\Models\MetaData;
 use Helper, File, Session, Auth;
 
 class TagController extends Controller
@@ -99,7 +99,7 @@ class TagController extends Controller
         $metaArr['meta_keywords'] = $dataArr['meta_keywords'];
         $metaArr['custom_text'] = $dataArr['custom_text'];
         
-        $rsMeta = Metadata::create( $metaArr );
+        $rsMeta = MetaData::create( $metaArr );
 
         if( $rsMeta->id ){
             $modelTag = Tag::find($object_id);
@@ -162,7 +162,7 @@ class TagController extends Controller
         $metadata = (object) [];
         $detail = Tag::find($id);
         if( $detail->meta_id > 0){
-            $metadata = Metadata::find( $detail->meta_id );
+            $metadata = MetaData::find( $detail->meta_id );
         }
         $districtList = District::where('city_id', 1)->get();
         return view('backend.tag.edit', compact( 'detail', 'metadata', 'districtList'));
@@ -203,8 +203,8 @@ class TagController extends Controller
             $metaArr['meta_keywords'] = $dataArr['meta_keywords'];
             $metaArr['custom_text'] = $dataArr['custom_text'];
             $metaArr['id'] = $dataArr['meta_id'];
-            $modelMetadata = Metadata::find( $dataArr['meta_id'] );
-            $modelMetadata->update( $metaArr );
+            $modelMetaData = MetaData::find( $dataArr['meta_id'] );
+            $modelMetaData->update( $metaArr );
         }
 
         Session::flash('message', 'Cập nhật tag thành công');

@@ -69,8 +69,28 @@
 											<label class="col-sm-3 control-label">Vị trí <span>(*)</span>:</label>
 											<div class="col-sm-4">
 										  		<select class="selectpicker form-control">
+													<option selected="selected">Loại bất động sản</option>
+													<option class="option-lv1" value="bchcc">Bán căn hộ chung cư</option>
+													<option class="option-lv1" value="tccln">Tất cả các loại nhà bán</option>
+													<option class="option-lv2" value="bnr1">Bán nhà riêng</option>
+													<option class="option-lv2" value="bnr2">Bán nhà riêng</option>
+													<option class="option-lv2" value="bnr3">Bán nhà riêng</option>
+													<option class="option-lv1" value="tccldb">Tất cả các loại đất bán</option>
+													<option class="option-lv2" value="bdnda">Bán đất nền dự án</option>
+													<option class="option-lv2" value="bd">Bán đất</option>
+													<option class="option-lv1" value="bttknd">Bán trang trại, khu nghỉ dưỡng</option>
+													<option class="option-lv1" value="bknx">Bán kho, nhà xưởng</option>
+													<option class="option-lv1" value="blbdsk">Bán loại bất động sản khác</option>
+												</select>
+											</div>
+											<div class="col-sm-4">
+										  		<select class="selectpicker form-control">
 													<option class="option-lv0" selected="selected">Quận/Huyện</option>
 												</select>
+											</div>
+										</div><!-- /form-group -->
+										<div class="form-group">
+											<label class="col-sm-3 control-label"></label>
 											<div class="col-sm-4">
 										  		<select class="selectpicker form-control">
 													<option class="option-lv0" selected="selected">Phường/Xã</option>
@@ -86,17 +106,9 @@
 													</select>
 												</select>
 											</div>
-										</div><!-- /form-group -->
-										<div class="form-group">
-											<label class="col-sm-3 control-label"></label>
 											<div class="col-sm-4">
 										  		<select class="selectpicker form-control">
 													<option class="option-lv0" selected="selected">Đường/Phố</option>
-												</select>
-											</div>
-											<div class="col-sm-4">
-										  		<select class="selectpicker form-control">
-													<option class="option-lv0" selected="selected">Du an</option>
 												</select>
 											</div>
 										</div><!-- /form-group -->
