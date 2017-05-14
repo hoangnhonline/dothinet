@@ -38,6 +38,7 @@ Route::group(['prefix' => 'authentication'], function () {
 
 Route::group(['namespace' => 'Frontend'], function()
 {
+    
     Route::get('code/sang-map/seo-link', ['as' => 'seo-link', 'uses' => 'HomeController@showLink']);   
 
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
@@ -47,7 +48,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('event/{slug}', ['as' => 'detail-event', 'uses' => 'EventController@detail']);
 
    
-
+    Route::post('/tmp-upload-multiple-fe', ['as' => 'image.tmp-upload-multiple-fe', 'uses' => 'UploadController@tmpUploadMultipleFE']);
     Route::post('/send-contact', ['as' => 'send-contact', 'uses' => 'ContactController@store']);
     Route::post('/set-service', ['as' => 'set-service', 'uses' => 'CartController@setService']);
     Route::get('tin-tuc/{slug}', ['as' => 'news-list', 'uses' => 'NewsController@newsList']);

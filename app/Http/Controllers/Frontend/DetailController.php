@@ -178,11 +178,9 @@ class DetailController extends Controller
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
         $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
 
-        $dataArr['status'] = 2;
-        $dataArr['created_user'] = Auth::user()->id;
-        $dataArr['updated_user'] = Auth::user()->id;      
+        $dataArr['status'] = 2;          
         $dataArr['city_id'] = 1;      
-        unset($dataArr['thumbnail_id']); 
+        
         $rs = Product::create($dataArr);
         $product_id = $rs->id;         
         $this->storeImage( $product_id, $dataArr);       
@@ -205,7 +203,7 @@ class DetailController extends Controller
                 }
                 $model->delete();
             }
-        }       
+        }               
 
         //process new image
         if( isset( $dataArr['thumbnail_id'])){

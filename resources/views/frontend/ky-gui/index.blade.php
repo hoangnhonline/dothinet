@@ -222,10 +222,15 @@
 											<label class="col-sm-3 control-label">Cập nhật hình ảnh:</label>
 											<div class="col-sm-8" >
 												<p class="text-red" style="padding-top: 12px; padding-bottom: 5px;">(Bạn có thể tải 16 ảnh và mỗi ảnh dung lượng không quá 4mb!)</p>
+
+
 												<input type="file" id="file-image" class="inputfile inputfile-5" data-multiple-caption="{count} files selected" multiple="">
 												<label for="file-image"></label>
 												<div class="clearfix" style="margin-top:5px"></div>
-												<div id="div-image"></div>
+												<div id="div-image" class="clearfix show-image">
+													
+													
+												</div>
 											</div>
 										</div><!-- /form-group -->
 										<div class="form-group">
@@ -295,7 +300,7 @@
 <script type="text/javascript">
 	$(document).on('click', '.remove-image', function(){
   if( confirm ("Bạn có chắc chắn không ?")){
-    $(this).parents('.col-md-3').remove();
+    $(this).parents('.register-avata').remove();
   }
 });
 $(document).ready(function() {
