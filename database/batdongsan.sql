@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2017 at 06:38 PM
+-- Generation Time: May 14, 2017 at 03:40 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -177,7 +177,8 @@ INSERT INTO `articles` (`id`, `title`, `slug`, `alias`, `description`, `image_ur
 (64, 'Tư vấn về bồi thường khi Nhà nước thu hồi đất', 'tu-van-ve-boi-thuong-khi-nha-nuoc-thu-hoi-dat', 'Tu van ve boi thuong khi Nha nuoc thu hoi dat', 'Năm 1994 gia đình tôi lên trên Lào Cai sinh sống và có mua đất không có bìa đỏ, sinh sống ổn định đến nay không có tranh chấp. Đất nhà tôi bây giờ nằm trong khu quy hoạch của công ty mỏ.', 'https://img.dothi.net/2017/04/17/Z9BcC3fq/th-1a50.jpg', 5, '<p>Nhà tôi có 3 anh em trai đều đã lập gia đình, bố mẹ đã mất. Anh hai của tôi đã tách khẩu, còn tôi và anh cả thì chưa. Luật sư cho tôi hỏi, nếu hiện giờ tôi tách khẩu thì có được hưởng quyền lợi gì từ mảnh đất của gia đình không? Mong luật sư tư vấn giúp. Xin cảm ơn.</p>\r\n\r\n<p><em>hoangnam@...</em></p>\r\n\r\n<p style="text-align:center"><img alt="bồi thường khi Nhà nước thu hồi đất" src="http://img.dothi.net/2017/04/17/Z9BcC3fq/th-1a50.jpg" style="width:500px" title="Tư vấn về bồi thường khi Nhà nước thu hồi đất"></p>\r\n\r\n<h2><strong>Luật sư Phạm Thị  Bích Hảo, Giám đốc Công ty luật TNHH Đức An, Thanh Xuân, HN</strong></h2>\r\n\r\n<p>Về điều kiện được bồi thường về đất khi Nhà nước thu hồi đất vì mục đích quốc phòng, an ninh, phát triển kinh tế - xã hội vì mục đích quốc gia quy định tại Điều 75 như sau:</p>\r\n\r\n<p>1. Hộ gia đình, cá nhân đang sử dụng đất không phải là đất thuê trả tiền thuê đất hàng năm, có Giấy chứng nhận quyền sử dụng đất, Giấy chứng nhận quyền sở hữu nhà ở và quyền sử dụng đất ở, Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất (sau đây gọi chung là Giấy chứng nhận) hoặc có đủ điều kiện để được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo quy định của Luật này mà chưa được cấp, trừ trường hợp quy định tại khoản 2 Điều 77 của Luật này; người Việt Nam định cư ở nước ngoài thuộc đối tượng được sở hữu nhà ở gắn liền với quyền sử dụng đất ở tại Việt Nam mà có Giấy chứng nhận hoặc có đủ điều kiện được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo quy định của Luật này mà chưa được cấp.</p>\r\n\r\n<p>Mặc dù, mảnh đất này không có Giấy chứng nhận quyền sử dụng đất nhưng nếu có đủ điều kiện để được cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất thì gia đình bạn được bồi thường về đất khi thu hồi.</p>\r\n\r\n<p>Theo đó, hộ gia đình, cá nhân đang sử dụng đất là chủ thể được bồi thường về đất. Căn cứ quy định tại Điều 15 Nghị định 47/2014/NĐ-CP</p>\r\n\r\n<p>Điều 15. Bồi thường về đất đối với những người đang đồng quyền sử dụng đất</p>\r\n\r\n<p>1. Tổ chức, hộ gia đình, cá nhân đang sử dụng đất chung có đồng quyền sử dụng đất, khi Nhà nước thu hồi đất được bồi thường theo diện tích đất thuộc quyền sử dụng; nếu không có giấy tờ xác định diện tích đất thuộc quyền sử dụng riêng của tổ chức, hộ gia đình, cá nhân thì bồi thường chung cho các đối tượng có đồng quyền sử dụng đất.</p>\r\n\r\n<p>2. Ủy ban nhân dân cấp tỉnh hướng dẫn việc phân chia tiền bồi thường về đất cho các đối tượng đồng quyền sử dụng quy định tại Khoản 1 Điều này.</p>\r\n\r\n<p>Bạn căn cứ quy định trên để thống nhất về việc nhận bồi thường về đất đối với các anh em trong gia đình.</p>\r\n    \r\n        <em>\r\n            <em>(Theo CafeLand)</em> <br>  </em>', 0, 1, 0, 0, '2017-05-05 15:08:14', '2017-05-05 15:08:14', 1, 1),
 (65, 'Thi hành bản án hành chính về đất đai', 'thi-hanh-ban-an-hanh-chinh-ve-dat-dai', 'Thi hanh ban an hanh chinh ve dat dai', 'Hỏi: - Công ty Dâu tằm tơ Tân Lộc chúng tôi là doanh nghiệp 100% vốn nhà nước, tọa lạc ở Thị xã Long Khánh, tỉnh Đồng Nai. Bất ngờ, UBND tỉnh Đồng Nai ngày 6-3-2008 ban hành Quyết định 699 và ngày 4-9-2008 ban hành Quyết định 2852 thu hồi toàn bộ diện tích 29.740m2 đất của công ty để xây dựng Đền thờ liệt sĩ thị xã Long Khánh.', 'https://img.dothi.net/2017/04/13/Z9BcC3fq/t1-c4a0.jpg', 5, '<p>Chúng tôi đã khởi kiện vụ án hành chính ra Tòa án tỉnh Đồng Nai. Ngày 8-8-2013, TAND tỉnh Đồng Nai đã tuyên (Bản án 08/2013/HCST) hủy cả Quyết định 699 ngày 6-3-2008 và Quyết định 2852 ngày 4-9-2008 của UBND tỉnh Đồng Nai; công nhận quyền sở hữu và cấp giấy chứng nhận quyền sử dụng đất cho Công ty Dâu tằm tơ Tân Lộc.</p>\r\n\r\n<p>Ngày 25-10-2013 Tòa phúc thẩm TANDTC tại TPHCM đã ra Quyết định 220 đình chỉ xét xử phúc thẩm vụ án hành chính do người kháng cáo là UBND tỉnh Đồng Nai rút kháng cáo, công nhận Bản án sơ thẩm 08/2013/HCST của TAND tỉnh Đồng Nai có hiệu lực pháp luật. Sau khi bản án có hiệu lực, công ty chúng tôi đã làm đơn yêu cầu thi hành án. Thế nhưng gần 4 năm trôi qua, bản án đã có hiệu lực của Tòa án vẫn chưa được thi hành. Xin hỏi, theo quy định pháp luật thì cơ quan nào sẽ giải quyết tiếp?</p>\r\n\r\n<p><em>Phan Ngọc Mậu (Giám đốc CT Dâu tằm tơ Tân Lộc)</em></p>\r\n\r\n<p style="text-align: center;"><img alt="bản án hành chính về đất đai" src="http://img.dothi.net/2017/04/13/Z9BcC3fq/t1-c4a0.jpg" style="width:500px" title="Thi hành bản án hành chính về đất đai"><br><em>Ảnh minh họa, nguồn: Internet</em></p>\r\n\r\n<h2><strong>Trả lời: </strong></h2>\r\n\r\n<p>Khoản 1, Điều 11 Nghị định 71 ngày 1-7-2016 của Chính phủ (quy định thời hạn, trình tự, thủ tục thi hành án hành chính và xử lý trách nhiệm đối với người không thi hành bản án, quyết định của Tòa án) quy định: “Khi hết thời hạn tự nguyện thi hành án quy định tại Điểm b, Khoản 2, Điều 311 Luật Tố tụng hành chính mà người phải thi hành bản án không tự nguyện thi hành, người được thi hành án có quyền đề nghị Tòa án đã xét xử sơ thẩm ra quyết định buộc thi hành án hành chính”.</p>\r\n\r\n<p>Căn cứ quy định pháp luật nêu trên, công ty của ông cần làm đơn yêu cầu gửi TAND tỉnh Đồng Nai (là Tòa án đã xét xử sơ thẩm vụ kiện hành chính), đề nghị Chánh án TAND tỉnh Đồng Nai ra quyết định buộc UBND tỉnh Đồng Nai (người phải thi hành bản án) phải thi hành bản án hành chính đã có hiệu lực pháp luật.</p>\r\n\r\n<p style="text-align: right;"><strong>Luật gia Nguyễn Văn Khôi</strong></p>\r\n    \r\n        <em>\r\n            <em>(Theo Sài Gòn Đầu tư Tài chính Online)</em> <br>  </em>', 0, 1, 0, 0, '2017-05-05 15:08:15', '2017-05-05 15:08:15', 1, 1),
 (66, 'Quy định về tiến độ thanh toán khi mua nhà ở hình thành trong tương lai', 'quy-dinh-ve-tien-do-thanh-toan-khi-mua-nha-o-hinh-thanh-trong-tuong-lai', 'Quy dinh ve tien do thanh toan khi mua nha o hinh thanh trong tuong lai', 'Tôi dự định mua 1 căn hộ trong một dự án đang xây dựng, chủ đầu tư yêu cầu tôi đặt cọc trước một khoản bằng 30% giá trị căn hộ. Việc này có đúng quy định không?', 'https://img.dothi.net/2017/04/13/Z9BcC3fq/dt-65b9.jpg', 5, '<div class="photo" style="text-align: center;"><img alt="mua nhà hình thành trong tương lai" src="http://img.dothi.net/2017/04/13/Z9BcC3fq/dt-65b9.jpg" style="width:500px" title="Quy định về tiến độ thanh toán khi mua nhà ở hình thành trong tương lai"></div>\r\n\r\n<p>Theo quy định tại Điều 57 Luật Nhà ở 2014 về thanh toán trong mua bán, thuê mua bất động sản hình thành trong tương lai, thì “Việc thanh toán trong mua bán, thuê mua bất động sản hình thành trong tương lai được thực hiện nhiều lần, lần đầu không quá 30% giá trị hợp đồng, những lần tiếp theo phải phù hợp với tiến độ xây dựng bất động sản, nhưng tổng số không quá 70% giá trị hợp đồng khi chưa bàn giao nhà, công trình xây dựng cho khách hàng; trường hợp bên bán, bên cho thuê mua là doanh nghiệp có vốn đầu tư nước ngoài thì tổng số không quá 50% giá trị hợp đồng”.</p>\r\n\r\n<p>Như vậy, việc chủ đầu tư yêu cầu bạn đặt cọc trước 30% giá trị căn hộ là phù hợp quy định pháp luật.</p>\r\n\r\n<p>Ngoài ra, bạn cần lưu ý một số vấn đề liên quan đối với việc mua bất động sản hình thành trong tương lai:</p>\r\n\r\n<p>1. Bất động sản đó phải có “giấy tờ về quyền sử dụng đất, hồ sơ dự án, thiết kế bản vẽ thi công đã được cấp có thẩm quyền phê duyệt, Giấy phép xây dựng đối với trường hợp phải có giấy phép xây dựng, giấy tờ về nghiệm thu việc hoàn thành xây dựng cơ sở hạ tầng kỹ thuật tương ứng theo tiến độ dự án; trường hợp là nhà chung cư, tòa nhà hỗn hợp có mục đích để ở hình thành trong tương lai thì phải có biên bản nghiệm thu đã hoàn thành xong phần móng của tòa nhà đó.</p>\r\n\r\n<p>2. Chủ đầu tư dự án trước khi bán, cho thuê mua nhà ở hình thành trong tương lai phải được ngân hàng thương mại có đủ năng lực thực hiện bảo lãnh nghĩa vụ tài chính của chủ đầu tư đối với khách hàng khi chủ đầu tư không bàn giao nhà ở theo đúng tiến độ đã cam kết với khách hàng.</p>\r\n\r\n<p>3. Trước khi bán, cho thuê mua nhà ở hình thành trong tương lai, chủ đầu tư phải có văn bản thông báo cho cơ quan quản lý nhà ở cấp tỉnh về việc nhà ở đủ điều kiện được bán, cho thuê mua.</p>\r\n\r\n<p style="text-align: right;"><strong>Luật sư Lương Nguyễn Khánh Văn,<br>\r\nGiám đốc Khối Dịch vụ pháp lý doanh nghiệp, Công ty Luật LP Group</strong></p>\r\n    \r\n        <em>\r\n            <em>(Theo Đầu tư Chứng khoán)</em> <br>  </em>', 0, 1, 0, 0, '2017-05-05 15:08:15', '2017-05-05 15:08:15', 1, 1),
-(67, 'Quy định chuyển nhượng hợp đồng mua bán NƠXH', 'quy-dinh-chuyen-nhuong-hop-dong-mua-ban-noxh', 'Quy dinh chuyen nhuong hop dong mua ban NOXH', 'Bạn Nguyễn Văn Nhị tại hòm thư ng.vannhi@gmail.com hỏi: Nếu tôi vay gói 30.000 tỷ đồng để mua nhà chung cư, nhưng chưa đủ 5 năm, chưa trả hết nợ, tôi muốn bán cho đối tượng có đủ điều kiện mua NƠXH thì tôi có được phép sang tên hợp đồng mua bán và có được phép sang tên cho người muốn mua nhà của tôi với đơn vị tín dụng để người mua sẽ tiếp tục thay tôi trả hết món nợ không?', 'https://img.dothi.net/2017/04/13/Z9BcC3fq/chuyennhuongnoxh-539d.jpg', 5, '<table border="0" cellpadding="1" cellspacing="1" style="margin:0 auto; width:500px"><tbody>\n<tr>\n<td>\r\n			<div class="photo"><img alt="chuyển nhượng hợp đồng mua bán NƠXH" src="http://img.dothi.net/2017/04/13/Z9BcC3fq/chuyennhuongnoxh-539d.jpg" style="height:333px; width:500px" title="Quy định chuyển nhượng hợp đồng mua bán NƠXH"></div>\r\n			</td>\r\n		</tr>\n<tr>\n<td style="text-align: center;"><em>Ảnh minh họa.</em></td>\r\n		</tr>\n</tbody></table>\n<p>Về vấn đề trên, Cục Quản lý nhà và Thị trường bất động sản trả lời như sau:</p>\r\n\r\n<h2>Về việc chuyển nhượng hợp đồng mua bán NƠXH</h2>\r\n\r\n<p>Theo quy định tại Khoản 6, Điều 13 Nghị định số 188/2013/NĐ-CP ngày 20/11/2013 của Chính phủ và Khoản 5, Điều 19 Nghị định số 100/2015/NĐ-CP ngày 20/10/2015 của Chính phủ về phát triển và quản lý NƠXH thì trong thời hạn chưa đủ 05 năm, kể từ thời điểm trả hết tiền mua NƠXH, nếu bên mua có nhu cầu bán lại NƠXH thì chỉ được phép bán lại cho chủ đầu tư dự án xây dựng NƠXH hoặc bán lại cho đối tượng được mua NƠXH.</p>\r\n\r\n<p>Pháp luật về nhà ở và pháp luật về kinh doanh bất động sản không quy định hình thức chuyển nhượng hợp đồng mua bán NƠXH.</p>\r\n\r\n<h2>Về hợp đồng tín dụng vay để mua NƠXH</h2>\r\n\r\n<p>Trường hợp người mua NƠXH bán lại NƠXH cho đối tượng được mua NƠXH trong thời hạn chưa đủ 05 năm kể từ thời điểm trả hết tiền mua NƠXH, nếu chưa hoàn tất hợp đồng tín dụng vay gói 30.000 tỷ đồng mà muốn người mua lại nhà tiếp tục trả nợ thì đề nghị công dân liên hệ với Ngân hàng Nhà nước hoặc Ngân hàng trực tiếp cho vay để được hướng dẫn theo đúng thẩm quyền.</p>\r\n\r\n<p style="text-align: right;"><em>Cục Quản lý nhà và Thị trường bất động sản/moc.gov.vn</em></p>\r\n    \r\n        <em>\r\n            <em>(Theo Báo Xây dựng)</em> <br>  </em>', 0, 1, 0, 0, '2017-05-05 15:08:16', '2017-05-05 15:08:16', 1, 1);
+(67, 'Quy định chuyển nhượng hợp đồng mua bán NƠXH', 'quy-dinh-chuyen-nhuong-hop-dong-mua-ban-noxh', 'Quy dinh chuyen nhuong hop dong mua ban NOXH', 'Bạn Nguyễn Văn Nhị tại hòm thư ng.vannhi@gmail.com hỏi: Nếu tôi vay gói 30.000 tỷ đồng để mua nhà chung cư, nhưng chưa đủ 5 năm, chưa trả hết nợ, tôi muốn bán cho đối tượng có đủ điều kiện mua NƠXH thì tôi có được phép sang tên hợp đồng mua bán và có được phép sang tên cho người muốn mua nhà của tôi với đơn vị tín dụng để người mua sẽ tiếp tục thay tôi trả hết món nợ không?', 'https://img.dothi.net/2017/04/13/Z9BcC3fq/chuyennhuongnoxh-539d.jpg', 5, '<table border="0" cellpadding="1" cellspacing="1" style="margin:0 auto; width:500px"><tbody>\n<tr>\n<td>\r\n			<div class="photo"><img alt="chuyển nhượng hợp đồng mua bán NƠXH" src="http://img.dothi.net/2017/04/13/Z9BcC3fq/chuyennhuongnoxh-539d.jpg" style="height:333px; width:500px" title="Quy định chuyển nhượng hợp đồng mua bán NƠXH"></div>\r\n			</td>\r\n		</tr>\n<tr>\n<td style="text-align: center;"><em>Ảnh minh họa.</em></td>\r\n		</tr>\n</tbody></table>\n<p>Về vấn đề trên, Cục Quản lý nhà và Thị trường bất động sản trả lời như sau:</p>\r\n\r\n<h2>Về việc chuyển nhượng hợp đồng mua bán NƠXH</h2>\r\n\r\n<p>Theo quy định tại Khoản 6, Điều 13 Nghị định số 188/2013/NĐ-CP ngày 20/11/2013 của Chính phủ và Khoản 5, Điều 19 Nghị định số 100/2015/NĐ-CP ngày 20/10/2015 của Chính phủ về phát triển và quản lý NƠXH thì trong thời hạn chưa đủ 05 năm, kể từ thời điểm trả hết tiền mua NƠXH, nếu bên mua có nhu cầu bán lại NƠXH thì chỉ được phép bán lại cho chủ đầu tư dự án xây dựng NƠXH hoặc bán lại cho đối tượng được mua NƠXH.</p>\r\n\r\n<p>Pháp luật về nhà ở và pháp luật về kinh doanh bất động sản không quy định hình thức chuyển nhượng hợp đồng mua bán NƠXH.</p>\r\n\r\n<h2>Về hợp đồng tín dụng vay để mua NƠXH</h2>\r\n\r\n<p>Trường hợp người mua NƠXH bán lại NƠXH cho đối tượng được mua NƠXH trong thời hạn chưa đủ 05 năm kể từ thời điểm trả hết tiền mua NƠXH, nếu chưa hoàn tất hợp đồng tín dụng vay gói 30.000 tỷ đồng mà muốn người mua lại nhà tiếp tục trả nợ thì đề nghị công dân liên hệ với Ngân hàng Nhà nước hoặc Ngân hàng trực tiếp cho vay để được hướng dẫn theo đúng thẩm quyền.</p>\r\n\r\n<p style="text-align: right;"><em>Cục Quản lý nhà và Thị trường bất động sản/moc.gov.vn</em></p>\r\n    \r\n        <em>\r\n            <em>(Theo Báo Xây dựng)</em> <br>  </em>', 0, 1, 0, 0, '2017-05-05 15:08:16', '2017-05-05 15:08:16', 1, 1),
+(68, 'dg asgads gasd', 'dg-asgads-gasd', 'dg asgads gasd', '', '', 4, '', 0, 1, 0, 0, '2017-05-13 09:39:36', '2017-05-13 09:39:36', 6, 6);
 
 -- --------------------------------------------------------
 
@@ -310,7 +311,9 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`id`, `name`, `slug`, `type`, `status`, `created_at`, `updated_at`) VALUES
 (3, 'Chung cư Gold', 'chung-cu-gold', 1, 1, '2017-05-10 20:30:38', '2017-05-10 20:35:49'),
-(4, 'Đất nền quận 9', 'dat-nen-quan-9', 2, 1, '2017-05-10 20:41:13', '2017-05-10 20:41:13');
+(4, 'Đất nền quận 9', 'dat-nen-quan-9', 2, 1, '2017-05-10 20:41:13', '2017-05-10 20:41:13'),
+(5, 'Chung cu abc', 'chung-cu-abc', 1, 1, '2017-05-12 21:27:51', '2017-05-12 21:27:51'),
+(11, 'Resert 01kadsf', 'resert-01kadsf', 1, 1, '2017-05-13 07:47:34', '2017-05-13 07:47:34');
 
 -- --------------------------------------------------------
 
@@ -351,8 +354,7 @@ INSERT INTO `cart_product` (`id`, `name`, `cart_id`, `direction`, `price`, `area
 (8, 'A06', 3, '', '', '', '', '', '', '', 1, 0, '', 1, 1, '2017-05-11 21:33:35', '2017-05-11 21:33:35'),
 (9, 'A07', 3, '', '', '', '', '', '', '', 1, 0, '', 1, 1, '2017-05-11 21:33:40', '2017-05-11 21:33:40'),
 (10, 'A08', 3, '', '', '', '', '', '', '', 1, 0, '', 1, 1, '2017-05-11 21:33:44', '2017-05-11 21:33:44'),
-(11, 'A100', 3, '', '124', '34 m2', '', '', '', '', 0, 0, '', 1, 1, '2017-05-11 22:03:03', '2017-05-11 22:03:03'),
-(12, 'Nền 01', 4, '', '', '', NULL, NULL, NULL, '', 0, 0, '', 1, 1, '2017-05-11 22:15:20', '2017-05-11 22:15:20');
+(11, 'A100', 3, '', '124', '34 m2', '', '', '', '', 0, 0, '', 1, 1, '2017-05-11 22:03:03', '2017-05-11 22:03:03');
 
 -- --------------------------------------------------------
 
@@ -1440,7 +1442,9 @@ INSERT INTO `meta_data` (`id`, `title`, `description`, `keywords`, `custom_text`
 (5, NULL, NULL, NULL, '', 0, 0, '2017-05-09 22:15:04', '2017-05-09 22:15:04'),
 (6, '', '', '', '', 1, 1, '2017-05-09 22:38:11', '2017-05-09 22:38:11'),
 (7, 'dgadsga', 'dgadsgadgádga', 'ádgasdgádgas', 'gádgsdg', 1, 1, '2017-05-09 22:38:28', '2017-05-10 08:45:39'),
-(8, 'áf', 'SFA', 'Ấ', 'À', 1, 1, '2017-05-10 09:30:13', '2017-05-10 09:30:13');
+(8, 'áf', 'SFA', 'Ấ', 'À', 1, 1, '2017-05-10 09:30:13', '2017-05-10 09:30:13'),
+(9, '', '', '', '', 5, 5, '2017-05-13 09:34:52', '2017-05-13 09:34:52'),
+(10, NULL, NULL, NULL, '', 0, 0, '2017-05-13 10:32:31', '2017-05-13 10:32:31');
 
 -- --------------------------------------------------------
 
@@ -2223,10 +2227,12 @@ INSERT INTO `product` (`id`, `title`, `slug`, `description`, `type`, `thumbnail_
 (50, 'Bán nhà mới nguyên căn-3 lầu tại đường Einstein- P.Bình Thọ- Thủ Đức', 'bán-nhà-mói-nguyen-can-3-làu-tai-duong-einstein-pbinh-tho-thu-duc', 'Bán nhà nguyên căn đầy đủ tiện nghi rất thuận tiện để ở ngang 8m dài 6.5m, 3 lầu, 2 phòng ngủ, 1 nhà bếp, 1 phòng khách,1 phòng thờ, sân phơi tại số 25Q, đường Einstein,KP4, P.Bình Thọ,Q.Thủ Đức, TP.HCM. Nhà mới xây có đầy đủ giường ngủ, bàn ghế Sopha Chilai, bộ bàn ăn,kệ bếp trên dưới bằng gỗ,bếp gas Rinnai,tủ đựng giày,tủ quần áo âm tường, máy hút khói,quầy bar,Ti Vi,Tủ Lạnh, Máy Giặt, Máy Lạnh Daikin, internet , truyền hình cáp, nước máy, nước nóng năng lượng mặt trời,bồn cầu +lababo Linax, vòi sen nóng lạnh  đầy đủ....Khu dân cư xung quanh là biệt thự làng đại học Thủ Đức, dân trí cao và gần CA.Phường nên rất an toàn. Tọa lạc vị trí thuận tiện gần trạm xe cao tốc Suối Tiên- Bến Thành, chợ, trường học,TT y tế,trung tâm hành chính Q.Thủ Đức, gần trung tâm mua sắm Nguyễn Kim, Vincom...đường thoáng rộng thuận tiện việc đi lại và đi làm vào TT TP.HCM hay KCN Bình Dương, Đồng Nai. Dể thương lượng tuyệt vời để ở thuận lợi cho con cái xin nhập học các trường điểm của quận,...ĐT LHệ 0909,874,984 Gặp Mr.Vi-Chính Chủ. Đặc biệt ưu tiên cho giáo viên,công nhân viên chức có nhu cầu thiện chí mua.\r<br>Ưu tiên cho người liên hệ trước.Giá đề nghị 3.160.000 VND.\r<br>Hiện tại đang cho thuê 10tr/tháng.', 1, 48, 2, 1, 19, 0, 0, 0, '3', 8, 'Không xác định', '', '', '5 m', 3, 2, 0, 2, 'https://img.dothi.net/2017/05/04/20170504202510-0e8f_wm.jpg', NULL, 'Mr.Vi', '', '', '0909874984', '', 'https://dothi.net/ban-nha-rieng-duong-einstein-phuong-binh-tho/ban-nha-moi-nguyen-can3-lau-tai-duong-einstein-pbinh-tho-thu-duc-pr7845971.htm', NULL, NULL, 1, 1, 0, NULL, NULL, 0, '2017-05-05 13:43:26', '2017-05-05 18:27:23'),
 (51, 'Nhà đường Số 8 chợ Bình Triệu, Thủ Đức đúc 3 tầng, sân thượng', 'nha-duong-so-8-cho-binh-trieu-thu-duc-duc-3-tang-san-thuong', 'Nhà ngay chợ Bình Triệu, đối diện trường Đại học Luật.<br>Nhà mới xây nội thất cao cấp, sang trọng Nhà đúc 3 tầng, gồm có sân, 1 PK, 4 PN, 4 nhà tắm, WC, sân thượng rộng. Khu dân cư đông, an ninh, đường xe hơi vào được.<br>Vị trí: Nhà ngay cầu Bình Triệu, gần chợ, trường. Gần đường Phạm Văn Đồng chỉ 1 km, giáp ranh Bình Thạnh, di chuyển vào Q. 1, Q. 3 chỉ 15 phút xe máy, Thuận tiện lưu thông về Phú Nhuận, Q. 12, Gò Vấp, Q. 9, Q. 2….<br><br>Diện tích: 4x14m, DTSD hơn 140 mét vuông (đúc một trệt, hai lầu, sân thượng).<br>Giá 3,15 tỷ.<br>Pháp lý sổ hồng riêng, bao công chứng, sang tên(hỗ trợ vay vốn ngân hàng đến 70 %).<br>(Khuyến mãi tặng tủ bếp, kệ bếp, tủ âm tường, máy năng lượng mặt trời, chiết khấu thêm cho khách hàng 3%, trị giá 40 triệu. Nhanh tay chỉ còn 2 căn còn lại).<br>Liên hệ trực tiếp chủ đầu tư 0909685597 (Miễn môi giới, trung gian).', 1, 49, 2, 1, 19, 0, 0, 0, '3', 8, '56 m²', '', '', '', 3, 4, 0, 0, 'https://img.dothi.net/2017/04/05/20170405194458-1c76_wm.jpg', NULL, 'Vũ Văn Luyện', 'Bình Chánh - Hồ Chí Minh', '', '0988715847', '', 'https://dothi.net/ban-nha-rieng-duong-so-8-phuong-hiep-binh-chanh/nha-duong-so-8-cho-binh-trieu-thu-duc-duc-3-tang-san-thuong-pr7717373.htm', NULL, NULL, 1, 1, 0, NULL, NULL, 0, '2017-05-05 13:43:27', '2017-05-05 18:27:23'),
 (52, 'Nhà gần chợ Bình Triệu, Thủ Đức đúc 3 tầng, sân thượng, có sân để xe hơi 7 chỗ', 'nha-gan-cho-binh-trieu-thu-duc-duc-3-tang-san-thuong-co-san-de-xe-hoi-7-cho', 'Nhà bán Quốc Lộ 13, Quận Thủ Đức. Nhà mới xây, thiết kế đẹp, nội thất cao cấp, sang trọng.<br>Diện tích 4x21m.<br>(Xây dựng 4x14m, có sân để xe hơi), Đúc một trệt, hai lầu, sân thượng. Gồm sân để xe hơi 7 chỗ, 1 PK, 4 PN, phòng ăn, bếp rộng, 4 nhà tắm, WC, sân thượng trước sau rộng. Khu dân cư an ninh, yên tĩnh, đường trước nhà 8 mét, xe ô tô đỗ cửa. Gồm:<br>Tầng 1: Sân để xe hơi 7 chỗ, 1 PK, phòng ăn, bếp, nhà tắm, WC, giếng trời.<br>Tầng 2: Hai phòng ngủ, nhà tắm, WC, banconl.<br>Tầng 3: Hai phòng ngủ, nhà tắm, WC, banconl.<br>Tầng thượng: Chuồng cu, nhà Tắm, WC, Sân thượng rộng trước sau.<br><br>Vị trí: Nhà gần Quốc Lộ 13(Đang chuẩn bị mở rộng), gần chợ, trường học, Vincom, Coop Max Bình Triệu, bến xe Miền Đông, gần khu đô thị Vạn Phúc, công viên lớn nhất đang xây ven sông Sài Gòn.<br>Nhà cách trường Đại Học Luật, chợ Bình triệu gần 1 Km, giáp ranh Bình Thạnh, cách trung Tâm Quận 1 chỉ 15 phút xe máy, thuận tiện lưu thông vào Quận 9, Q2, Phú Nhuận, Gò Vấp, Q3…và đi khu vực Bình Dương.<br>DT 4x21m (Đúc một trệt, hai lầu, sân thượng. DTSD hơn 200 mét vuông).<br>Pháp lý sổ hồng riêng, bao công chứng sang tên (hỗ trợ vay vốn ngân hàng đến 70 %).<br>Giá: 3,15 tỷ.<br>(Chương trình khuyến mãi và chiết khấu trong tháng này: Tặng tủ bếp, kệ bếp, máy năng lượng mặt trời. Chiết khấu lên đến 3 % cho khách hàng, tổng giá trị hơn 30 triệu).<br>Liên hệ chủ đầu tư: 0909685597.', 1, 50, 2, 1, 19, 0, 0, 0, '3', 8, '84 m²', '', '', '8 m', 0, 4, 0, 4, 'https://img.dothi.net/2017/04/02/20170402201354-4d8f_wm.jpg', NULL, 'Vũ Văn Luyện', 'Bình Chánh - Hồ Chí Minh', '', '0988715847', '', 'https://dothi.net/ban-nha-rieng-duong-quoc-lo-13-phuong-hiep-binh-phuoc/nha-gan-cho-binh-trieu-thu-duc-duc-3-tang-san-thuong-co-san-de-xe-hoi-7-cho-pr7692609.htm', NULL, NULL, 1, 1, 0, NULL, NULL, 0, '2017-05-05 13:43:28', '2017-05-05 18:27:23'),
-(53, 'sdvgasdgsdg ádgh', NULL, '<p>sdgasdg g asd&nbsp;</p>\r\n', 1, 13, 8, 1, 2, 4, 4, 9, 'sdga', 4, '24', '445', '5656', '4', 54, 65, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, 1, 1, 4, NULL, NULL, NULL, '2017-05-05 18:02:08', '2017-05-05 18:02:08'),
-(54, 'dgasg ', 'dgasg', '', 1, 0, 8, 1, 2, 3, 1, 17, '11', 2, 'dd', 'e', '11', '11', 11, 11, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, 1, 1, 6, NULL, NULL, NULL, '2017-05-09 22:38:11', '2017-05-09 22:38:11'),
-(55, 'dgasg ', 'dgasg', '', 1, 51, 8, 1, 2, 3, 1, 17, '11', 2, 'dd', 'e', '11', '11', 11, 11, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '106.72351049999997', '10.755297', 1, 1, 7, NULL, NULL, NULL, '2017-05-09 22:38:28', '2017-05-11 23:36:53'),
-(56, 'f  sh sdfhdf hdh gsafd hfdh', 'f-sh-sdfhdf-hdh-gsafd-hfdh', '<p>dgfdasga sdgasd gdsg&nbsp;</p>\r\n', 1, 54, 2, 1, 9, 3, 1, 8, '111', 5, 'dsga', 'dsg', 'gd', '11', 11, 11, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, 1, 1, 8, NULL, NULL, NULL, '2017-05-10 09:30:12', '2017-05-10 09:30:13');
+(70, 'dsgd fshdfsh', 'dsgd-fshdfsh', '', 1, 0, 8, 1, 2, 2, 3, 2, '12412412', 10, '', '124124124124cv gdf hdf', '', '', 0, 0, 6, 0, NULL, NULL, 'sdgasgwegwe', '', '', 'tewtqewtw', '', '', NULL, NULL, 2, 1, 0, NULL, NULL, NULL, '2017-05-13 13:43:51', '2017-05-13 13:43:51'),
+(71, 'df dà sdf', 'df-da-sdf', '', 1, 0, 2, 1, 2, 9, 11, 11, '111', 2, '11', '11 sầ sff', '12', '12', 22, 3, 7, 0, NULL, NULL, ' gádgdfsdfhdfsh', '', '', '0987643421', '', '', NULL, NULL, 2, 1, 0, NULL, NULL, NULL, '2017-05-14 20:27:53', '2017-05-14 20:27:53'),
+(72, 'df dà sdf', 'df-da-sdf', '', 1, 0, 2, 1, 2, 9, 11, 11, '111', 2, '11', '11 sầ sff', '12', '12', 22, 3, 7, 0, NULL, NULL, ' gádgdfsdfhdfsh', '', '', '0987643421', '', '', NULL, NULL, 2, 1, 0, NULL, NULL, NULL, '2017-05-14 20:29:00', '2017-05-14 20:29:00'),
+(73, 'df dà sdf', 'df-da-sdf', '', 1, 0, 2, 1, 2, 9, 11, 11, '111', 2, '11', '11 sầ sff', '12', '12', 22, 3, 7, 0, NULL, NULL, ' gádgdfsdfhdfsh', '', '', '0987643421', '', '', NULL, NULL, 2, 1, 0, NULL, NULL, NULL, '2017-05-14 20:29:17', '2017-05-14 20:29:17'),
+(74, 'df dà sdf', 'df-da-sdf', '', 1, 0, 2, 1, 2, 9, 11, 11, '111', 2, '11', '11 sầ sff', '12', '12', 22, 3, 7, 0, NULL, NULL, ' gádgdfsdfhdfsh', '', '', '0987643421', '', '', NULL, NULL, 2, 1, 0, NULL, NULL, NULL, '2017-05-14 20:29:46', '2017-05-14 20:29:46'),
+(75, 'df dà sdf', 'df-da-sdf', '', 1, 60, 2, 1, 2, 9, 11, 11, '111', 2, '11', '11 sầ sff', '12', '12', 22, 3, 7, 0, NULL, NULL, ' gádgdfsdfhdfsh', '', '', '0987643421', '', '', NULL, NULL, 2, 1, 0, NULL, NULL, NULL, '2017-05-14 20:30:01', '2017-05-14 20:30:01');
 
 -- --------------------------------------------------------
 
@@ -2291,7 +2297,11 @@ INSERT INTO `product_img` (`id`, `product_id`, `image_url`, `display_order`) VAL
 (53, 55, '2017/05/09/hydrangeas-1494344815.jpg', 1),
 (54, 56, '2017/05/10/girl-xinh-facebook-tu-suong-1494383410.jpg', 1),
 (55, 56, '2017/05/10/1339337386492583760-574-574-1494383410.jpg', 1),
-(56, 56, '2017/05/10/hinh-anh-teen-girl-9x-10x-sieu-cute-lam-xao-xuyen-long-nguoi-1494383410.jpg', 1);
+(56, 56, '2017/05/10/hinh-anh-teen-girl-9x-10x-sieu-cute-lam-xao-xuyen-long-nguoi-1494383410.jpg', 1),
+(57, 75, '2017/05/14/chrysanthemum-1494767901.jpg', 1),
+(58, 75, '2017/05/14/desert-1494767901.jpg', 1),
+(59, 75, '2017/05/14/hydrangeas-1494767901.jpg', 1),
+(60, 75, '2017/05/14/tulips-1494767904.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -3867,7 +3877,8 @@ INSERT INTO `tag` (`id`, `meta_id`, `slug`, `type`, `name`, `alias`, `descriptio
 (7, NULL, 'sfadsgadsgads', 1, 'sfadsgadsgads', NULL, NULL, NULL, 1, 1, '2017-05-09 22:23:42', '2017-05-09 22:23:42'),
 (8, 0, 'nh-tri-phan-cong-ong-nguyen', 3, 'nh trị phân công ông Nguyễn', 'nh tri phan cong ong Nguyen', '', 9, 1, 1, '2017-05-10 08:45:26', '2017-05-10 09:41:23'),
 (9, NULL, 'uy-vien-bo-chinh-tri', 1, 'Ủy viên Bộ Chính trị', NULL, NULL, NULL, 1, 1, '2017-05-10 08:45:26', '2017-05-10 08:45:26'),
-(10, 0, 'giu-chuc-bi-thu-thanh-uy', 3, 'giữ chức Bí thư Thành ủy', 'giu chuc Bi thu Thanh uy', '', 9, 1, 1, '2017-05-10 08:45:26', '2017-05-10 09:41:13');
+(10, 0, 'giu-chuc-bi-thu-thanh-uy', 3, 'giữ chức Bí thư Thành ủy', 'giu chuc Bi thu Thanh uy', '', 9, 1, 1, '2017-05-10 08:45:26', '2017-05-10 09:41:13'),
+(11, 10, 'gadsgadsg', 1, 'gadsgadsg', 'gadsgadsg', '', 1, 1, 1, '2017-05-13 10:32:31', '2017-05-13 10:32:31');
 
 -- --------------------------------------------------------
 
@@ -3989,6 +4000,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` tinyint(1) NOT NULL,
+  `leader_id` int(11) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `changed_password` tinyint(1) NOT NULL DEFAULT '0',
   `remember_token` varchar(255) NOT NULL,
@@ -4002,8 +4014,62 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `status`, `changed_password`, `remember_token`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'admin@nhadat.vn', '$2y$10$/GRNt83hk4DTh/LE3BsxEeXKoZaiOXsmVVYiwuJxccK5yHlYp0M4G', 3, 1, 0, '5S8rhNDDplsfTY4oj2K4BNnqvqnL6WcQjf1NKnljJevodPkAl4UArIsHGc94', 1, 1, '2016-08-27 05:26:18', '2017-05-11 22:53:03');
+INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `leader_id`, `status`, `changed_password`, `remember_token`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'admin@nhadat.vn', '$2y$10$/GRNt83hk4DTh/LE3BsxEeXKoZaiOXsmVVYiwuJxccK5yHlYp0M4G', 3, NULL, 1, 0, 'a358XyBfvRCZZRWfKwGRF7Pq5UP2oNsQY9wsQgVg4RQcLGRuGOIxaf66uCOo', 1, 1, '2016-08-27 05:26:18', '2017-05-13 09:03:43'),
+(2, 'Hoang', 'hoangnhpublic@gmail.com', '$2y$10$/GRNt83hk4DTh/LE3BsxEeXKoZaiOXsmVVYiwuJxccK5yHlYp0M4G', 2, NULL, 1, 0, 'ZCVmRNhDn2s7Eod6rx7jzouqpWIDWMLuh4S8nWr38UjDDqdP89R6qB8lFzsx', 1, 1, '2017-05-13 05:48:37', '2017-05-13 07:23:03'),
+(3, 'Editor 1 - Hoang', 'editor1@gmail.com', '$2y$10$/GRNt83hk4DTh/LE3BsxEeXKoZaiOXsmVVYiwuJxccK5yHlYp0M4G', 1, 2, 1, 0, '90Rq4HLndgzcBaiBprO0ZnaNFq1rwKkHKOBwsEPETRPyQGzpDWrq8tqhfncm', 2, 2, '2017-05-13 07:04:34', '2017-05-13 09:40:20'),
+(4, 'Editor 2 - Hoang', 'editor2@gmail.com', '$2y$10$/GRNt83hk4DTh/LE3BsxEeXKoZaiOXsmVVYiwuJxccK5yHlYp0M4G', 1, 2, 1, 0, '', 2, 2, '2017-05-13 07:08:59', '2017-05-13 07:08:59'),
+(5, 'Mod 2', 'mod2@gmail.com', '$2y$10$/GRNt83hk4DTh/LE3BsxEeXKoZaiOXsmVVYiwuJxccK5yHlYp0M4G', 2, 0, 1, 0, '38SmaJJGZWe1WIMFoHDNLxWERKiwEtgtoMg5s8TzOtobxN3tdqaDoFySPNja', 1, 1, '2017-05-13 07:53:29', '2017-05-13 10:27:46'),
+(6, 'editor 1 - Mod 2', 'e1mod2@gmail.com', '$2y$10$QqDIjq3EPOopgyV7eCIvWeCG8KF/lP8GUuBOi3COvZNyukvytCU1W', 1, 5, 1, 0, 'Ztt6bbNdzrj4vWioiiivJ4MoO12ZnTokyJlrB66l7xanccpSqAAA564sWSCy', 5, 5, '2017-05-13 07:55:30', '2017-05-13 09:40:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_cart`
+--
+
+CREATE TABLE `user_cart` (
+  `user_id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_cart`
+--
+
+INSERT INTO `user_cart` (`user_id`, `cart_id`) VALUES
+(3, 10),
+(4, 10),
+(4, 11),
+(6, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_work`
+--
+
+CREATE TABLE `user_work` (
+  `id` int(11) NOT NULL,
+  `work_content` text NOT NULL,
+  `work_date` date NOT NULL,
+  `leader_comment` text,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `leader_id` int(11) DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `updated_user` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_work`
+--
+
+INSERT INTO `user_work` (`id`, `work_content`, `work_date`, `leader_comment`, `status`, `leader_id`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, '<p>dgfads gd gdsag sdg dsgsd g</p>\r\n', '2017-05-13', '<p>dga dsgasd gdsg s dfadgf sa</p>\r\n', 2, 5, 6, 6, '2017-05-13 09:07:36', '2017-05-13 09:22:34'),
+(2, '<p>dsgasdgdsgs</p>\r\n', '2017-05-14', NULL, 1, 5, 6, 6, '2017-05-13 09:25:21', '2017-05-13 09:25:21'),
+(3, '<p>dgad sgd asdg dsg asgs</p>\r\n', '2017-05-12', NULL, 1, 5, 6, 6, '2017-05-13 09:27:57', '2017-05-13 09:27:57');
 
 -- --------------------------------------------------------
 
@@ -4325,6 +4391,18 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_cart`
+--
+ALTER TABLE `user_cart`
+  ADD PRIMARY KEY (`user_id`,`cart_id`);
+
+--
+-- Indexes for table `user_work`
+--
+ALTER TABLE `user_work`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `video`
 --
 ALTER TABLE `video`
@@ -4354,7 +4432,7 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT for table `articles_cate`
 --
@@ -4379,12 +4457,12 @@ ALTER TABLE `block`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `cart_product`
 --
 ALTER TABLE `cart_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `city`
 --
@@ -4434,7 +4512,7 @@ ALTER TABLE `legal`
 -- AUTO_INCREMENT for table `meta_data`
 --
 ALTER TABLE `meta_data`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `newsletter`
 --
@@ -4459,12 +4537,12 @@ ALTER TABLE `price_unit`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT for table `product_img`
 --
 ALTER TABLE `product_img`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `project`
 --
@@ -4494,7 +4572,7 @@ ALTER TABLE `street`
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `text`
 --
@@ -4514,7 +4592,12 @@ ALTER TABLE `type_bds`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `user_work`
+--
+ALTER TABLE `user_work`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `video`
 --
