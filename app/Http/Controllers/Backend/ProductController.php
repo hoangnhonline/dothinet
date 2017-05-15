@@ -518,10 +518,8 @@ class ProductController extends Controller
         $model = Product::find($id);        
         $model->delete();
         ProductImg::where('product_id', $id)->delete();
-        SpMucDich::where('product_id', $id)->delete();
-        SpThuocTinh::where('product_id', $id)->delete();
-        SpTuongThich::where('sp_1', $id)->delete();
-        SpTuongThich::where('sp_2', $id)->delete();
+        TagObjects::deleteTags( $id, 1);
+        TagObjects::deleteTags( $id, 3);
         // redirect
         Session::flash('message', 'Xóa sản phẩm thành công');
         
