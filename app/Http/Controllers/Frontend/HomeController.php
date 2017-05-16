@@ -25,7 +25,7 @@ use App\Models\Newsletter;
 use App\Models\PriceRange;
 use App\Models\Settings;
 
-use Helper, File, Session, Auth, Hash;
+use Helper, File, Session, Auth, Hash, Image;
 
 class HomeController extends Controller
 {
@@ -73,6 +73,9 @@ class HomeController extends Controller
     }
     public function index(Request $request)
     {    
+        Image::make('https://img.dothi.net/2017/04/02/20170402201354-4d8f_wm.jpg')->resize(170, null, function ($constraint) {
+    $constraint->aspectRatio();
+})->crop(170, 128, 0, 0)->save('hoang.jpg');
         $productArr = [];
         $hoverInfo = [];
         $loaiSp = EstateType::where('status', 1)->get();

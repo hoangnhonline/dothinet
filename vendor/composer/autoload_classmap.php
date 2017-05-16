@@ -61,7 +61,11 @@ return array(
     'App\\Http\\Controllers\\Frontend\\HomeController' => $baseDir . '/app/Http/Controllers/Frontend/HomeController.php',
     'App\\Http\\Controllers\\Frontend\\LapRapController' => $baseDir . '/app/Http/Controllers/Frontend/LapRapController.php',
     'App\\Http\\Controllers\\Frontend\\NewsController' => $baseDir . '/app/Http/Controllers/Frontend/NewsController.php',
+<<<<<<< HEAD
     'App\\Http\\Controllers\\Frontend\\NewsletterController' => $baseDir . '/app/Http/Controllers/Frontend/PageController.php',
+=======
+    'App\\Http\\Controllers\\Frontend\\NewsletterController' => $baseDir . '/app/Http/Controllers/Frontend/NewsletterController.php',
+>>>>>>> 47a1ae57b034a80249d6beed62cd0333e9f19f0d
     'App\\Http\\Controllers\\Frontend\\OrderController' => $baseDir . '/app/Http/Controllers/Frontend/OrderController.php',
     'App\\Http\\Controllers\\Frontend\\ProductController' => $baseDir . '/app/Http/Controllers/Frontend/ProductController.php',
     'App\\Http\\Controllers\\Frontend\\UploadController' => $baseDir . '/app/Http/Controllers/Frontend/UploadController.php',
@@ -1521,6 +1525,7 @@ return array(
     'League\\Flysystem\\AdapterInterface' => $vendorDir . '/league/flysystem/src/AdapterInterface.php',
     'League\\Flysystem\\Adapter\\AbstractAdapter' => $vendorDir . '/league/flysystem/src/Adapter/AbstractAdapter.php',
     'League\\Flysystem\\Adapter\\AbstractFtpAdapter' => $vendorDir . '/league/flysystem/src/Adapter/AbstractFtpAdapter.php',
+    'League\\Flysystem\\Adapter\\CanOverwriteFiles' => $vendorDir . '/league/flysystem/src/Adapter/CanOverwriteFiles.php',
     'League\\Flysystem\\Adapter\\Ftp' => $vendorDir . '/league/flysystem/src/Adapter/Ftp.php',
     'League\\Flysystem\\Adapter\\Ftpd' => $vendorDir . '/league/flysystem/src/Adapter/Ftpd.php',
     'League\\Flysystem\\Adapter\\Local' => $vendorDir . '/league/flysystem/src/Adapter/Local.php',

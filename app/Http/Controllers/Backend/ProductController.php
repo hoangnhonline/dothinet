@@ -21,7 +21,7 @@ use App\Models\Tag;
 use App\Models\TagObjects;
 use App\Models\Direction;
 
-use Helper, File, Session, Auth, Hash, URL;
+use Helper, File, Session, Auth, Hash, URL, Image;
 
 class ProductController extends Controller
 {
@@ -349,10 +349,17 @@ class ProductController extends Controller
                         if(!is_dir('uploads/'.date('Y/m/d'))){
                             mkdir('uploads/'.date('Y/m/d'), 0777, true);
                         }
+                        if(!is_dir('uploads/thumbs/'.date('Y/m/d'))){
+                            mkdir('uploads/thumbs/'.date('Y/m/d'), 0777, true);
+                        }
 
                         $destionation = date('Y/m/d'). '/'. end($tmp);
-                        
+                        //var_dump(config('icho.upload_path').$image_url, config('icho.upload_path').$destionation);die;
                         File::move(config('icho.upload_path').$image_url, config('icho.upload_path').$destionation);
+
+                        Image::make(config('icho.upload_path').$destionation)->resize(170, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                        })->crop(170, 128)->save(config('icho.upload_thumbs_path').$destionation);
 
                         $imageArr['name'][] = $destionation;
 

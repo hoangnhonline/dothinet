@@ -408,7 +408,11 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         'App\\Http\\Controllers\\Frontend\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/HomeController.php',
         'App\\Http\\Controllers\\Frontend\\LapRapController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/LapRapController.php',
         'App\\Http\\Controllers\\Frontend\\NewsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/NewsController.php',
+<<<<<<< HEAD
         'App\\Http\\Controllers\\Frontend\\NewsletterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/PageController.php',
+=======
+        'App\\Http\\Controllers\\Frontend\\NewsletterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/NewsletterController.php',
+>>>>>>> 47a1ae57b034a80249d6beed62cd0333e9f19f0d
         'App\\Http\\Controllers\\Frontend\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/OrderController.php',
         'App\\Http\\Controllers\\Frontend\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/ProductController.php',
         'App\\Http\\Controllers\\Frontend\\UploadController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/UploadController.php',
@@ -1868,6 +1872,7 @@ class ComposerStaticInit91887bdcdd049ae0d83658cf5786b381
         'League\\Flysystem\\AdapterInterface' => __DIR__ . '/..' . '/league/flysystem/src/AdapterInterface.php',
         'League\\Flysystem\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractAdapter.php',
         'League\\Flysystem\\Adapter\\AbstractFtpAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractFtpAdapter.php',
+        'League\\Flysystem\\Adapter\\CanOverwriteFiles' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/CanOverwriteFiles.php',
         'League\\Flysystem\\Adapter\\Ftp' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/Ftp.php',
         'League\\Flysystem\\Adapter\\Ftpd' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/Ftpd.php',
         'League\\Flysystem\\Adapter\\Local' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/Local.php',

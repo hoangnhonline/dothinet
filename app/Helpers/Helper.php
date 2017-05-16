@@ -2,7 +2,7 @@
 namespace App\Helpers;
 use App\Helpers\simple_html_dom;
 use App\Models\City;
-use DB;
+use DB, Image;
 
 class Helper
 {
@@ -33,6 +33,20 @@ class Helper
         //return strpos($image_url, 'http') === false ? config('icho.upload_url') . $type . '/' . $image_url : $image_url;        
         return strpos($image_url, 'http') === false ? config('icho.upload_url') . $image_url : $image_url;        
 
+    }
+    public static function showImageThumb($image_url, $object_type = 1, $folder = ''){             
+        // type = 1 : original 2 : thumbs
+        //object_type = 1 : product, 2 :article                
+        if(strpos($image_url, 'http') === false){
+            if($object_type == 1){
+                return config('icho.upload_url') . 'thumbs/' . $folder. '/' . $image_url;
+            }else{
+                return config('icho.upload_url') . 'thumbs/articles/'. $folder. '/' . $image_url;
+            }    
+        }else{
+            return $image_url;
+        }
+        
     }
     public static function seo(){
         $seo = [];
@@ -307,7 +321,7 @@ class Helper
         $basePath = $date_dir == true ? $basePath .= date('Y/m/d'). '/'  : $basePath = $basePath;        
         
         $desPath = config('icho.upload_path'). $basePath;
-
+        $desThumbsPath = config('icho.upload_thumbs_path'). $basePath;
         //set name for file
         $fileName = $file->getClientOriginalName();
         
@@ -324,8 +338,8 @@ class Helper
         $imgName = $imgName."-".time();
 
         $newFileName = "{$imgName}.{$imgExt}";
-       
-        if( $file->move($desPath, $newFileName) ){
+       //var_dump($desPath, $newFileName);die;
+        if( $file->move($desPath, $newFileName) ){            
             $imagePath = $basePath.$newFileName;
             $return['image_name'] = $newFileName;
             $return['image_path'] = $imagePath;
