@@ -7,7 +7,7 @@
         <div class="block-news-default-item" style="height:346px">
           <div class="block-thumb">
             <a href="{{ route('news-detail', ['slug' => $tinThiTruong[0]['slug'], 'id' => $tinThiTruong[0]['id']]) }}" title="">
-              <img src="{{ $tinThiTruong[0]['image_url'] ? Helper::showImage($tinThiTruong[0]['image_url']) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+              <img src="{{ $tinThiTruong[0]['image_url'] ? Helper::showImageThumb($tinThiTruong[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
             </a>
           </div>
           <h2 class="block-title">
@@ -43,7 +43,7 @@
             @foreach($hotProduct as $product)
             <li class="news-new-item">                      
               <div class="news-new-item-head">
-                <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImage($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" style="height:128px !important;width:100% !important;"></a>
+                <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" style="height:128px !important;width:100% !important;"></a>
               </div>
               <div class="news-new-item-description">
                 <h4><a class="description-title vip1" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}">{{ $product->title }}</a></h4>
@@ -97,7 +97,7 @@
           <div class="news-fengshui clearfix">
             <div class="fengshui-news-hot">
               <a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}" title="">
-                <img src="{{ $phongthuy[0]['image_url'] ? Helper::showImage($phongthuy[0]['image_url']) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+                <img src="{{ $phongthuy[0]['image_url'] ? Helper::showImageThumb($phongthuy[0]['image_url'], 2, '312x234') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
               </a>    
                     
                     <h4><a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}">{{ $phongthuy[0]['title'] }}</a></h4>
@@ -131,7 +131,7 @@
           <div class="news-fengshui clearfix">
             <div class="fengshui-news-hot">
                     <a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}" title="">
-                <img src="{{ $khonggiansong[0]['image_url'] ? Helper::showImage($khonggiansong[0]['image_url']) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+                <img src="{{ $khonggiansong[0]['image_url'] ? Helper::showImageThumb($khonggiansong[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
               </a>    
                     
                     <h4><a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}">{{ $khonggiansong[0]['title'] }}</a></h4>

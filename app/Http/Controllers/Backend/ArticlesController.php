@@ -10,7 +10,7 @@ use App\Models\ArticlesCate;
 use App\Models\Tag;
 use App\Models\TagObjects;
 use App\Models\Articles;
-use Helper, File, Session, Auth;
+use Helper, File, Session, Auth, Image;
 
 class ArticlesController extends Controller
 {
@@ -92,11 +92,23 @@ class ArticlesController extends Controller
             if(!is_dir('uploads/'.date('Y/m/d'))){
                 mkdir('uploads/'.date('Y/m/d'), 0777, true);
             }
+            if(!is_dir('uploads/thumbs/articles/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/articles/'.date('Y/m/d'), 0777, true);
+            }
+            if(!is_dir('uploads/thumbs/articles/312x234/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/articles/312x234/'.date('Y/m/d'), 0777, true);
+            }
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);
             
+            Image::make(config('icho.upload_path').$destionation)->resize(203, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                        })->crop(203, 128)->save(config('icho.upload_thumbs_path_articles').$destionation);
+            Image::make(config('icho.upload_path').$destionation)->resize(312, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                        })->crop(312, 234)->save(config('icho.upload_thumbs_path_articles').'312x234/'.$destionation);
             $dataArr['image_url'] = $destionation;
         }        
         
@@ -202,11 +214,23 @@ class ArticlesController extends Controller
             if(!is_dir('uploads/'.date('Y/m/d'))){
                 mkdir('uploads/'.date('Y/m/d'), 0777, true);
             }
+            if(!is_dir('uploads/thumbs/articles/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/articles/'.date('Y/m/d'), 0777, true);
+            }
+            if(!is_dir('uploads/thumbs/articles/312x234/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/articles/312x234/'.date('Y/m/d'), 0777, true);
+            }
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);
             
+            Image::make(config('icho.upload_path').$destionation)->resize(203, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                        })->crop(203, 128)->save(config('icho.upload_thumbs_path_articles').$destionation);
+            Image::make(config('icho.upload_path').$destionation)->resize(312, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                        })->crop(312, 234)->save(config('icho.upload_thumbs_path_articles').'312x234/'.$destionation);
             $dataArr['image_url'] = $destionation;
         }
 
