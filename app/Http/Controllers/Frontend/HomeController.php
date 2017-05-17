@@ -79,6 +79,14 @@ class HomeController extends Controller
         $bannerArr = [];          
         $articlesArr = Articles::where(['cate_id' => 1])->orderBy('id', 'desc')->get();
         $hotProduct = Product::where('product.slug', '<>', '')
+                    ->where('product.type', 1)
+                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+                    ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
+                    ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
+                    ->where('product_img.image_url', '<>', '')                                         
+                    ->orderBy('product.id', 'desc')->limit(10)->get();
+        $hotProduct2 = Product::where('product.slug', '<>', '')
+                    ->where('product.type', 2)
                     ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
                     ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
                     ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
@@ -97,7 +105,7 @@ class HomeController extends Controller
         $tuvanluat = Articles::where('cate_id', 5)->limit(6)->get()->toArray();
         $khonggiansong = Articles::where('cate_id', 1)->limit(6)->get()->toArray();
         
-        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy', 'tinRandom'));
+        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy', 'tinRandom','hotProduct2'));
 
     }
 
