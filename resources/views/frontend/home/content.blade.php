@@ -56,7 +56,22 @@
                       <div class="news-new-item-description">
                         <h4><a class="description-title vip1" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}">{{ $product->title }}</a></h4>
                             <div class="description-info">
-                              <div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
+                              <div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}                                
+                                @if($product->type == 1)
+                                    @if($product->cart_status == 1)
+                                      <span class="label label-primary">Chưa bán</span>
+                                    @else
+                                      <span class="label label-danger">Đã bán</span>
+                                    @endif              
+                                @else
+                                    @if($product->cart_status == 1)
+                                      <span class="label label-primary">Còn trống</span>
+                                    @else
+                                      <span class="label label-danger">Đã thuê</span>
+                                    @endif
+                                @endif
+
+                              </div>
                                 <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }}</div>
                                 <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}</div>
                             </div>

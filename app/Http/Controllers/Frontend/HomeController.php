@@ -84,6 +84,7 @@ class HomeController extends Controller
                     ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
                     ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
                     ->where('product_img.image_url', '<>', '')                                         
+                    ->orderBy('product.cart_status', 'asc')
                     ->orderBy('product.id', 'desc')->limit(10)->get();
         $hotProduct2 = Product::where('product.slug', '<>', '')
                     ->where('product.type', 2)
@@ -91,7 +92,9 @@ class HomeController extends Controller
                     ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
                     ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
                     ->where('product_img.image_url', '<>', '')                                         
-                    ->orderBy('product.id', 'desc')->limit(10)->get();
+                    ->orderBy('product.cart_status', 'asc')
+                    ->orderBy('product.id', 'desc')                    
+                    ->limit(10)->get();
         
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');
         $seo = $settingArr;
