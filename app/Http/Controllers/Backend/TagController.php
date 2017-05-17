@@ -116,6 +116,8 @@ class TagController extends Controller
         
         $str_tag = $request->str_tag;
 
+        $type = $request->type;
+
         $tmpArr = explode(';', $str_tag);
 
         if( !empty($tmpArr) ){
@@ -124,11 +126,11 @@ class TagController extends Controller
             $tag = trim($tag);
             if( $tag != ""){
                 // check xem co chua
-                $arr = Tag::where('name', '=', $tag)->where('type', 1)->first();
+                $arr = Tag::where('name', '=', $tag)->where('type', $type)->first();
                 if( !empty( (array) $arr)) {
                     $arrId[] = $arr->id;
                 }else{
-                    $rs = Tag::create(['name'=> $tag, 'type' => 1, 'slug' => str_slug($tag), 'created_user' => Auth::user()->id, 'updated_user' => Auth::user()->id]);
+                    $rs = Tag::create(['name'=> $tag, 'type' => $type, 'slug' => str_slug($tag), 'created_user' => Auth::user()->id, 'updated_user' => Auth::user()->id]);
                     $arrId[] = $rs->id;
                 }
 

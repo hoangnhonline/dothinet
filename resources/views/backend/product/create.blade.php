@@ -192,20 +192,20 @@
                             </select>
                         </div>
                         <div class="input-group">
-                        <label>Tags</label>
-                        <select class="form-control select2" name="tags[]" id="tags" multiple="multiple">                  
-                          @if( $tagArr->count() > 0)
-                            @foreach( $tagArr as $value )
-                            <option value="{{ $value->id }}" {{ (old('tags') && in_array($value->id, old('tags'))) ? "selected" : "" }}>{{ $value->name }}</option>
-                            @endforeach
-                          @endif
-                        </select>
-                        <span class="input-group-btn">
-                          <button style="margin-top:24px" class="btn btn-primary" id="btnAddTag" type="button" data-value="3">
-                            Tạo mới
-                          </button>
-                        </span>
-                      </div>
+                          <label>Tags</label>
+                          <select class="form-control select2" name="tags[]" id="tags" multiple="multiple">                  
+                            @if( $tagArr->count() > 0)
+                              @foreach( $tagArr as $value )
+                              <option value="{{ $value->id }}" {{ (old('tags') && in_array($value->id, old('tags'))) ? "selected" : "" }}>{{ $value->name }}</option>
+                              @endforeach
+                            @endif
+                          </select>
+                          <span class="input-group-btn">
+                            <button style="margin-top:24px" class="btn btn-primary" id="btnAddTag" type="button" data-value="3">
+                              Tạo mới
+                            </button>
+                          </span>
+                        </div>
                         <div class="form-group form-group col-md-12 none-padding" style="margin-top:10px">
                             <label>Mô tả</label>
                             <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
