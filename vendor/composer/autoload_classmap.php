@@ -61,11 +61,7 @@ return array(
     'App\\Http\\Controllers\\Frontend\\HomeController' => $baseDir . '/app/Http/Controllers/Frontend/HomeController.php',
     'App\\Http\\Controllers\\Frontend\\LapRapController' => $baseDir . '/app/Http/Controllers/Frontend/LapRapController.php',
     'App\\Http\\Controllers\\Frontend\\NewsController' => $baseDir . '/app/Http/Controllers/Frontend/NewsController.php',
-<<<<<<< HEAD
     'App\\Http\\Controllers\\Frontend\\NewsletterController' => $baseDir . '/app/Http/Controllers/Frontend/PageController.php',
-=======
-    'App\\Http\\Controllers\\Frontend\\NewsletterController' => $baseDir . '/app/Http/Controllers/Frontend/NewsletterController.php',
->>>>>>> 47a1ae57b034a80249d6beed62cd0333e9f19f0d
     'App\\Http\\Controllers\\Frontend\\OrderController' => $baseDir . '/app/Http/Controllers/Frontend/OrderController.php',
     'App\\Http\\Controllers\\Frontend\\ProductController' => $baseDir . '/app/Http/Controllers/Frontend/ProductController.php',
     'App\\Http\\Controllers\\Frontend\\UploadController' => $baseDir . '/app/Http/Controllers/Frontend/UploadController.php',
