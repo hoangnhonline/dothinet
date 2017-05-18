@@ -49,8 +49,7 @@
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
                     <li role="presentation"><a href="#lien-he" aria-controls="tien-ich" role="tab" data-toggle="tab">Thông tin liên hệ</a></li>
                     <li role="presentation"><a href="#tien-ich" aria-controls="tien-ich" role="tab" data-toggle="tab">Tiện ích</a></li>
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
-                    <li role="presentation"><a href="#ban-do" aria-controls="ban-do" role="tab" data-toggle="tab">Bản đồ</a></li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>                    
                                     
                   </ul>
 
@@ -215,7 +214,12 @@
                             <textarea class="form-control" rows="4" name="description" id="description">{{ old('description', $detail->description) }}</textarea>
                           </div>
                           <div class="clearfix"></div>
-                        <div class="clearfix"></div>
+
+                            <div class="form-group" style="margin-top:10px;margin-bottom:10px"> 
+                              <input id="pac-input" class="controls" type="text" placeholder="Nhập địa chỉ để tìm kiếm">
+                              <div id="map-abc"></div>
+                          </div>
+                            <div class="clearfix"></div>
                     </div><!--end thong tin co ban--> 
                     <div role="tabpanel" class="tab-pane" id="lien-he">
                         <div class="form-group col-md-6 " >                  
@@ -286,24 +290,15 @@
                           <div style="clear:both"></div>
                         </div>
 
-                     </div><!--end hinh anh-->
-                     <div role="tabpanel" class="tab-pane" id="ban-do">
-                        <div class="form-group" style="margin-top:10px;margin-bottom:10px"> 
-                         <div id="panel" style="margin-left: -260px" style="line-height: normal">
-                              <input id="searchTextField" type="text" size="50" style="height: 20px;">
-                          </div>
-                          <div id="map-canvas"></div>
-                        </div>
-
-                     </div><!--end ban do-->
+                     </div><!--end hinh anh-->                    
                   </div>
 
                 </div>
                   
             </div>
             <div class="box-footer">
-              <input type="hidden" name="latt" id="latitude" value="{{ old('latt', $detail->latt) }}" />
-              <input type="hidden" name="longt" id="longitude" value="{{ old('longt', $detail->longt) }}" />
+              <input type="hidden" name="latt" id="latt" value="{{ old('latt', $detail->latt) }}" />
+              <input type="hidden" name="longt" id="longt" value="{{ old('longt', $detail->longt) }}" />
               <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
               <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
               <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index', ['estate_type_id' => $detail->estate_type_id])}}">Hủy</a>
@@ -429,138 +424,178 @@
 </div>
 <input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple') }}">
 <input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
+ <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map-abc {
+        height: 400px;
+      }
+    
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map-abc #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }     
+      
+    </style>
 @stop
 
 @section('javascript_page')
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAhxs7FQ3DcyDm8Mt7nCGD05BjUskp_k7w&amp;libraries=places"></script>
+<script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      <?php 
+      $latt = $detail->latt ? $detail->latt : '10.7860332';
+      $longt = $detail->longt ? $detail->longt : '106.6950147';      
+      ?>
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map-abc'), {
+          center: {lat: {{ $latt }}, lng: {{ $longt }} },
+          zoom: 17,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+           var marker = new google.maps.Marker({
+              position: new google.maps.LatLng({{ $latt }}, {{ $longt }}),
+              map: map,
+              draggable:true
+            });
+           google.maps.event.addListener(marker,'dragend',function(event) {
+                document.getElementById('latt').value = this.position.lat();
+                document.getElementById('longt').value = this.position.lng();                
+            });
+        });
+
+        var markers = [];       
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(128, 128),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              draggable:true,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+
+             // Clear out the old markers.
+          markers.forEach(function(marker) {
+            google.maps.event.addListener(marker,'dragend',function(event) {
+                document.getElementById('latt').value = this.position.lat();
+                document.getElementById('longt').value = this.position.lng();                
+            });
+          });
+            
+          });
+          map.fitBounds(bounds);
+        });
+      }
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhxs7FQ3DcyDm8Mt7nCGD05BjUskp_k7w&libraries=places&callback=initAutocomplete"
+         async defer></script>
 <script type="text/javascript">
 
 
 $(document).ready(function(){
-  var geocoder = new google.maps.Geocoder();
-
-    function geocodePosition(pos) {
-        geocoder.geocode({
-            latLng: pos
-        }, function(responses) {
-        });
-    }
-    function initialize() {
-        @if($detail->longt && $detail->latt)
-        var latLng = new google.maps.LatLng({{ $detail->longt }}, {{ $detail->latt }});        
-        @else
-        var latLng = new google.maps.LatLng(10.753151, 106.73088499999994);
-        @endif
-        
-        var mapOptions = {
-            center: latLng,
-            zoom: 17,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
-        var input = /** @type {HTMLInputElement} */(document.getElementById('searchTextField'));
-        var autocomplete = new google.maps.places.Autocomplete(input);
-
-        autocomplete.bindTo('bounds', map);
-
-        var marker = new google.maps.Marker({
-            map: map,
-            position: latLng
-        });
-        geocodePosition(marker.getPosition());
-            pos = marker.getPosition();
-
-            var latitude = 0;
-            var longitude = 0;
-            var countIndex = 0;
-            $.each(pos, function(index, value) {
-                countIndex++;
-                if(countIndex==1) latitude = value;
-                if(countIndex==2) {longitude = value;return;}
-            });
-
-            geocoder.geocode({
-                latLng: pos
-            }, function(responses) {
-                if (responses && responses.length > 0) {
-                    $('#latitude').val(latitude);
-                    $('#longitude').val(longitude);
-                }
-            });
-        marker.setDraggable(true);
-        geocodePosition(latLng);
-
-        google.maps.event.addListener(marker, 'dragend', function() {
-            geocodePosition(marker.getPosition());
-            pos = marker.getPosition();
-
-
-            var latitude = 0;
-            var longitude = 0;
-            var countIndex = 0;
-            $.each(pos, function(index, value) {
-                countIndex++;
-                if(countIndex==1) latitude = value;
-                if(countIndex==2) {longitude = value;return;}
-            });
-
-
-            geocoder.geocode({
-                latLng: pos
-            }, function(responses) {
-                if (responses && responses.length > 0) {
-                    $('#latitude').val(latitude);
-                    $('#longitude').val(longitude);
-                }
-            });
-        });
-
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            marker.setVisible(false);
-            input.className = '';
-            var place = autocomplete.getPlace();
-            if (!place.geometry) {
-                // Inform the user that the place was not found and return.
-                input.className = 'notfound';
-                return;
-            }
-
-            // If the place has a geometry, then present it on a map.
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
-            } else {
-                map.setCenter(place.geometry.location);
-                map.setZoom(17);  // Why 17? Because it looks good.
-            }
-            marker.setPosition(place.geometry.location);
-            marker.setVisible(true);
-
-            // geocodePosition(marker.getPosition());
-            pos = marker.getPosition();
-
-            var latitude = 0;
-            var longitude = 0;
-            var countIndex = 0;
-            $.each(pos, function(index, value) {
-                    countIndex++;
-                    if(countIndex==1) latitude = value;
-                    if(countIndex==2) {longitude = value;return;}
-            });
-
-
-            geocoder.geocode({
-                latLng: pos
-            }, function(responses) {
-                if (responses && responses.length > 0) {
-                    $('#latitude').val(latitude);
-                    $('#longitude').val(longitude);
-                }
-            });
-        });
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
-$('#searchTextField').on('keypress', function(e) {
+  
+$('#pac-input').on('keypress', function(e) {
         return e.which !== 13;
     });
   $('#btnAddTag').click(function(){
