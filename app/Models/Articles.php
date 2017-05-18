@@ -24,6 +24,20 @@ class Articles extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'alias', 'cate_id', 'is_hot', 'status', 'display_order', 'description', 'image_url', 'content', 'meta_id', 'created_user', 'updated_user'];
+    protected $fillable = ['title', 
+                            'slug', 
+                            'alias', 
+                            'cate_id', 
+                            'is_hot', 
+                            'project_id', 
+                            'tab_id', 
+                            'status', 
+                            'display_order', 
+                            'description', 
+                            'image_url', 
+                            'content', 
+                            'meta_id', 
+                            'created_user', 
+                            'updated_user'];
     
 }
