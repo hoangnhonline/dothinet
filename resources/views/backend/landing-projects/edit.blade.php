@@ -4,20 +4,20 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Bài viết    
+      Dự án    
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('articles.index') }}">Bài viết</a></li>
+      <li><a href="{{ route('landing-projects.index') }}">Dự án</a></li>
       <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('articles.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('landing-projects.index') }}" style="margin-bottom:5px">Quay lại</a>
     <a class="btn btn-primary btn-sm" href="{{ route('news-detail', [$detail->slug, $detail->id ]) }}" target="_blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
-    <form role="form" method="POST" action="{{ route('articles.update') }}">
+    <form role="form" method="POST" action="{{ route('landing-projects.update') }}">
     <div class="row">
       <!-- left column -->
       <input name="id" value="{{ $detail->id }}" type="hidden">
@@ -42,23 +42,12 @@
                           @endforeach
                       </ul>
                   </div>
-              @endif                
-                <div class="form-group">
-                  <label for="email">Danh mục <span class="red-star">*</span></label>
-                  <select class="form-control" name="cate_id" id="cate_id">
-                    <option value="">-- chọn --</option>
-                    @if( $cateArr->count() > 0)
-                      @foreach( $cateArr as $value )
-                      <option value="{{ $value->id }}" {{ $value->id == $detail->cate_id ? "selected" : "" }}>{{ $value->name }}</option>
-                      @endforeach
-                    @endif
-                  </select>
-                </div>                           
+              @endif                                                   
                 
                 <div class="form-group" >
                   
-                  <label>Tiêu đề <span class="red-star">*</span></label>
-                  <input type="text" class="form-control" name="title" id="title" value="{{ $detail->title }}">
+                  <label>Tên dự án<span class="red-star">*</span></label>
+                  <input type="text" class="form-control" name="name" id="name" value="{{ $detail->name }}">
                 </div>
                 <span class=""></span>
                 <div class="form-group">                  
@@ -67,13 +56,24 @@
                 </div>
                 
                 <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-3 row">Thumbnail </label>    
+                  <label class="col-md-3 row">Ảnh đại diện </label>    
                   <div class="col-md-9">
                     <img id="thumbnail_image" src="{{ $detail->image_url ? Helper::showImage($detail->image_url ) : URL::asset('backend/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
                     
                     <input type="file" id="file-image" style="display:none" />
                  
                     <button class="btn btn-default" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                  </div>
+                  <div style="clear:both"></div>
+                </div>
+                <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
+                  <label class="col-md-3 row">Logo </label>    
+                  <div class="col-md-9">
+                    <img id="thumbnail_logo" src="{{ $detail->logo_url ? Helper::showImage($detail->logo_url ) : URL::asset('backend/dist/img/img.png') }}" class="img-thumbnail" width="145" height="145">
+                    
+                    <input type="file" id="file-logo" style="display:none" />
+                 
+                    <button class="btn btn-default" id="btnUploadLogo" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>
@@ -87,7 +87,7 @@
                   <div class="checkbox">
                     <label>
                       <input type="checkbox" name="is_hot" value="1" {{ $detail->is_hot == 1 ? "checked" : "" }}>
-                      Bài viết nổi bật
+                      Dự án nổi bật
                     </label>
                   </div>               
                 </div>
@@ -97,33 +97,31 @@
                     <option value="0" {{ $detail->status == 0 ? "selected" : "" }}>Ẩn</option>
                     <option value="1" {{ $detail->status == 1 ? "selected" : "" }}>Hiện</option>                  
                   </select>
-                </div>
-                <div class="input-group">
-                    <label>Tags</label>
-                    <select class="form-control select2" name="tags[]" id="tags" multiple="multiple">                  
-                      @if( $tagArr->count() > 0)
-                        @foreach( $tagArr as $value )
-                        <option value="{{ $value->id }}" {{ in_array($value->id, $tagSelected) || (old('tags') && in_array($value->id, old('tags'))) ? "selected" : "" }}>{{ $value->name }}</option>
-                        @endforeach
-                      @endif
-                    </select>
-                    <span class="input-group-btn">
-                      <button style="margin-top:24px" class="btn btn-primary" id="btnAddTag" type="button" data-value="3">
-                        Tạo mới
-                      </button>
-                    </span>
-                  </div>
-                <div class="form-group">
-                  <label>Chi tiết</label>
-                  <textarea class="form-control" rows="4" name="content" id="content">{{ $detail->content }}</textarea>
-                </div>
-                  
+                </div>                
+                 <div class="form-group">
+                  <label>Tab</label>
+                  <ul>
+                  <?php $i = 0; ?>
+                    @foreach($tabList as $tab)
+                    <?php $i++; ?>
+                    <li style="list-style:none">
+                      <input type="checkbox" name="tab[]" id="tab_{{ $i }}" value="{{ $tab->id }}" 
+                      {{ in_array($tab->id, old('tab', $tabSelected)) ? "checked" : "" }}
+                      >
+                      <label for="tab_{{ $i }}">{{ $tab->name }}</label>
+
+                    </li>
+                    @endforeach
+                  </ul>
+                </div>  
             </div>          
             <input type="hidden" name="image_url" id="image_url" value="{{ $detail->image_url }}"/>          
             <input type="hidden" name="image_name" id="image_name" value="{{ $detail->image_name }}"/>
+            <input type="hidden" name="logo_url" id="logo_url" value="{{ $detail->logo_url }}"/>          
+            <input type="hidden" name="logo_name" id="logo_name" value="{{ $detail->logo_name }}"/>
             <div class="box-footer">
               <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('articles.index')}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('landing-projects.index')}}">Hủy</a>
             </div>
             
         </div>
@@ -231,18 +229,13 @@ $(document).on('click', '#btnSaveTagAjax', function(){
 });
   $(document).ready(function(){
       $(".select2").select2();
-      var editor = CKEDITOR.replace( 'content',{
-          language : 'vi',
-          filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
-          filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
-          filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
-          filebrowserUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=files') }}",
-          filebrowserImageUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=images') }}",
-          filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}",
-          height : 500
-      });
+     
       $('#btnUploadImage').click(function(){        
         $('#file-image').click();
+      }); 
+
+      $('#btnUploadLogo').click(function(){        
+        $('#file-logo').click();
       });  
       $('#btnAddTag').click(function(){
           $('#tagModal').modal('show');
@@ -287,9 +280,50 @@ $(document).on('click', '#btnSaveTagAjax', function(){
           });
         }
       });
+
+      var files = "";
+      $('#file-logo').change(function(e){
+         files = e.target.files;
+         
+         if(files != ''){
+           var dataForm = new FormData();        
+          $.each(files, function(key, value) {
+             dataForm.append('file', value);
+          });   
+          
+          dataForm.append('date_dir', 1);
+          dataForm.append('folder', 'tmp');
+
+          $.ajax({
+            url: $('#route_upload_tmp_image').val(),
+            type: "POST",
+            async: false,      
+            data: dataForm,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+              if(response.image_path){
+                $('#thumbnail_logo').attr('src',$('#upload_url').val() + response.image_path);
+                $( '#logo_url' ).val( response.image_path );
+                $( '#logo_name' ).val( response.image_name );
+              }
+              console.log(response.image_path);
+                //window.location.reload();
+            },
+            error: function(response){                             
+                var errors = response.responseJSON;
+                for (var key in errors) {
+                  
+                }
+                //$('#btnLoading').hide();
+                //$('#btnSave').show();
+            }
+          });
+        }
+      });
       
       
-      $('#title').change(function(){
+      $('#name').change(function(){
          var name = $.trim( $(this).val() );
          if( name != '' && $('#slug').val() == ''){
             $.ajax({

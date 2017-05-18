@@ -9,12 +9,13 @@ use App\Http\Controllers\Controller;
 use App\Models\ArticlesCate;
 use App\Models\Tag;
 use App\Models\TagObjects;
+use App\Models\LandingProjects;
 use App\Models\Articles;
 use App\Models\MetaData;
 
 use Helper, File, Session, Auth, Image;
 
-class ArticlesController extends Controller
+class ProContentController extends Controller
 {
     /**
     * Display a listing of the resource.
@@ -23,27 +24,21 @@ class ArticlesController extends Controller
     */
     public function index(Request $request)
     {
-        $cate_id = isset($request->cate_id) ? $request->cate_id : 0;
 
-        $title = isset($request->title) && $request->title != '' ? $request->title : '';
-        
-        $query = Articles::whereRaw('1');
+        $cate_id = 999; // project
 
-        if( $cate_id > 0){
-            $query->where('cate_id', $cate_id);
-        }
+        $project_id = $request->project_id;
+        $tabList = LandingProjects::getListTabProject($project_id);       
+        $query = Articles::where(['cate_id' => $cate_id, 'project_id' => $project_id]);
+        $projectDetail = LandingProjects::find($project_id);
         // check editor
         if( Auth::user()->role == 1 ){
             $query->where('created_user', Auth::user()->id);
         }
-        if( $title != ''){
-            $query->where('alias', 'LIKE', '%'.$title.'%');
-        }
+        
         $items = $query->orderBy('id', 'desc')->paginate(20);
         
-        $cateArr = ArticlesCate::all();
-        
-        return view('backend.articles.index', compact( 'items', 'cateArr' , 'title', 'cate_id' ));
+        return view('backend.pro-content.index', compact( 'items', 'tabList', 'project_id', 'projectDetail'));
     }
 
     /**
@@ -53,14 +48,12 @@ class ArticlesController extends Controller
     */
     public function create(Request $request)
     {
-
-        $cateArr = ArticlesCate::all();
         
-        $cate_id = $request->cate_id;
-
+        $project_id = $request->project_id;
+        $tabList = LandingProjects::getListTabProject($project_id);  
         $tagArr = Tag::where('type', 2)->orderBy('id', 'desc')->get();
-
-        return view('backend.articles.create', compact( 'tagArr', 'cateArr', 'cate_id'));
+        $projectDetail = LandingProjects::find($project_id);
+        return view('backend.pro-content.create', compact( 'tagArr', 'project_id', 'tabList', 'projectDetail'));
     }
 
     /**
@@ -74,45 +67,16 @@ class ArticlesController extends Controller
         $dataArr = $request->all();
         
         $this->validate($request,[            
-            'cate_id' => 'required',            
-            'title' => 'required',            
-            'slug' => 'required|unique:articles,slug',
+            'tab_id' => 'required',            
+            'title' => 'required'            
         ],
         [            
-            'cate_id.required' => 'Bạn chưa chọn danh mục',            
-            'title.required' => 'Bạn chưa nhập tiêu đề',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'slug.unique' => 'Slug đã được sử dụng.'
+            'tab_id.required' => 'Bạn chưa chọn tab',            
+            'title.required' => 'Bạn chưa nhập tiêu đề'            
         ]);       
         
         $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
-        
-        if($dataArr['image_url'] && $dataArr['image_name']){
-            
-            $tmp = explode('/', $dataArr['image_url']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-            if(!is_dir('uploads/thumbs/articles/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/articles/'.date('Y/m/d'), 0777, true);
-            }
-            if(!is_dir('uploads/thumbs/articles/312x234/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/articles/312x234/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);
-            
-            Image::make(config('icho.upload_path').$destionation)->resize(203, null, function ($constraint) {
-                                $constraint->aspectRatio();
-                        })->crop(203, 128)->save(config('icho.upload_thumbs_path_articles').$destionation);
-            Image::make(config('icho.upload_path').$destionation)->resize(312, null, function ($constraint) {
-                                $constraint->aspectRatio();
-                        })->crop(312, 234)->save(config('icho.upload_thumbs_path_articles').'312x234/'.$destionation);
-            $dataArr['image_url'] = $destionation;
-        }        
+        $dataArr['slug'] = Helper::changeFileName($dataArr['title']);             
         
         $dataArr['created_user'] = Auth::user()->id;
 
@@ -122,26 +86,11 @@ class ArticlesController extends Controller
 
         $rs = Articles::create($dataArr);
 
-        $object_id = $rs->id;
+        $object_id = $rs->id;       
 
-        $this->storeMeta( $object_id, 0, $dataArr);
+        Session::flash('message', 'Tạo mới bài viêt thành công');
 
-        // xu ly tags
-        if( !empty( $dataArr['tags'] ) && $object_id ){
-            
-
-            foreach ($dataArr['tags'] as $tag_id) {
-                $model = new TagObjects;
-                $model->object_id = $object_id;
-                $model->tag_id  = $tag_id;
-                $model->type = 2;
-                $model->save();
-            }
-        }
-
-        Session::flash('message', 'Tạo mới tin tức thành công');
-
-        return redirect()->route('articles.index',['cate_id' => $dataArr['cate_id']]);
+        return redirect()->route('pro-content.index',['project_id' => $dataArr['project_id']]);
     }
     public function storeMeta( $id, $meta_id, $dataArr ){
        
@@ -202,7 +151,7 @@ class ArticlesController extends Controller
             $meta = MetaData::find( $detail->meta_id );
         }
 
-        return view('backend.articles.edit', compact('tagArr', 'tagSelected', 'detail', 'cateArr', 'meta'));
+        return view('backend.pro-content.edit', compact('tagArr', 'tagSelected', 'detail', 'cateArr', 'meta'));
     }
 
     /**
@@ -280,7 +229,7 @@ class ArticlesController extends Controller
         }
         Session::flash('message', 'Cập nhật tin tức thành công');        
 
-        return redirect()->route('articles.edit', $dataArr['id']);
+        return redirect()->route('pro-content.edit', $dataArr['id']);
     }
 
     /**
@@ -297,6 +246,6 @@ class ArticlesController extends Controller
 
         // redirect
         Session::flash('message', 'Xóa tin tức thành công');
-        return redirect()->route('articles.index');
+        return redirect()->route('pro-content.index');
     }
 }
