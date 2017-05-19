@@ -20,7 +20,7 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('articles.create') }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('articles.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Bộ lọc</h3>
@@ -43,7 +43,7 @@
             <div class="form-group tuychon" {{ $date_type != "tuy-chon" ? "style=display:none" : ""}}>               
               <input type="text" class="form-control datetime" name="date_to" value="{{ $date_to }}" placeholder="Đến ngày">
             </div>
-            <button type="submit" class="btn btn-default">Xem</button>
+            <button type="submit" class="btn btn-default btn-sm">Xem</button>
           </form>         
         </div>
       </div>

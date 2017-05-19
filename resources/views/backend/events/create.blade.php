@@ -16,7 +16,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('events.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('events.index') }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('events.store') }}">
     <div class="row">
       <!-- left column -->
@@ -67,7 +67,7 @@
                     
                     <input type="file" id="file-small" style="display:none" />
                  
-                    <button class="btn btn-default" id="btnUploadSmall" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm" id="btnUploadSmall" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div> 
@@ -78,7 +78,7 @@
                     
                     <input type="file" id="file-large" style="display:none" />
                  
-                    <button class="btn btn-default" id="btnUploadLarge" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm" id="btnUploadLarge" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>                 
@@ -98,8 +98,8 @@
             <input type="hidden" name="large_banner" id="large_banner" value="{{ old('large_banner') }}"/>
             <input type="hidden" name="large_name" id="large_name" value="{{ old('large_name') }}"/>           
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('events.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('events.index')}}">Hủy</a>
             </div>
             
         </div>

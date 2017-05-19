@@ -56,7 +56,7 @@
                     
                     <input type="file" id="file-image" style="display:none" />
                  
-                    <button class="btn btn-default" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>
@@ -68,7 +68,7 @@
                     
                     <input type="file" id="file-logo" style="display:none" />
                  
-                    <button class="btn btn-default" id="btnUploadLogo" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm" id="btnUploadLogo" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>            
@@ -115,8 +115,8 @@
             <input type="hidden" name="logo_url" id="logo_url" value="{{ old('logo_url') }}"/>          
             <input type="hidden" name="logo_name" id="logo_name" value="{{ old('logo_name') }}"/>
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('landing-projects.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('landing-projects.index')}}">Hủy</a>
             </div>
             
         </div>
@@ -187,8 +187,8 @@
       </div>
       <div style="clear:both"></div>
       <div class="modal-footer" style="text-align:center">
-        <button type="button" class="btn btn-primary" id="btnSaveTagAjax"> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseModalTag">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnSaveTagAjax"> Save</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="btnCloseModalTag">Close</button>
       </div>
       </form>
     </div>

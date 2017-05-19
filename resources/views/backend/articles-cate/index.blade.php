@@ -20,7 +20,7 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('articles-cate.create') }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('articles-cate.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       <div class="box">
 
         <div class="box-header with-border">
@@ -58,7 +58,7 @@
                 <td style="white-space:nowrap">
                 
                 <a class="btn btn-default btn-sm" href="{{ route('news-list', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
-                  <a class="btn btn-primary" href="{{ route('articles.index', ['id' => $item->id])}}" ><span class="badge">{{ $item->articles->count() }}</span> Bài viết </a>
+                  <a class="btn btn-primary btn-sm" href="{{ route('articles.index', ['id' => $item->id])}}" ><span class="badge">{{ $item->articles->count() }}</span> Bài viết </a>
                   <a href="{{ route( 'articles-cate.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   @if( $item->articles->count() == 0)
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'articles-cate.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>

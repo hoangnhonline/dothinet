@@ -4,11 +4,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Thông tin trang
+    Custom Link
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="{{ route( 'info-seo.index' ) }}">Thông tin trang</a></li>
+    <li><a href="{{ route( 'custom-link.index' ) }}">Custom Link</a></li>
     <li class="active">Danh sách</li>
   </ol>
 </section>
@@ -20,24 +20,22 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('info-seo.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>    
+      <a href="{{ route('custom-link.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
+      
       <div class="box">
 
         <div class="box-header with-border">
-          <h3 class="box-title">Danh sách ( <span class="value">{{ $items->total() }} trang )</span></h3>
+          <h3 class="box-title">Danh sách ( <span class="value">{{ $items->total() }} link )</span></h3>
         </div>
         
         <!-- /.box-header -->
-        <div class="box-body">
-            
+        <div class="box-body">          
           <table class="table table-bordered" id="table-list-data">
             <tr>
-              <th style="width: 1%">#</th>                            
-              <th>Image</th>
-              <th>URL</th>
-              <th>Meta title</th>
-              <th>Meta description</th>
-              <th>Meta keywords</th>              
+              <th style="width: 1%">#</th>
+              <th style="width: 1%;white-space:nowrap">Thứ tự</th>                            
+              <th width="30%">Text hiển thị</th>
+              <th width="50%">URL</th>
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
@@ -46,21 +44,21 @@
               @foreach( $items as $item )
                 <?php $i ++; ?>
               <tr id="row-{{ $item->id }}">
-                <td><span class="order">{{ $i }}</span></td>      
-                <td>
-                  <img class="img-thumbnail lazy" data-original="{{ Helper::showImage($item->image_url)}}" width="80">
-                </td>        
-                <td>                  
-                  <a href="{{ route( 'info-seo.edit', [ 'id' => $item->id ]) }}">{{ $item->url }}</a>                  
+                <td><span class="order">{{ $i }}</span></td>                        
+                <td style="vertical-align:middle;text-align:center">
+                  <img src="{{ URL::asset('backend/dist/img/move.png')}}" class="move img-thumbnail" alt="Cập nhật thứ tự"/>
                 </td>
-                <td>{{ $item->title }}</td>
-                <td>{{ $item->description }}</td>
-                <td>{{ $item->keywords }}</td>
-                <td style="white-space:nowrap">                  
-                  <a href="{{ route( 'info-seo.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
+                <td>                  
+                  <a href="{{ route( 'custom-link.edit', [ 'id' => $item->id ]) }}">{{ $item->link_text }}</a>                 
+                </td>
+                <td>
+                  <a href="{{ $item->link_url }}" target="_blank">{{ $item->link_url }}</a>
+                </td>
+                <td style="white-space:nowrap"> 
+                              
+                  <a href="{{ route( 'custom-link.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   
-                  <a onclick="return callDelete('{{ $item->title }}','{{ route( 'info-seo.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                  
+                  <a onclick="return callDelete('{{ $item->link_text }}','{{ route( 'custom-link.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                   
                 </td>
               </tr> 
@@ -73,7 +71,7 @@
 
           </tbody>
           </table>
-           
+          
         </div>        
       </div>
       <!-- /.box -->     
@@ -85,6 +83,7 @@
 </div>
 @stop
 @section('javascript_page')
+
 <script type="text/javascript">
 function callDelete(name, url){  
   swal({
@@ -101,21 +100,7 @@ function callDelete(name, url){
   return flag;
 }
 $(document).ready(function(){
-  $('#parent_id').change(function(){
-    $.ajax({
-        url: $('#route_get_cate_by_parent').val(),
-        type: "POST",
-        async: false,
-        data: {          
-            parent_id : $(this).val(),
-            type : 'list'
-        },
-        success: function(data){
-            $('#cate_id').html(data).select2('refresh');                      
-        }
-    });
-  });
-  $('.select2').select2();
+  
 
   $('#table-list-data tbody').sortable({
         placeholder: 'placeholder',
@@ -135,7 +120,7 @@ $(document).ready(function(){
                 strTemp = rows[i].id;
                 strOrder += strTemp.replace('row-','') + ";";
             }     
-            updateOrder("loai_sp", strOrder);
+            updateOrder("custom_link", strOrder);
         }
     });
 });

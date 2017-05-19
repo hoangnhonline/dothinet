@@ -52,6 +52,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/update', ['as' => 'pages.update', 'uses' => 'PagesController@update']);
         Route::get('{id}/destroy', ['as' => 'pages.destroy', 'uses' => 'PagesController@destroy']);
     });
+    Route::group(['prefix' => 'custom-link'], function () {
+        Route::get('/', ['as' => 'custom-link.index', 'uses' => 'CustomLinkController@index']);
+        Route::get('/create', ['as' => 'custom-link.create', 'uses' => 'CustomLinkController@create']);
+        Route::post('/store', ['as' => 'custom-link.store', 'uses' => 'CustomLinkController@store']);
+        Route::get('{id}/edit',   ['as' => 'custom-link.edit', 'uses' => 'CustomLinkController@edit']);
+        Route::post('/update', ['as' => 'custom-link.update', 'uses' => 'CustomLinkController@update']);
+        Route::get('{id}/destroy', ['as' => 'custom-link.destroy', 'uses' => 'CustomLinkController@destroy']);
+    });
     Route::group(['prefix' => 'color'], function () {
         Route::get('/', ['as' => 'color.index', 'uses' => 'ColorController@index']);
         Route::get('/create', ['as' => 'color.create', 'uses' => 'ColorController@create']);

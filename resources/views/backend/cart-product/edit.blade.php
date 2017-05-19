@@ -108,8 +108,8 @@
                 <div class="clearfix"></div>    
             </div>                        
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('cart-product.index', ['cart_id' => $cart_id])}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('cart-product.index', ['cart_id' => $cart_id])}}">Hủy</a>
             </div>
             
         </div>

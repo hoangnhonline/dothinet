@@ -109,14 +109,13 @@
 					<li class="level0 {{ isset($cateDetail) && $cateDetail->id == $value->id ? "active" : "" }}"><a href="{{ route('news-list', $value->slug) }}">{{ $value->name }}</a></li>
 					@endforeach
 					<li class="level0"><a href="#">Dự án</a></li>
-					<li class="level0 postnew"><a href="#"><img src="{{ URL::asset('assets/images/icon-postnews.png') }}" alt=""> Đăng tin</a></li>
+					<li class="level0 postnew"><a href="{{ route('ky-gui') }}"><img src="{{ URL::asset('assets/images/icon-postnews.png') }}" alt="Ký gửi"> Ký gửi</a></li>
 				</ul>
 			</div><!-- /.navbar-collapse -->
         </div>
 	</nav><!-- /navigation -->
 
 	@yield('slider')
-
 	
 	@yield('search')
 
@@ -219,21 +218,10 @@
 						</div>
 						<div class="block-contents">
 							<ul class="block-list-sidebar block-icon1-title">
-								<li><h4><a href="#" title="">Bán đất nền Quận Phú Nhuận</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền Quận 9</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền phường An Phú Đông</a></h4></li>
-								<li><h4><a href="#" title="">Bán Đất nền Phú Quốc</a></h4></li>
-								<li><h4><a href="#" title="">Bán chung cư Goldsilk Complex</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền Bình Dương</a></h4></li>
-								<li><h4><a href="#" title="">Bán chung cư Quận Bắc Từ Liêm</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền Huyện Bến Cát</a></h4></li>
-								<li><h4><a href="#" title="">Bán liền kề phường Phú Hữu</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền Quận 2</a></h4></li>
-								<li><h4><a href="#" title="">Bán chung cư quận Bình Tân</a></h4></li>
-							</ul>
-							<div class="clearfix block-viewall">
-								<a href="#" title=""><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Xem tất cả</a>
-							</div>
+								@foreach($customLink as $link)
+								<li><h4><a href="{{ $link->link_url }}" title="{{ $link->link_text }}">{{ $link->link_text }}</a></h4></li>
+								@endforeach
+							</ul>							
 						</div>
 					</article><!-- /block-news-sidebar -->
 				</section><!-- /block-site-right -->

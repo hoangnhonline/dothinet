@@ -69,9 +69,9 @@
                 </div>
             </div>
             <div class="box-footer">
-              <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
-              <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('account.index')}}">Hủy</a>
+              <button type="button" class="btn btn-default btn-sm" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
+              <button type="submit" class="btn btn-primary btn-sm" id="btnSave">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('account.index')}}">Hủy</a>
             </div>
             
         </div>

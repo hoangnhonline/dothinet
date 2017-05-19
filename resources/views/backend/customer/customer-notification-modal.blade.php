@@ -33,8 +33,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btnSaveNoti">Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnSaveNoti">Save</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
