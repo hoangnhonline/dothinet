@@ -36,12 +36,14 @@ class Helper
     }
     public static function showImageThumb($image_url, $object_type = 1, $folder = ''){             
         // type = 1 : original 2 : thumbs
-        //object_type = 1 : product, 2 :article                
+        //object_type = 1 : product, 2 :article  3: project             
         if(strpos($image_url, 'http') === false){
             if($object_type == 1){
                 return config('icho.upload_url') . 'thumbs/' . $folder. '/' . $image_url;
-            }else{
+            }elseif($object_type == 2){
                 return config('icho.upload_url') . 'thumbs/articles/'. $folder. '/' . $image_url;
+            }else{
+                return config('icho.upload_url') . 'thumbs/projects/'. $folder. '/' . $image_url;
             }    
         }else{
             return $image_url;

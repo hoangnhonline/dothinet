@@ -21,7 +21,7 @@
     <div class="row">
       <!-- left column -->
       <input name="id" value="{{ $detail->id }}" type="hidden">
-      <div class="col-md-7">
+      <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
@@ -113,6 +113,22 @@
                     </li>
                     @endforeach
                   </ul>
+                </div>
+                <div class="form-group">
+                  <label>Địa chỉ dự án</label>
+                  <textarea class="form-control" rows="3" name="address" id="address">{{ old('address', $detail->address) }}</textarea>
+                </div>
+                <div class="form-group">
+                  <label>Địa chỉ liên hệ</label>
+                  <textarea class="form-control" rows="3" name="address_contact" id="address_contact">{{ old('address_contact', $detail->address_contact) }}</textarea>
+                </div>  
+                <div class="form-group">                  
+                  <label>Điện thoại</label>                  
+                  <input type="text" class="form-control" name="phone_contact" id="phone_contact" value="{{ old('phone_contact', $detail->phone_contact) }}">
+                </div>  
+                <div class="form-group">                  
+                  <label>Email</label>                  
+                  <input type="text" class="form-control" name="email_contact" id="email_contact" value="{{ old('email_contact', $detail->email_contact) }}">
                 </div>  
             </div>          
             <input type="hidden" name="image_url" id="image_url" value="{{ $detail->image_url }}"/>          
@@ -128,7 +144,7 @@
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">

@@ -149,64 +149,31 @@
 						<div class="block-contents block-contents2">
 							<ul class="block-list-sidebar block-slide-sidebar">
 								<div class="bxslider">
+								@if($landingList)
+									@foreach($landingList as $value)
 									<div class="large-item">
-		                                <a href="#" title=""><img src="{{ URL::asset('assets/images/news-slide/large1.jpg') }}" alt="" /></a>
-		                                <h4><a href="#" title="">Monada Khang Điền</a></h4>
-		                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
+		                                <a href="#" title=""><img src="{{ $value->image_url ? Helper::showImageThumb($value->image_url, 3, '306x194') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" /></a>
+		                                <h4><a href="#" title="">{{ $value->name }}</a></h4>
+		                                <p>{{ $value->address }}</p>
 		                            </div>
-									<div class="large-item">
-		                                <a href="#" title=""><img src="{{ URL::asset('assets/images/news-slide/large2.jpg') }}" alt="" /></a>
-		                                <h4><a href="#" title="">Monada Khang Điền</a></h4>
-		                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-		                            </div>
-		                            <div class="large-item">
-		                                <a href="#" title=""><img src="{{ URL::asset('assets/images/news-slide/large3.jpg') }}" alt="" /></a>
-		                                <h4><a href="#" title="">Monada Khang Điền</a></h4>
-		                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-		                            </div>
-		                            <div class="large-item">
-		                                <a href="#" title=""><img src="{{ URL::asset('assets/images/news-slide/large4.jpg') }}" alt="" /></a>
-		                                <h4><a href="#" title="">Monada Khang Điền</a></h4>
-		                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-		                            </div>
+		                            @endforeach
+		                        @endif
 								</div>
 								<div id="bx-pager" class="bx-thumbnail">
+									@if($landing2List)
+									@foreach($landing2List as $value)
 									<div class="item">
 										<div class="item-child">
-				                            <a data-slide-index="0" class="slide_title" href="#" title=""><img class="avatar" src="{{ URL::asset('assets/images/news-slide/thumb1.jpg') }}" alt="" /></a>
+				                            <a data-slide-index="0" class="slide_title" href="#" title=""><img class="avatar" src="{{ $value->image_url ? Helper::showImageThumb($value->image_url, 3, '306x194') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" /></a>
 				                            <div class="slide_info">
-				                                <a href="#" title="">Monada Khang Điền</a>
-				                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
+				                                <a href="#" title="">{{ $value->name }}</a>
+				                                <p>{{ $value->address }}</p>
 				                            </div>
 			                            </div>
 			                        </div>
-			                        <div class="item">
-			                        	<div class="item-child">
-				                            <a data-slide-index="1" class="slide_title" href="#" title=""><img class="avatar" src="{{ URL::asset('assets/images/news-slide/thumb2.jpg') }}" alt="" /></a>
-				                            <div class="slide_info">
-				                                <a href="#" title="">Monada Khang Điền</a>
-				                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-				                            </div>
-			                            </div>
-			                        </div>
-			                        <div class="item">
-			                        	<div class="item-child">
-				                            <a data-slide-index="2" class="slide_title" href="#" title=""><img class="avatar" src="{{ URL::asset('assets/images/news-slide/thumb3.jpg') }}" alt="" /></a>
-				                            <div class="slide_info">
-				                                <a href="#" title="">Monada Khang Điền</a>
-				                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-				                            </div>
-				                        </div>
-			                        </div>
-			                        <div class="item">
-			                        	<div class="item-child">
-				                            <a data-slide-index="3" class="slide_title" href="#" title=""><img class="avatar" src="{{ URL::asset('assets/images/news-slide/thumb4.jpg') }}" alt="" /></a>
-				                            <div class="slide_info">
-				                                <a href="#" title="">Monada Khang Điền</a>
-				                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-				                            </div>
-			                           	</div>
-			                        </div>
+			                        @endforeach
+			                        @endif			                       
+			                        
 								</div>
 							</ul>
 						</div>

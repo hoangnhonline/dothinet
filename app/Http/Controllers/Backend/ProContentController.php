@@ -51,9 +51,9 @@ class ProContentController extends Controller
         
         $project_id = $request->project_id;
         $tabList = LandingProjects::getListTabProject($project_id);  
-        $tagArr = Tag::where('type', 2)->orderBy('id', 'desc')->get();
+        
         $projectDetail = LandingProjects::find($project_id);
-        return view('backend.pro-content.create', compact( 'tagArr', 'project_id', 'tabList', 'projectDetail'));
+        return view('backend.pro-content.create', compact( 'project_id', 'tabList', 'projectDetail'));
     }
 
     /**
@@ -135,23 +135,10 @@ class ProContentController extends Controller
                 return redirect()->route('dashboard.index');
             }
         }
-        $cateArr = ArticlesCate::all();        
-
-        $tmpArr = TagObjects::where(['type' => 2, 'object_id' => $id])->get();
-        
-        if( $tmpArr->count() > 0 ){
-            foreach ($tmpArr as $value) {
-                $tagSelected[] = $value->tag_id;
-            }
-        }
-        
-        $tagArr = Tag::where('type', 2)->get();
-        $meta = (object) [];
-        if ( $detail->meta_id > 0){
-            $meta = MetaData::find( $detail->meta_id );
-        }
-
-        return view('backend.pro-content.edit', compact('tagArr', 'tagSelected', 'detail', 'cateArr', 'meta'));
+        $project_id = $detail->project_id;
+        $projectDetail = LandingProjects::find($project_id);
+        $tabList = LandingProjects::getListTabProject($project_id);  
+        return view('backend.pro-content.edit', compact('detail', 'project_id', 'projectDetail', 'tabList'));
     }
 
     /**

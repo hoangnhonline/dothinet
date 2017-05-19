@@ -20,7 +20,7 @@
     <div class="row">
       <!-- left column -->
 
-      <div class="col-md-7">
+      <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
@@ -50,7 +50,7 @@
                   <label>Chi tiết</label>
                   <textarea class="form-control" rows="4" name="work_content" id="work_content">{{ old('work_content') }}</textarea>
                 </div>
-                  
+                  <input type="hidden" id="editor" value="work_content">
             </div>          
           
             <div class="box-footer">
@@ -62,7 +62,7 @@
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
        
          
 

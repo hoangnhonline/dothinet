@@ -8,7 +8,7 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('pro-content.index') }}">Bài viết</a></li>
+      <li><a href="{{ route('pro-content.index', ['project_id' => $project_id]) }}">Bài viết</a></li>
       <li class="active">Tạo mới</li>
     </ol>
   </section>
@@ -61,7 +61,7 @@
                   <label>Nội dung</label>
                   <textarea class="form-control" rows="4" name="content" id="content">{{ old('content') }}</textarea>
                 </div>
-                  
+                  <input type="hidden" id="editor" value="content">
             </div>                      
             <div class="box-footer">
               <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
