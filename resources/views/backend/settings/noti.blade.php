@@ -54,7 +54,7 @@
                  
             </div>                        
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>         
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>         
             </div>
             
         </div>

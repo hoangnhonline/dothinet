@@ -31,7 +31,7 @@
         <div class="box-body">
           <form method="POST" action="{{ route("events.ajax-save-product") }}" id="form-product" >
           <div style="text-align:center;margin-bottom:10px">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save</button>
           </div>
           <table class="table table-bordered" id="table-list-data">
             <tr>
@@ -102,7 +102,7 @@
           <input type="hidden" name="event_id" value="{{ $detail->id }}">
           <input type="hidden" name="is_add" id="is_add" value="0">
           <div style="text-align:center">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save</button>
           </div>
           </form>
         </div>        

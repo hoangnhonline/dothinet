@@ -37,7 +37,7 @@
               <label for="name">&nbsp;&nbsp;Điện thoại :</label>
               <input type="text" class="form-control" name="phone" value="{{ $phone }}">
             </div>
-            <button type="submit" class="btn btn-default">Lọc</button>
+            <button type="submit" class="btn btn-default btn-sm">Lọc</button>
           </form>         
         </div>
       </div>

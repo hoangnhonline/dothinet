@@ -15,7 +15,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('loai-sp.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('loai-sp.index') }}" style="margin-bottom:5px">Quay lại</a>
     <a class="btn btn-primary btn-sm" href="{{ route('danh-muc', $detail->slug ) }}" target="_blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
     <div class="row">
       <!-- left column -->
@@ -112,7 +112,7 @@
                   
                   <input type="file" id="file-mau" style="display:none" />
                
-                  <button class="btn btn-default" id="btnUploadMau" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                  <button class="btn btn-default btn-sm" id="btnUploadMau" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                 </div>
               </div> 
               <div class="form-group" style="margin-top:10px">  
@@ -122,7 +122,7 @@
                   
                   <input type="file" id="file-km" style="display:none" />
                
-                  <button class="btn btn-default" id="btnUploadKm" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                  <button class="btn btn-default btn-sm" id="btnUploadKm" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                 </div>
               </div> 
               <div class="form-group" style="margin-top:10px">  
@@ -132,7 +132,7 @@
                   
                   <input type="file" id="file-icon" style="display:none" />
                
-                  <button class="btn btn-default" id="btnUploadIcon" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                  <button class="btn btn-default btn-sm" id="btnUploadIcon" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                 </div>
               </div> 
                 
@@ -143,7 +143,7 @@
                   
                   <input type="file" id="file-banner" style="display:none" />
                
-                  <button class="btn btn-default" id="btnUploadBanner" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                  <button class="btn btn-default btn-sm" id="btnUploadBanner" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                 </div>
               </div>              
               <div class="form-group">
@@ -167,8 +167,8 @@
             <input type="hidden" name="banner_menu" id="banner_menu" value="{{ $detail->banner_menu }}"/>       
             <input type="hidden" name="banner_name" id="banner_name" value="{{ old('banner_name') }}"/>  
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('loai-sp.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('loai-sp.index')}}">Hủy</a>
             </div>
             
         </div>

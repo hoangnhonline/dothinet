@@ -20,7 +20,7 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('events.create') }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('events.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       <div class="box">
 
         <div class="box-header with-border">
@@ -60,7 +60,7 @@
                 <td style="vertical-align:middle;text-align:center">{{ Carbon\Carbon::parse($item->from_date)->format('d-m-Y H:i') }}</td>
                 <td style="vertical-align:middle;text-align:center">{{ Carbon\Carbon::parse($item->to_date)->format('d-m-Y H:i') }}</td>            
                 <td>
-                <a class="btn btn-primary" href="{{ route('events.product-event', $item->id )}}">
+                <a class="btn btn-primary btn-sm" href="{{ route('events.product-event', $item->id )}}">
                 Sản phẩm
                 </a>
                 </td>   

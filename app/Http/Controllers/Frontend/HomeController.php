@@ -23,6 +23,8 @@ use App\Models\ArticlesCate;
 use App\Models\Customer;
 use App\Models\Newsletter;
 use App\Models\PriceRange;
+use App\Models\Price;
+use App\Models\Area;
 use App\Models\Settings;
 
 use Helper, File, Session, Auth, Hash;
@@ -108,7 +110,10 @@ class HomeController extends Controller
         $tuvanluat = Articles::where('cate_id', 5)->limit(6)->get()->toArray();
         $khonggiansong = Articles::where('cate_id', 1)->limit(6)->get()->toArray();
         
-        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy', 'tinRandom','hotProduct2'));
+        $priceList = Price::where('type', 1)->get();
+        $areaList = Area::all();
+
+        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy', 'tinRandom','hotProduct2', 'priceList', 'areaList'));
 
     }
 

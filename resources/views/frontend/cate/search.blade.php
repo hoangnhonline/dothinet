@@ -3,9 +3,9 @@
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">
 	<article class="block block-news-new block-news-cate clearfix">
-		<div class="block-cate-title"><h1>{{ $rs->name }} tại Việt Nam</h1></div>
+		<div class="block-cate-title"><h1>Tìm kiếm tại Việt Nam</h1></div>
 		<div class="block-searchresult">
-			<h2>Tìm kiếm theo các tiêu chí: <b style="color: #37a344;">{{ $rs->name }}</b></h2>
+			<h2>Tìm kiếm theo các tiêu chí: <b style="color: #37a344;">Tìm kiếm</b></h2>
 			<span class="block-countresult">Có <b>{{ number_format(count($productList)) }}</b> bất động sản</span>
 		</div>
 		<div class="col-sm-12 col-xs-12">
@@ -13,8 +13,7 @@
 				<div class="block-title block-title-catenews">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs nav-tabs-cus" role="tablist">
-						<li role="presentation" class="active"><a href="#dsrt" aria-controls="dsrt" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Danh sách tin rao</a></li>
-						
+						<li role="presentation" class="active"><a href="#dsrt" aria-controls="dsrt" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Danh sách kết quả</a></li>
 					</ul>
 				</div>
 				<div class="block-contents">

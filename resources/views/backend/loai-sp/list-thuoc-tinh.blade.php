@@ -20,8 +20,8 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('loai-sp.thuoc-tinh', ['loai_id' => $detailLoai->id]) }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
-       <a class="btn btn-default" class="btn btn-primary" href="{{ route('loai-sp.index')}}" style="margin-bottom:5px">Quay lại</a>
+      <a href="{{ route('loai-sp.thuoc-tinh', ['loai_id' => $detailLoai->id]) }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
+       <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('loai-sp.index')}}" style="margin-bottom:5px">Quay lại</a>
       <div class="box">
 
         <div class="box-header with-border">
