@@ -210,6 +210,7 @@
                             <label>Mô tả</label>
                             <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
                           </div>
+                          <input type="hidden" id="editor" value="description">
                           <div class="clearfix"></div>
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px"> 
                           <input id="pac-input" class="controls" type="text" placeholder="Nhập địa chỉ để tìm kiếm">

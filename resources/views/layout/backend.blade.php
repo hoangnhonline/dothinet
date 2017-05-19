@@ -4,13 +4,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <title>NhaDat | Dashboard</title>
+  <title>dothi9.com | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="{{ URL::asset('http://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css') }}">
+  
   
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="{{ URL::asset('backend/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('http://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -36,9 +37,9 @@
 <body class="hold-transition skin-blue sidebar-mini" >
 <div class="wrapper">
   @include('layout.backend.header')
-  @if(Auth::user()->email != "huongll@icho.vn" && \Request::route()->getName() != "compare.index" )
-    @include('layout.backend.sidebar')
-  @endif
+  
+  @include('layout.backend.sidebar')
+  
 
   <!-- Content Wrapper. Contains page content -->
   @yield('content')  

@@ -21,7 +21,7 @@
     <div class="row">
       <!-- left column -->
 
-      <div class="col-md-7">
+      <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
@@ -59,6 +59,7 @@
                   <label>Nhận xét</label>
                   <textarea class="form-control" rows="4" name="leader_comment" id="leader_comment">{{ old('leader_comment', $detail->leader_comment) }}</textarea>
                 </div>
+                <input type="hidden" id="editor" value="leader_comment">
                 @else
                 <div class="form-group" >
                   
@@ -85,7 +86,7 @@
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
        
          
 

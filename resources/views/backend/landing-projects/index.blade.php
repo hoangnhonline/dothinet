@@ -74,7 +74,7 @@
                   <p>{{ $item->description }}</p>
                 </td>
                 <td style="white-space:nowrap"> 
-                  <a class="btn btn-default btn-sm" href="{{ route('news-detail', [$item->slug, $item->id ]) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
+                  <a class="btn btn-default btn-sm" href="{{ route('pro-content.index', ['project_id' => $item->id ]) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Nội dung</a>                 
                   <a href="{{ route( 'landing-projects.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'landing-projects.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>

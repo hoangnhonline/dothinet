@@ -21,7 +21,7 @@
     <div class="row">
       <!-- left column -->
       <input name="id" value="{{ $detail->id }}" type="hidden">
-      <div class="col-md-7">
+      <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
@@ -117,6 +117,7 @@
                   <label>Chi tiết</label>
                   <textarea class="form-control" rows="4" name="content" id="content">{{ $detail->content }}</textarea>
                 </div>
+                <input type="hidden" id="editor" value="content">
                   
             </div>          
             <input type="hidden" name="image_url" id="image_url" value="{{ $detail->image_url }}"/>          
@@ -130,7 +131,7 @@
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">

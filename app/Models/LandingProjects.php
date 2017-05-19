@@ -46,4 +46,8 @@ class LandingProjects extends Model  {
             ->get();
         return $query;
    }
+   public function contents()
+    {
+        return $this->hasMany('App\Models\Articles', 'project_id');
+    }
 }
