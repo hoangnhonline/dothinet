@@ -45,7 +45,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/load-slider', ['as' => 'load-slider', 'uses' => 'HomeController@loadSlider']);
     Route::get('/count-message', ['as' => 'count-message', 'uses' => 'HomeController@getNoti']);
     Route::get('/chuong-trinh-khuyen-mai', ['as' => 'chuong-trinh-khuyen-mai', 'uses' => 'EventController@index']);
-    Route::get('event/{slug}', ['as' => 'detail-event', 'uses' => 'EventController@detail']);
+    Route::get('du-an/{slug}-{id}', ['as' => 'detail-project', 'uses' => 'ProjectsController@detail']);
 
    
     Route::post('/tmp-upload-multiple-fe', ['as' => 'image.tmp-upload-multiple-fe', 'uses' => 'UploadController@tmpUploadMultipleFE']);

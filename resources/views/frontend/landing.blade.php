@@ -116,86 +116,9 @@
 	</nav><!-- /navigation -->
 
 	@yield('slider')
+
+	@yield('content')
 	
-	@yield('search')
-
-	<section class="main" id="site-main">
-		<section class="container">
-			<section class="row">
-				
-				@yield('content')
-				@if(\Request::route()->getName() != "ky-gui")
-				<section class="col-sm-4 col-xs-12 block-sitebar">
-					<article class="block-sidebar block-news-sidebar">
-						<div class="block-title-common">
-							<h3><span class="icon-tile"><i class="fa fa-star"></i></span> Tin xem nhiều</h3>
-						</div>
-						<div class="block-contents">
-							<ul class="block-list-sidebar block-icon-title">
-								@foreach($tinRandom as $tin)
-		                      
-		                      <li><h4><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></h4></li>
-		                     
-		                      @endforeach
-								
-							</ul>
-						</div>
-					</article><!-- /block-news-sidebar -->
-
-					<article class="block-sidebar block-news-sidebar">
-						<div class="block-title-common">
-							<h3><span class="icon-tile"><i class="fa fa-building-o"></i></span> Dự án nổi bật</h3>
-						</div>
-						<div class="block-contents block-contents2">
-							<ul class="block-list-sidebar block-slide-sidebar">
-								<div class="bxslider">
-								@if($landingList)
-									@foreach($landingList as $value)
-									<div class="large-item">
-		                                <a href="{{ route('detail-project', [$value->slug, $value->id])}}" title=""><img src="{{ $value->image_url ? Helper::showImageThumb($value->image_url, 3, '306x194') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" /></a>
-		                                <h4><a href="{{ route('detail-project', [$value->slug, $value->id])}}" title="">{{ $value->name }}</a></h4>
-		                                <p>{{ $value->address }}</p>
-		                            </div>
-		                            @endforeach
-		                        @endif
-								</div>
-								<div id="bx-pager" class="bx-thumbnail">
-									@if($landing2List)
-									@foreach($landing2List as $value)
-									<div class="item">
-										<div class="item-child">
-				                            <a data-slide-index="0" class="slide_title" onclick="location.href='{{ route('detail-project', [$value->slug, $value->id])}}'" href="{{ route('detail-project', [$value->slug, $value->id])}}" title=""><img class="avatar" src="{{ $value->image_url ? Helper::showImageThumb($value->image_url, 3, '306x194') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" /></a>
-				                            <div class="slide_info">
-				                                <a  onclick="location.href='{{ route('detail-project', [$value->slug, $value->id])}}'" href="{{ route('detail-project', [$value->slug, $value->id])}}" title="">{{ $value->name }}</a>
-				                                <p>{{ $value->address }}</p>
-				                            </div>
-			                            </div>
-			                        </div>
-			                        @endforeach
-			                        @endif			                       
-			                        
-								</div>
-							</ul>
-						</div>
-					</article><!-- /block-news-sidebar -->
-
-					<article class="block-sidebar block-news-sidebar">
-						<div class="block-title-common">
-							<h3><span class="icon-tile"><i class="fa fa-th-list"></i></span> Liên kết nổi bật</h3>
-						</div>
-						<div class="block-contents">
-							<ul class="block-list-sidebar block-icon1-title">
-								@foreach($customLink as $link)
-								<li><h4><a href="{{ $link->link_url }}" title="{{ $link->link_text }}">{{ $link->link_text }}</a></h4></li>
-								@endforeach
-							</ul>							
-						</div>
-					</article><!-- /block-news-sidebar -->
-				</section><!-- /block-site-right -->
-				@endif
-			</section>
-		</section>
-	</section><!-- /main -->
 
 	<section class="block block-get-news">
 		<div class="container">
@@ -349,6 +272,56 @@
 			});
 		});
 		
+	</script>
+	<script>
+		$(document).ready(function(){
+			$('ul.tabssssss li.tab-link').click(function(){
+				var tab_id = $(this).attr('data-tab');
+
+				$('ul.tabssssss li.tab-link').removeClass('active');
+				$('.tab-contents').removeClass('active');
+
+				$(this).addClass('active');
+				$("#"+tab_id).addClass('active');
+			});
+			$(function(){
+				// Determine the div width parent
+				var width = document.getElementById('nav-tabs-langding').offsetWidth;
+				// Determine the div width parent
+				var mainDiv = $('#nav-tabs-langding');
+				var childDivCount = mainDiv.find('li').length;
+				// Get width for li
+				var widthItem = width/childDivCount;
+				$('#nav-tabs-langding li').css("width", widthItem);
+		   });
+		});
+		$(window, document, undefined).ready(function() {
+			$('input , textarea').blur(function() {
+			var $this = $(this);
+			if ($this.val())
+		  		$this.addClass('used');
+			else
+		  		$this.removeClass('used');
+			});
+			var $ripples = $('.ripples');
+			$ripples.on('click.Ripples', function(e) {
+				var $this = $(this);
+				var $offset = $this.parent().offset();
+				var $circle = $this.find('.ripplesCircle');
+
+				var x = e.pageX - $offset.left;
+				var y = e.pageY - $offset.top;
+
+				$circle.css({
+					top: y + 'px',
+					left: x + 'px'
+				});
+				$this.addClass('is-active');
+			});
+			$ripples.on('animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd', function(e) {
+				$(this).removeClass('is-active');
+			});
+		});
 	</script>
 
 </body>
