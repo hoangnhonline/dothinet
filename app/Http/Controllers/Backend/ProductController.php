@@ -82,7 +82,7 @@ class ProductController extends Controller
 
         $cityList = City::all();  
         $estateTypeArr = EstateType::where('type', $type)->get(); 
-        $districtList = District::where('city_id', 1)->get();
+        $districtList = District::where('city_id', 1)->where('status', 1)->get();
        // var_dump($detail->district_id);die;
         $wardList = Ward::where('district_id', $district_id)->get();
         $streetList = Street::where('district_id', $district_id)->get();
@@ -139,7 +139,7 @@ class ProductController extends Controller
 
         $cityList = City::all();  
         $estateTypeArr = EstateType::where('type', $type)->get(); 
-        $districtList = District::where('city_id', 1)->get();
+        $districtList = District::where('city_id', 1)->where('status', 1)->get();
        // var_dump($detail->district_id);die;
         $wardList = Ward::where('district_id', $district_id)->get();
         $streetList = Street::where('district_id', $district_id)->get();
@@ -203,7 +203,7 @@ class ProductController extends Controller
             
         }       
         $priceUnitList = PriceUnit::all();
-        $districtList = District::where('city_id', 1)->get();
+        $districtList = District::where('city_id', 1)->where('status', 1)->get();
        // var_dump($detail->district_id);die;
         $district_id = $request->district_id ? $request->district_id : 2;
         $wardList = Ward::where('district_id', $district_id)->get();
@@ -419,7 +419,7 @@ class ProductController extends Controller
             $meta = MetaData::find( $detail->meta_id );
         }               
         $priceUnitList = PriceUnit::all();
-        $districtList = District::where('city_id', 1)->get();
+        $districtList = District::where('city_id', 1)->where('status', 1)->get();
        // var_dump($detail->district_id);die;
         $wardList = Ward::where('district_id', $detail->district_id)->get();
         $streetList = Street::where('district_id', $detail->district_id)->get();
