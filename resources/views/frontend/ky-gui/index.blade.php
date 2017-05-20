@@ -279,9 +279,9 @@
 										</div>
 									</div><!-- /form-group -->
 									<div class="form-group text-center">
-										<button type="button" class="btn btn-success"><i class="fa fa-eye"></i> XEM TRƯỚC</button>
+										<!--<button type="button" class="btn btn-success"><i class="fa fa-eye"></i> XEM TRƯỚC</button>-->
 										<button type="submit" class="btn btn-success"><i class="fa fa-check"></i> ĐĂNG TIN</button>
-										<button type="button" class="btn btn-primary"><i class="fa fa-times"></i> HỦY BỎ</button>
+										<button type="button" onclick="location.href='{{ route('home') }}'" class="btn btn-primary"><i class="fa fa-times"></i> HỦY BỎ</button>
 									</div><!-- /form-group -->
 								</div>
 							</form>
