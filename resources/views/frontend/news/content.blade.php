@@ -29,7 +29,7 @@
               @endforeach
              
             </ul>
-            <nav class="block-pagination">
+            <!--<nav class="block-pagination">
               <ul class="pagination">
                 <li><a class="selected" href="#">1</a></li>
                 <li><a href="#">2</a></li>
@@ -38,7 +38,7 @@
                 <li><a href="#">5</a></li>
                 <li><a href="#" aria-label="Previous">Trang sau</a></li>
                 <li><a href="#" aria-label="Next">Trang cuối</a></li>
-              </ul>
+              </ul>-->
             </nav>
           </div>
         </div>

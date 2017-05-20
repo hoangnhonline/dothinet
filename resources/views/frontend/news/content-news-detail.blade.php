@@ -53,11 +53,7 @@
                     </div><!-- /col-sm-6 col-xs-12 --> 
                     @endforeach
                     @endif
-                </div>
-                <a href="#" title="" class="viewall">
-                    <span class="glyphicon glyphicon-share-alt"></span>
-                    <i>Xem tất cả</i>
-                </a>
+                </div>                
             </div>
         </div>
     </article><!-- /block-news-with-region -->
