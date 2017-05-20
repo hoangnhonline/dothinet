@@ -44,6 +44,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/load-slider', ['as' => 'load-slider', 'uses' => 'HomeController@loadSlider']);
     Route::get('/count-message', ['as' => 'count-message', 'uses' => 'HomeController@getNoti']);
+    Route::get('/du-an', ['as' => 'du-an', 'uses' => 'ProjectsController@index']);
     Route::get('/chuong-trinh-khuyen-mai', ['as' => 'chuong-trinh-khuyen-mai', 'uses' => 'EventController@index']);
     Route::get('du-an/{slug}-{id}', ['as' => 'detail-project', 'uses' => 'ProjectsController@detail']);
 
