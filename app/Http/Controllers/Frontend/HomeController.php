@@ -74,16 +74,7 @@ class HomeController extends Controller
         return view('frontend.home.ajax-slider');
     }
     public function index(Request $request)
-    {    
-        $a = Articles::all();
-        foreach($a as $b){
-            $m = Articles::find($b->id);
-            $slug = str_replace("“", "", $b->slug);
-            $slug = str_replace("”", "", $slug);
-            
-            $m->slug = $slug;
-            $m->save();
-        }
+    {  
         $productArr = [];
         $hoverInfo = [];
         $loaiSp = EstateType::where('status', 1)->get();

@@ -4,8 +4,8 @@
 		<div class="block-title block-tab-customize">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist" id="tab-search">
-				<li role="presentation" class="active"><a href="javascript:void(0)" >BẤT ĐỘNG SẢN BÁN</a></li>
-				<li role="presentation"><a href="javascript:void(0)" >BẤT ĐỘNG SẢN CHO THUÊ</a></li>
+				<li role="presentation" class="active"><a href="javascript:void(0)" data-type="1" >BẤT ĐỘNG SẢN BÁN</a></li>
+				<li role="presentation"><a href="javascript:void(0)" data-type="2" >BẤT ĐỘNG SẢN CHO THUÊ</a></li>
 			</ul>
 		</div>
 		<div class="block-contents">
@@ -17,7 +17,7 @@
 				    	<div class="row-select">
 							<div class="col-xs-2">
 								<div class="form-group">
-									<select class="selectpicker form-control" data-live-search="true" name="estate_type_id">
+									<select class="selectpicker form-control" data-live-search="true" name="estate_type_id" id="estate_type_id">
 										<option selected="selected" value="">Loại bất động sản</option>
 										@foreach($banList as $ban)
 										<option value="{{ $ban->id }}">{{ $ban->name }}</option>
@@ -61,8 +61,11 @@
 							
 							<div class="col-xs-2">
 								<div class="form-group">
-									<select class="selectpicker form-control" data-live-search="true" name="price_id">
+									<select class="selectpicker form-control" data-live-search="true" name="price_id" id="price_id">
 										<option value="">Mức giá</option>
+										@foreach($priceList as $price)
+										<option value="{{ $price->id }}">{{ $price->name }}</option>
+										@endforeach
 									</select>
 								</div>
 							</div>
@@ -117,8 +120,37 @@
 	$(document).ready(function(){
 		$('#tab-search li a').click(function(){
 			obj = $(this);
+			var type = obj.data('type');
+			$('#type').val(type);
 			$('#tab-search li').removeClass('active');
 			obj.parents('li').addClass('active');
+
+			$.ajax({
+				url : '{{ route('get-child') }}',
+				data : {
+					mod : 'estate_type',
+					col : 'type',
+					id : type
+				},
+				type : 'POST',
+				dataType : 'html',
+				success : function(data){
+					$('#estate_type_id').html(data).selectpicker('refresh');
+				}
+			});
+			$.ajax({
+				url : '{{ route('get-child') }}',
+				data : {
+					mod : 'price',
+					col : 'type',
+					id : type
+				},
+				type : 'POST',
+				dataType : 'html',
+				success : function(data){
+					$('#price_id').html(data).selectpicker('refresh');
+				}
+			});
 		});
 	});
 
