@@ -24,13 +24,12 @@ class ProjectsController extends Controller
     */
     public function index(Request $request)
     {   
-        $dt = Carbon::now()->format('Y-m-d H:i:s');
-
-        $dataList = LandingProjects::where('from_date', '<=', $dt)->where('to_date', '>=', $dt)->where('status', 1)->get();
-        $seo['title'] = $seo['description'] = $seo['keywords'] = "Chương trình khuyến mãi - NhaDat";                
+        
+        $projectList = LandingProjects::orderBy('id', 'desc')->get();
+        $seo['title'] = $seo['description'] = $seo['keywords'] = "Dự án";                
         
         $socialImage = "";
-        return view('frontend.event.index', compact('seo', 'socialImage', 'dataList'));
+        return view('frontend.projects.index', compact('seo', 'socialImage', 'projectList'));
     }
 
     public function detail(Request $request){
