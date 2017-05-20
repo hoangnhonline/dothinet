@@ -22,7 +22,7 @@
 		 	<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a class="imgdetail" href="#home" aria-controls="home" role="tab" data-toggle="tab">Hình ảnh</a></li>
-				<li role="presentation"><a class="mapdetail" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Bản đồ</a></li>
+				<li role="presentation"><a class="mapdetail" href="#profile" aria-controls="profile" role="tab" data-toggle="tab" onclick="initAutocomplete();">Bản đồ</a></li>
 			</ul>
 		 	<!-- Tab panes -->
 			<div class="tab-content">
@@ -44,7 +44,7 @@
 				</div>
 				<div role="tabpanel" class="tab-pane" id="profile">
 					<div class="block-map">
-						<object class="mymap" data="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126263.60819855973!2d-84.44808690325613!3d33.735934882617194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDQ0JzQ1LjQiTiA4NMKwMjMnMzUuMyJX!5e0!3m2!1svi!2s!4v1475105845390"></object>
+						<div id="map-abc" style="height:400px;clear:both;width:100%"></div>
 					</div>
 				</div>
 			</div>
@@ -144,6 +144,44 @@
 
 @endsection
 @section('javascript_page')
+<script>
+
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      <?php 
+      $latt = $detail->latt ? $detail->latt : '10.7860332';
+      $longt = $detail->longt ? $detail->longt : '106.6950147';      
+      ?>
+      function initAutocomplete() {
+      	
+        var myLatLng = {lat: {{ $latt }}, lng: {{ $longt }} };
+
+        var map = new google.maps.Map(document.getElementById('map-abc'), {
+          zoom: 17,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map          
+        });
+        map.panTo(marker.getPosition());
+        $("a[href='#profile']").on('shown.bs.tab', function(){
+		  google.maps.event.trigger(map, 'resize');
+		  	map.panTo(marker.getPosition());
+			map.setZoom(17);
+		});
+      	   
+            
+      }
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhxs7FQ3DcyDm8Mt7nCGD05BjUskp_k7w&libraries=places&callback=initAutocomplete"
+         async defer></script>
 <script type="text/javascript">
  $(document).ready(function () {
     $('.bxslider .item').each(function () {
