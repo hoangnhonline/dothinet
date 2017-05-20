@@ -103,7 +103,7 @@ class ProductController extends Controller
         
 
 
-        $query = Product::where('product.status', $status);
+        $query = Product::where('product.status', 2);
         if( $type ){
             $query->where('product.type', $type);
         }
