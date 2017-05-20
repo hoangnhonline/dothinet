@@ -4,6 +4,7 @@
   @include('frontend.partials.main-header')
   @include('frontend.partials.home-menu')
 @endsection
+@include('frontend.partials.meta')
 @section('content')
 <section class="main" id="site-main">
 	<section class="container">

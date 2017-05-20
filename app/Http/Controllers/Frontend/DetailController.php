@@ -51,11 +51,11 @@ class DetailController extends Controller
         $district_id = $detail->district_id;
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
-           $seo['title'] = $meta['title'] != '' ? $meta['title'] : $detail->name;
-           $seo['description'] = $meta['description'] != '' ? $meta['description'] : $detail->name;
-           $seo['keywords'] = $meta['keywords'] != '' ? $meta['keywords'] : $detail->name;
+           $seo['title'] = $meta['title'] != '' ? $meta['title'] : $detail->title;
+           $seo['description'] = $meta['description'] != '' ? $meta['description'] : $detail->title;
+           $seo['keywords'] = $meta['keywords'] != '' ? $meta['keywords'] : $detail->title;
         }else{
-            $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name;
+            $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->title;
         }               
         
         if($detail->thumbnail_id > 0){
@@ -152,7 +152,8 @@ class DetailController extends Controller
         $projectList = Project::where('district_id', $district_id)->get();
 
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
-        return view('frontend.ky-gui.index', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr'));
+        $seo['title'] = $seo['description'] = $seo['keywords'] = "Đăng tin ký gửi";
+        return view('frontend.ky-gui.index', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr', 'seo'));
     }
     public function postKygui(Request $request){
         $dataArr = $request->all();        
