@@ -23,7 +23,7 @@ class ArticlesController extends Controller
     */
     public function index(Request $request)
     {
-        $cate_id = isset($request->cate_id) ? $request->cate_id : 0;
+        $cate_id = isset($request->cate_id) ? $request->cate_id : 1;
 
         $title = isset($request->title) && $request->title != '' ? $request->title : '';
         

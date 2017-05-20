@@ -14,7 +14,7 @@
     <article class="block block-breadcrumb">
       <div class="block-contents">
         <ul>
-          <li class="active"><h2><a href="{{ route('news-list', $cateDetail->slug) }}">{{ $cateDetail->name }}</a></h2></li>
+          <li class="active"><h2><a href="{{ route('tag', $detail->slug) }}">Tag : '{{ $detail->name }}'</a></h2></li>
         </ul>
       </div>
     </article><!-- /block-breadcrumb -->    

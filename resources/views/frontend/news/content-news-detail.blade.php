@@ -25,8 +25,16 @@
         <div class="block-news-new-content">
             <?php echo $detail->content; ?>
         </div><!-- /block-news-new-content -->
-        <div class="block-news-new-content-source"><em>(Theo Vietnamnet)</em> <br> &nbsp;</em></div><!-- /block-news-new-content-source -->
+        
     </article><!-- /block-news-new-detail -->
+    <article class="block block-news-with-region">
+        <u>Tags</u>: 
+        @if($tagSelected)
+        @foreach($tagSelected as $tag)
+        <a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a>, 
+        @endforeach
+        @endif
+    </article>
 
     <article class="block block-all-news-new">
         <div class="block-title block-title-common">

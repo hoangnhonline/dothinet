@@ -15,8 +15,11 @@ use App\Models\EstateType;
 use App\Models\MetaData;
 use App\Models\ProductImg;
 use App\Models\Tag;
+use App\Models\TagObjects;
 use App\Models\Direction;
 use App\Models\PriceUnit;
+use App\Models\Articles;
+
 
 use Helper, File, Session, Auth;
 
@@ -72,9 +75,50 @@ class DetailController extends Controller
                     ->where('product.id', '<>', $detail->id)                                     
                     ->orderBy('product.cart_status', 'asc')
                     ->orderBy('product.id', 'desc')->limit(6)->get();
-        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList'));
-    }
 
+        $tagSelected = Product::getListTag($detail->id);        
+        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList', 'tagSelected'));
+    }
+    public function tagDetail(Request $request){
+        $slug = $request->slug;
+        $detail = Tag::where('slug', $slug)->first();
+        if($detail->type == 1){ // product           
+            $productList = (object)[];
+            $listId = [];
+            $listId = TagObjects::where(['type' => 1, 'tag_id' => $detail->id])->lists('object_id');
+            if($listId){
+                $listId = $listId->toArray();
+            }
+            if(!empty($listId)){
+            $query = Product::where('product.status', 1)            
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id') 
+                ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')
+                ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
+                ->where('product_img.image_url', '<>', '')
+                ->whereIn('product.id', $listId)
+                ->orderBy('product.id', 'desc');
+                $productList  = $query->limit(36)->get();
+
+            }
+            $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
+            
+            return view('frontend.cate.tag', compact('productList', 'socialImage', 'seo', 'detail'));
+        }elseif($detail->type == 2){ // articles
+            $articlesArr = (object)[];
+            $listId = [];
+            $listId = TagObjects::where(['type' => 2, 'tag_id' => $detail->id])->lists('object_id');
+            if($listId){
+                $listId = $listId->toArray();
+            }
+            if(!empty($listId)){
+                $articlesArr = Articles::whereIn('id', $listId)->orderBy('id', 'desc')->where('cate_id', '<>', 999)->paginate(20);
+            }  
+
+            $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
+                  
+            return view('frontend.news.tag', compact('title', 'articlesArr', 'seo', 'socialImage', 'detail'));
+        }
+    }
     public function ajaxTab(Request $request){
         $table = $request->type ? $request->type : 'category';
         $id = $request->id;

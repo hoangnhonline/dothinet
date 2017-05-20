@@ -99,6 +99,14 @@
 	    	</div>
 	    </div><!-- /block-detail-info -->	    
 	</article><!-- /block-cate-news-detail -->
+	<article class="block block-news-with-region">
+		<u>Tags</u>: 
+		@if($tagSelected)
+		@foreach($tagSelected as $tag)
+		<a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a>, 
+		@endforeach
+		@endif
+	</article>
 	@if($otherList)
 	<article class="block block-news-with-region">
 		<div class="block-title block-title-common">
