@@ -216,6 +216,19 @@
                               </option>                              
                             </select>
                         </div>
+                        @if($detail->status == 2)
+                        <div class="form-group col-md-12 none-padding" >                  
+                            <label>Trạng thái duyệt<span class="red-star">*</span></label>
+                            <select class="form-control" name="status" id="status">
+                              <option value="1" {{ old('status', $detail->status) == 1 ? "selected" : "" }}>
+                                Đã duyệt
+                              </option>
+                              <option value="2" {{ old('status', $detail->status) == 2 ? "selected" : "" }}>
+                                Chưa duyệt
+                              </option>                              
+                            </select>
+                        </div>
+                        @endif
                         <div class="input-group">
                           <label>Tags</label>
                           <select class="form-control select2" name="tags[]" id="tags" multiple="multiple">                  

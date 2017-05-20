@@ -31,7 +31,7 @@
 											<a class="description-title vip1" title="{{ $product->title }}" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><i class="vipdb fa fa-star"></i> {{ $product->title }} </a></h4>
                 						<div class="description-info">
                 							<div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
-				                            <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }}</div>
+				                            <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }} m<sub>2</sub></div>
 				                            <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city') }}</div>
                 						</div>
                 						<span class="date">{{ date('d/m/Y', strtotime($product->created_at)) }}</span>

@@ -9,7 +9,7 @@
 	    </div><!-- /cate-news-detail-location -->
 	    <ul class="cate-news-detail-price">
 			<li>Giá: <span>{{ $detail->price }} {{ Helper::getName($detail->price_unit_id, 'price_unit')}}</span></li>
-			<li>Diện tích: <span>{{ $detail->area }}</span></li>
+			<li>Diện tích: <span>{{ $detail->area }} m<sub>2</sub></span></li>
 	    </ul><!-- /cate-news-detail-price -->
 	    <hr>
 	    <div class="cate-news-detail-desc">
@@ -124,7 +124,7 @@
 			                        </p>
 			                        <p>
 			                            <label>Diện tích:</label>
-			                            {{ $product->area }}
+			                            {{ $product->area }} m<sub>2</sub>
 			                        </p>
 			                        <p>
 			                            <label>Vị trí:</label>
