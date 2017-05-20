@@ -3,9 +3,9 @@
 	<div class="container">
 		<div class="block-title block-tab-customize">
 			<!-- Nav tabs -->
-			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#home" >BẤT ĐỘNG SẢN BÁN</a></li>
-				<li role="presentation"><a href="#profile" >BẤT ĐỘNG SẢN CHO THUÊ</a></li>
+			<ul class="nav nav-tabs" role="tablist" id="tab-search">
+				<li role="presentation" class="active"><a href="javascript:void(0)" >BẤT ĐỘNG SẢN BÁN</a></li>
+				<li role="presentation"><a href="javascript:void(0)" >BẤT ĐỘNG SẢN CHO THUÊ</a></li>
 			</ul>
 		</div>
 		<div class="block-contents">
@@ -111,4 +111,16 @@
 		color:#444 !important;
 	}
 </style>
+@endsection
+@section('javascript_page')
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#tab-search li a').click(function(){
+			obj = $(this);
+			$('#tab-search li').removeClass('active');
+			obj.parents('li').addClass('active');
+		});
+	});
+
+</script>
 @endsection
