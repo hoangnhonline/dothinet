@@ -60,7 +60,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 			}
 	        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
 	        $articleCate = ArticlesCate::orderBy('display_order', 'desc')->get();	     
-	        $districtList = District::where('city_id', 1)->get();
+	        $districtList = District::where('city_id', 1)->where('status',1)->get();
 	        $tinRandom = Articles::all()->random(5);
 	        $customLink = CustomLink::whereRaw(1)->orderBy('display_order', 'asc')->get();
 	        $landingList = LandingProjects::where('is_hot', 1)->orderBy('id', 'desc')->offset(0)->limit(1)->get();
