@@ -38,11 +38,11 @@ class BannerController extends Controller
             if( $object_id == 1){
                 $detail->name = "Slide trang chủ";
             }elseif( $object_id == 2){
-                $detail->name = "Banner sidebar các trang con (tin tức, danh mục con ...)";
+                $detail->name = "Banner trượt bên trái";
             }elseif( $object_id == 3){
-                $detail->name = "Banner trái phía trên phần 'Tin tức công nghệ'";
+                $detail->name = "Banner trượt bên phải";
             }elseif( $object_id == 4){
-                $detail->name = "Banner phải phía trên phần 'Tin tức công nghệ'";
+                $detail->name = "Banner top ( cạnh logo )";
             }            
         }
         $query = Banner::where(['object_id'=>$object_id, 'object_type' => $object_type]);
@@ -77,12 +77,12 @@ class BannerController extends Controller
             if( $object_id == 1){
                 $detail->name = "Slide trang chủ";
             }elseif( $object_id == 2){
-                $detail->name = "Banner sidebar các trang con (tin tức, danh mục con ...)";
+                $detail->name = "Banner trượt bên trái";
             }elseif( $object_id == 3){
-                $detail->name = "Banner trái phía trên phần 'Tin tức công nghệ'";
+                $detail->name = "Banner trượt bên phải";
             }elseif( $object_id == 4){
-                $detail->name = "Banner phải phía trên phần 'Tin tức công nghệ'";
-            }            
+                $detail->name = "Banner top ( cạnh logo )";
+            }               
         }
         return view('backend.banner.create', compact('object_id', 'object_type', 'detail'));
     }

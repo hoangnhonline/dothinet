@@ -44,6 +44,27 @@
                   <a href="{{ route( 'banner.index', [ 'object_id' => 1, 'object_type' => 3 ]) }}" class="btn-sm btn btn-primary">Banner</a>
                 </td>
               </tr> 
+              <tr>
+                <td><span class="order">3</span></td>                                                                           
+                <td><a href="{{ route( 'banner.index', [ 'object_id' => 4, 'object_type' => 3 ]) }}" class="link_edit">Banner Top ( cạnh logo )</a></td>
+                <td style="white-space:nowrap; text-align:right">                 
+                  <a href="{{ route( 'banner.index', [ 'object_id' => 4, 'object_type' => 3 ]) }}" class="btn-sm btn btn-primary">Banner</a>
+                </td>
+              </tr> 
+              <tr>
+                <td><span class="order">2</span></td>                                                                           
+                <td><a href="{{ route( 'banner.index', [ 'object_id' => 2, 'object_type' => 3 ]) }}" class="link_edit">Banner trượt bên trái</a></td>
+                <td style="white-space:nowrap; text-align:right">                 
+                  <a href="{{ route( 'banner.index', [ 'object_id' => 2, 'object_type' => 3 ]) }}" class="btn-sm btn btn-primary">Banner</a>
+                </td>
+              </tr> 
+              <tr>
+                <td><span class="order">3</span></td>                                                                           
+                <td><a href="{{ route( 'banner.index', [ 'object_id' => 3, 'object_type' => 3 ]) }}" class="link_edit">Banner trượt bên phải</a></td>
+                <td style="white-space:nowrap; text-align:right">                 
+                  <a href="{{ route( 'banner.index', [ 'object_id' => 3, 'object_type' => 3 ]) }}" class="btn-sm btn btn-primary">Banner</a>
+                </td>
+              </tr> 
              <!-- <tr>
                 <td><span class="order">2</span></td>                                                                           
                 <td><a href="{{ route( 'banner.index', [ 'object_id' => 2, 'object_type' => 3 ]) }}" class="link_edit">Banner sidebar các trang con (tin tức, danh mục con ...)</a></td>
