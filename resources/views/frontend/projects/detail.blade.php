@@ -13,7 +13,7 @@
 			<li role="presentation" >
 				<p class="tabs-item-logo">
 					<i class="icon">
-						<img src="{{ $detail->logo_url ? Helper::showImage($detail->logo_url) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+						<img src="{{ $detail->logo_url ? Helper::showImage($detail->logo_url) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{{ $detail->name }}">
 					</i>
 				</p>
 			</li>
@@ -164,6 +164,7 @@
 				<h2 class="page-title">Liên Hệ</h2>
 				<div class="row">
 					<div class="col-sm-6 col-xs-12">
+						<img class="project-logo-contact" src="{{ $detail->logo_url ? Helper::showImage($detail->logo_url) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{{ $detail->name }}">
 						<h3 class="page-title-child">công ty TNHH BĐS Sunland Sài Gòn</h3>
 						<div class="block-table-nobor-tab">
 							<table class="table table-no-border">

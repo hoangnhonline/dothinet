@@ -38,8 +38,6 @@ class DetailController extends Controller
     */
     public function index(Request $request)
     {   
-       
-
         $spThuocTinhArr = $productArr = [];
         $slug = $request->slug;
         $detail = Product::where('slug', $slug)->where('estate_type_id', '>', 0)->first();
@@ -50,6 +48,7 @@ class DetailController extends Controller
 
         $hinhArr = ProductImg::where('product_id', $detail->id)->get()->toArray();
 
+        $district_id = $detail->district_id;
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
            $seo['title'] = $meta['title'] != '' ? $meta['title'] : $detail->name;
@@ -62,7 +61,18 @@ class DetailController extends Controller
         if($detail->thumbnail_id > 0){
             $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
         }
-        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage'));
+
+        $otherList = Product::where('product.slug', '<>', '')
+                    ->where('product.type', $detail->type)
+                    ->where('product.district_id', $detail->district_id)
+                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+                    ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
+                    ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
+                    ->where('product_img.image_url', '<>', '')    
+                    ->where('product.id', '<>', $detail->id)                                     
+                    ->orderBy('product.cart_status', 'asc')
+                    ->orderBy('product.id', 'desc')->limit(6)->get();
+        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList'));
     }
 
     public function ajaxTab(Request $request){

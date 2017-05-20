@@ -97,13 +97,9 @@
 	    			</tr>
 	    		</table>
 	    	</div>
-	    </div><!-- /block-detail-info -->
-	    <div class="block-share">
-	    	<a href="#" class="btn btn-success"><i class="fa fa-print"> In tin này</i></a>
-	    	<a href="#" class="btn btn-success"><i class="fa fa-save"> Lưu tin</i></a>
-	    </div>
+	    </div><!-- /block-detail-info -->	    
 	</article><!-- /block-cate-news-detail -->
-
+	@if($otherList)
 	<article class="block block-news-with-region">
 		<div class="block-title block-title-common">
 			<h3><span class="icon-tile"><i class="fa fa-th-list"></i></span> TIN RAO CÙNG KHU VỰC</h3>
@@ -111,353 +107,43 @@
 		<div class="block-contents">
 			<div class="news-with-region-list">
 				<div class="row">
+					@foreach($otherList as $product)
 					<div class="col-sm-6 col-xs-12">
 						<div class="news-with-region-item clearfix">
 							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
+								<a href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}" title="{{ $product->title }}">{{ $product->title }}</a>
 							</div>
 							<div class="news-with-region-content">
 								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
+									<a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" ></a>
 								</div>
 								<div class="news-with-region-info">
 									<p>
 			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
+			                            <span>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</span>
 			                        </p>
 			                        <p>
 			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
+			                            {{ $product->area }}
 			                        </p>
 			                        <p>
 			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
+			                            {{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}
 			                        </p>
 								</div>
 							</div>
 						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-				</div>
-				<a href="#" title="" class="viewall">
-					<span class="glyphicon glyphicon-share-alt"></span>
-					<i>Xem tất cả</i>
-				</a>
+					</div><!-- /col-sm-6 col-xs-12 -->					
+					@endforeach
+				</div>				
 			</div>
 		</div>
 	</article><!-- /block-news-with-region -->
-
-	<article class="block block-news-with-region">
-		<div class="block-title block-title-common">
-			<h3><span class="icon-tile"><i class="fa fa-th-list"></i></span> TIN RAO CÙNG KHOẢNG GIÁ</h3>
-		</div>
-		<div class="block-contents">
-			<div class="news-with-region-list">
-				<div class="row">
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-				</div>
-				<a href="#" title="" class="viewall">
-					<span class="glyphicon glyphicon-share-alt"></span>
-					<i>Xem tất cả</i>
-				</a>
-			</div>
-		</div>
-	</article><!-- /block-news-with-region -->
-	
+	@endif
 </section><!-- /block-site-left -->
 
 @endsection
 @section('javascript_page')
-<script src="{{ URL::asset('assets/vendor/zoom/jquery.zoom.min.js') }}"></script>
-<!-- Js bxslider -->
-<script src="{{ URL::asset('assets/vendor/bx-slider/jquery.bxslider.min.js') }}"></script>
-<!-- Countdown -->
-<script src="{{ URL::asset('assets/vendor/countdown/jquery.countdown.min.js') }}"></script>
-<script src="{{ URL::asset('assets/js/updown.js') }}"></script>
 <script type="text/javascript">
  $(document).ready(function () {
     $('.bxslider .item').each(function () {
@@ -489,6 +175,15 @@
 			$this.html(event.strftime(fomat));
 		});
 	});
+	$('.bxslider').bxSlider({
+		pagerCustom: '#bx-pager',
+		pager: true,
+	});
+	$('.slide-detail').bxSlider({
+		pagerCustom: '#bx-pager-detail',
+		pager: true,
+	});
+
 });
 
 </script>
