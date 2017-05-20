@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
+use App\Models\Product;
 use App\Models\Settings;
 use File, Session, DB, Auth;
 
@@ -33,8 +34,17 @@ class SettingsController  extends Controller
     public function dashboard(Request $request)
     {              
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');
+        $query = Product::where('product.status', 2);
+        
+        //$query->join('users', 'users.id', '=', 'product.created_user');
+        $query->join('city', 'city.id', '=', 'product.city_id');        
+        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id'); 
+        $query->join('estate_type', 'product.estate_type_id', '=','estate_type.id'); 
+        $query->orderBy('product.id', 'desc');   
+        $kyguiList = $query->select(['product_img.image_url as image_urls','product.*', 'estate_type.slug as slug_loai'])->get();
 
-        return view('backend.dashboard.index', compact( 'settingArr'));
+
+        return view('backend.dashboard.index', compact( 'settingArr', 'kyguiList'));
     }
     public function storeNoti(Request $request){
 
