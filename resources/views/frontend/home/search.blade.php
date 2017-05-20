@@ -96,7 +96,7 @@
 							</div>								
 							<div class="col-xs-2 col-button">
 								<div class="form-group">
-									<button type="submit" class="btn btn-success btn-search-home"><i class="fa fa-search"></i> Tìm Kiếm</button>
+									<button type="submit" id="btnSearch" class="btn btn-success btn-search-home"><i class="fa fa-search"></i> Tìm Kiếm</button>
 								</div>
 							</div>
 						</div>
@@ -118,6 +118,12 @@
 @section('javascript_page')
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#btnSearch').click(function(){		
+			if($('#estate_type_id').val() == ''){
+				swal({ title: '', text: 'Vui lòng chọn loại bất động sản.', type: 'error' });
+				return false;
+			}		
+		});
 		$('#tab-search li a').click(function(){
 			obj = $(this);
 			var type = obj.data('type');

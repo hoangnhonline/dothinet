@@ -142,6 +142,28 @@
                               @endforeach
                             </select>
                         </div>
+                        <div class="form-group col-md-6  pleft-5">
+                          <label for="email">Khoảng giá<span class="red-star">*</span></label>
+                            <select class="form-control" name="price_id" id="price_id">
+                              <option value="">--Chọn--</option>
+                                @foreach( $priceList as $value )
+                                <option value="{{ $value->id }}"
+                                {{ old('price_id') == $value->id ? "selected" : "" }}
+                                >{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 none-padding">
+                          <label for="email">Khoảng diện tích<span class="red-star">*</span></label>
+                          <select class="form-control" name="area_id" id="area_id">
+                            <option value="">--Chọn--</option>
+                            @foreach( $areaList as $value )
+                            <option value="{{ $value->id }}"
+                            {{ old('area_id') == $value->id ? "selected" : "" }}
+                            >{{ $value->name }}</option>
+                            @endforeach
+                          </select>
+                        </div>
                         <div class="form-group col-md-12 none-padding">
                             <label>Địa chỉ</label>
                              <input type="text" class="form-control" name="full_address" id="full_address" value="{{ old('full_address') }}">  

@@ -36,6 +36,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/style.css') }}">
 	<!-- ===== Responsive CSS ===== -->
     <link href="{{ URL::asset('assets/css/responsive.css') }}" rel="stylesheet">
+      <link rel="stylesheet" href="{{ URL::asset('backend/dist/css/sweetalert2.min.css') }}">  
     
     <!-- HTML5 Shim and Respond.js') }} IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js') }} doesn't work if you view the page via file:// -->
@@ -330,6 +331,7 @@
 	<!-- ===== JS Bootstrap Select ===== -->
 	<script src="{{ URL::asset('assets/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 	<!-- Js Common -->
+	<script src="{{ URL::asset('backend/dist/js/sweetalert2.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/common.js') }}"></script>
 	@yield('javascript_page')
 	<script type="text/javascript">

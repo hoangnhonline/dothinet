@@ -20,6 +20,8 @@ use App\Models\Project;
 use App\Models\Tag;
 use App\Models\TagObjects;
 use App\Models\Direction;
+use App\Models\Area;
+use App\Models\Price;
 
 use Helper, File, Session, Auth, Hash, URL, Image;
 
@@ -196,7 +198,8 @@ class ProductController extends Controller
         
         if( $type ){
             
-            $estateTypeArr = EstateType::where('type', $type)->select('id', 'name')->orderBy('display_order', 'desc')->get();            
+            $estateTypeArr = EstateType::where('type', $type)->select('id', 'name')->orderBy('display_order', 'desc')->get();
+            $priceList = Price::where('type', $type)->get();     
             
         }       
         $priceUnitList = PriceUnit::all();
@@ -208,8 +211,8 @@ class ProductController extends Controller
         $projectList = Project::where('district_id', $district_id)->get();
 
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
-
-        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr'));
+        $areaList = Area::all();
+        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr', 'priceList', 'areaList'));
     }
 
     /**
@@ -407,7 +410,7 @@ class ProductController extends Controller
        // var_dump($detail->type);die;
         $hinhArr = ProductImg::where('product_id', $id)->lists('image_url', 'id');     
         $estateTypeArr = EstateType::where('type', $detail->type)->get();
-        
+        $priceList = Price::where('type', $detail->type)->get();
         $estate_type_id = $detail->estate_type_id;             
         $detailEstate = EstateType::find($estate_type_id);
        
@@ -426,7 +429,8 @@ class ProductController extends Controller
         $tienIchSelected = Product::productTienIch($id);
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $detail->district_id])->get();
         $directionArr = Direction::all();
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr', 'tienIchLists', 'tienIchSelected', 'directionArr'));
+        $areaList = Area::all();
+        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr', 'tienIchLists', 'tienIchSelected', 'directionArr', 'areaList', 'priceList'));
     }
     public function ajaxDetail(Request $request)
     {       
