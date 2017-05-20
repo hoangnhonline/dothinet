@@ -1,6 +1,10 @@
 @section('slider')
 <?php 
-$bannerArr = DB::table('banner')->where(['object_id' => 1, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+if(!isset($project_id)){
+	$bannerArr = DB::table('banner')->where(['object_id' => 1, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+}else{
+	$bannerArr =  DB::table('banner')->where(['object_id' => $project_id, 'object_type' => 4])->orderBy('display_order', 'asc')->get();
+}
 ?>
 <section class="block-slider-home">
 @if($bannerArr)

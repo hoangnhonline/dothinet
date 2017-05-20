@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\LoaiSp;
 use App\Models\Cate;
+use App\Models\LandingProjects;
 use Helper, File, Session, Auth;
 
 class BannerController extends Controller
@@ -44,6 +45,9 @@ class BannerController extends Controller
             }elseif( $object_id == 4){
                 $detail->name = "Banner top ( cạnh logo )";
             }            
+        }
+        if($object_type == 4){
+            $detail = LandingProjects::find($object_id);
         }
         $query = Banner::where(['object_id'=>$object_id, 'object_type' => $object_type]);
         if( $status ){
@@ -83,6 +87,9 @@ class BannerController extends Controller
             }elseif( $object_id == 4){
                 $detail->name = "Banner top ( cạnh logo )";
             }               
+        }
+        if($object_type == 4){
+            $detail = LandingProjects::find($object_id);
         }
         return view('backend.banner.create', compact('object_id', 'object_type', 'detail'));
     }
@@ -161,6 +168,9 @@ class BannerController extends Controller
         }
         if( $object_type == 2){
             $detail = Cate::find( $object_id );
+        }
+        if($object_type == 4){
+            $detail = LandingProjects::find($object_id);
         }
         return view('backend.banner.edit', compact( 'detail', 'detailBanner', 'object_id', 'object_type'));
     }

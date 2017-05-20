@@ -5,7 +5,7 @@
   @endsection
 @include('frontend.partials.meta')
 @section('content')
-<section class="block-main" >
+<section class="block-main main"  id="site-main">
 <div class="block block-langding" style="padding-top:10px">
 <div class="container">
 	<div class="block block-title">

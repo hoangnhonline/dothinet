@@ -57,7 +57,7 @@ class ProjectsController extends Controller
             $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name;
         }  
         
-        return view('frontend.projects.detail', compact('seo', 'socialImage', 'detail', 'tabList', 'tabArr', 'contentArr'));
+        return view('frontend.projects.detail', compact('seo', 'socialImage', 'detail', 'tabList', 'tabArr', 'contentArr', 'project_id'));
     }
 
 }
