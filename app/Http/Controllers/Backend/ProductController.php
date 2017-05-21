@@ -71,7 +71,7 @@ class ProductController extends Controller
             $query->where('product.created_user', Auth::user()->id);
         }
         if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');            
+            $query->where('product.title', 'LIKE', '%'.$name.'%');            
         }
         //$query->join('users', 'users.id', '=', 'product.created_user');
         $query->join('city', 'city.id', '=', 'product.city_id');        
@@ -128,7 +128,7 @@ class ProductController extends Controller
             $query->where('product.created_user', Auth::user()->id);
         }
         if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');            
+            $query->where('product.title', 'LIKE', '%'.$name.'%');            
         }
         //$query->join('users', 'users.id', '=', 'product.created_user');
         $query->join('city', 'city.id', '=', 'product.city_id');        
@@ -166,7 +166,7 @@ class ProductController extends Controller
             $query->where('product.cate_id', $cate_id);
         }
         if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');
+            $query->where('product.title', 'LIKE', '%'.$name.'%');
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }
         $query->join('users', 'users.id', '=', 'product.created_user');
