@@ -99,14 +99,17 @@
 	    	</div>
 	    </div><!-- /block-detail-info -->	    
 	</article><!-- /block-cate-news-detail -->
+	@if($tagSelected)
+	<?php $countTag = count($tagSelected);?>
 	<article class="block block-news-with-region">
-		<u>Tags</u>: 
-		@if($tagSelected)
+		<u>Tags</u>:
+		<?php $i = 0; ?>
 		@foreach($tagSelected as $tag)
-		<a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a>, 
-		@endforeach
-		@endif
+		<?php $i++; ?>
+		<a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a>@if($i< $countTag), @endif
+		@endforeach		
 	</article>
+	@endif
 	@if($otherList)
 	<article class="block block-news-with-region">
 		<div class="block-title block-title-common">

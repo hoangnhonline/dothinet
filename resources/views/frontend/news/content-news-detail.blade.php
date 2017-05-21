@@ -27,15 +27,17 @@
         </div><!-- /block-news-new-content -->
         
     </article><!-- /block-news-new-detail -->
+    @if($tagSelected)
+    <?php $countTag = count($tagSelected);?>
     <article class="block block-news-with-region">
-        <u>Tags</u>: 
-        @if($tagSelected)
+        <u>Tags</u>:
+        <?php $i = 0; ?>
         @foreach($tagSelected as $tag)
-        <a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a>, 
-        @endforeach
-        @endif
+        <?php $i++; ?>
+        <a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a>@if($i< $countTag), @endif
+        @endforeach     
     </article>
-
+    @endif
     <article class="block block-all-news-new">
         <div class="block-title block-title-common">
             <h3><span class="icon-tile"><i class="fa fa-th-list"></i></span> Các tin mới nhất</h3>
