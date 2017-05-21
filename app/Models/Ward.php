@@ -23,5 +23,5 @@ class Ward extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'prefix', 'district_id', 'display_order', 'city_id', 'id_dothi', 'status'];
+    protected $fillable = ['name', 'slug', 'prefix', 'district_id', 'display_order', 'city_id', 'id_dothi', 'status', 'meta_id'];
 }

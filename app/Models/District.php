@@ -23,7 +23,7 @@ class District extends Model  {
      *
      * @var array
      */
-    protected $fillable = [ 'name', 'alias', 'city_id', 'display_order'];
+    protected $fillable = [ 'name', 'slug', 'city_id', 'display_order', 'meta_id'];
 
     public function ward(){
         return $this->hasMany('App\Models\Ward', 'district_id');
