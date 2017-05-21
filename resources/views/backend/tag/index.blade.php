@@ -86,8 +86,8 @@
                 </td>                
                 <td>{{ $item->slug }}</td>
                 <td>{{ $item->description }}</td>
-                <td style="white-space:nowrap">
-                  @if( $item->objects->count() > 0)
+                <td style="white-space:nowrap">                  
+                  @if( $item->objects->count() > 0 && $item->type != 3)
                   <a class="btn btn-default btn-sm" href="{{ route('tag', $item->slug) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                
                   @endif
                   <a href="{{ route( 'tag.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>                  
