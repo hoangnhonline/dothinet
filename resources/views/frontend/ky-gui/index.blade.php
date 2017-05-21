@@ -215,7 +215,7 @@
 									<div class="form-group">
 										<label class="col-sm-3 control-label">Nội dung mô tả <span>(*)</span>:</label>
 										<div class="col-sm-8">
-											<textarea rows="5" class="form-control form-control2"></textarea name="description" id="description">
+											<textarea rows="5" class="form-control form-control2" name="description" id="description"></textarea>
 										</div>
 									</div><!-- /form-group -->
 									<div class="form-group">
