@@ -39,7 +39,7 @@ class ProductController extends Controller
         $arrSearch['cart_status'] = $cart_status = isset($request->cart_status) ? $request->cart_status : 1;     
         $arrSearch['type'] = $type = isset($request->type) ? $request->type : 1;
         $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
-        $arrSearch['district_id'] = $district_id = isset($request->district_id) ? $request->district_id : 2;
+        $arrSearch['district_id'] = $district_id = isset($request->district_id) ? $request->district_id : null;
         $arrSearch['ward_id'] = $ward_id = isset($request->ward_id) ? $request->ward_id : null;
         $arrSearch['project_id'] = $project_id = isset($request->project_id) ? $request->project_id : null;
         $arrSearch['street_id'] = $street_id = isset($request->street_id) ? $request->street_id : null;

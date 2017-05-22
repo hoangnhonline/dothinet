@@ -203,15 +203,15 @@ class DetailController extends Controller
         $dataArr = $request->all();        
         
         $this->validate($request,[
-            'title' => 'required',            
-            'price' => 'required',
+            'type' => 'required',
             'district_id' => 'required',
             'estate_type_id' => 'required',
             'ward_id' => 'required',
             'street_id' => 'required',
+            'price' => 'required',
             'price_unit_id' => 'required',
-            'type' => 'required',
             'full_address' => 'required',
+            'title' => 'required',            
             'contact_name' => 'required',
             'contact_mobile' => 'required'
         ],
@@ -242,7 +242,11 @@ class DetailController extends Controller
         
         Session::flash('message', 'Đăng tin ký gửi thành công');
 
-        return redirect()->route('ky-gui');
+        return redirect()->route('ky-gui-thanh-cong');
+    }
+    public function kyguiSuccess(){
+        $seo['title'] = $seo['description'] = $seo['keywords'] = 'Đăng tin ký gửi thành công';
+        return view('frontend.ky-gui.success', compact('seo'));
     }
     public function storeImage($id, $dataArr){        
         //process old image

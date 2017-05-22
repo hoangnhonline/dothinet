@@ -68,7 +68,7 @@
 										<label class="col-sm-3 control-label">Loại nhà đất <span>(*)</span>:</label>
 										<div class="col-sm-4">
 									  		<select class="selectpicker form-control" name="estate_type_id" id="estate_type_id">
-												<option selected="selected">-- Chọn Loại bất động sản --</option>
+												<option value="">-- Chọn Loại bất động sản --</option>
 												@foreach( $estateTypeArr as $value )
 					                            <option value="{{ $value->id }}"
 					                            {{ old('estate_type_id') == $value->id ? "selected" : "" }}                           
