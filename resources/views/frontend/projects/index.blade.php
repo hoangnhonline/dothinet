@@ -1,8 +1,5 @@
 @extends('frontend.layout')
-  @section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
-  @endsection
+  
 @include('frontend.partials.meta')
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">

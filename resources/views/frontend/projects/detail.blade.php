@@ -1,8 +1,5 @@
 @extends('frontend.landing')
-  @section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
-  @endsection
+  
 @include('frontend.partials.meta')
 @section('content')
 <section class="block-main main"  id="site-main">
