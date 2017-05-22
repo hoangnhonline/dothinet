@@ -238,6 +238,8 @@
 		    $('.bxslider').bxSlider({
 				pagerCustom: '#bx-pager',
 				pager: true,
+				auto: true,
+				pause: 4000
 			});
 			$('#district_id').change(function(){
 				var district_id = $(this).val();

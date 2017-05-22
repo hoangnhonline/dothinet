@@ -38,10 +38,10 @@
 					</div>
 					<div class="block-contents" style="height:500px">
 					@if(Session::has('message'))
-	                <p class="alert alert-info" ><span class="glyphicon glyphicon-ok"></span> {{ Session::get('message') }}</p>
+	                <p class="alert alert-success block-alert-success" >{{ Session::get('message') }}</p>
 	                @endif
 					@if (count($errors) > 0)
-                  		<div class="alert alert-danger">
+                  		<div class="alert alert-danger block-alert-danger">
 		                    <ul>
 		                        @foreach ($errors->all() as $error)
 		                            <li>{{ $error }}</li>

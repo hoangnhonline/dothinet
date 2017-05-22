@@ -21,7 +21,7 @@ use App\Models\PriceUnit;
 use App\Models\Articles;
 
 
-use Helper, File, Session, Auth;
+use Helper, File, Session, Auth, Image;
 
 class DetailController extends Controller
 {
@@ -281,11 +281,16 @@ class DetailController extends Controller
                         if(!is_dir('uploads/'.date('Y/m/d'))){
                             mkdir('uploads/'.date('Y/m/d'), 0777, true);
                         }
-
+                        if(!is_dir('uploads/thumbs/'.date('Y/m/d'))){
+                            mkdir('uploads/thumbs/'.date('Y/m/d'), 0777, true);
+                        }
                         $destionation = date('Y/m/d'). '/'. end($tmp);
                         
                         File::move(config('icho.upload_path').$image_url, config('icho.upload_path').$destionation);
 
+                        Image::make(config('icho.upload_path').$destionation)->resize(170, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                        })->crop(170, 128)->save(config('icho.upload_thumbs_path').$destionation);
                         $imageArr['name'][] = $destionation;
 
                         $imageArr['is_thumbnail'][] = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
