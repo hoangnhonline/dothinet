@@ -28,6 +28,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/update', ['as' => 'cart.update', 'uses' => 'CartController@update']);
         Route::get('{id}/destroy', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
     });
+    Route::group(['prefix' => 'work-group'], function () {
+        Route::get('/', ['as' => 'work-group.index', 'uses' => 'WorkGroupController@index']);
+        Route::get('/create', ['as' => 'work-group.create', 'uses' => 'WorkGroupController@create']);
+        Route::post('/store', ['as' => 'work-group.store', 'uses' => 'WorkGroupController@store']);
+        Route::get('{id}/edit',   ['as' => 'work-group.edit', 'uses' => 'WorkGroupController@edit']);
+        Route::post('/update', ['as' => 'work-group.update', 'uses' => 'WorkGroupController@update']);
+        Route::get('{id}/destroy', ['as' => 'work-group.destroy', 'uses' => 'WorkGroupController@destroy']);
+    });
     Route::group(['prefix' => 'district'], function () {
         Route::get('/', ['as' => 'district.index', 'uses' => 'DistrictController@index']);
         Route::get('/create', ['as' => 'district.create', 'uses' => 'DistrictController@create']);

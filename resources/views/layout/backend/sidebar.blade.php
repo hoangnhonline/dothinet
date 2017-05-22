@@ -56,12 +56,19 @@
           <i class="fa fa-pencil-square-o"></i> 
           <span>Giỏ hàng</span>         
         </a>       
-      </li>
-       <li {{ in_array(\Request::route()->getName(), ['user-work.create', 'user-work.edit', 'user-work.index']) ? "class=active" : "" }}>
-        <a href="{{ route('user-work.index') }}">
-          <i class="fa fa-pencil-square-o"></i> 
-          <span>Công việc</span>         
-        </a>       
+      </li>       
+      <li class="treeview {{ in_array(\Request::route()->getName(), ['work-group.create', 'work-group.edit', 'work-group.index', 'user-work.create', 'user-work.edit', 'user-work.index']) ? 'active' : '' }}">
+        <a href="#">
+          <i class="fa fa-twitch"></i> 
+          <span>Công việc</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li {{ in_array(\Request::route()->getName(), ['user-work.create', 'user-work.edit', 'user-work.index']) ? "class=active" : "" }}><a href="{{ route('user-work.index') }}"><i class="fa fa-circle-o"></i> Công việc </a></li>
+          <li {{ in_array(\Request::route()->getName(), ['work-group.create', 'work-group.edit', 'work-group.index']) ? "class=active" : "" }}><a href="{{ route('work-group.index') }}"><i class="fa fa-circle-o"></i> Nhóm công việc</a></li>          
+        </ul>
       </li>
       @if(Auth::user()->role > 1)
       <li {{ in_array(\Request::route()->getName(), ['customer.edit', 'customer.index']) ? "class=active" : "" }}>

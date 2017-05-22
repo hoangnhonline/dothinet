@@ -43,16 +43,22 @@
             @endif
             <div class="form-group">
               <select class="form-control" name="status" id="status">
-                <option value=""
-                @if(-1 == $s['status'])
-                  selected 
-                  @endif   
-                >--Trạng thái--</option>
+                <option value="">--Trạng thái--</option>
                  <option value="1" {{ $s['status'] == 1 ? "selected" : "" }}>Chưa duyệt</option>
                  <option value="2" {{ $s['status'] == 2 ? "selected" : "" }}>Đã duyệt</option>
               </select>
             </div>          
+            <div class="form-group">
+              <select class="form-control" name="group_id" id="group_id">
+                <option value="" >--Nhóm công việc--</option>
+                   @foreach( $groupList as $value )
+                    <option value="{{ $value->id }}"
+                    {{ $s['group_id'] == $value->id ? "selected" : "" }}                           
 
+                    >{{ $value->name }}</option>
+                    @endforeach                
+              </select>
+            </div>  
             <div class="form-group">              
               <input type="text" class="form-control datepicker" placeholder="Từ ngày" name="date_from" value="{{ $s['date_from'] }}">
             </div> 
@@ -78,7 +84,7 @@
             <tr>
               <th style="width: 1%">#</th>              
               <th width="120px">Ngày</th>
-              <th>Nội dung</th>
+              <th>Mô tả</th>
               <th>Nhận xét</th>
               <th>Trạng thái</th>
               <th width="1%;white-space:nowrap">Thao tác</th>
@@ -94,7 +100,7 @@
                   {{ date('d-m-Y', strtotime($item->work_date)) }}
                 </td>        
                 <td>                                    
-                  <p><?php echo $item->work_content; ?></p>
+                  <p><?php echo $item->description; ?></p>
                 </td>
                 <td><?php echo $item->leader_comment; ?></td>
                 <td>                  
@@ -157,7 +163,7 @@ function callDelete(name, url){
 $(document).ready(function(){
  $('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
   $('.select2').select2();
-  $('#status, #created_user').change(function(){
+  $('#status, #created_user, #group_id').change(function(){
     $(this).parents('form').submit();
   });
   

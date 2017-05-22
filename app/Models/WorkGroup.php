@@ -3,14 +3,14 @@
 use Illuminate\Database\Eloquent\Model;
 
 
-class UserWork extends Model  {
+class WorkGroup extends Model  {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'user_work';	
+	protected $table = 'work_group';	
 
 	/**
      * Indicates if the model should be timestamped.
@@ -23,6 +23,6 @@ class UserWork extends Model  {
      *
      * @var array
      */
-    protected $fillable = [ 'leader_id', 'work_content', 'work_date', 'leader_comment', 'status', 'created_user', 'updated_user', 'group_id', 'description'];
+    protected $fillable = [ 'name', 'description', 'status', 'created_user', 'updated_user'];
         
 }

@@ -44,8 +44,22 @@
                   <label>Ngày<span class="red-star">*</span></label>
                   <input type="text" class="form-control datepicker" name="work_date" id="work_date" value="{{ old('work_date', $date_current) }}">
                 </div>                
-                
-              
+                <div class="form-group">
+                  <label for="email">Nhóm công việc<span class="red-star">*</span></label>
+                  <select class="form-control" name="group_id" id="group_id">
+                    <option value="">--Chọn--</option>
+                    @foreach( $groupList as $value )
+                    <option value="{{ $value->id }}"
+                    {{ old('group_id') == $value->id ? "selected" : "" }}                           
+
+                    >{{ $value->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Mô tả</label>
+                  <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
+                </div>
                 <div class="form-group">
                   <label>Chi tiết</label>
                   <textarea class="form-control" rows="4" name="work_content" id="work_content">{{ old('work_content') }}</textarea>
@@ -83,6 +97,10 @@
       $('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
       $(".select2").select2();
       var editor = CKEDITOR.replace( 'work_content',{
+          language : 'vi',    
+          height : 300
+      });
+      var editor2 = CKEDITOR.replace( 'description',{
           language : 'vi',    
           height : 300
       });

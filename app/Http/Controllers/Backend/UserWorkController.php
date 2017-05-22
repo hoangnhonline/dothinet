@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\UserWork;
+use App\Models\WorkGroup;
 use App\Models\Account;
 
 use Helper, File, Session, Auth;
@@ -20,14 +21,18 @@ class UserWorkController extends Controller
     */
     public function index(Request $request)
     {
-        $s['status'] = $status = isset($request->status) ? $request->status : -1;
+        $s['status'] = $status = isset($request->status) ? $request->status : null;
+        $s['group_id'] = $group_id = isset($request->group_id) ? $request->group_id : null;
         $s['created_user'] = $created_user = isset($request->created_user) ? $request->created_user : -1;
         $s['date_from'] = $date_from = isset($request->date_from) && $request->date_from !='' ? $request->date_from : '';
         $s['date_to'] = $date_to = isset($request->date_to) && $request->date_to !='' ? $request->date_to : date('d-m-Y');               
 
         $query = UserWork::whereRaw('1');
-        if( $status > -1){
+        if( $status ){
             $query->where('status', $status);
+        }        
+        if( $group_id ){
+            $query->where('group_id', $group_id);
         }
         if( $date_from ){
             $dateFromFormat = date('Y-m-d', strtotime($date_from));
@@ -50,10 +55,10 @@ class UserWorkController extends Controller
         }else{
             $userList = Account::where('role', 1)->get();
         }
-        
+        $groupList = WorkGroup::all();
         $items = $query->orderBy('user_work.work_date', 'DESC')->paginate(20);
 
-        return view('backend.user-work.index', compact( 'items', 's', 'userList'));
+        return view('backend.user-work.index', compact( 'items', 's', 'userList', 'groupList'));
     }
 
     /**
@@ -63,8 +68,9 @@ class UserWorkController extends Controller
     */
     public function create(Request $request)
     {        
+        $groupList = WorkGroup::all();
         $date_current = date('d-m-Y');
-        return view('backend.user-work.create', compact('date_current'));
+        return view('backend.user-work.create', compact('date_current', 'groupList'));
     }
 
     /**
@@ -78,11 +84,13 @@ class UserWorkController extends Controller
         $dataArr = $request->all();
         $user_id = Auth::user()->id;
         $detailUser = Account::find($user_id);
-        $this->validate($request,[            
+        $this->validate($request,[       
+            'group_id' => 'required',     
             'work_content' => 'required',
             'work_date' => 'required',
         ],
-        [            
+        [   
+            'group_id.required' => 'Bạn chưa chọn nhóm công việc',             
             'work_content.required' => 'Bạn chưa nhập nội dung',            
             'work_date.required' => 'Bạn chưa nhập ngày làm việc'
         ]);               
@@ -118,11 +126,11 @@ class UserWorkController extends Controller
     */
     public function edit($id)
     {
-       
+        $groupList = WorkGroup::all();
         $detail = UserWork::find($id);      
         $user_id = $detail->created_user;
         $detailUser = Account::find($user_id);
-        return view('backend.user-work.edit', compact('detail', 'detailUser'));
+        return view('backend.user-work.edit', compact('detail', 'detailUser', 'groupList'));
     }
 
     /**
@@ -136,11 +144,13 @@ class UserWorkController extends Controller
     {
         $dataArr = $request->all();
         if(Auth::user()->role == 1){
-            $this->validate($request,[            
+            $this->validate($request,[     
+                'group_id' => 'required',       
                 'work_content' => 'required',
                 'work_date' => 'required',
             ],
             [            
+                'group_id.required' => 'Bạn chưa chọn nhóm công việc',
                 'work_content.required' => 'Bạn chưa nhập nội dung',            
                 'work_date.required' => 'Bạn chưa nhập ngày làm việc'
             ]);               
