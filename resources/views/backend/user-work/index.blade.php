@@ -98,6 +98,10 @@
                 <td><span class="order">{{ $i }}</span></td>       
                 <td>
                   {{ date('d-m-Y', strtotime($item->work_date)) }}
+
+                   @if( $item->is_hot == 1 )
+                  <img class="img-thumbnail" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Ưu tiên" title="Ưu tiên" />
+                  @endif
                 </td>        
                 <td>                                    
                   <p><?php echo $item->description; ?></p>

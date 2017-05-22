@@ -33,6 +33,7 @@ class ProductController extends Controller
                 ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')                
                 ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')              
                 ->where('product_img.image_url', '<>', '')
+                ->orderBy('product.cart_status', 'asc')
                 ->orderBy('product.id', 'desc');
                 $productList  = $query->limit(36)->get();
                 $productArr = $productList->toArray();
@@ -95,6 +96,7 @@ class ProductController extends Controller
                 ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')                
                 ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')              
                 ->where('product_img.image_url', '<>', '')
+                ->orderBy('product.cart_status', 'asc')
                 ->orderBy('product.id', 'desc');
                 $productList  = $query->limit(36)->get();
                 $productArr = $productList->toArray();

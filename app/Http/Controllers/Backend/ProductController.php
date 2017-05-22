@@ -77,6 +77,7 @@ class ProductController extends Controller
         $query->join('city', 'city.id', '=', 'product.city_id');        
         $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id'); 
         $query->join('estate_type', 'product.estate_type_id', '=','estate_type.id'); 
+        $query->orderBy('product.cart_status', 'asc'); 
         $query->orderBy('product.id', 'desc');   
         $items = $query->select(['product_img.image_url as image_urls','product.*', 'estate_type.slug as slug_loai'])->paginate(50);
 
@@ -134,6 +135,7 @@ class ProductController extends Controller
         $query->join('city', 'city.id', '=', 'product.city_id');        
         $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id'); 
         $query->join('estate_type', 'product.estate_type_id', '=','estate_type.id'); 
+        $query->orderBy('product.cart_status', 'asc');
         $query->orderBy('product.id', 'desc');   
         $items = $query->select(['product_img.image_url as image_urls','product.*', 'estate_type.slug as slug_loai'])->paginate(50);
 

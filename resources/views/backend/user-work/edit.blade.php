@@ -80,6 +80,14 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}>
+                      Ưu tiên
+                    </label>
+                  </div>               
+                </div>
+                <div class="form-group">
                   <label>Mô tả</label>
                   <textarea class="form-control" rows="4" name="description" id="description">{{ old('description', $detail->description) }}</textarea>
                 </div>

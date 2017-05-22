@@ -56,6 +56,7 @@ class UserWorkController extends Controller
             $userList = Account::where('role', 1)->get();
         }
         $groupList = WorkGroup::all();
+        $query->orderBy('status', 'asc')->orderBy('is_hot','desc')->orderBy('id', 'desc');
         $items = $query->orderBy('user_work.work_date', 'DESC')->paginate(20);
 
         return view('backend.user-work.index', compact( 'items', 's', 'userList', 'groupList'));
@@ -99,6 +100,8 @@ class UserWorkController extends Controller
         $dataArr['created_user'] = $dataArr['updated_user'] = $user_id;
 
         $dataArr['leader_id'] = $detailUser->leader_id;        
+        
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
 
         $rs = UserWork::create($dataArr);      
 
@@ -164,6 +167,8 @@ class UserWorkController extends Controller
         }   
 
         $dataArr['updated_user'] = Auth::user()->id;
+        
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
 
         $model = UserWork::find($dataArr['id']);
 

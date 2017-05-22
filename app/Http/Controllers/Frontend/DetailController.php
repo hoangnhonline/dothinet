@@ -96,6 +96,7 @@ class DetailController extends Controller
                 ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
                 ->where('product_img.image_url', '<>', '')
                 ->whereIn('product.id', $listId)
+                ->orderBy('product.cart_status', 'asc')
                 ->orderBy('product.id', 'desc');
                 $productList  = $query->limit(36)->get();
 
