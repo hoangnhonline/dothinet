@@ -45,6 +45,12 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js') }}"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.{{ URL::asset('assets/js/1.4.2/respond.min.js') }}"></script>
 	<![endif]-->
+	<style type="text/css">
+		.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover{
+		color:#444 !important;
+	}
+		
+	</style>
 </head>
 <body>
 	
@@ -152,6 +158,99 @@
 				@yield('content')
 				@if(\Request::route()->getName() != "ky-gui" && \Request::route()->getName() != "ky-gui-thanh-cong")
 				<section class="col-sm-4 col-xs-12 block-sitebar">
+					@if(\Request::route()->getName() != "home" )
+					<article class="block block-box-search">
+						<div class="block-title">
+						<?php $type = isset($type) ? $type : 1 ; ?>
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="{{ (isset($type) && $type == 1) ? "active" : "" }}"><a href="javascript:void(0)" data-type="1" aria-controls="bdsb" role="tab" data-toggle="tab">BDS BÁN</a></li>
+    							<li role="presentation" class="{{ (isset($type) && $type == 2) ? "active" : "" }}"><a href="javascript:void(0)" data-type="2" aria-controls="bdsct" role="tab" data-toggle="tab">BDS CHO THUÊ</a></li>
+							</ul>
+						</div>
+						<div class="block-contents">
+						 	<!-- Tab panes -->
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="bdsb">
+
+									<form action="{{ route('search') }}" method="GET" accept-charset="utf-8" class="search-content-input selectpicker-cus block-hover-selectpicker">
+								    	<input type="hidden" name="type" id="type" value="{{ isset($type) ? $type : 1 }}">
+								    	<div class="row-select">
+											<div class="form-group">
+												<select class="selectpicker form-control" data-live-search="true" name="estate_type_id" id="estate_type_id">
+													<option value="">Loại bất động sản</option>
+													@foreach($banList as $ban)
+													<option @if(isset($estate_type_id) && $estate_type_id == $ban->id) selected @endif class="option-lv1" value="{{ $ban->id }}">{{ $ban->name }}</option>
+													@endforeach
+												</select>
+											</div>											
+											<div class="form-group">
+												<select class="selectpicker form-control" data-live-search="true" id="district_id" name="district_id">
+													<option value="">Quận/Huyện</option>
+													@foreach($districtList as $district)
+													<option @if(isset($district_id) && $district_id == $district->id) selected @endif value="{{ $district->id }}">{{ $district->name }}</option>
+													@endforeach
+												</select>
+											</div>
+											<div class="form-group">
+												<select class="selectpicker form-control" id="ward_id" name="ward_id" data-live-search="true">
+													<option value="">Phường/Xã</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<select class="selectpicker form-control" id="street_id" name="street_id" data-live-search="true">
+													<option value="">Đường/Phố</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<select class="selectpicker form-control" data-live-search="true" id="project_id" name="project_id">
+													<option value="">Dự án</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<select class="selectpicker form-control" data-live-search="true" name="price_id" id="price_id">
+													<option value="">Mức giá</option>
+													@foreach($priceList as $price)
+													<option @if(isset($price_id) && $price_id == $price->id) selected @endif value="{{ $price->id }}">{{ $price->name }}</option>
+													@endforeach
+												</select>
+											</div>
+											<div class="form-group">
+												<select class="selectpicker form-control" id="area_id" name="area_id" data-live-search="true">
+													<option value="">Diện tích</option>
+													@foreach($areaList as $area)
+													<option @if(isset($area_id) && $area_id == $area->id) selected @endif value="{{ $area->id }}">{{ $area->name }}</option>
+													@endforeach
+												</select>
+											</div>
+											<div class="form-group">
+												<select class="selectpicker form-control" data-live-search="true" name="direction_id">
+													<option value="">Hướng nhà</option>
+													@foreach($directionList as $dir)
+													<option @if(isset($direction_id) && $direction_id == $dir->id) selected @endif value="{{ $dir->id }}">{{ $dir->name }}</option>
+													@endforeach
+												</select>
+											</div>
+											<div class="form-group">
+												<select class="selectpicker form-control" data-live-search="true" name="no_room">
+													<option value="">Số phòng ngủ</option>
+													<option @if(isset($no_room) && $no_room == 1) selected @endif value="1">1+</option>
+													<option @if(isset($no_room) && $no_room == 2) selected @endif value="2">2+</option>
+													<option @if(isset($no_room) && $no_room == 3) selected @endif value="3">3+</option>
+													<option @if(isset($no_room) && $no_room == 4) selected @endif value="4">4+</option>
+													<option @if(isset($no_room) && $no_room == 5) selected @endif value="5">5+</option>
+													<option @if(isset($no_room) && $no_room == 6) selected @endif value="6">6+</option>
+												</select>
+											</div>											
+											<div class="form-group">
+												<button type="submit" id="btnSearch" class="btn btn-success"><i class="fa fa-search"></i> Tìm Kiếm</button>
+											</div>
+										</div>
+							    	</form>
+								</div>								
+							</div>
+						</div>
+					</article><!-- /block-box-search -->	
+					@endif
 					<article class="block-sidebar block-news-sidebar">
 						<div class="block-title-common">
 							<h3><span class="icon-tile"><i class="fa fa-star"></i></span> Tin xem nhiều</h3>
@@ -342,6 +441,60 @@
 		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
 		    });
+		    @if(isset($district_id) && $district_id > 0)
+		    var district_id = {{ $district_id }};
+		    $('#district_id').val(district_id);
+		    $.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'ward',
+						col : 'district_id',
+						id : district_id
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#ward_id').html(data).selectpicker('refresh');
+						@if(isset($ward_id) && $ward_id > 0)
+						$('#ward_id').val({{ $ward_id }}).selectpicker('refresh');
+						@endif
+					}
+				});
+
+				$.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'street',
+						col : 'district_id',
+						id : district_id
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#street_id').html(data).selectpicker('refresh');
+						@if(isset($street_id) && $street_id > 0)
+						$('#street_id').val({{ $street_id }}).selectpicker('refresh');
+						@endif
+					}
+				});
+
+				$.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'project',
+						col : 'district_id',
+						id : district_id
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#project_id').html(data).selectpicker('refresh');
+						@if(isset($project_id) && $project_id > 0)
+						$('#project_id').val({{ $project_id }}).selectpicker('refresh');
+						@endif
+					}
+				});
+		    @endif
 		    $('.bxslider').bxSlider({
 				pagerCustom: '#bx-pager',
 				pager: true,
@@ -390,8 +543,90 @@
 					success : function(data){
 						$('#project_id').html(data).selectpicker('refresh');
 					}
-				})
+				});
 			});
+
+
+
+			$('.block-box-search li a').click(function(){
+				obj = $(this);
+				var type = obj.data('type');
+				$('#type').val(type);
+				$('.block-box-search li').removeClass('active');
+				obj.parents('li').addClass('active');
+
+				$.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'estate_type',
+						col : 'type',
+						id : type
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#estate_type_id').html(data).selectpicker('refresh');
+						@if(isset($estate_type_id) && $estate_type_id > 0)
+						$('#estate_type_id').val({{ $estate_type_id }}).selectpicker('refresh');
+						@endif
+					}
+				});
+				$.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'price',
+						col : 'type',
+						id : type
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#price_id').html(data).selectpicker('refresh');
+						@if(isset($price_id) && $price_id > 0)
+						$('#price_id').val({{ $price_id }}).selectpicker('refresh');
+						@endif
+					}
+				});
+			});
+			@if(isset($type) && $type >0)
+				var type = {{ $type }};
+				$('#type').val({{ $type }});
+				$('.block-box-search li').removeClass('active');
+				$('.block-box-search li a[data-type={{$type}}]').parents('li').addClass('active');
+
+				$.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'estate_type',
+						col : 'type',
+						id : type
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#estate_type_id').html(data).selectpicker('refresh');
+						@if(isset($estate_type_id) && $estate_type_id > 0)
+						$('#estate_type_id').val({{ $estate_type_id }}).selectpicker('refresh');
+						@endif
+					}
+				});
+				$.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'price',
+						col : 'type',
+						id : type
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#price_id').html(data).selectpicker('refresh');
+						@if(isset($price_id) && $price_id > 0)
+						$('#price_id').val({{ $price_id }}).selectpicker('refresh');
+						@endif
+					}
+				});
+			@endif
 		});
 		
 	</script>

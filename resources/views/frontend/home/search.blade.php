@@ -64,7 +64,7 @@
 									<select class="selectpicker form-control" data-live-search="true" name="price_id" id="price_id">
 										<option value="">Mức giá</option>
 										@foreach($priceList as $price)
-										<option value="{{ $price->id }}">{{ $price->name }}</option>
+										<option  value="{{ $price->id }}">{{ $price->name }}</option>
 										@endforeach
 									</select>
 								</div>
@@ -76,7 +76,9 @@
 								<div class="form-group">
 									<select class="selectpicker form-control" id="area_id" name="area_id" data-live-search="true">
 										<option value="">Diện tích</option>
-										
+										@foreach($areaList as $area)
+										<option value="{{ $area->id }}">{{ $area->name }}</option>
+										@endforeach
 									</select>
 								</div>
 							</div>
@@ -84,6 +86,9 @@
 								<div class="form-group">
 									<select class="selectpicker form-control" data-live-search="true" name="direction_id">
 										<option value="">Hướng nhà</option>
+										@foreach($directionList as $dir)
+										<option value="{{ $dir->id }}">{{ $dir->name }}</option>
+										@endforeach
 									</select>
 								</div>
 							</div>
@@ -91,6 +96,12 @@
 								<div class="form-group">
 									<select class="selectpicker form-control" data-live-search="true" name="no_room">
 										<option value="">Số phòng ngủ</option>
+										<option value="1">1+</option>
+										<option value="2">2+</option>
+										<option value="3">3+</option>
+										<option value="4">4+</option>
+										<option value="5">5+</option>
+										<option value="6">6+</option>
 									</select>
 								</div>
 							</div>								
@@ -109,11 +120,6 @@
 		</div>
 	</div>
 </section><!-- /block-search -->
-<style type="text/css">
-	.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover{
-		color:#444 !important;
-	}
-</style>
 @endsection
 @section('javascript_page')
 <script type="text/javascript">

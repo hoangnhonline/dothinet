@@ -42,8 +42,9 @@ class ProductController extends Controller
                $seo = MetaData::find( $rs->meta_id )->toArray();
             }else{
                 $seo['title'] = $seo['description'] = $seo['keywords'] = $rs->name;
-            }                                     
-            return view('frontend.cate.parent', compact('productList','productArr', 'rs', 'hoverInfo', 'socialImage', 'seo'));
+            }            
+            $type = $rs->type;                                     
+            return view('frontend.cate.parent', compact('productList','productArr', 'rs', 'hoverInfo', 'socialImage', 'seo', 'type', 'estate_type_id'));
         }else{
             $detailPage = Pages::where('slug', $slug)->first();
             if(!$detailPage){
@@ -72,8 +73,8 @@ class ProductController extends Controller
             
             
             $name = $seo['title'] = $seo['description'] = $seo['keywords'] = 'Nhà đất bán';
-             
-            return view('frontend.cate.type', compact('productList','productArr', 'socialImage', 'seo', 'name'));
+             $type = 1;
+            return view('frontend.cate.type', compact('productList','productArr', 'socialImage', 'seo', 'name', 'type'));
         
     }
     public function choThue(Request $request)
@@ -93,8 +94,8 @@ class ProductController extends Controller
         
         
         $name = $seo['title'] = $seo['description'] = $seo['keywords'] = 'Nhà đất cho thuê';
-        
-        return view('frontend.cate.type', compact('productList','productArr', 'socialImage', 'seo', 'name'));
+        $type = 2;
+        return view('frontend.cate.type', compact('productList','productArr', 'socialImage', 'seo', 'name', 'type'));
         
     }
     public function search(Request $request)
@@ -102,6 +103,7 @@ class ProductController extends Controller
         $productArr = [];
        
             $estate_type_id = $request->estate_type_id;
+            $type = $request->type;
             $district_id = $request->district_id;
             $ward_id = $request->ward_id;
             $project_id = $request->project_id;
@@ -145,7 +147,18 @@ class ProductController extends Controller
             
             $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tìm kiếm';
             
-            return view('frontend.cate.search', compact('productList','productArr', 'socialImage', 'seo'));
+            return view('frontend.cate.search', compact('productList','productArr', 'socialImage', 'seo',
+            'type',
+            'estate_type_id',
+            'street_id',
+            'ward_id',
+            'district_id',
+            'no_room',
+            'direction_id',
+            'area_id',
+            'project_id',
+            'price_id'
+                ));
         
     }       
 

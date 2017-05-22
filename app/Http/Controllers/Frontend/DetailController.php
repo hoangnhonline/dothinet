@@ -77,7 +77,30 @@ class DetailController extends Controller
                     ->orderBy('product.id', 'desc')->limit(6)->get();
 
         $tagSelected = Product::getListTag($detail->id);        
-        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList', 'tagSelected'));
+        $type = $detail->type;
+        $estate_type_id = $detail->estate_type_id;
+        $street_id = $detail->street_id;
+        $ward_id = $detail->ward_id;
+        $district_id = $detail->district_id;
+        $area_id = $detail->area_id;
+        $price_id = $detail->price_id;
+        $no_room = $detail->no_room;
+        $project_id = $detail->project_id;
+        $direction_id = $detail->direction_id;
+        var_dump($price_id);
+        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList', 'tagSelected',
+            'type',
+            'estate_type_id',
+            'street_id',
+            'ward_id',
+            'district_id',
+            'no_room',
+            'direction_id',
+            'area_id',
+            'project_id',
+            'price_id'
+
+            ));
     }
     public function tagDetail(Request $request){
         $slug = $request->slug;
@@ -132,50 +155,8 @@ class DetailController extends Controller
     * Show the form for creating a new resource.
     *
     * @return Response
-    */
-    public function search(Request $request)
-    {
+    */    
 
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-        
-        $layout_name = "main-category";
-        
-        $page_name = "page-category";
-
-        $cateArr = $cateActiveArr = $moviesActiveArr = [];
-
-        $tu_khoa = $request->k;
-        
-        $is_search = 1;
-
-        $moviesArr = Film::where('alias', 'LIKE', '%'.$tu_khoa.'%')->orderBy('id', 'desc')->paginate(20);
-
-        return view('frontend.cate', compact('settingArr', 'moviesArr', 'tu_khoa',  'is_search', 'layout_name', 'page_name' ));
-    }
-
-    public function cate(Request $request)
-    {
-
-        $productArr = [];
-        $slugEstateType = $request->slugEstateType;
-        $slug = $request->slug;
-        $rs = EstateType::where('slug', $slugEstateType)->first();
-        $estate_type_id = $rs->id;
-        $rsCate = Cate::where(['estate_type_id' => $estate_type_id, 'slug' => $slug])->first();
-        $cate_id = $rsCate->id;
-
-        $cateArr = Cate::where('status', 1)->where('estate_type_id', $estate_type_id)->get();
-
-        
-        $productArr = Product::where('cate_id', $rsCate->id)->where('estate_type_id', $estate_type_id)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','product.thumbnail_id')
-                ->select('sp_hinh.image_url', 'product.*')
-                //->where('sp_hinh.image_url', '<>', '')
-                ->orderBy('product.id', 'desc')
-                ->paginate(24);
-
-        return view('frontend.cate.child', compact('productArr', 'cateArr', 'rs', 'rsCate'));
-    }
     public function kygui(Request $request)
     {
         $tagArr = Tag::where('type', 1)->get();
@@ -311,147 +292,6 @@ class DetailController extends Controller
             $model->thumbnail_id = $thumbnail_id;
             $model->save();
         }
-    }
-    public function tags(Request $request)
-    {
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-
-        $layout_name = "main-category";
-        
-        $page_name = "page-category";
-
-        $cateArr = $cateActiveArr = $moviesActiveArr = [];
-       
-        $is_search = 0;
-        $tagName = $request->tagName;
-
-        $title = '';
-        $cateDetail = (object) [];       
-        
-        $cateDetail = Tag::where('slug', $tagName)->first();
-       
-         $moviesArr = Film::where('status', 1)
-        ->join('tag_objects', 'id', '=', 'tag_objects.object_id')
-        ->where('tag_objects.tag_id', $cateDetail->id)
-        ->where('tag_objects.type', 1)
-        ->groupBy('object_id')
-        ->orderBy('id', 'desc')->paginate(30);        
-       
-        $title = trim($cateDetail->meta_title) ? $cateDetail->meta_title : $cateDetail->name;
-        $cateDetail->name = "Phim theo tags : ".'"'.$cateDetail->name.'"';
-        
-
-        return view('frontend.cate', compact('title', 'settingArr', 'is_search', 'moviesArr', 'cateDetail', 'layout_name', 'page_name', 'cateActiveArr', 'moviesActiveArr'));
-    }
-    
-    public function daoDien(Request $request)
-    {
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-
-        $layout_name = "main-category";
-        
-        $page_name = "page-category";
-
-        $cateArr = $cateActiveArr = $moviesActiveArr = [];
-       
-        $is_search = 0;
-        $name = $request->name;
-
-        $title = '';
-        $cateDetail = (object) [];       
-        
-        $cateDetail = Crew::where('slug', $name)->first();
-       
-         $moviesArr = Film::where('status', 1)
-        ->join('film_crew', 'id', '=', 'film_crew.film_id')
-        ->where('film_crew.crew_id', $cateDetail->id)
-        ->where('film_crew.type', 2)
-        ->groupBy('film_id')
-        ->orderBy('id', 'desc')->paginate(30);        
-       
-        $title = trim($cateDetail->meta_title) ? $cateDetail->meta_title : $cateDetail->name;
-        $cateDetail->name = "Phim của : ".'"'.$cateDetail->name.'"';
-        
-
-        return view('frontend.cate', compact('title', 'settingArr', 'is_search', 'moviesArr', 'cateDetail', 'layout_name', 'page_name', 'cateActiveArr', 'moviesActiveArr'));
-    }
-
-    public function dienVien(Request $request)
-    {
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-
-        $layout_name = "main-category";
-        
-        $page_name = "page-category";
-
-        $cateArr = $cateActiveArr = $moviesActiveArr = [];
-       
-        $is_search = 0;
-        $name = $request->name;
-
-        $title = '';
-        $cateDetail = (object) [];       
-        
-        $cateDetail = Crew::where('slug', $name)->first();
-       
-         $moviesArr = Film::where('status', 1)
-        ->join('film_crew', 'id', '=', 'film_crew.film_id')
-        ->where('film_crew.crew_id', $cateDetail->id)
-        ->where('film_crew.type', 1)
-        ->groupBy('film_id')
-        ->orderBy('id', 'desc')->paginate(30);         
-       
-        $title = trim($cateDetail->meta_title) ? $cateDetail->meta_title : $cateDetail->name;
-        $cateDetail->name = "Phim của : ".'"'.$cateDetail->name.'"';
-        
-
-        return view('frontend.cate', compact('title', 'settingArr', 'is_search', 'moviesArr', 'cateDetail', 'layout_name', 'page_name', 'cateActiveArr', 'moviesActiveArr'));
-    }
-
-    public function newsList(Request $request)
-    {
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-        $layout_name = "main-news";
-        
-        $page_name = "page-news";
-
-        $cateArr = $cateActiveArr = $moviesActiveArr = [];
-       
-        $cateDetail = ArticlesCate::where('slug' , 'tin-tuc')->first();
-        $title = trim($cateDetail->meta_title) ? $cateDetail->meta_title : $cateDetail->name;
-
-        $articlesArr = Articles::where('cate_id', 1)->orderBy('id', 'desc')->paginate(10);
-        $hotArr = Articles::where( ['cate_id' => 1, 'is_hot' => 1] )->orderBy('id', 'desc')->limit(5)->get();
-        return view('frontend.news-list', compact('title','settingArr', 'hotArr', 'layout_name', 'page_name', 'articlesArr'));
-    }
-
-    public function newsDetail(Request $request)
-    {
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-        $layout_name = "main-news";
-        
-        $page_name = "page-news";
-
-        $id = $request->id;
-
-        $detail = Articles::where( 'id', $id )
-                ->select('id', 'title', 'slug', 'description', 'image_url', 'content', 'meta_title', 'meta_description', 'meta_keywords', 'custom_text')
-                ->first();
-
-        if( $detail ){
-            $cateArr = $cateActiveArr = $moviesActiveArr = [];
-        
-            
-            $title = trim($detail->meta_title) ? $detail->meta_title : $detail->title;
-
-            $hotArr = Articles::where( ['cate_id' => 1, 'is_hot' => 1] )->where('id', '<>', $id)->orderBy('id', 'desc')->limit(5)->get();
-
-            return view('frontend.news-detail', compact('title', 'settingArr', 'hotArr', 'layout_name', 'page_name', 'detail'));
-        }else{
-            return view('erros.404');
-        }     
-
-        
-    }
+    }   
 
 }

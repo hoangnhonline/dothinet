@@ -11,13 +11,10 @@ use App\Models\District;
 use App\Models\CustomLink;
 use App\Models\LandingProjects;
 use App\Models\ProContent;
+use App\Models\Price;
+use App\Models\Area;
+use App\Models\Direction;
 
-//use App\Models\Entity\SuperStar\Account\Traits\Behavior\SS_Shortcut_Icon;
-
-/**
- * This is provider for using view share
- * @author AnPCD
- */
 class ViewComposerServiceProvider extends ServiceProvider
 {
 	/**
@@ -65,8 +62,12 @@ class ViewComposerServiceProvider extends ServiceProvider
 	        $customLink = CustomLink::whereRaw(1)->orderBy('display_order', 'asc')->get();
 	        $landingList = LandingProjects::where('is_hot', 1)->orderBy('id', 'desc')->offset(0)->limit(2)->get();
 	        $landing2List = LandingProjects::where('is_hot', 1)->orderBy('id', 'desc')->offset(2)->limit(5)->get();
+	        $priceList = Price::where('type', 1)->get();
+        	$areaList = Area::all();
+        	$directionList = Direction::all();
 			$view->with( ['loaiSpKey' => [], 'menuNgang' => [], 'menuDoc' => [], 'loaiSpHot' => [], 'settingArr' => $settingArr, 
-			'banList' => $banList, 'thueList' => $thueList, 'articleCate' => $articleCate, 'districtList' => $districtList, 'tinRandom' => $tinRandom, 'customLink' => $customLink, 'landingList' => $landingList, 'landing2List' => $landing2List] );
+			'banList' => $banList, 'thueList' => $thueList, 'articleCate' => $articleCate, 'districtList' => $districtList, 'tinRandom' => $tinRandom, 'customLink' => $customLink, 'landingList' => $landingList, 'landing2List' => $landing2List, 'priceList' => $priceList, 'areaList' => $areaList,
+			'directionList' => $directionList] );
 			
 		});
 	}
