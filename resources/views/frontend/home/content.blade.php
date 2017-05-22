@@ -4,7 +4,7 @@
   <article class="block block-news-default row">
     <div class="block-news-default-left">
       <div class="col-sm-7 col-xs-12">
-        <div class="block-news-default-item" style="height:346px">
+        <div class="block-news-default-item">
           <div class="block-thumb">
             <a href="{{ route('news-detail', ['slug' => $tinThiTruong[0]['slug'], 'id' => $tinThiTruong[0]['id']]) }}" title="">
               <img src="{{ $tinThiTruong[0]['image_url'] ? Helper::showImageThumb($tinThiTruong[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
@@ -87,7 +87,7 @@
                   @foreach($hotProduct2 as $product)
                     <li class="news-new-item">                      
                       <div class="news-new-item-head">
-                        <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" style="height:128px !important;width:100% !important;"></a>
+                        <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" ></a>
                       </div>
                       <div class="news-new-item-description">
                         <h4><a class="description-title vip1" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}">{{ $product->title }}</a></h4>
