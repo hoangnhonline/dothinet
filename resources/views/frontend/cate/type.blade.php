@@ -3,7 +3,7 @@
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">
 	<article class="block block-news-new block-news-cate clearfix">
-		<div class="block-cate-title"><h1>Tag : '{{ $detail->name }}'</h1></div>
+		<div class="block-cate-title"><h1>{{ $name }}</h1></div>
 		<div class="block-searchresult">			
 			<span class="block-countresult">Có <b>{{ number_format(count($productList)) }}</b> bất động sản</span>
 		</div>
@@ -12,7 +12,7 @@
 				<div class="block-title block-title-catenews">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs nav-tabs-cus" role="tablist">
-						<li role="presentation" class="active"><a href="#dsrt" aria-controls="dsrt" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Danh sách BĐS</a></li>
+						<li role="presentation" class="active"><a href="#dsrt" aria-controls="dsrt" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Danh sách kết quả</a></li>
 					</ul>
 				</div>
 				<div class="block-contents">

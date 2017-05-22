@@ -55,7 +55,48 @@ class ProductController extends Controller
             return view('frontend.pages.index', compact('detailPage', 'seo'));    
         }
     }
+    public function ban(Request $request)
+    {
+        $productArr = [];
 
+        $query = Product::where('product.type', 1);
+        
+            $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id') 
+            ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')                
+            ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')              
+            ->where('product_img.image_url', '<>', '')
+            ->orderBy('product.cart_status', 'asc')
+            ->orderBy('product.id', 'desc');
+            $productList  = $query->limit(36)->get();
+            $productArr = $productList->toArray();
+            
+            
+            $name = $seo['title'] = $seo['description'] = $seo['keywords'] = 'Nhà đất bán';
+             
+            return view('frontend.cate.type', compact('productList','productArr', 'socialImage', 'seo', 'name'));
+        
+    }
+    public function choThue(Request $request)
+    {
+        $productArr = [];
+
+        $query = Product::where('product.type', 2);
+        
+        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id') 
+        ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')                
+        ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')              
+        ->where('product_img.image_url', '<>', '')
+        ->orderBy('product.cart_status', 'asc')
+        ->orderBy('product.id', 'desc');
+        $productList  = $query->limit(36)->get();
+        $productArr = $productList->toArray();
+        
+        
+        $name = $seo['title'] = $seo['description'] = $seo['keywords'] = 'Nhà đất cho thuê';
+        
+        return view('frontend.cate.type', compact('productList','productArr', 'socialImage', 'seo', 'name'));
+        
+    }
     public function search(Request $request)
     {
         $productArr = [];

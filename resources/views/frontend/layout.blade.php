@@ -116,14 +116,14 @@
 				<ul class="nav navbar-nav navbar-left">
 					<li class="level0 {{ \Request::route()->getName() == "home" ? "active" : "" }}"><a class="" href="{{ route('home') }}">Trang chủ</a></li><!-- END MENU HOME -->
 					<li class="level0 parent">
-						<a href="#">BĐS bán</a>
+						<a href="{{ route('ban') }}">BĐS bán</a>
 						<ul class="level0 submenu">
 							@foreach($banList as $ban)
 							<li class="level1"><a href="{{ route('danh-muc', $ban->slug ) }}">{{ $ban->name }}</a></li>							
 							@endforeach
 						</ul>
 					</li><!-- END MENU SHOP -->
-					<li class="level0"><a href="#">BĐS cho thuê</a>
+					<li class="level0"><a href="{{ route('cho-thue') }}">BĐS cho thuê</a>
 						<ul class="level0 submenu">
 							@foreach($thueList as $thue)
 							<li class="level1"><a href="{{ route('danh-muc', $thue->slug ) }}">{{ $thue->name }}</a></li>							

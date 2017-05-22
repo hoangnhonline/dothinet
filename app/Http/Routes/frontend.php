@@ -33,22 +33,17 @@ Route::group(['prefix' => 'authentication'], function () {
     Route::get('/user-logout', ['as' => 'user-logout', 'uses' => 'AuthenticationController@logout']);
 });
 
-
-
-
 Route::group(['namespace' => 'Frontend'], function()
 {
     
     Route::get('code/sang-map/seo-link', ['as' => 'seo-link', 'uses' => 'HomeController@showLink']);   
 
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-    Route::get('/load-slider', ['as' => 'load-slider', 'uses' => 'HomeController@loadSlider']);
-    Route::get('/count-message', ['as' => 'count-message', 'uses' => 'HomeController@getNoti']);
-    Route::get('/du-an', ['as' => 'du-an', 'uses' => 'ProjectsController@index']);
-    Route::get('/chuong-trinh-khuyen-mai', ['as' => 'chuong-trinh-khuyen-mai', 'uses' => 'EventController@index']);
+    Route::get('/nha-dat-ban', ['as' => 'ban', 'uses' => 'ProductController@ban']);
+    Route::get('/nha-dat-cho-thue', ['as' => 'cho-thue', 'uses' => 'ProductController@choThue']);
+
+    Route::get('/du-an', ['as' => 'du-an', 'uses' => 'ProjectsController@index']);    
     Route::get('du-an/{slug}-{id}', ['as' => 'detail-project', 'uses' => 'ProjectsController@detail']);
-
-
    
     Route::post('/tmp-upload-multiple-fe', ['as' => 'image.tmp-upload-multiple-fe', 'uses' => 'UploadController@tmpUploadMultipleFE']);
     Route::post('/send-contact', ['as' => 'send-contact', 'uses' => 'ContactController@store']);
@@ -68,21 +63,8 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/rap-may-tinh-online', ['as' => 'lap-rap', 'uses' => 'LapRapController@lapRap']);
     Route::get('/dang-tin-ky-gui.html', ['as' => 'ky-gui', 'uses' => 'DetailController@kygui']);
     Route::get('/dang-tin-thanh-cong.html', ['as' => 'ky-gui-thanh-cong', 'uses' => 'DetailController@kyguiSuccess']);    
-    Route::post('/post-ky-gui', ['as' => 'post-ky-gui', 'uses' => 'DetailController@postKygui']);
-    Route::post('tu-chon-cau-hinh/mua/', ['as' => 'mua-lap-rap', 'uses' => 'LapRapController@mua']);
-    Route::post('tu-chon-cau-hinh/lay-san-pham-tuong-thich/', ['as' => 'lay-sp-tuong-thich', 'uses' => 'LapRapController@getTuongThich']);
-    Route::post('tu-chon-cau-hinh/xem-cau-hinh', ['as' => 'xem-cau-hinh', 'uses' => 'LapRapController@xemCauHinh']);
-    Route::group(['prefix' => 'thanh-toan'], function () {
-        Route::get('gio-hang', ['as' => 'gio-hang', 'uses' => 'CartController@index']);
-        Route::get('xoa-gio-hang', ['as' => 'xoa-gio-hang', 'uses' => 'CartController@deleteAll']);
-        Route::any('shipping-step-1', ['as' => 'shipping-step-1', 'uses' => 'CartController@shippingStep1']);
-        Route::get('shipping-step-2', ['as' => 'shipping-step-2', 'uses' => 'CartController@shippingStep2']);
-        Route::get('shipping-step-3', ['as' => 'shipping-step-3', 'uses' => 'CartController@shippingStep3']);
-        Route::post('update-sanpham', ['as' => 'update-sanpham', 'uses' => 'CartController@update']);
-        Route::post('them-sanpham', ['as' => 'them-sanpham', 'uses' => 'CartController@addProduct']);
-        Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
-        Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        
-    });
+    Route::post('/post-ky-gui', ['as' => 'post-ky-gui', 'uses' => 'DetailController@postKygui']);    
+    
 
     Route::group(['prefix' => 'tai-khoan'], function () {
         Route::get('don-hang-cua-toi', ['as' => 'order-history', 'uses' => 'OrderController@history']);
