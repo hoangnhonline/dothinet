@@ -20,6 +20,8 @@ use App\Models\Project;
 use App\Models\Tag;
 use App\Models\TagObjects;
 use App\Models\Direction;
+use App\Models\Area;
+use App\Models\Price;
 
 use Helper, File, Session, Auth, Hash, URL, Image;
 
@@ -69,7 +71,7 @@ class ProductController extends Controller
             $query->where('product.created_user', Auth::user()->id);
         }
         if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');            
+            $query->where('product.title', 'LIKE', '%'.$name.'%');            
         }
         //$query->join('users', 'users.id', '=', 'product.created_user');
         $query->join('city', 'city.id', '=', 'product.city_id');        
@@ -80,7 +82,7 @@ class ProductController extends Controller
 
         $cityList = City::all();  
         $estateTypeArr = EstateType::where('type', $type)->get(); 
-        $districtList = District::where('city_id', 1)->get();
+        $districtList = District::where('city_id', 1)->where('status', 1)->get();
        // var_dump($detail->district_id);die;
         $wardList = Ward::where('district_id', $district_id)->get();
         $streetList = Street::where('district_id', $district_id)->get();
@@ -103,7 +105,7 @@ class ProductController extends Controller
         
 
 
-        $query = Product::where('product.status', $status);
+        $query = Product::where('product.status', 2);
         if( $type ){
             $query->where('product.type', $type);
         }
@@ -126,7 +128,7 @@ class ProductController extends Controller
             $query->where('product.created_user', Auth::user()->id);
         }
         if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');            
+            $query->where('product.title', 'LIKE', '%'.$name.'%');            
         }
         //$query->join('users', 'users.id', '=', 'product.created_user');
         $query->join('city', 'city.id', '=', 'product.city_id');        
@@ -137,12 +139,12 @@ class ProductController extends Controller
 
         $cityList = City::all();  
         $estateTypeArr = EstateType::where('type', $type)->get(); 
-        $districtList = District::where('city_id', 1)->get();
+        $districtList = District::where('city_id', 1)->where('status', 1)->get();
        // var_dump($detail->district_id);die;
         $wardList = Ward::where('district_id', $district_id)->get();
         $streetList = Street::where('district_id', $district_id)->get();
         $projectList = Project::where('district_id', $district_id)->get();
-        return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));
+        return view('backend.product.kygui', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));
     }
     public function ajaxGetTienIch(Request $request){
         $district_id = $request->district_id;
@@ -164,7 +166,7 @@ class ProductController extends Controller
             $query->where('product.cate_id', $cate_id);
         }
         if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');
+            $query->where('product.title', 'LIKE', '%'.$name.'%');
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }
         $query->join('users', 'users.id', '=', 'product.created_user');
@@ -196,11 +198,12 @@ class ProductController extends Controller
         
         if( $type ){
             
-            $estateTypeArr = EstateType::where('type', $type)->select('id', 'name')->orderBy('display_order', 'desc')->get();            
+            $estateTypeArr = EstateType::where('type', $type)->select('id', 'name')->orderBy('display_order', 'desc')->get();
+            $priceList = Price::where('type', $type)->get();     
             
         }       
         $priceUnitList = PriceUnit::all();
-        $districtList = District::where('city_id', 1)->get();
+        $districtList = District::where('city_id', 1)->where('status', 1)->get();
        // var_dump($detail->district_id);die;
         $district_id = $request->district_id ? $request->district_id : 2;
         $wardList = Ward::where('district_id', $district_id)->get();
@@ -208,8 +211,8 @@ class ProductController extends Controller
         $projectList = Project::where('district_id', $district_id)->get();
 
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
-
-        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr'));
+        $areaList = Area::all();
+        return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr', 'priceList', 'areaList'));
     }
 
     /**
@@ -407,7 +410,7 @@ class ProductController extends Controller
        // var_dump($detail->type);die;
         $hinhArr = ProductImg::where('product_id', $id)->lists('image_url', 'id');     
         $estateTypeArr = EstateType::where('type', $detail->type)->get();
-        
+        $priceList = Price::where('type', $detail->type)->get();
         $estate_type_id = $detail->estate_type_id;             
         $detailEstate = EstateType::find($estate_type_id);
        
@@ -416,7 +419,7 @@ class ProductController extends Controller
             $meta = MetaData::find( $detail->meta_id );
         }               
         $priceUnitList = PriceUnit::all();
-        $districtList = District::where('city_id', 1)->get();
+        $districtList = District::where('city_id', 1)->where('status', 1)->get();
        // var_dump($detail->district_id);die;
         $wardList = Ward::where('district_id', $detail->district_id)->get();
         $streetList = Street::where('district_id', $detail->district_id)->get();
@@ -426,7 +429,8 @@ class ProductController extends Controller
         $tienIchSelected = Product::productTienIch($id);
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $detail->district_id])->get();
         $directionArr = Direction::all();
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr', 'tienIchLists', 'tienIchSelected', 'directionArr'));
+        $areaList = Area::all();
+        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'estateTypeArr',  'meta', 'priceUnitList', 'districtList', 'wardList', 'streetList','projectList', 'detailEstate', 'tagSelected', 'tagArr', 'tienIchLists', 'tienIchSelected', 'directionArr', 'areaList', 'priceList'));
     }
     public function ajaxDetail(Request $request)
     {       

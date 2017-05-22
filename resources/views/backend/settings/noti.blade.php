@@ -19,7 +19,7 @@
     <div class="row">
       <!-- left column -->
 
-      <div class="col-md-7">
+      <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
@@ -46,7 +46,7 @@
                   <label>Nội dung<span class="red-star">*</span></label>
                   <textarea class="form-control" name="thong_bao_chung" id="thong_bao_chung">{{ $settingArr['thong_bao_chung']}}</textarea>                  
                 </div>
-                
+                <input type="hidden" id="editor" value="thong_bao_chung"/>
             
                   <div style="clear:both"></div>
                 </div>
@@ -54,14 +54,14 @@
                  
             </div>                        
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>         
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>         
             </div>
             
         </div>
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
         <!-- general form elements -->
       
 

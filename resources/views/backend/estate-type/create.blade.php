@@ -15,7 +15,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('estate-type.index') }}?type={{ $type }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('estate-type.index') }}?type={{ $type }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('estate-type.store') }}">
     <div class="row">
       <!-- left column -->
@@ -72,8 +72,8 @@
             </div>          
         
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('estate-type.index')}}?type={{ $type }}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('estate-type.index')}}?type={{ $type }}">Hủy</a>
             </div>
             
         </div>

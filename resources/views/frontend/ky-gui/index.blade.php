@@ -4,6 +4,7 @@
   @include('frontend.partials.main-header')
   @include('frontend.partials.home-menu')
 @endsection
+@include('frontend.partials.meta')
 @section('content')
 <section class="main" id="site-main">
 	<section class="container">
@@ -214,7 +215,7 @@
 									<div class="form-group">
 										<label class="col-sm-3 control-label">Nội dung mô tả <span>(*)</span>:</label>
 										<div class="col-sm-8">
-											<textarea rows="5" class="form-control form-control2"></textarea name="description" id="description">
+											<textarea rows="5" class="form-control form-control2" name="description" id="description"></textarea>
 										</div>
 									</div><!-- /form-group -->
 									<div class="form-group">
@@ -278,9 +279,9 @@
 										</div>
 									</div><!-- /form-group -->
 									<div class="form-group text-center">
-										<button type="button" class="btn btn-success"><i class="fa fa-eye"></i> XEM TRƯỚC</button>
+										<!--<button type="button" class="btn btn-success"><i class="fa fa-eye"></i> XEM TRƯỚC</button>-->
 										<button type="submit" class="btn btn-success"><i class="fa fa-check"></i> ĐĂNG TIN</button>
-										<button type="button" class="btn btn-primary"><i class="fa fa-times"></i> HỦY BỎ</button>
+										<button type="button" onclick="location.href='{{ route('home') }}'" class="btn btn-primary"><i class="fa fa-times"></i> HỦY BỎ</button>
 									</div><!-- /form-group -->
 								</div>
 							</form>

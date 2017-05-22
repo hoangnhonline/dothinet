@@ -32,7 +32,7 @@ class NewsController extends Controller
     }      
 
      public function newsDetail(Request $request)
-    {     
+    { 
         $id = $request->id;
 
         $detail = Articles::where( 'id', $id )
@@ -52,7 +52,8 @@ class NewsController extends Controller
             $is_km = $detail->cate_id == 2 ? 1 : 0;
             $is_news = $detail->cate_id == 1 ? 1 : 0;
             $is_kn = $detail->cate_id == 4 ? 1 : 0;
-            return view('frontend.news.news-detail', compact('title',  'hotArr', 'detail', 'otherArr', 'seo', 'socialImage', 'is_km', 'is_news', 'is_kn'));
+            $tagSelected = Articles::getListTag($id);
+            return view('frontend.news.news-detail', compact('title',  'hotArr', 'detail', 'otherArr', 'seo', 'socialImage', 'is_km', 'is_news', 'is_kn', 'tagSelected'));
         }else{
             return view('erros.404');
         }

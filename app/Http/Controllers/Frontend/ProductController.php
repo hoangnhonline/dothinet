@@ -28,6 +28,7 @@ class ProductController extends Controller
             $estate_type_id = $rs->id;
             
             $query = Product::where('estate_type_id', $estate_type_id)               
+                ->where('product.status', 1)
                 ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id') 
                 ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')                
                 ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')              
@@ -52,7 +53,58 @@ class ProductController extends Controller
             $seo['keywords'] = $detailPage->meta_keywords ? $detailPage->meta_keywords : $detailPage->title;           
             return view('frontend.pages.index', compact('detailPage', 'seo'));    
         }
-    }      
+    }
+
+    public function search(Request $request)
+    {
+        $productArr = [];
+       
+            $estate_type_id = $request->estate_type_id;
+            $district_id = $request->district_id;
+            $ward_id = $request->ward_id;
+            $project_id = $request->project_id;
+            $price_id = $request->price_id;
+            $area_id = $request->area_id;
+            $street_id = $request->street_id;
+            $no_room = $request->no_room;
+            $direction_id = $request->direction_id;
+
+            $query = Product::where('estate_type_id', $estate_type_id);
+            if($district_id){
+                $query->where('district_id', $district_id);
+            }
+            if($ward_id){
+                $query->where('ward_id', $ward_id);
+            }
+            if($project_id){
+                $query->where('project_id', $project_id);
+            }
+            if($price_id){
+                $query->where('price_id', $price_id);
+            }
+            if($area_id){
+                $query->where('area_id', $area_id);
+            }
+            if($street_id){
+                $query->where('street_id', $street_id);
+            }
+            if($direction_id){
+                $query->where('direction_id', $direction_id);
+            }
+                $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id') 
+                ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')                
+                ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')              
+                ->where('product_img.image_url', '<>', '')
+                ->orderBy('product.id', 'desc');
+                $productList  = $query->limit(36)->get();
+                $productArr = $productList->toArray();
+            
+            
+            $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tìm kiếm';
+            
+            return view('frontend.cate.search', compact('productList','productArr', 'socialImage', 'seo'));
+        
+    }       
 
      public function newsDetail(Request $request)
     {     

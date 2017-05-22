@@ -15,8 +15,11 @@ use App\Models\EstateType;
 use App\Models\MetaData;
 use App\Models\ProductImg;
 use App\Models\Tag;
+use App\Models\TagObjects;
 use App\Models\Direction;
 use App\Models\PriceUnit;
+use App\Models\Articles;
+
 
 use Helper, File, Session, Auth;
 
@@ -38,8 +41,6 @@ class DetailController extends Controller
     */
     public function index(Request $request)
     {   
-       
-
         $spThuocTinhArr = $productArr = [];
         $slug = $request->slug;
         $detail = Product::where('slug', $slug)->where('estate_type_id', '>', 0)->first();
@@ -50,21 +51,74 @@ class DetailController extends Controller
 
         $hinhArr = ProductImg::where('product_id', $detail->id)->get()->toArray();
 
+        $district_id = $detail->district_id;
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
-           $seo['title'] = $meta['title'] != '' ? $meta['title'] : $detail->name;
-           $seo['description'] = $meta['description'] != '' ? $meta['description'] : $detail->name;
-           $seo['keywords'] = $meta['keywords'] != '' ? $meta['keywords'] : $detail->name;
+           $seo['title'] = $meta['title'] != '' ? $meta['title'] : $detail->title;
+           $seo['description'] = $meta['description'] != '' ? $meta['description'] : $detail->title;
+           $seo['keywords'] = $meta['keywords'] != '' ? $meta['keywords'] : $detail->title;
         }else{
-            $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name;
+            $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->title;
         }               
         
         if($detail->thumbnail_id > 0){
             $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
         }
-        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage'));
-    }
 
+        $otherList = Product::where('product.slug', '<>', '')
+                    ->where('product.type', $detail->type)
+                    ->where('product.district_id', $detail->district_id)
+                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+                    ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
+                    ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
+                    ->where('product_img.image_url', '<>', '')    
+                    ->where('product.id', '<>', $detail->id)                                     
+                    ->orderBy('product.cart_status', 'asc')
+                    ->orderBy('product.id', 'desc')->limit(6)->get();
+
+        $tagSelected = Product::getListTag($detail->id);        
+        return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList', 'tagSelected'));
+    }
+    public function tagDetail(Request $request){
+        $slug = $request->slug;
+        $detail = Tag::where('slug', $slug)->first();
+        if($detail->type == 1){ // product           
+            $productList = (object)[];
+            $listId = [];
+            $listId = TagObjects::where(['type' => 1, 'tag_id' => $detail->id])->lists('object_id');
+            if($listId){
+                $listId = $listId->toArray();
+            }
+            if(!empty($listId)){
+            $query = Product::where('product.status', 1)            
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id') 
+                ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')
+                ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
+                ->where('product_img.image_url', '<>', '')
+                ->whereIn('product.id', $listId)
+                ->orderBy('product.id', 'desc');
+                $productList  = $query->limit(36)->get();
+
+            }
+            $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
+            
+            return view('frontend.cate.tag', compact('productList', 'socialImage', 'seo', 'detail'));
+        }elseif($detail->type == 2){ // articles
+            $articlesArr = (object)[];
+            $listId = [];
+            $listId = TagObjects::where(['type' => 2, 'tag_id' => $detail->id])->lists('object_id');
+            if($listId){
+                $listId = $listId->toArray();
+            }
+            if(!empty($listId)){
+                $articlesArr = Articles::whereIn('id', $listId)->orderBy('id', 'desc')->where('cate_id', '<>', 999)->paginate(20);
+            }  
+
+            $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
+                  
+            return view('frontend.news.tag', compact('title', 'articlesArr', 'seo', 'socialImage', 'detail'));
+        }
+    }
     public function ajaxTab(Request $request){
         $table = $request->type ? $request->type : 'category';
         $id = $request->id;
@@ -142,7 +196,8 @@ class DetailController extends Controller
         $projectList = Project::where('district_id', $district_id)->get();
 
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
-        return view('frontend.ky-gui.index', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr'));
+        $seo['title'] = $seo['description'] = $seo['keywords'] = "Đăng tin ký gửi";
+        return view('frontend.ky-gui.index', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr', 'seo'));
     }
     public function postKygui(Request $request){
         $dataArr = $request->all();        

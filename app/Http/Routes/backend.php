@@ -28,6 +28,22 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/update', ['as' => 'cart.update', 'uses' => 'CartController@update']);
         Route::get('{id}/destroy', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
     });
+    Route::group(['prefix' => 'district'], function () {
+        Route::get('/', ['as' => 'district.index', 'uses' => 'DistrictController@index']);
+        Route::get('/create', ['as' => 'district.create', 'uses' => 'DistrictController@create']);
+        Route::post('/store', ['as' => 'district.store', 'uses' => 'DistrictController@store']);
+        Route::get('{id}/edit',   ['as' => 'district.edit', 'uses' => 'DistrictController@edit']);
+        Route::post('/update', ['as' => 'district.update', 'uses' => 'DistrictController@update']);
+        Route::get('{id}/destroy', ['as' => 'district.destroy', 'uses' => 'DistrictController@destroy']);
+    });
+    Route::group(['prefix' => 'ward'], function () {
+        Route::get('/', ['as' => 'ward.index', 'uses' => 'WardController@index']);
+        Route::get('/create', ['as' => 'ward.create', 'uses' => 'WardController@create']);
+        Route::post('/store', ['as' => 'ward.store', 'uses' => 'WardController@store']);
+        Route::get('{id}/edit',   ['as' => 'ward.edit', 'uses' => 'WardController@edit']);
+        Route::post('/update', ['as' => 'ward.update', 'uses' => 'WardController@update']);
+        Route::get('{id}/destroy', ['as' => 'ward.destroy', 'uses' => 'WardController@destroy']);
+    });
     Route::group(['prefix' => 'cart-product'], function () {
         Route::get('/', ['as' => 'cart-product.index', 'uses' => 'CartProductController@index']);
         Route::get('/create', ['as' => 'cart-product.create', 'uses' => 'CartProductController@create']);
@@ -51,6 +67,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::get('{id}/edit',   ['as' => 'pages.edit', 'uses' => 'PagesController@edit']);
         Route::post('/update', ['as' => 'pages.update', 'uses' => 'PagesController@update']);
         Route::get('{id}/destroy', ['as' => 'pages.destroy', 'uses' => 'PagesController@destroy']);
+    });
+    Route::group(['prefix' => 'custom-link'], function () {
+        Route::get('/', ['as' => 'custom-link.index', 'uses' => 'CustomLinkController@index']);
+        Route::get('/create', ['as' => 'custom-link.create', 'uses' => 'CustomLinkController@create']);
+        Route::post('/store', ['as' => 'custom-link.store', 'uses' => 'CustomLinkController@store']);
+        Route::get('{id}/edit',   ['as' => 'custom-link.edit', 'uses' => 'CustomLinkController@edit']);
+        Route::post('/update', ['as' => 'custom-link.update', 'uses' => 'CustomLinkController@update']);
+        Route::get('{id}/destroy', ['as' => 'custom-link.destroy', 'uses' => 'CustomLinkController@destroy']);
     });
     Route::group(['prefix' => 'color'], function () {
         Route::get('/', ['as' => 'color.index', 'uses' => 'ColorController@index']);
@@ -241,6 +265,22 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::get('{id}/edit',   ['as' => 'articles.edit', 'uses' => 'ArticlesController@edit']);
         Route::post('/update', ['as' => 'articles.update', 'uses' => 'ArticlesController@update']);
         Route::get('{id}/destroy', ['as' => 'articles.destroy', 'uses' => 'ArticlesController@destroy']);
+    });
+     Route::group(['prefix' => 'landing-projects'], function () {
+        Route::get('/', ['as' => 'landing-projects.index', 'uses' => 'LandingProjectsController@index']);
+        Route::get('/create', ['as' => 'landing-projects.create', 'uses' => 'LandingProjectsController@create']);
+        Route::post('/store', ['as' => 'landing-projects.store', 'uses' => 'LandingProjectsController@store']);
+        Route::get('{id}/edit',   ['as' => 'landing-projects.edit', 'uses' => 'LandingProjectsController@edit']);
+        Route::post('/update', ['as' => 'landing-projects.update', 'uses' => 'LandingProjectsController@update']);
+        Route::get('{id}/destroy', ['as' => 'landing-projects.destroy', 'uses' => 'LandingProjectsController@destroy']);
+    });
+     Route::group(['prefix' => 'pro-content'], function () {
+        Route::get('/', ['as' => 'pro-content.index', 'uses' => 'ProContentController@index']);
+        Route::get('/create', ['as' => 'pro-content.create', 'uses' => 'ProContentController@create']);
+        Route::post('/store', ['as' => 'pro-content.store', 'uses' => 'ProContentController@store']);
+        Route::get('{id}/edit',   ['as' => 'pro-content.edit', 'uses' => 'ProContentController@edit']);
+        Route::post('/update', ['as' => 'pro-content.update', 'uses' => 'ProContentController@update']);
+        Route::get('{id}/destroy', ['as' => 'pro-content.destroy', 'uses' => 'ProContentController@destroy']);
     });
 
 });

@@ -25,9 +25,19 @@
         <div class="block-news-new-content">
             <?php echo $detail->content; ?>
         </div><!-- /block-news-new-content -->
-        <div class="block-news-new-content-source"><em>(Theo Vietnamnet)</em> <br> &nbsp;</em></div><!-- /block-news-new-content-source -->
+        
     </article><!-- /block-news-new-detail -->
-
+    @if($tagSelected)
+    <?php $countTag = count($tagSelected);?>
+    <article class="block block-news-with-region">
+        <u>Tags</u>:
+        <?php $i = 0; ?>
+        @foreach($tagSelected as $tag)
+        <?php $i++; ?>
+        <a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a>@if($i< $countTag), @endif
+        @endforeach     
+    </article>
+    @endif
     <article class="block block-all-news-new">
         <div class="block-title block-title-common">
             <h3><span class="icon-tile"><i class="fa fa-th-list"></i></span> Các tin mới nhất</h3>
@@ -53,11 +63,7 @@
                     </div><!-- /col-sm-6 col-xs-12 --> 
                     @endforeach
                     @endif
-                </div>
-                <a href="#" title="" class="viewall">
-                    <span class="glyphicon glyphicon-share-alt"></span>
-                    <i>Xem tất cả</i>
-                </a>
+                </div>                
             </div>
         </div>
     </article><!-- /block-news-with-region -->

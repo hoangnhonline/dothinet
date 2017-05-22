@@ -14,22 +14,7 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs nav-tabs-cus" role="tablist">
 						<li role="presentation" class="active"><a href="#dsrt" aria-controls="dsrt" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Danh sách tin rao</a></li>
-						<li class="pull-right block-select-order">
-							<div class="block-title">
-								<span class="" id="">Sắp xếp theo: </span>
-							</div>
-							<div class="block-contents">
-								<select class="selectpicker form-control" data-live-search="true">
-									<option selected="selected">Loại bất động sản</option>
-									<option value="tt">Thông thường</option>
-									<option value="tmn">Tin mới nhất</option>
-									<option value="gtn">Giá thấp nhất</option>
-									<option value="gcn">Giá cao nhất</option>
-									<option value="dtnn">Diện tích nhỏ nhất</option>
-									<option value="dtln">Diện tích lớn nhất</option>
-								</select>
-							</div>
-						</li>	
+						
 					</ul>
 				</div>
 				<div class="block-contents">
@@ -46,7 +31,7 @@
 											<a class="description-title vip1" title="{{ $product->title }}" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><i class="vipdb fa fa-star"></i> {{ $product->title }} </a></h4>
                 						<div class="description-info">
                 							<div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
-				                            <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }}</div>
+				                            <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }} m<sub>2</sub></div>
 				                            <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city') }}</div>
                 						</div>
                 						<span class="date">{{ date('d/m/Y', strtotime($product->created_at)) }}</span>
@@ -56,7 +41,7 @@
 								
 							</ul>
 							@endif
-							<nav class="block-pagination">
+							<!--<nav class="block-pagination">
 								<ul class="pagination">
 									<li><a class="selected" href="#">1</a></li>
 									<li><a href="#">2</a></li>
@@ -66,7 +51,7 @@
 									<li><a href="#" aria-label="Previous">Trang sau</a></li>
 									<li><a href="#" aria-label="Next">Trang cuối</a></li>
 								</ul>
-							</nav>
+							</nav>-->
 						</div>
 					</div>
 				</div>

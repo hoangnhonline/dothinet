@@ -58,7 +58,9 @@ class Product extends Model  {
                             'thumbnail_id',
                             'cart_status',
                             'longt',
-                            'latt'
+                            'latt',
+                            'price_id',
+                            'area_id'
                         ];
 
     public static function productTag( $id )
@@ -79,5 +81,11 @@ class Product extends Model  {
         }
         return $arr;
     }
+    public static function getListTag($id){
+        $query = TagObjects::where(['object_id' => $id, 'tag_objects.type' => 1])
+            ->join('tag', 'tag.id', '=', 'tag_objects.tag_id')            
+            ->get();
+        return $query;
+   }
     
 }

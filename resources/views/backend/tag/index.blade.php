@@ -51,7 +51,7 @@
               <label for="email">&nbsp;&nbsp;&nbsp;Từ khóa :</label>
               <input type="text" class="form-control" id="name" name="name" value="{{ $name }}">
             </div>       
-            <button type="submit" class="btn btn-primary">Lọc</button>
+            <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
           </form>         
         </div>
       </div>
@@ -87,6 +87,9 @@
                 <td>{{ $item->slug }}</td>
                 <td>{{ $item->description }}</td>
                 <td style="white-space:nowrap">                  
+                  @if( $item->objects->count() > 0 && $item->type != 3)
+                  <a class="btn btn-default btn-sm" href="{{ route('tag', $item->slug) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                
+                  @endif
                   <a href="{{ route( 'tag.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>                  
                   @if( $item->objects->count() == 0)
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'tag.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>                  

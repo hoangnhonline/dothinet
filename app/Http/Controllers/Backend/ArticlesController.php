@@ -10,6 +10,8 @@ use App\Models\ArticlesCate;
 use App\Models\Tag;
 use App\Models\TagObjects;
 use App\Models\Articles;
+use App\Models\MetaData;
+
 use Helper, File, Session, Auth, Image;
 
 class ArticlesController extends Controller
@@ -21,7 +23,7 @@ class ArticlesController extends Controller
     */
     public function index(Request $request)
     {
-        $cate_id = isset($request->cate_id) ? $request->cate_id : 0;
+        $cate_id = isset($request->cate_id) ? $request->cate_id : 1;
 
         $title = isset($request->title) && $request->title != '' ? $request->title : '';
         
@@ -122,6 +124,8 @@ class ArticlesController extends Controller
 
         $object_id = $rs->id;
 
+        $this->storeMeta( $object_id, 0, $dataArr);
+
         // xu ly tags
         if( !empty( $dataArr['tags'] ) && $object_id ){
             
@@ -139,7 +143,22 @@ class ArticlesController extends Controller
 
         return redirect()->route('articles.index',['cate_id' => $dataArr['cate_id']]);
     }
-
+    public function storeMeta( $id, $meta_id, $dataArr ){
+       
+        $arrData = [ 'title' => $dataArr['meta_title'], 'description' => $dataArr['meta_description'], 'keywords'=> $dataArr['meta_keywords'], 'custom_text' => $dataArr['custom_text'], 'updated_user' => Auth::user()->id ];
+        if( $meta_id == 0){
+            $arrData['created_user'] = Auth::user()->id;            
+            $rs = MetaData::create( $arrData );
+            $meta_id = $rs->id;
+            
+            $modelSp = Articles::find( $id );
+            $modelSp->meta_id = $meta_id;
+            $modelSp->save();
+        }else {
+            $model = MetaData::find($meta_id);           
+            $model->update( $arrData );
+        }              
+    }
     /**
     * Display the specified resource.
     *
@@ -178,8 +197,12 @@ class ArticlesController extends Controller
         }
         
         $tagArr = Tag::where('type', 2)->get();
+        $meta = (object) [];
+        if ( $detail->meta_id > 0){
+            $meta = MetaData::find( $detail->meta_id );
+        }
 
-        return view('backend.articles.edit', compact('tagArr', 'tagSelected', 'detail', 'cateArr' ));
+        return view('backend.articles.edit', compact('tagArr', 'tagSelected', 'detail', 'cateArr', 'meta'));
     }
 
     /**
@@ -240,6 +263,8 @@ class ArticlesController extends Controller
         $model = Articles::find($dataArr['id']);
 
         $model->update($dataArr);
+        
+        $this->storeMeta( $dataArr['id'], $dataArr['meta_id'], $dataArr);
 
         TagObjects::where(['object_id' => $dataArr['id'], 'type' => 2])->delete();
         // xu ly tags

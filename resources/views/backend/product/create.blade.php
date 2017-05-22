@@ -142,6 +142,28 @@
                               @endforeach
                             </select>
                         </div>
+                        <div class="form-group col-md-6  pleft-5">
+                          <label for="email">Khoảng giá<span class="red-star">*</span></label>
+                            <select class="form-control" name="price_id" id="price_id">
+                              <option value="">--Chọn--</option>
+                                @foreach( $priceList as $value )
+                                <option value="{{ $value->id }}"
+                                {{ old('price_id') == $value->id ? "selected" : "" }}
+                                >{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 none-padding">
+                          <label for="email">Khoảng diện tích<span class="red-star">*</span></label>
+                          <select class="form-control" name="area_id" id="area_id">
+                            <option value="">--Chọn--</option>
+                            @foreach( $areaList as $value )
+                            <option value="{{ $value->id }}"
+                            {{ old('area_id') == $value->id ? "selected" : "" }}
+                            >{{ $value->name }}</option>
+                            @endforeach
+                          </select>
+                        </div>
                         <div class="form-group col-md-12 none-padding">
                             <label>Địa chỉ</label>
                              <input type="text" class="form-control" name="full_address" id="full_address" value="{{ old('full_address') }}">  
@@ -201,7 +223,7 @@
                             @endif
                           </select>
                           <span class="input-group-btn">
-                            <button style="margin-top:24px" class="btn btn-primary" id="btnAddTag" type="button" data-value="3">
+                            <button style="margin-top:24px" class="btn btn-primary btn-sm" id="btnAddTag" type="button" data-value="3">
                               Tạo mới
                             </button>
                           </span>
@@ -210,6 +232,7 @@
                             <label>Mô tả</label>
                             <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
                           </div>
+                          <input type="hidden" id="editor" value="description">
                           <div class="clearfix"></div>
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px"> 
                           <input id="pac-input" class="controls" type="text" placeholder="Nhập địa chỉ để tìm kiếm">
@@ -265,7 +288,7 @@
                             
                             <input type="file" id="file-image"  style="display:none" multiple/>
                          
-                            <button class="btn btn-primary" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                            <button class="btn btn-primary btn-sm" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                             <div class="clearfix"></div>
                             <div id="div-image" style="margin-top:10px"></div>
                           </div>
@@ -283,9 +306,9 @@
             <div class="box-footer">
               <input type="hidden" name="longt" id="longt" value="" />
               <input type="hidden" name="latt" id="latt" value="" />
-              <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
-              <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index', ['estate_type_id' => $estate_type_id, 'type' => $type])}}">Hủy</a>
+              <button type="button" class="btn btn-default btn-sm" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
+              <button type="submit" class="btn btn-primary btn-sm" id="btnSave">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('product.index', ['estate_type_id' => $estate_type_id, 'type' => $type])}}">Hủy</a>
             </div>
             
         </div>
@@ -356,8 +379,8 @@
       </div>
       <div style="clear:both"></div>
       <div class="modal-footer" style="text-align:center">
-        <button type="button" class="btn btn-primary" id="btnSaveTagAjax"> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseModalTag">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnSaveTagAjax"> Save</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="btnCloseModalTag">Close</button>
       </div>
       </form>
     </div>

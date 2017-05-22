@@ -15,7 +15,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('loai-thuoc-tinh.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('loai-thuoc-tinh.index') }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('loai-thuoc-tinh.update') }}">
     <div class="row">
       <!-- left column -->
@@ -64,8 +64,8 @@
             </div>           
             <input type="hidden" name="id" value="{{ $detail->id }}">
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('loai-thuoc-tinh.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('loai-thuoc-tinh.index')}}">Hủy</a>
             </div>
             
         </div>

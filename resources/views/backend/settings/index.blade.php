@@ -78,7 +78,7 @@
                     
                     <input type="file" id="file-logo" style="display:none" />
                  
-                    <button class="btn btn-default" id="btnUploadLogo" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm" id="btnUploadLogo" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>
@@ -90,7 +90,7 @@
                     
                     <input type="file" id="file-favicon" style="display:none" />
                  
-                    <button class="btn btn-default" id="btnUploadFavicon" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm" id="btnUploadFavicon" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>
@@ -102,7 +102,7 @@
                     
                     <input type="file" id="file-banner" style="display:none" />
                  
-                    <button class="btn btn-default" id="btnUploadBanner" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm" id="btnUploadBanner" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>
@@ -110,7 +110,7 @@
                  
             </div>                        
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>         
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>         
             </div>
             
         </div>

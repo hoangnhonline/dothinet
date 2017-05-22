@@ -30,7 +30,7 @@
               <label for="name">Email :</label>
               <input type="text" class="form-control" name="email" value="{{ $email }}">
             </div>
-            <button type="submit" class="btn btn-default">Lọc</button>
+            <button type="submit" class="btn btn-default btn-sm">Lọc</button>
           </form>         
         </div>
       </div>

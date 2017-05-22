@@ -39,5 +39,10 @@ class Articles extends Model  {
                             'meta_id', 
                             'created_user', 
                             'updated_user'];
-    
+    public static function getListTag($id){
+        $query = TagObjects::where(['object_id' => $id, 'tag_objects.type' => 2])
+            ->join('tag', 'tag.id', '=', 'tag_objects.tag_id')            
+            ->get();
+        return $query;
+   }
 }

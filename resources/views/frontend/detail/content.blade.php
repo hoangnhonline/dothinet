@@ -9,7 +9,7 @@
 	    </div><!-- /cate-news-detail-location -->
 	    <ul class="cate-news-detail-price">
 			<li>Giá: <span>{{ $detail->price }} {{ Helper::getName($detail->price_unit_id, 'price_unit')}}</span></li>
-			<li>Diện tích: <span>{{ $detail->area }}</span></li>
+			<li>Diện tích: <span>{{ $detail->area }} m<sub>2</sub></span></li>
 	    </ul><!-- /cate-news-detail-price -->
 	    <hr>
 	    <div class="cate-news-detail-desc">
@@ -22,7 +22,7 @@
 		 	<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a class="imgdetail" href="#home" aria-controls="home" role="tab" data-toggle="tab">Hình ảnh</a></li>
-				<li role="presentation"><a class="mapdetail" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Bản đồ</a></li>
+				<li role="presentation"><a class="mapdetail" href="#profile" aria-controls="profile" role="tab" data-toggle="tab" onclick="initAutocomplete();">Bản đồ</a></li>
 			</ul>
 		 	<!-- Tab panes -->
 			<div class="tab-content">
@@ -44,7 +44,7 @@
 				</div>
 				<div role="tabpanel" class="tab-pane" id="profile">
 					<div class="block-map">
-						<object class="mymap" data="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126263.60819855973!2d-84.44808690325613!3d33.735934882617194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDQ0JzQ1LjQiTiA4NMKwMjMnMzUuMyJX!5e0!3m2!1svi!2s!4v1475105845390"></object>
+						<div id="map-abc" style="height:400px;clear:both;width:100%"></div>
 					</div>
 				</div>
 			</div>
@@ -97,13 +97,20 @@
 	    			</tr>
 	    		</table>
 	    	</div>
-	    </div><!-- /block-detail-info -->
-	    <div class="block-share">
-	    	<a href="#" class="btn btn-success"><i class="fa fa-print"> In tin này</i></a>
-	    	<a href="#" class="btn btn-success"><i class="fa fa-save"> Lưu tin</i></a>
-	    </div>
+	    </div><!-- /block-detail-info -->	    
 	</article><!-- /block-cate-news-detail -->
-
+	@if($tagSelected)
+	<?php $countTag = count($tagSelected);?>
+	<article class="block block-news-with-region">
+		<u>Tags</u>:
+		<?php $i = 0; ?>
+		@foreach($tagSelected as $tag)
+		<?php $i++; ?>
+		<a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a>@if($i< $countTag), @endif
+		@endforeach		
+	</article>
+	@endif
+	@if($otherList)
 	<article class="block block-news-with-region">
 		<div class="block-title block-title-common">
 			<h3><span class="icon-tile"><i class="fa fa-th-list"></i></span> TIN RAO CÙNG KHU VỰC</h3>
@@ -111,353 +118,81 @@
 		<div class="block-contents">
 			<div class="news-with-region-list">
 				<div class="row">
+					@foreach($otherList as $product)
 					<div class="col-sm-6 col-xs-12">
 						<div class="news-with-region-item clearfix">
 							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
+								<a href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}" title="{{ $product->title }}">{{ $product->title }}</a>
 							</div>
 							<div class="news-with-region-content">
 								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
+									<a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" ></a>
 								</div>
 								<div class="news-with-region-info">
 									<p>
 			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
+			                            <span>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</span>
 			                        </p>
 			                        <p>
 			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
+			                            {{ $product->area }} m<sub>2</sub>
 			                        </p>
 			                        <p>
 			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
+			                            {{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}
 			                        </p>
 								</div>
 							</div>
 						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-				</div>
-				<a href="#" title="" class="viewall">
-					<span class="glyphicon glyphicon-share-alt"></span>
-					<i>Xem tất cả</i>
-				</a>
+					</div><!-- /col-sm-6 col-xs-12 -->					
+					@endforeach
+				</div>				
 			</div>
 		</div>
 	</article><!-- /block-news-with-region -->
-
-	<article class="block block-news-with-region">
-		<div class="block-title block-title-common">
-			<h3><span class="icon-tile"><i class="fa fa-th-list"></i></span> TIN RAO CÙNG KHOẢNG GIÁ</h3>
-		</div>
-		<div class="block-contents">
-			<div class="news-with-region-list">
-				<div class="row">
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<p>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </p>
-			                        <p>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </p>
-			                        <p>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </p>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-					<div class="col-sm-6 col-xs-12">
-						<div class="news-with-region-item clearfix">
-							<div class="news-with-region-title">
-								<a href="#" title="">Cho thuê nhà mặt phố Trần Khát Chân, 40m2, mặt tiền 4m</a>
-							</div>
-							<div class="news-with-region-content">
-								<div class="news-with-region-img">
-									<a href="#" title=""><img src="images/with-region/20170327191629-dd4e.jpg" alt=""></a>
-								</div>
-								<div class="news-with-region-info">
-									<div>
-			                            <label>Giá:</label>
-			                            <span>Thỏa thuận</span>
-			                        </div>
-			                        <div>
-			                            <label>Diện tích:</label>
-			                            40&nbsp;m²
-			                        </div>
-			                        <div>
-			                            <label>Vị trí:</label>
-			                            Hai Bà Trưng - Hà Nội
-			                        </div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /col-sm-6 col-xs-12 -->
-				</div>
-				<a href="#" title="" class="viewall">
-					<span class="glyphicon glyphicon-share-alt"></span>
-					<i>Xem tất cả</i>
-				</a>
-			</div>
-		</div>
-	</article><!-- /block-news-with-region -->
-	
+	@endif
 </section><!-- /block-site-left -->
 
 @endsection
 @section('javascript_page')
-<script src="{{ URL::asset('assets/vendor/zoom/jquery.zoom.min.js') }}"></script>
-<!-- Js bxslider -->
-<script src="{{ URL::asset('assets/vendor/bx-slider/jquery.bxslider.min.js') }}"></script>
-<!-- Countdown -->
-<script src="{{ URL::asset('assets/vendor/countdown/jquery.countdown.min.js') }}"></script>
-<script src="{{ URL::asset('assets/js/updown.js') }}"></script>
+<script>
+
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      <?php 
+      $latt = $detail->latt ? $detail->latt : '10.7860332';
+      $longt = $detail->longt ? $detail->longt : '106.6950147';      
+      ?>
+      function initAutocomplete() {
+      	
+        var myLatLng = {lat: {{ $latt }}, lng: {{ $longt }} };
+
+        var map = new google.maps.Map(document.getElementById('map-abc'), {
+          zoom: 17,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map          
+        });
+        map.panTo(marker.getPosition());
+        $("a[href='#profile']").on('shown.bs.tab', function(){
+		  google.maps.event.trigger(map, 'resize');
+		  	map.panTo(marker.getPosition());
+			map.setZoom(17);
+		});
+      	   
+            
+      }
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhxs7FQ3DcyDm8Mt7nCGD05BjUskp_k7w&libraries=places&callback=initAutocomplete"
+         async defer></script>
 <script type="text/javascript">
  $(document).ready(function () {
     $('.bxslider .item').each(function () {
@@ -489,6 +224,15 @@
 			$this.html(event.strftime(fomat));
 		});
 	});
+	$('.bxslider').bxSlider({
+		pagerCustom: '#bx-pager',
+		pager: true,
+	});
+	$('.slide-detail').bxSlider({
+		pagerCustom: '#bx-pager-detail',
+		pager: true,
+	});
+
 });
 
 </script>

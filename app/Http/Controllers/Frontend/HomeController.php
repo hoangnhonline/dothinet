@@ -23,6 +23,8 @@ use App\Models\ArticlesCate;
 use App\Models\Customer;
 use App\Models\Newsletter;
 use App\Models\PriceRange;
+use App\Models\Price;
+use App\Models\Area;
 use App\Models\Settings;
 
 use Helper, File, Session, Auth, Hash;
@@ -72,7 +74,7 @@ class HomeController extends Controller
         return view('frontend.home.ajax-slider');
     }
     public function index(Request $request)
-    {    
+    {  
         $productArr = [];
         $hoverInfo = [];
         $loaiSp = EstateType::where('status', 1)->get();
@@ -80,6 +82,7 @@ class HomeController extends Controller
         $articlesArr = Articles::where(['cate_id' => 1])->orderBy('id', 'desc')->get();
         $hotProduct = Product::where('product.slug', '<>', '')
                     ->where('product.type', 1)
+                    ->where('product.status', 1)
                     ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
                     ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
                     ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
@@ -88,6 +91,7 @@ class HomeController extends Controller
                     ->orderBy('product.id', 'desc')->limit(10)->get();
         $hotProduct2 = Product::where('product.slug', '<>', '')
                     ->where('product.type', 2)
+                    ->where('product.status', 1)
                     ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
                     ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')      
                     ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')
@@ -108,7 +112,10 @@ class HomeController extends Controller
         $tuvanluat = Articles::where('cate_id', 5)->limit(6)->get()->toArray();
         $khonggiansong = Articles::where('cate_id', 1)->limit(6)->get()->toArray();
         
-        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy', 'tinRandom','hotProduct2'));
+        $priceList = Price::where('type', 1)->get();
+        $areaList = Area::all();
+
+        return view('frontend.home.index', compact('bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'hotProduct', 'tinThiTruong', 'tuvanluat', 'khonggiansong', 'phongthuy', 'tinRandom','hotProduct2', 'priceList', 'areaList'));
 
     }
 

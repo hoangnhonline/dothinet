@@ -43,7 +43,7 @@ class CompareController extends Controller
             $query->where('product.cate_id', $cate_id);
         }       
         if( $name != ''){
-            $query->where('product.name', 'LIKE', '%'.$name.'%');
+            $query->where('product.title', 'LIKE', '%'.$name.'%');
             $query->orWhere('name_extend', 'LIKE', '%'.$name.'%');
         }        
         $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');

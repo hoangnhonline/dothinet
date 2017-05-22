@@ -9,19 +9,34 @@
 <!--<![endif]-->
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Trang Chủ</title>
-	<meta name="description" content="">	
-	<meta name="keywords" content="">
-	<meta name="robots" content="index,follow" />
-	<meta name="csrf-token" content="{{ csrf_token() }}" />
-	<link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}" type="image/x-icon">
+	<title>@yield('title')</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index,follow"/>
+    <meta http-equiv="content-language" content="en"/>
+    <meta name="description" content="@yield('site_description')"/>
+    <meta name="keywords" content="@yield('site_keywords')"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    <link rel="shortcut icon" href="@yield('favicon')" type="image/x-icon"/>
+    <link rel="canonical" href="{{ url()->current() }}"/>        
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@yield('title')" />
+    <meta property="og:description" content="@yield('site_description')" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:site_name" content="iCho.vn" />
+    <?php $socialImage = isset($socialImage) ? $socialImage : $settingArr['banner']; ?>
+    <meta property="og:image" content="{{ Helper::showImage($socialImage) }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="@yield('site_description')" />
+    <meta name="twitter:title" content="@yield('title')" />        
+    <meta name="twitter:image" content="{{ Helper::showImage($socialImage) }}" />
 	<link rel="icon" href="{{ URL::asset('assets/images/favicon.ico') }}" type="image/x-icon">
 	<!-- ===== Style CSS Common ===== -->
 	<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/style.css') }}">
 	<!-- ===== Responsive CSS ===== -->
     <link href="{{ URL::asset('assets/css/responsive.css') }}" rel="stylesheet">
+      <link rel="stylesheet" href="{{ URL::asset('backend/dist/css/sweetalert2.min.css') }}">  
     
     <!-- HTML5 Shim and Respond.js') }} IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js') }} doesn't work if you view the page via file:// -->
@@ -62,13 +77,23 @@
 	                    <img src="https://imgholder.ru/204x90/0082D5/fff.jpg&text=My+Logo&font=tahoma&fz=27" alt="">
 	                </a>
 	            </div>
-	            <div class="banner_adv" id="Banner_dothi" style="display: none;">
-	               <a href="#" target="_blank">
-	                    <img src="{{ URL::asset('assets/images/adv/Banxehoi.com_Bannertop_728x90.gif') }}"></a>
-	            </div>
+	            <?php 
+				$bannerArr = DB::table('banner')->where(['object_id' => 4, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+				?>	           
 	            <div class="banner_adv" id="Banner_tet" style="display: block;">
-	                <a href="#" target="_blank">
-	                    <img src="{{ URL::asset('assets/images/adv/Banxehoi.com_Bannertop_728x90.gif') }}"></a>
+
+				@foreach($bannerArr as $banner)
+
+	                @if($banner->ads_url !='')
+					<a href="{{ $banner->ads_url }}">
+					@endif
+	                    <img src="{{ Helper::showImage($banner->image_url) }}"></a>
+
+	                 @if($banner->ads_url !='')
+					</a>
+					@endif
+
+	            @endforeach
 	            </div>
 	        </div>
 	    </div>
@@ -108,15 +133,14 @@
 					@foreach($articleCate as $value)
 					<li class="level0 {{ isset($cateDetail) && $cateDetail->id == $value->id ? "active" : "" }}"><a href="{{ route('news-list', $value->slug) }}">{{ $value->name }}</a></li>
 					@endforeach
-					<li class="level0"><a href="#">Dự án</a></li>
-					<li class="level0 postnew"><a href="#"><img src="{{ URL::asset('assets/images/icon-postnews.png') }}" alt=""> Đăng tin</a></li>
+					<li class="level0"><a href="{{ route('du-an') }}">Dự án</a></li>
+					<li class="level0 postnew"><a href="{{ route('ky-gui') }}"><img src="{{ URL::asset('assets/images/icon-postnews.png') }}" alt="Ký gửi"> Ký gửi</a></li>
 				</ul>
 			</div><!-- /.navbar-collapse -->
         </div>
 	</nav><!-- /navigation -->
 
 	@yield('slider')
-
 	
 	@yield('search')
 
@@ -150,64 +174,31 @@
 						<div class="block-contents block-contents2">
 							<ul class="block-list-sidebar block-slide-sidebar">
 								<div class="bxslider">
+								@if($landingList)
+									@foreach($landingList as $value)
 									<div class="large-item">
-		                                <a href="#" title=""><img src="{{ URL::asset('assets/images/news-slide/large1.jpg') }}" alt="" /></a>
-		                                <h4><a href="#" title="">Monada Khang Điền</a></h4>
-		                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
+		                                <a href="{{ route('detail-project', [$value->slug, $value->id])}}" title=""><img src="{{ $value->image_url ? Helper::showImageThumb($value->image_url, 3, '306x194') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" /></a>
+		                                <h4><a href="{{ route('detail-project', [$value->slug, $value->id])}}" title="">{{ $value->name }}</a></h4>
+		                                <p>{{ $value->address }}</p>
 		                            </div>
-									<div class="large-item">
-		                                <a href="#" title=""><img src="{{ URL::asset('assets/images/news-slide/large2.jpg') }}" alt="" /></a>
-		                                <h4><a href="#" title="">Monada Khang Điền</a></h4>
-		                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-		                            </div>
-		                            <div class="large-item">
-		                                <a href="#" title=""><img src="{{ URL::asset('assets/images/news-slide/large3.jpg') }}" alt="" /></a>
-		                                <h4><a href="#" title="">Monada Khang Điền</a></h4>
-		                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-		                            </div>
-		                            <div class="large-item">
-		                                <a href="#" title=""><img src="{{ URL::asset('assets/images/news-slide/large4.jpg') }}" alt="" /></a>
-		                                <h4><a href="#" title="">Monada Khang Điền</a></h4>
-		                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-		                            </div>
+		                            @endforeach
+		                        @endif
 								</div>
 								<div id="bx-pager" class="bx-thumbnail">
+									@if($landing2List)
+									@foreach($landing2List as $value)
 									<div class="item">
 										<div class="item-child">
-				                            <a data-slide-index="0" class="slide_title" href="#" title=""><img class="avatar" src="{{ URL::asset('assets/images/news-slide/thumb1.jpg') }}" alt="" /></a>
+				                            <a data-slide-index="0" class="slide_title" onclick="location.href='{{ route('detail-project', [$value->slug, $value->id])}}'" href="{{ route('detail-project', [$value->slug, $value->id])}}" title=""><img class="avatar" src="{{ $value->image_url ? Helper::showImageThumb($value->image_url, 3, '306x194') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="" /></a>
 				                            <div class="slide_info">
-				                                <a href="#" title="">Monada Khang Điền</a>
-				                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
+				                                <a  onclick="location.href='{{ route('detail-project', [$value->slug, $value->id])}}'" href="{{ route('detail-project', [$value->slug, $value->id])}}" title="">{{ $value->name }}</a>
+				                                <p>{{ $value->address }}</p>
 				                            </div>
 			                            </div>
 			                        </div>
-			                        <div class="item">
-			                        	<div class="item-child">
-				                            <a data-slide-index="1" class="slide_title" href="#" title=""><img class="avatar" src="{{ URL::asset('assets/images/news-slide/thumb2.jpg') }}" alt="" /></a>
-				                            <div class="slide_info">
-				                                <a href="#" title="">Monada Khang Điền</a>
-				                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-				                            </div>
-			                            </div>
-			                        </div>
-			                        <div class="item">
-			                        	<div class="item-child">
-				                            <a data-slide-index="2" class="slide_title" href="#" title=""><img class="avatar" src="{{ URL::asset('assets/images/news-slide/thumb3.jpg') }}" alt="" /></a>
-				                            <div class="slide_info">
-				                                <a href="#" title="">Monada Khang Điền</a>
-				                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-				                            </div>
-				                        </div>
-			                        </div>
-			                        <div class="item">
-			                        	<div class="item-child">
-				                            <a data-slide-index="3" class="slide_title" href="#" title=""><img class="avatar" src="{{ URL::asset('assets/images/news-slide/thumb4.jpg') }}" alt="" /></a>
-				                            <div class="slide_info">
-				                                <a href="#" title="">Monada Khang Điền</a>
-				                                <p>Đường 990, phường Phú Hữu, quận 9, Tp.HCM</p>
-				                            </div>
-			                           	</div>
-			                        </div>
+			                        @endforeach
+			                        @endif			                       
+			                        
 								</div>
 							</ul>
 						</div>
@@ -219,21 +210,10 @@
 						</div>
 						<div class="block-contents">
 							<ul class="block-list-sidebar block-icon1-title">
-								<li><h4><a href="#" title="">Bán đất nền Quận Phú Nhuận</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền Quận 9</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền phường An Phú Đông</a></h4></li>
-								<li><h4><a href="#" title="">Bán Đất nền Phú Quốc</a></h4></li>
-								<li><h4><a href="#" title="">Bán chung cư Goldsilk Complex</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền Bình Dương</a></h4></li>
-								<li><h4><a href="#" title="">Bán chung cư Quận Bắc Từ Liêm</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền Huyện Bến Cát</a></h4></li>
-								<li><h4><a href="#" title="">Bán liền kề phường Phú Hữu</a></h4></li>
-								<li><h4><a href="#" title="">Bán đất nền Quận 2</a></h4></li>
-								<li><h4><a href="#" title="">Bán chung cư quận Bình Tân</a></h4></li>
-							</ul>
-							<div class="clearfix block-viewall">
-								<a href="#" title=""><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Xem tất cả</a>
-							</div>
+								@foreach($customLink as $link)
+								<li><h4><a href="{{ $link->link_url }}" title="{{ $link->link_text }}">{{ $link->link_text }}</a></h4></li>
+								@endforeach
+							</ul>							
 						</div>
 					</article><!-- /block-news-sidebar -->
 				</section><!-- /block-site-right -->
@@ -291,31 +271,47 @@
 	    	</div> -->
 	    </div>
 	</footer><!-- /footer -->
-
+	<?php 
+	$bannerArr = DB::table('banner')->where(['object_id' => 2, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+	?>
+	@if($bannerArr)
 	<div id="advLeft">
 		<div class="banner_scroll" id="banner_left">
-			<div class="item">
-				<a id="ban_l16" href="#" rel="nofollow" target="_blank" style="width: 100px; display: block;">
-                    <img src="{{ URL::asset('assets/images/adv/banner-dothi-apps-100x300.gif') }}">
-                </a>
-				<a id="ban_l17" href="#" rel="nofollow" target="_blank" style="width: 100px; display: block;">
-                    <img src="{{ URL::asset('assets/images/adv/Banxehoi.com_Baner truot_100x300.gif') }}">
-                </a>
+			<div class="item">				
+				@foreach($bannerArr as $banner)				
+				@if($banner->ads_url !='')
+				<a id="ban_116" href="{{ $banner->ads_url }}" target="_blank" style="width: 100px; display: block;">
+				@endif				
+                    <img src="{{ Helper::showImage($banner->image_url) }}">
+                @if($banner->ads_url !='')
+				</a>
+				@endif
+				@endforeach
 			</div>
 		</div>
 	</div><!-- /AdvLeft -->
+	@endif
+	<?php 
+	$bannerArr = DB::table('banner')->where(['object_id' => 3, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+	?>
+	@if($bannerArr)
 	<div id="advRight">
 		<div class="banner_scroll" id="banner_right">
 			<div class="item">
-				<a id="ban_l18" href="#" rel="nofollow" target="_blank" style="width: 100px; display: block;">
-                    <img src="{{ URL::asset('assets/images/adv/cq-NA-HuongNT-161028-dt-100x300.gif') }}">
-                </a>
-				<a id="ban_l19" href="#" rel="nofollow" target="_blank" style="width: 100px; display: block;">
-                    <img src="{{ URL::asset('assets/images/adv/banner-cdc-2704-100x300.gif') }}">
-                </a>
+				@foreach($bannerArr as $banner)				
+				@if($banner->ads_url !='')
+				<a id="ban_117" href="{{ $banner->ads_url }}" target="_blank" style="width: 100px; display: block;">
+				@endif				
+                    <img src="{{ Helper::showImage($banner->image_url) }}">
+                @if($banner->ads_url !='')
+				</a>
+				@endif
+				@endforeach
 			</div>
 		</div>
 	</div><!-- /Advight -->
+	@endif
+	
 
 	<a id="return-to-top" class="td-scroll-up" href="javascript:void(0)">
   		<i class="fa fa-angle-up" aria-hidden="true"></i>
@@ -335,6 +331,7 @@
 	<!-- ===== JS Bootstrap Select ===== -->
 	<script src="{{ URL::asset('assets/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 	<!-- Js Common -->
+	<script src="{{ URL::asset('backend/dist/js/sweetalert2.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/common.js') }}"></script>
 	@yield('javascript_page')
 	<script type="text/javascript">

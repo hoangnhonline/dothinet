@@ -15,13 +15,13 @@
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('user-work.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('user-work.index') }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('user-work.update') }}">
     <input type="hidden" name="id" value="{{ $detail->id }}">
     <div class="row">
       <!-- left column -->
 
-      <div class="col-md-7">
+      <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
@@ -59,6 +59,7 @@
                   <label>Nhận xét</label>
                   <textarea class="form-control" rows="4" name="leader_comment" id="leader_comment">{{ old('leader_comment', $detail->leader_comment) }}</textarea>
                 </div>
+                <input type="hidden" id="editor" value="leader_comment">
                 @else
                 <div class="form-group" >
                   
@@ -76,8 +77,8 @@
             </div>          
           
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('user-work.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" href="{{ route('user-work.index')}}">Hủy</a>
             </div>
                 
             
@@ -85,7 +86,7 @@
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
        
          
 

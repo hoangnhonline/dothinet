@@ -15,11 +15,15 @@ class Helper
     public static function getChild($table, $column, $parent_id){
         $listData = DB::table($table)->where($column, $parent_id)->get();
         if($table == 'ward'){
-            echo "<option class='option-lv0' selected='selected'>Phường/Xã</option>";
+            echo '<option value="">Phường/Xã</option>';
         }elseif($table == 'street'){
-            echo "<option class='option-lv0' selected='selected'>Đường/Phố</option>";
-        }else{
-             echo "<option class='option-lv0' selected='selected'>Dự án</option>";
+            echo '<option value="">Đường/Phố</option>';
+        }elseif($table == "estate_type"){
+             echo '<option value="">Loại bất động sản</option>';
+        }elseif($table == 'price'){
+            echo '<option value="">Mức giá</option>';
+        }else{            
+            echo '<option value="">Dự án</option>';
         }
         if(!empty(  (array) $listData  )){
             
@@ -36,12 +40,14 @@ class Helper
     }
     public static function showImageThumb($image_url, $object_type = 1, $folder = ''){             
         // type = 1 : original 2 : thumbs
-        //object_type = 1 : product, 2 :article                
+        //object_type = 1 : product, 2 :article  3: project             
         if(strpos($image_url, 'http') === false){
             if($object_type == 1){
                 return config('icho.upload_url') . 'thumbs/' . $folder. '/' . $image_url;
-            }else{
+            }elseif($object_type == 2){
                 return config('icho.upload_url') . 'thumbs/articles/'. $folder. '/' . $image_url;
+            }else{
+                return config('icho.upload_url') . 'thumbs/projects/'. $folder. '/' . $image_url;
             }    
         }else{
             return $image_url;
@@ -369,6 +375,8 @@ class Helper
         $str = str_replace(".", "", $str);
         $str = str_replace(".", "", $str);
         $str = str_replace("%", "", $str);
+        $str = str_replace("“", "", $str);
+        $str = str_replace("”", "", $str);
         return $str;
     }
 
