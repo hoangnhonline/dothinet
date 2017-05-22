@@ -8,7 +8,7 @@ if(!isset($project_id)){
 ?>
 <section class="block-slider-home">
 @if($bannerArr)
-	<div class="owl-carousel dotsData owl-style2" data-nav="true" data-margin="0" data-items='1' data-autoplayTimeout="700" data-autoplay="false" data-loop="true">
+	<div class="owl-carousel dotsData owl-style2" data-nav="true" data-margin="0" data-items='1' data-autoplayTimeout="700" data-autoplay="true" data-loop="true">
 		<?php $i = 0; ?>
 		@foreach($bannerArr as $banner)
 		 <?php $i++; ?>
