@@ -45,3 +45,4 @@
 	</div>
 </article><!-- /block-project -->
 </section>
+@endsection
