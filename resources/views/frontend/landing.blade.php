@@ -71,8 +71,8 @@
 		<div class="header-logo">
 	        <div class="container">
 	            <div class="logo">
-	                <a href="/" title="Đô thị">
-	                    <img src="https://imgholder.ru/204x90/0082D5/fff.jpg&text=My+Logo&font=tahoma&fz=27" alt="">
+	                <a href="{{ route('home') }}" title="Đô thị">
+	                	<img src="{{ URL::asset('assets/images/logo.jpg') }}" alt="">	                   
 	                </a>
 	            </div>
 	            <div class="banner_adv" id="Banner_dothi" style="display: none;">
