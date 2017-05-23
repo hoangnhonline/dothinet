@@ -205,6 +205,14 @@
                             @endif
                           </select>                       
                         </div>
+                        <div class="form-group col-md-12">
+                          <div class="checkbox">
+                            <label style="color:red; font-weight:bold">
+                              <input type="checkbox" name="is_hot" value="1" {{ old('is_hot', $detail->is_hot) == 1 ? "checked" : "" }}>
+                              Tin HOT
+                            </label>
+                          </div>               
+                        </div>
                         <div class="form-group col-md-4 none-padding" >
                             <div class="checkbox">
                               <label>

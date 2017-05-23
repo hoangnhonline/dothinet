@@ -28,7 +28,11 @@
 									<div class="news-new-item-head"><a href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img title="{{ $product->title }}" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{{ $product->title }}"></a></div>
 									<div class="news-new-item-description">
 										<h4>
-											<a class="description-title vip1" title="{{ $product->title }}" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><i class="vipdb fa fa-star"></i> {{ $product->title }} </a></h4>
+											<a class="description-title vip1" title="{{ $product->title }}" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><i class="vipdb fa fa-star"></i> {{ $product->title }} @if( $product->is_hot == 1 )
+							                  <img src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
+							                  @endif</a>
+											
+											</h4>
                 						<div class="description-info">
                 							<div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
 				                            <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }} m<sub>2</sub></div>

@@ -35,7 +35,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;   
+        $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1; 
+        $arrSearch['is_hot'] = $is_hot = isset($request->is_hot) ? $request->is_hot : null;   
         $arrSearch['cart_status'] = $cart_status = isset($request->cart_status) ? $request->cart_status : [1,2,3];     
         $arrSearch['type'] = $type = isset($request->type) ? $request->type : 1;
         $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
@@ -64,6 +65,9 @@ class ProductController extends Controller
         if( $ward_id ){
             $query->where('product.ward_id', $ward_id);
         }
+        if( $is_hot ){
+            $query->where('product.is_hot', $is_hot);
+        }
         if( $project_id ){
             $query->where('product.project_id', $project_id);
         }
@@ -77,6 +81,9 @@ class ProductController extends Controller
         $query->join('city', 'city.id', '=', 'product.city_id');        
         $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id'); 
         $query->join('estate_type', 'product.estate_type_id', '=','estate_type.id'); 
+        if($is_hot == 1){
+            $query->orderBy('product.display_order', 'asc'); 
+        }
         $query->orderBy('product.cart_status', 'asc'); 
         $query->orderBy('product.id', 'desc');   
         $items = $query->select(['product_img.image_url as image_urls','product.*', 'estate_type.slug as slug_loai'])->paginate(50);
@@ -88,8 +95,9 @@ class ProductController extends Controller
         $wardList = Ward::where('district_id', $district_id)->get();
         $streetList = Street::where('district_id', $district_id)->get();
         $projectList = Project::where('district_id', $district_id)->get();
-        return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));
+        return view('backend.product.index', compact( 'items', 'arrSearch', 'cityList', 'estateTypeArr', 'districtList', 'wardList', 'streetList', 'projectList'));        
     }
+
     public function kygui(Request $request)
     {
 
@@ -102,8 +110,7 @@ class ProductController extends Controller
         $arrSearch['project_id'] = $project_id = isset($request->project_id) ? $request->project_id : null;
         $arrSearch['street_id'] = $street_id = isset($request->street_id) ? $request->street_id : null;
 
-        $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
-        
+        $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';       
 
 
         $query = Product::where('product.status', 2);
@@ -152,6 +159,19 @@ class ProductController extends Controller
         $district_id = $request->district_id;
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
         return view('backend.product.ajax-get-tien-ich', compact( 'tienIchLists'));   
+    }
+    public function saveOrderHot(Request $request){
+        $data = $request->all();
+        if(!empty($data['display_order'])){
+            foreach ($data['display_order'] as $id => $display_order) {
+                $model = Product::find($id);
+                $model->display_order = $display_order;
+                $model->save();
+            }
+        }
+        Session::flash('message', 'Cập nhật thứ tự tin HOT thành công');
+
+        return redirect()->route('product.index', ['estate_type_id' => $data['estate_type_id'], 'type' => $data['type'], 'is_hot' => 1]);
     }
     public function ajaxSearch(Request $request){    
         $search_type = $request->search_type;
@@ -248,7 +268,7 @@ class ProductController extends Controller
         $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
         $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
-
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
         $dataArr['status'] = 1;
         $dataArr['created_user'] = Auth::user()->id;
         $dataArr['updated_user'] = Auth::user()->id;      
@@ -470,6 +490,8 @@ class ProductController extends Controller
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
         $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
         $dataArr['city_id'] = 1;
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
+
         $model = Product::find($dataArr['id']);
 
         $model->update($dataArr);

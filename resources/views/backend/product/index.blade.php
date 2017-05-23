@@ -58,6 +58,14 @@
               
             </div>
               <div class="form-group">
+                <div class="checkbox">
+                  <label style="color:red; font-weight:bold">
+                    <input type="checkbox" name="is_hot" id="is_hot" value="1" {{ $arrSearch['is_hot'] == 1 ? "checked" : "" }}>
+                    Tin HOT
+                  </label>
+                </div>               
+              </div>
+              <div class="form-group">
               <select class="form-control" name="estate_type_id" id="estate_type_id">
                 <option value="">--Danh mục--</option>
                 @foreach( $estateTypeArr as $value )
@@ -110,79 +118,102 @@
           <div style="text-align:center">
            {{ $items->appends( $arrSearch )->links() }}
           </div>  
-          <table class="table table-bordered" id="table-list-data">
-            <tr>
-              <th style="width: 1%">#</th>
-              <th width="100px">Hình ảnh</th>
-              <th style="text-align:center">Thông tin sản phẩm</th>
-              <th width="120px">Trạng thái</th>                              
-              <th width="1%;white-space:nowrap">Thao tác</th>
-            </tr>
-            <tbody>
-            @if( $items->count() > 0 )
-              <?php $i = 0; ?>
-              @foreach( $items as $item )
-                <?php $i ++; 
+          @if($arrSearch['is_hot'] == 1)
+          <form method="post" action={{ route('product.save-order-hot')}} >
+            {{ csrf_field() }}
+          
+            <button type="submit" class="btn btn-warning btn-sm">Save thứ tự</button>
+            <input type="hidden" name="estate_type_id" value="{{ $arrSearch['estate_type_id']}}">
+            <input type="hidden" name="type" value="{{ $arrSearch['type']}}">
+            <input type="hidden" name="is_hot" value="1">
+          @endif
 
-                ?>
-              <tr id="row-{{ $item->id }}">
-                <td><span class="order">{{ $i }}</span></td>
-                
-                <td>
-                  <img class="img-thumbnail lazy" width="80" data-original="{{ $item->image_urls ? Helper::showImage($item->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="Nổi bật" title="Nổi bật" />
+            <table class="table table-bordered" id="table-list-data">
+              <tr>
+                <th style="width: 1%">#</th>
+                @if($arrSearch['is_hot'] == 1)
+                <td width="120px">
+                  Thứ tự
                 </td>
-                <td>                  
-                  <a style="color:{{ $item->cart_status == 1 ? "#444" : "red" }};font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a> <br />
-                  <strong style="color:#337ab7;font-style:italic"> {{ Helper::getName($item->estate_type_id, 'estate_type') }}</strong>
-                  <p>
-                    @if($item->street_id > 0)
-                    {{ Helper::getName($item->street_id, 'street') }},&nbsp;
-                    @endif
-                    @if($item->ward_id > 0)
-                    {{ Helper::getName($item->ward_id, 'ward') }},&nbsp;
-                    @endif
-                    @if($item->district_id > 0)
-                    {{ Helper::getName($item->district_id, 'district') }},&nbsp;
-                    @endif
-                    @if($item->city_id > 0)
-                    {{ Helper::getName($item->city_id, 'city') }}
-                    @endif
+                @endif
+                <th width="100px">Hình ảnh</th>
+                <th style="text-align:center">Thông tin sản phẩm</th>
+                <th width="120px">Trạng thái</th>                              
+                <th width="1%;white-space:nowrap">Thao tác</th>
+              </tr>
+              <tbody>
+              @if( $items->count() > 0 )
+                <?php $i = 0; ?>
+                @foreach( $items as $item )
+                  <?php $i ++; 
 
-                  </p>
-                 <p style="margin-top:10px">
-                    
-                    <b style="color:red">                  
-                    {{ ($item->price) }} {{ Helper::getName($item->price_unit_id, 'price_unit') }}
-                   </b>                    
-                  </p>
-                  
-                </td>
-                <td>                
-                  @if($item->type == 1)
-                    {{ $item->cart_status == 1 ? "Chưa bán" : "Đã bán" }}                  
-                  @else
-                    {{ $item->cart_status == 1 ? "Còn trống" : "Đã thuê" }}
+                  ?>
+                <tr id="row-{{ $item->id }}">
+                  <td><span class="order">{{ $i }}</span></td>
+                  @if($arrSearch['is_hot'] == 1)
+                  <td>
+                    <input type="text" value="{{ $item->display_order }}" name="display_order[{{$item->id}}]" style="width:80px" class="form-control" />
+                  </td>
                   @endif
-                </td>
-                <td style="white-space:nowrap; text-align:right">
-                  <a class="btn btn-default btn-sm" href="{{ route('chi-tiet', [$item->slug_loai, $item->slug, $item->id] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
-                  
-                  
-                  <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
+                  <td>
+                    <img class="img-thumbnail lazy" width="80" data-original="{{ $item->image_urls ? Helper::showImage($item->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="Nổi bật" title="Nổi bật" />
+                  </td>
+                  <td>                  
+                    <a style="color:{{ $item->cart_status == 1 ? "#444" : "red" }};font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a> 
+                    @if( $item->is_hot == 1 )
+                  <img class="img-thumbnail" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
+                  @endif <br />
+                    <strong style="color:#337ab7;font-style:italic"> {{ Helper::getName($item->estate_type_id, 'estate_type') }}</strong>
+                    <p>
+                      @if($item->street_id > 0)
+                      {{ Helper::getName($item->street_id, 'street') }},&nbsp;
+                      @endif
+                      @if($item->ward_id > 0)
+                      {{ Helper::getName($item->ward_id, 'ward') }},&nbsp;
+                      @endif
+                      @if($item->district_id > 0)
+                      {{ Helper::getName($item->district_id, 'district') }},&nbsp;
+                      @endif
+                      @if($item->city_id > 0)
+                      {{ Helper::getName($item->city_id, 'city') }}
+                      @endif
 
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                    </p>
+                   <p style="margin-top:10px">
+                      
+                      <b style="color:red">                  
+                      {{ ($item->price) }} {{ Helper::getName($item->price_unit_id, 'price_unit') }}
+                     </b>                    
+                    </p>
+                    
+                  </td>
+                  <td>                
+                    @if($item->type == 1)
+                      {{ $item->cart_status == 1 ? "Chưa bán" : "Đã bán" }}                  
+                    @else
+                      {{ $item->cart_status == 1 ? "Còn trống" : "Đã thuê" }}
+                    @endif
+                  </td>
+                  <td style="white-space:nowrap; text-align:right">
+                    <a class="btn btn-default btn-sm" href="{{ route('chi-tiet', [$item->slug_loai, $item->slug, $item->id] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
+                    <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
 
-                </td>
-              </tr> 
-              @endforeach
-            @else
-            <tr>
-              <td colspan="9">Không có dữ liệu.</td>
-            </tr>
-            @endif
+                    <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
 
-          </tbody>
-          </table>
+                  </td>
+                </tr> 
+                @endforeach
+              @else
+              <tr>
+                <td colspan="9">Không có dữ liệu.</td>
+              </tr>
+              @endif
+
+            </tbody>
+            </table>
+          @if($arrSearch['is_hot'] == 1)
+          </form>
+          @endif
           <div style="text-align:center">
            {{ $items->appends( $arrSearch )->links() }}
           </div>  
@@ -231,6 +262,9 @@ $(document).ready(function(){
   $('#estate_type_id, #type, #district_id, #ward_id, #cart_status').change(function(){    
     $('#searchForm').submit();
   });  
+  $('#is_hot').change(function(){
+    $('#searchForm').submit();
+  });
   $('#table-list-data tbody').sortable({
         placeholder: 'placeholder',
         handle: ".move",
