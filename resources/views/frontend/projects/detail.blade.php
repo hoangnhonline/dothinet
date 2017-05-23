@@ -233,3 +233,82 @@
 </section><!-- /block-main -->
 @endsection
 @include('frontend.home.slider')
+@section('javascript_page')
+<script type="text/javascript">
+	$(document).ready(function(){
+			$('ul.tabssssss li.tab-link').click(function(){
+				var tab_id = $(this).attr('data-tab');
+
+				$('ul.tabssssss li.tab-link').removeClass('active');
+				$('.tab-contents').removeClass('active');
+
+				$(this).addClass('active');
+				$("#"+tab_id).addClass('active');
+			});
+
+			$(function(){
+				// Determine the div width parent
+				var width = document.getElementById('nav-tabs-langding').offsetWidth;
+				// Determine the div width parent
+				var mainDiv = $('#nav-tabs-langding');
+				var childDivCount = mainDiv.find('li').length;
+				// Get width for li
+				var widthItem = width/childDivCount;
+				$('#nav-tabs-langding li').css("width", widthItem);
+				$('#nav-tabs-langding li').css("width", widthItem);
+		        if ($('#nav-tabs-langding').hasClass("fixed")) {
+		            $('#nav-tabs-langding li').css("width", widthItem);
+		        }
+		   });
+		});
+
+		$(window, document, undefined).ready(function() {
+			$('input , textarea').blur(function() {
+			var $this = $(this);
+			if ($this.val())
+		  		$this.addClass('used');
+			else
+		  		$this.removeClass('used');
+			});
+			var $ripples = $('.ripples');
+			$ripples.on('click.Ripples', function(e) {
+				var $this = $(this);
+				var $offset = $this.parent().offset();
+				var $circle = $this.find('.ripplesCircle');
+
+				var x = e.pageX - $offset.left;
+				var y = e.pageY - $offset.top;
+
+				$circle.css({
+					top: y + 'px',
+					left: x + 'px'
+				});
+				$this.addClass('is-active');
+			});
+			$ripples.on('animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd', function(e) {
+				$(this).removeClass('is-active');
+			});
+		});
+
+		$(function() {
+	        // Menu Page op5
+			$(".icon-bars-op5").on('click', function(){
+				$( this ).toggleClass('has-open');
+				$(".fix-tabs").toggleClass("has-open");
+				$("body").toggleClass("menu-open");
+			});
+			$(".block-in-res .sticky-wrapper.is-sticky .fix-tabs.has-open:after").click(function() {
+				alert("aaa");
+			});
+			$(".nav-tabs-langding li").click(function() {
+	            $('body,html').animate({
+	                scrollTop : 0
+	            }, 'slow');
+	            $(".icon-bars-op5").toggleClass("has-open");
+	            $(".fix-tabs").toggleClass("has-open");
+	            $("body").toggleClass("menu-open");
+	        });
+
+	    });
+</script>
+@endsection
