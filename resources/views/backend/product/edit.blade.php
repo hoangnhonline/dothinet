@@ -234,19 +234,19 @@
                         <div class="form-group col-md-4 none-padding" >
                             <div class="checkbox">
                               <label>
-                                <input type="radio" name="status" value="1" {{ old('status', $detail->status) == 1 ? "checked" : "" }}>
-                                Đã duyệt
-                              </label>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4 none-padding" >
-                            <div class="checkbox">
-                              <label>
                                 <input type="radio" name="status" value="2" {{ old('status', $detail->status) == 2 ? "checked" : "" }}>
                                 Chưa duyệt
                               </label>
                             </div>
                         </div> 
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="radio" name="status" value="1" {{ old('status', $detail->status) == 1 ? "checked" : "" }}>
+                                Đã duyệt
+                              </label>
+                            </div>
+                        </div>                        
                         <div class="form-group col-md-4 none-padding" ></div> 
                         <div class="clearfix"></div>                      
                         @endif
