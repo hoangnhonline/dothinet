@@ -247,7 +247,8 @@
                               </label>
                             </div>
                         </div> 
-                        <div class="form-group col-md-4 none-padding" ></div>                       
+                        <div class="form-group col-md-4 none-padding" ></div> 
+                        <div class="clearfix"></div>                      
                         @endif
                         <div class="input-group">
                           <label>Tags</label>
