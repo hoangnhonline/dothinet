@@ -6,7 +6,7 @@
 <div class="block block-langding" style="padding-top:10px">
 <div class="container">
 	<div class="block block-title">
-		<ul class="nav nav-tabs nav-tabs-langding" id="nav-tabs-langding" role="tablist">
+		<ul class="nav nav-tabs nav-tabs-langding fix-tabs" id="nav-tabs-langding" role="tablist">
 			<li role="presentation" >
 				<p class="tabs-item-logo">
 					<i class="icon">
