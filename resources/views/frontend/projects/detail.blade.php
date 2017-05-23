@@ -5,7 +5,8 @@
 <section class="block-main main"  id="site-main">
 <div class="block block-langding" style="padding-top:10px">
 <div class="container">
-	<div class="block block-title">
+	<div class="block block-title block-in-res">
+		<div class="icon-bars-op5"><i class="fa fa-bars"></i></div>  
 		<ul class="nav nav-tabs nav-tabs-langding fix-tabs" id="nav-tabs-langding" role="tablist">
 			<li role="presentation" >
 				<p class="tabs-item-logo">
