@@ -87,7 +87,7 @@ class DetailController extends Controller
         $no_room = $detail->no_room;
         $project_id = $detail->project_id;
         $direction_id = $detail->direction_id;
-        var_dump($price_id);
+
         return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList', 'tagSelected',
             'type',
             'estate_type_id',
