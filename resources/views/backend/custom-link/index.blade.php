@@ -4,11 +4,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Custom Link
+   {{ $name }}
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="{{ route( 'custom-link.index' ) }}">Custom Link</a></li>
+    <li><a href="{{ route( 'custom-link.index', ['block_id' => $block_id]) }}">{{ $name }}</a></li>
     <li class="active">Danh sách</li>
   </ol>
 </section>
@@ -20,7 +20,7 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('custom-link.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('custom-link.create', ['block_id' => $block_id]) }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       
       <div class="box">
 

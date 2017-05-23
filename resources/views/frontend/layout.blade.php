@@ -332,44 +332,7 @@
 		</div>
 	</section><!-- /block-get-news -->
 
-	<footer class="footer">
-		<div class="block-menu-bottom">
-	        <ul class="container">
-	            <li><a href="#" rel="nofollow">Giới thiệu</a></li>
-	            <li><a href="#" rel="nofollow">Hướng dẫn sử dụng</a></li>
-	            <li><a href="#" rel="nofollow">Quy định</a></li>
-	            <li><a href="#" rel="nofollow">Liên hệ</a></li>
-	            
-	            <li><a href="#" rel="nofollow">Điều khoản thỏa thuận</a></li>
-	            <li><a href="#" rel="nofollow">Báo giá</a></li>
-	        </ul>
-	    </div>
-	    <div class="container">
-	    	<div class="block-footer row">
-	    		<div class="block-logo-footer col-sm-3">
-	                <a href="/" title="Đô thị">
-	                	<img src="https://imgholder.ru/204x90/0082D5/fff.jpg') }}&text=My+Logo&font=tahoma&fz=27" alt="">
-	                </a>
-	            </div>
-	            <div class="block-footer-address col-sm-9">
-	                <address>
-	                	Copyright DO THI MEDIA<br>
-	                	Dothi.net 3.1 đang trong quá trình hoàn thiện<br>
-						<strong>Hotline: 0903 236 862 - 0969 980 365</strong><br>
-						Thứ 2 đến thứ 6:<strong> 8h00 - 17h15 | Thứ 7: 8h00 - 12h00</strong><br>
-						<strong>Email: </strong>
-						<a href="mailto:joe@example.com?subject=feedback" "email me">abc.abc@mail.vn</a>
-						<strong>|</strong>
-						<strong>Skype: </strong>
-						<a href="#" "email me">abc.abc</a>
-					</address>
-	            </div>
-	    	</div>
-	    	<!-- <div class="block-share">
-	    		<a href="" title="">++++++++</a>
-	    	</div> -->
-	    </div>
-	</footer><!-- /footer -->
+	@include('frontend.home.footer')
 	<?php 
 	$bannerArr = DB::table('banner')->where(['object_id' => 2, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
 	?>

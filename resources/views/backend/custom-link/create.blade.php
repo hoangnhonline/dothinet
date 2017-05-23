@@ -4,11 +4,11 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Custom Link    
+      {{ $name }} 
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('custom-link.index') }}">Custom Link</a></li>
+      <li><a href="{{ route('custom-link.index') }}">{{ $name }}</a></li>
       <li class="active">Tạo mới</li>
     </ol>
   </section>
@@ -44,7 +44,7 @@
                   <label>Text hiển thị <span class="red-star">*</span></label>
                   <input type="text" class="form-control" name="link_text" id="link_text" value="{{ old('link_text') }}">
                 </div>
-                <input type="hidden" name="block_id" value="1">
+                <input type="hidden" name="block_id" value="{{ $block_id }}">
                 <span class=""></span>
                 <div class="form-group">                  
                   <label>URL <span class="red-star">*</span></label>                  

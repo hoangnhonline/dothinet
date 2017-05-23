@@ -4,18 +4,18 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Custom Link   
+      {{ $name }}
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('custom-link.index') }}">Bài viết</a></li>
+      <li><a href="{{ route('custom-link.index', ['block_id' => $block_id]) }}">{{ $name }}</a></li>
       <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default btn-sm" href="{{ route('custom-link.index') }}" style="margin-bottom:5px">Quay lại</a>    _blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
+    <a class="btn btn-default btn-sm" href="{{ route('custom-link.index', ['block_id' => $block_id]) }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('custom-link.update') }}">
     <div class="row">
       <!-- left column -->
@@ -49,7 +49,7 @@
                   <label>Text hiển thị<span class="red-star">*</span></label>
                   <input type="text" class="form-control" name="link_text" id="link_text" value="{{ $detail->link_text }}">
                 </div>
-                <input type="hidden" name="block_id" value="1">
+                <input type="hidden" name="block_id" value="{{ $block_id }}">
                 <span class=""></span>
                 <div class="form-group">                  
                   <label>URL <span class="red-star">*</span></label>                  
@@ -61,7 +61,7 @@
            
             <div class="box-footer">
               <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
-              <a class="btn btn-default btn-sm" href="{{ route('custom-link.index')}}">Hủy</a>
+              <a class="btn btn-default btn-sm" href="{{ route('custom-link.index', ['block_id' => $block_id])}}">Hủy</a>
             </div>
             
         </div>

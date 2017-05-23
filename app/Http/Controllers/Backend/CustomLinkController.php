@@ -21,7 +21,11 @@ class CustomLinkController extends Controller
     {
         $block_id = isset($request->block_id) ? $request->block_id : 1;
 
-        
+        if($block_id == 1){
+            $name = "Liên kết nổi bật";
+        }elseif($block_id == 2){
+            $name = "Link footer";
+        }
         $query = CustomLink::whereRaw('1');
 
         if( $block_id > 0){
@@ -30,7 +34,7 @@ class CustomLinkController extends Controller
        
         $items = $query->orderBy('display_order', 'asc')->paginate(100);
         
-        return view('backend.custom-link.index', compact( 'items', 'block_id' ));
+        return view('backend.custom-link.index', compact( 'items', 'block_id', 'name' ));
     }
 
     /**
@@ -41,7 +45,13 @@ class CustomLinkController extends Controller
     public function create(Request $request)
     {
 
-        return view('backend.custom-link.create');
+        $block_id = isset($request->block_id) ? $request->block_id : 1;
+        if($block_id == 1){
+            $name = "Liên kết nổi bật";
+        }elseif($block_id == 2){
+            $name = "Link footer";
+        }
+        return view('backend.custom-link.create', compact('block_id', 'name'));
     }
 
     /**
@@ -67,7 +77,7 @@ class CustomLinkController extends Controller
 
         Session::flash('message', 'Tạo mới link thành công');
 
-        return redirect()->route('custom-link.index');
+        return redirect()->route('custom-link.index', ['block_id' => $dataArr['block_id']]);
     }
  
     /**
@@ -90,8 +100,13 @@ class CustomLinkController extends Controller
     public function edit($id)
     {
         $detail = CustomLink::find($id);
-       
-        return view('backend.custom-link.edit', compact('detail'));
+        $block_id = $detail->block_id;
+        if($block_id == 1){
+            $name = "Liên kết nổi bật";
+        }elseif($block_id == 2){
+            $name = "Link footer";
+        }
+        return view('backend.custom-link.edit', compact('detail', 'block_id', 'name'));
     }
 
     /**
@@ -120,7 +135,7 @@ class CustomLinkController extends Controller
         
         Session::flash('message', 'Cập nhật link thành công');        
 
-        return redirect()->route('custom-link.index');
+        return redirect()->route('custom-link.index', ['block_id' => $dataArr['block_id']]);
     }
 
     /**
