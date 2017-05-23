@@ -2,6 +2,8 @@
 namespace App\Helpers;
 use App\Helpers\simple_html_dom;
 use App\Models\City;
+use App\Models\Price;
+use App\Models\Area;
 use DB, Image;
 
 class Helper
@@ -31,6 +33,28 @@ class Helper
                 echo "<option value=".$data->id.">".$data->name."</option>";
             }
         }
+    }
+    public static function getPriceId($price, $price_unit_id){
+        $rs = Price::where('value_from', '<=', $price)
+                    ->where('value_to', '>=', $price)
+                    ->where('price_unit_id', $price_unit_id)
+                    ->first();
+        if($rs){
+            return $rs->id;    
+        }else{
+            return 0;
+        }        
+    }
+    public static function getAreaId($area){
+        $rs = Area::where('value_from', '<=', $area)
+                    ->where('value_to', '>=', $area)                   
+                    ->first();
+        if($rs){
+            return $rs->id;    
+        }else{
+            return 0;
+        }
+        
     }
     public static function showImage($image_url, $type = 'original'){
 

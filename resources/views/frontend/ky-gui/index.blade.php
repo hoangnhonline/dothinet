@@ -129,12 +129,12 @@
 										</div>
 									</div><!-- /form-group -->
 									<div class="form-group">
-										<label class="col-sm-3 control-label">Giá:</label>
+										<label class="col-sm-3 control-label">Giá <span>(*)</span>:</label>
 										<div class="col-sm-4">
 									  		<input type="text" name="price" class="form-control inline-block form-control2">
 										</div>
 										<div class="col-sm-4 w158 mt10">
-											<span style="margin-right: 25px;">Đơn vị:</span>
+											<span style="margin-right: 25px;">Đơn vị <span style="color:red">(*)</span>:</span>
 											<select class="form-control selectpicker" name="price_unit_id" id="price_unit_id">
 												<option value="" >--chọn--</option>
 												@foreach( $priceUnitList as $value )

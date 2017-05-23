@@ -7,8 +7,7 @@
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="en">
 <!--<![endif]-->
-<head>
-	<meta charset="UTF-8">
+<head>	
 	<title>@yield('title')</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="index,follow"/>
@@ -52,7 +51,7 @@
 		
 	</style>
 </head>
-<body>
+<body {{ \Request::route()->getName() == "home" ? 'class=page_home' : "" }}>
 	
 	<header id="header" class="header">
 		<!-- <div class="header-register">

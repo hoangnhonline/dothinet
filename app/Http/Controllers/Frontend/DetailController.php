@@ -186,29 +186,33 @@ class DetailController extends Controller
         
         $this->validate($request,[
             'type' => 'required',
-            'district_id' => 'required',
             'estate_type_id' => 'required',
+            'district_id' => 'required',
             'ward_id' => 'required',
             'street_id' => 'required',
-            'price' => 'required',
-            'price_unit_id' => 'required',
             'full_address' => 'required',
             'title' => 'required',            
+            'price' => 'required|numeric',
+            'price_unit_id' => 'required',
+            'area' => 'required|numeric',
             'contact_name' => 'required',
             'contact_mobile' => 'required'
         ],
-        [
-            'title.required' => 'Bạn chưa nhập tiêu đề',
+        [            
             'estate_type_id.required' => 'Bạn chưa chọn loại bất động sản',
-            'district_id.required' => 'Bạn chưa chọn quận/huyện',
-            'ward_id.required' => 'Bạn chưa chọn phường/xã',
-            'street_id.required' => 'Bạn chưa chọn đường/phố',
-            'price_unit_id.required' => 'Bạn chưa chọn đơn vị',
+            'district_id.required' => 'Bạn chưa chọn quận',
+            'ward_id.required' => 'Bạn chưa chọn phường',
+            'street_id.required' => 'Bạn chưa chọn đường phố',
             'full_address.required' => 'Bạn chưa nhập địa điểm',
+            'title.required' => 'Bạn chưa nhập tiêu đề',            
             'price.required' => 'Bạn chưa nhập giá',
-            'contact_name.required' => 'Bạn chưa nhập họ tên',
-            'contact_mobile.required' => 'Bạn chưa nhập di động'            
+            'price.numeric' => 'Bạn nhập giá không hợp lệ',
+            'price_unit_id.required' => 'Bạn chưa chọn đơn vị giá',            
+            'area.required' => 'Bạn chưa nhập diện tích',
+            'contact_name.required' => 'Bạn chưa nhập tên liên hệ',            
+            'contact_mobile.required' => 'Bạn chưa nhập số di động liên hệ'
         ]);
+        
         $dataArr['slug'] = Helper::changeFileName($dataArr['title']); 
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
@@ -217,7 +221,8 @@ class DetailController extends Controller
 
         $dataArr['status'] = 2;          
         $dataArr['city_id'] = 1;      
-        
+        $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id']);
+        $dataArr['area_id'] = Helper::getAreaId($dataArr['area']);   
         $rs = Product::create($dataArr);
         $product_id = $rs->id;         
         $this->storeImage( $product_id, $dataArr);       

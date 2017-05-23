@@ -33,8 +33,7 @@ class ProductController extends Controller
     * @return Response
     */
     public function index(Request $request)
-    {
-
+    {        
         $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1; 
         $arrSearch['is_hot'] = $is_hot = isset($request->is_hot) ? $request->is_hot : null;   
         $arrSearch['cart_status'] = $cart_status = isset($request->cart_status) ? $request->cart_status : [1,2,3];     
@@ -248,20 +247,31 @@ class ProductController extends Controller
         $dataArr = $request->all();        
         
         $this->validate($request,[
-            'title' => 'required',
-            'slug' => 'required',
-            'price' => 'required',
-            'district_id' => 'required',
+            'type' => 'required',
             'estate_type_id' => 'required',
+            'district_id' => 'required',
             'ward_id' => 'required',
             'street_id' => 'required',
+            'title' => 'required',
+            'slug' => 'required',
+            'price' => 'required|numeric',
             'price_unit_id' => 'required',
-            'type' => 'required'
+            'area' => 'required|numeric',
+            'contact_name' => 'required',
+            'contact_mobile' => 'required'
         ],
-        [
-            'title.required' => 'Bạn chưa nhập tên sản phẩm',
-            'slug.required' => 'Bạn chưa nhập slug',            
-            'price.required' => 'Bạn chưa nhập giá'            
+        [            
+            'estate_type_id.required' => 'Bạn chưa chọn loại bất động sản',
+            'district_id.required' => 'Bạn chưa chọn quận',
+            'ward_id.required' => 'Bạn chưa chọn phường',
+            'title.required' => 'Bạn chưa nhập tiêu đề',
+            'slug.required' => 'Bạn chưa nhập slug',
+            'price.required' => 'Bạn chưa nhập giá',
+            'price.numeric' => 'Bạn nhập giá không hợp lệ',
+            'price_unit_id.required' => 'Bạn chưa chọn đơn vị giá',            
+            'area.required' => 'Bạn chưa nhập diện tích',
+            'contact_name.required' => 'Bạn chưa nhập tên liên hệ',            
+            'contact_mobile.required' => 'Bạn chưa nhập số di động liên hệ'
         ]);
            
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
@@ -273,7 +283,14 @@ class ProductController extends Controller
         $dataArr['created_user'] = Auth::user()->id;
         $dataArr['updated_user'] = Auth::user()->id;      
         $dataArr['city_id'] = 1;       
+        
+        if($dataArr['price_id'] == ''){
+            $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id']);
+        }
 
+        if($dataArr['area_id'] == ''){
+            $dataArr['area_id'] = Helper::getAreaId($dataArr['area']);   
+        }
         $rs = Product::create($dataArr);
 
         $product_id = $rs->id;
@@ -282,7 +299,7 @@ class ProductController extends Controller
         $this->storeImage( $product_id, $dataArr);
         $this->storeMeta($product_id, 0, $dataArr);
         $this->processRelation($dataArr, $product_id);
-        Session::flash('message', 'Tạo mới sản phẩm thành công');
+        Session::flash('message', 'Tạo mới tin thành công');
 
         return redirect()->route('product.index', ['estate_type_id' => $dataArr['estate_type_id'], 'type' => $dataArr['type']]);
     }
@@ -472,17 +489,31 @@ class ProductController extends Controller
         $dataArr = $request->all();
         
         $this->validate($request,[
+            'type' => 'required',
+            'estate_type_id' => 'required',
+            'district_id' => 'required',
+            'ward_id' => 'required',
+            'street_id' => 'required',
             'title' => 'required',
             'slug' => 'required',
-            'price' => 'required',
-            'district_id' => 'required',
-            'estate_type_id' => 'required',
-            'type' => 'required'
+            'price' => 'required|numeric',
+            'price_unit_id' => 'required',
+            'area' => 'required|numeric',
+            'contact_name' => 'required',
+            'contact_mobile' => 'required'
         ],
-        [
-            'title.required' => 'Bạn chưa nhập tên sản phẩm',
-            'slug.required' => 'Bạn chưa nhập slug',            
-            'price.required' => 'Bạn chưa nhập giá'            
+        [            
+            'estate_type_id.required' => 'Bạn chưa chọn loại bất động sản',
+            'district_id.required' => 'Bạn chưa chọn quận',
+            'ward_id.required' => 'Bạn chưa chọn phường',
+            'title.required' => 'Bạn chưa nhập tiêu đề',
+            'slug.required' => 'Bạn chưa nhập slug',
+            'price.required' => 'Bạn chưa nhập giá',
+            'price.numeric' => 'Bạn nhập giá không hợp lệ',
+            'price_unit_id.required' => 'Bạn chưa chọn đơn vị giá',            
+            'area.required' => 'Bạn chưa nhập diện tích',
+            'contact_name.required' => 'Bạn chưa nhập tên liên hệ',            
+            'contact_mobile.required' => 'Bạn chưa nhập số di động liên hệ'
         ]);
                   
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
@@ -491,7 +522,14 @@ class ProductController extends Controller
         $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
         $dataArr['city_id'] = 1;
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
+        
+        if($dataArr['price_id'] == ''){
+            $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id']);
+        }
 
+        if($dataArr['area_id'] == ''){
+            $dataArr['area_id'] = Helper::getAreaId($dataArr['area']);   
+        }
         $model = Product::find($dataArr['id']);
 
         $model->update($dataArr);
@@ -502,7 +540,7 @@ class ProductController extends Controller
         $this->storeImage( $product_id, $dataArr);
         $this->processRelation($dataArr, $product_id, 'edit');
 
-        Session::flash('message', 'Chỉnh sửa sản phẩm thành công');
+        Session::flash('message', 'Chỉnh sửa tin thành công');
 
         return redirect()->route('product.edit', $product_id);
         
@@ -521,7 +559,7 @@ class ProductController extends Controller
         
         $product_id = $dataArr['id'];        
 
-        Session::flash('message', 'Chỉnh sửa sản phẩm thành công');
+        Session::flash('message', 'Chỉnh sửa tin thành công');
 
     }
     public function storeSoSanh($sp_1, $soSanhArr){
@@ -556,7 +594,7 @@ class ProductController extends Controller
         TagObjects::deleteTags( $id, 1);
         TagObjects::deleteTags( $id, 3);
         // redirect
-        Session::flash('message', 'Xóa sản phẩm thành công');
+        Session::flash('message', 'Xóa tin thành công');
         
         return redirect(URL::previous());//->route('product.short');
         

@@ -87,7 +87,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6 none-padding">
-                          <label for="email">Phường</label>
+                          <label for="email">Phường <span class="red-star">*</span></label>
                           <select class="form-control" name="ward_id" id="ward_id">
                             <option value="">--Chọn--</option>
                             @foreach( $wardList as $value )
@@ -99,7 +99,7 @@
                           </select>
                         </div>
                         <div class="form-group col-md-6  pleft-5">
-                          <label for="email">Đường</label>
+                          <label for="email">Đường <span class="red-star">*</span></label>
                             <select class="form-control" name="street_id" id="street_id">
                                 @foreach( $streetList as $value )
                                 <option value="{{ $value->id }}"
@@ -171,7 +171,7 @@
                              <input type="text" class="form-control" name="full_address" id="full_address" value="{{ old('full_address', $detail->full_address) }}">  
                         </div>
                         <div class="form-group col-md-4 none-padding">
-                          <label>Diện tích</label>                  
+                          <label>Diện tích <span class="red-star">*</span></label>                  
                           <input type="text" class="form-control" name="area" id="area" value="{{ old('area', $detail->area) }}">                        
                         </div>
                         
@@ -287,7 +287,7 @@
                     </div><!--end thong tin co ban--> 
                     <div role="tabpanel" class="tab-pane" id="lien-he">
                         <div class="form-group col-md-6 " >                  
-                            <label>Họ tên</label>
+                            <label>Họ tên <span class="red-star">*</span></label>
                             <input type="text" class="form-control" name="contact_name" id="contact_name" value="{{ old('contact_name', $detail->contact_name) }}">
                         </div>
                         <div class="form-group col-md-6 none-padding pleft-5" >                  
@@ -299,7 +299,7 @@
                             <input type="text" class="form-control" name="contact_phone" id="contact_phone" value="{{ old('contact_phone', $detail->contact_phone) }}">
                         </div>
                         <div class="form-group col-md-6 none-padding pleft-5" >                  
-                            <label>Di động</label>
+                            <label>Di động <span class="red-star">*</span></label>
                             <input type="text" class="form-control" name="contact_mobile" id="contact_mobile" value="{{ old('contact_mobile', $detail->contact_mobile) }}">
                         </div>
                         <div class="form-group col-md-12 " >                  
