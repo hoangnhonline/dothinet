@@ -34,16 +34,28 @@
                   <option value="2" {{ $arrSearch['type'] == 2 ? "selected" : "" }}>Cho thuê</option>
               </select>
             </div>
-            <div class="form-group">              
-              <select class="form-control" name="cart_status" id="cart_status">
-                  <option value="">--Trạng thái--</option>
-                  <option value="1" {{ $arrSearch['cart_status'] == 1 ? "selected" : "" }}>
-                    {{ $arrSearch['type'] == 1 ? "Chưa bán" : "Còn trống" }}
-                  </option>
-                  <option value="2" {{ $arrSearch['cart_status'] == 2 ? "selected" : "" }}>
-                    {{ $arrSearch['type'] == 1 ? "Đã bán" : "Đã thuê" }}
-                  </option>
-              </select>
+            <div class="form-group">                            
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="cart_status[]" value="1" {{ in_array(1, $arrSearch['cart_status'])  ? "checked" : "" }}>
+                  {{ $arrSearch['type'] == 1 ? "Chưa bán" : "Còn trống" }}
+                </label>
+              </div>
+          
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="cart_status[]" value="2" {{ in_array(2, $arrSearch['cart_status'])  ? "checked" : "" }}>
+                  {{ $arrSearch['type'] == 1 ? "Đã bán" : "Đã thuê" }}
+                </label>
+              </div>
+          
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="cart_status[]" value="3" {{ in_array(3, $arrSearch['cart_status']) ? "checked" : "" }}>
+                  Đã cọc
+                </label>
+              </div>
+              
             </div>
               <div class="form-group">
               <select class="form-control" name="estate_type_id" id="estate_type_id">

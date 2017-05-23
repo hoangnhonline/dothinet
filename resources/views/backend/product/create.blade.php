@@ -202,16 +202,29 @@
                             @endif
                           </select>                       
                         </div>
-                        <div class="form-group col-md-12 none-padding" >                  
-                            <label>Trạng thái<span class="red-star">*</span></label>
-                            <select class="form-control" name="cart_status" id="cart_status">
-                              <option value="1" {{ old('cart_status') == 1 ? "selected" : "" }}>
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" name="cart_status" value="1" {{ old('cart_status') == 1 || old('cart_status') == NULL ? "checked" : "" }}>
                                 {{ $type == 1 ? "Chưa bán" : "Còn trống" }}
-                              </option>
-                              <option value="2" {{ old('cart_status') == 2 ? "selected" : "" }}>
+                              </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" name="cart_status" value="2" {{ old('cart_status') == 2 ? "checked" : "" }}>
                                 {{ $type == 1 ? "Đã bán" : "Đã thuê" }}
-                              </option>                              
-                            </select>
+                              </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" name="cart_status" value="3" {{ old('cart_status') == 3 ? "checked" : "" }}>
+                                Đã cọc
+                              </label>
+                            </div>
                         </div>
                         <div class="input-group">
                           <label>Tags</label>

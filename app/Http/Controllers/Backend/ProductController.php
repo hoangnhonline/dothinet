@@ -36,7 +36,7 @@ class ProductController extends Controller
     {
 
         $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;   
-        $arrSearch['cart_status'] = $cart_status = isset($request->cart_status) ? $request->cart_status : 1;     
+        $arrSearch['cart_status'] = $cart_status = isset($request->cart_status) ? $request->cart_status : [1,2,3];     
         $arrSearch['type'] = $type = isset($request->type) ? $request->type : 1;
         $arrSearch['estate_type_id'] = $estate_type_id = isset($request->estate_type_id) ? $request->estate_type_id : null;
         $arrSearch['district_id'] = $district_id = isset($request->district_id) ? $request->district_id : null;
@@ -56,7 +56,7 @@ class ProductController extends Controller
             $query->where('product.estate_type_id', $estate_type_id);
         }
         if( $cart_status ){
-            $query->where('product.cart_status', $cart_status);
+            $query->whereIn('product.cart_status', $cart_status);
         }
         if( $district_id ){
             $query->where('product.district_id', $district_id);

@@ -205,29 +205,49 @@
                             @endif
                           </select>                       
                         </div>
-                        <div class="form-group col-md-12 none-padding" >                  
-                            <label>Trạng thái<span class="red-star">*</span></label>
-                            <select class="form-control" name="cart_status" id="cart_status">
-                              <option value="1" {{ old('cart_status', $detail->cart_status) == 1 ? "selected" : "" }}>
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="radio" name="cart_status" value="1" {{ old('cart_status', $detail->cart_status) == 1 || old('cart_status', $detail->cart_status) == NULL ? "checked" : "" }}>
                                 {{ $detail->type == 1 ? "Chưa bán" : "Còn trống" }}
-                              </option>
-                              <option value="2" {{ old('cart_status', $detail->cart_status) == 2 ? "selected" : "" }}>
+                              </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="radio" name="cart_status" value="2" {{ old('cart_status', $detail->cart_status) == 2 ? "checked" : "" }}>
                                 {{ $detail->type == 1 ? "Đã bán" : "Đã thuê" }}
-                              </option>                              
-                            </select>
+                              </label>
+                            </div>
                         </div>
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="radio" name="cart_status" value="3" {{ old('cart_status', $detail->cart_status) == 3 ? "checked" : "" }}>
+                                Đã cọc
+                              </label>
+                            </div>
+                        </div>
+                        
                         @if($detail->status == 2)
-                        <div class="form-group col-md-12 none-padding" >                  
-                            <label>Trạng thái duyệt<span class="red-star">*</span></label>
-                            <select class="form-control" name="status" id="status">
-                              <option value="1" {{ old('status', $detail->status) == 1 ? "selected" : "" }}>
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="radio" name="status" value="1" {{ old('status', $detail->status) == 1 ? "checked" : "" }}>
                                 Đã duyệt
-                              </option>
-                              <option value="2" {{ old('status', $detail->status) == 2 ? "selected" : "" }}>
-                                Chưa duyệt
-                              </option>                              
-                            </select>
+                              </label>
+                            </div>
                         </div>
+                        <div class="form-group col-md-4 none-padding" >
+                            <div class="checkbox">
+                              <label>
+                                <input type="radio" name="status" value="2" {{ old('status', $detail->status) == 2 ? "checked" : "" }}>
+                                Chưa duyệt
+                              </label>
+                            </div>
+                        </div> 
+                        <div class="form-group col-md-4 none-padding" ></div>                       
                         @endif
                         <div class="input-group">
                           <label>Tags</label>
