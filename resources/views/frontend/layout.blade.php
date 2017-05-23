@@ -374,7 +374,7 @@
 	$bannerArr = DB::table('banner')->where(['object_id' => 2, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
 	?>
 	@if($bannerArr)
-	<div id="advLeft">
+	<div id="advLeft" style="display:none;">
 		<div class="banner_scroll" id="banner_left">
 			<div class="item">				
 				@foreach($bannerArr as $banner)				
@@ -394,7 +394,7 @@
 	$bannerArr = DB::table('banner')->where(['object_id' => 3, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
 	?>
 	@if($bannerArr)
-	<div id="advRight">
+	<div id="advRight" style="display:none;">
 		<div class="banner_scroll" id="banner_right">
 			<div class="item">
 				@foreach($bannerArr as $banner)				

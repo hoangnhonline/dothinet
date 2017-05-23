@@ -6,7 +6,7 @@ if(!isset($project_id)){
 	$bannerArr =  DB::table('banner')->where(['object_id' => $project_id, 'object_type' => 4])->orderBy('display_order', 'asc')->get();
 }
 ?>
-<section class="block-slider-home">
+<section class="block-slider-home" id="slider-home">
 @if($bannerArr)
 	<div class="owl-carousel dotsData owl-style2" data-nav="true" data-margin="0" data-items='1' data-autoplayTimeout="700" data-autoplay="true" data-loop="true">
 		<?php $i = 0; ?>
