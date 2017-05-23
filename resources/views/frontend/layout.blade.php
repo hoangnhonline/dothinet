@@ -78,8 +78,8 @@
 		<div class="header-logo">
 	        <div class="container">
 	            <div class="logo">
-	                <a href="{{ route('home') }}" title="Đô thị">
-	                	<img src="{{ URL::asset('assets/images/logo.jpg') }}" alt="">	                   
+	                <a href="{{ route('home') }}" title="Logo">
+	                	<img src="{{ Helper::showImage($settingArr['logo']) }}" alt="Logo">	                   
 	                </a>
 	            </div>
 	            <?php 
