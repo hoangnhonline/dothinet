@@ -140,7 +140,7 @@
 					<li class="level0 {{ isset($cateDetail) && $cateDetail->id == $value->id ? "active" : "" }}"><a href="{{ route('news-list', $value->slug) }}">{{ $value->name }}</a></li>
 					@endforeach
 					
-					<li class="level0 postnew"><a href="{{ route('ky-gui') }}"><img src="{{ URL::asset('assets/images/icon-postnews.png') }}" alt="Ký gửi"> Ký gửi</a></li>
+					<li class="level0 postnew"><a href="{{ route('ky-gui') }}">Ký gửi</a></li>
 				</ul>
 			</div><!-- /.navbar-collapse -->
         </div>

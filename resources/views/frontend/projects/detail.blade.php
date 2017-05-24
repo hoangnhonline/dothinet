@@ -13,7 +13,7 @@
 		</ul>
 	</article>
 	<div class="block block-title">		  
-		<ul class="nav nav-tabs nav-tabs-langding fix-tabs" id="nav-tabs-langding" role="tablist">
+		<ul class="nav nav-tabs nav-tabs-langding" id="nav-tabs-langding" role="tablist">
 			<li role="presentation" >
 				<p class="tabs-item-logo">
 					<i class="icon">
@@ -294,27 +294,6 @@
 			$ripples.on('animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd', function(e) {
 				$(this).removeClass('is-active');
 			});
-		});
-
-		$(function() {
-	        // Menu Page op5
-			$(".icon-bars-op5").on('click', function(){
-				$( this ).toggleClass('has-open');
-				$(".fix-tabs").toggleClass("has-open");
-				$("body").toggleClass("menu-open");
-			});
-			$(".block-in-res .sticky-wrapper.is-sticky .fix-tabs.has-open:after").click(function() {
-				alert("aaa");
-			});
-			$(".nav-tabs-langding li").click(function() {
-	            $('body,html').animate({
-	                scrollTop : 0
-	            }, 'slow');
-	            $(".icon-bars-op5").toggleClass("has-open");
-	            $(".fix-tabs").toggleClass("has-open");
-	            $("body").toggleClass("menu-open");
-	        });
-
-	    });
+		});		
 </script>
 @endsection
