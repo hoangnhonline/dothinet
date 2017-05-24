@@ -66,7 +66,7 @@
                 </div>               
               </div>
               <div class="form-group">
-              <select class="form-control" name="estate_type_id" id="estate_type_id">
+              <select class="form-control" name="estate_type_id" id="estate_type_id" style="width:150px;">
                 <option value="">--Danh mục--</option>
                 @foreach( $estateTypeArr as $value )
                   <option value="{{ $value->id }}"
@@ -88,7 +88,7 @@
               </select>
             </div>
             <div class="form-group">              
-              <select class="form-control" name="ward_id" id="ward_id">
+              <select class="form-control" name="ward_id" id="ward_id" style="width:100px">
                 <option value="">--Phường--</option>
                   @foreach( $wardList as $value )
                   <option value="{{ $value->id }}"
@@ -99,7 +99,10 @@
               </select>
             </div>
             <div class="form-group">              
-              <input type="text" placeholder="Tiêu đề" class="form-control" name="name" value="{{ $arrSearch['name'] }}">
+              <input type="text" placeholder="Tiêu đề" class="form-control" name="name" value="{{ $arrSearch['name'] }}" style="width:140px">
+            </div>
+            <div class="form-group">              
+              <input type="text" placeholder="Mã tin" class="form-control" name="id" value="{{ $arrSearch['id'] }}" style="width:60px">
             </div>           
             
             <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
@@ -121,8 +124,9 @@
           @if($arrSearch['is_hot'] == 1)
           <form method="post" action={{ route('product.save-order-hot')}} >
             {{ csrf_field() }}
-          
+            @if($items->count() > 0)
             <button type="submit" class="btn btn-warning btn-sm">Save thứ tự</button>
+            @endif
             <input type="hidden" name="estate_type_id" value="{{ $arrSearch['estate_type_id']}}">
             <input type="hidden" name="type" value="{{ $arrSearch['type']}}">
             <input type="hidden" name="is_hot" value="1">
@@ -131,6 +135,7 @@
             <table class="table table-bordered" id="table-list-data">
               <tr>
                 <th style="width: 1%">#</th>
+                <th style="width: 1%;white-space:nowrap">Mã tin</th>
                 @if($arrSearch['is_hot'] == 1)
                 <td width="120px">
                   Thứ tự
@@ -150,6 +155,7 @@
                   ?>
                 <tr id="row-{{ $item->id }}">
                   <td><span class="order">{{ $i }}</span></td>
+                  <td style="text-align:center">{{ $item->id }}</td>
                   @if($arrSearch['is_hot'] == 1)
                   <td>
                     <input type="text" value="{{ $item->display_order }}" name="display_order[{{$item->id}}]" style="width:80px" class="form-control" />

@@ -45,6 +45,7 @@ class ProductController extends Controller
         $arrSearch['street_id'] = $street_id = isset($request->street_id) ? $request->street_id : null;
 
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
+        $arrSearch['id'] = $id = isset($request->id) && trim($request->id) != '' ? trim($request->id) : '';
         
 
 
@@ -75,6 +76,9 @@ class ProductController extends Controller
         }
         if( $name != ''){
             $query->where('product.title', 'LIKE', '%'.$name.'%');            
+        }
+        if( $id != ''){
+            $query->where('product.id', $id);            
         }
         //$query->join('users', 'users.id', '=', 'product.created_user');
         $query->join('city', 'city.id', '=', 'product.city_id');        

@@ -61,6 +61,7 @@
                         <img class="img-hot" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                         @endif{{ $product->title }}</a></h4>
                             <div class="description-info">
+                              <div class="id-post"><i class="fa fa-rebel" aria-hidden="true"></i><label>Mã tin<span>:</span></label>{{ $product->id }}</div>
                               <div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}                                
                                 @if($product->type == 1)
                                     @if($product->cart_status == 1)
@@ -101,6 +102,7 @@
                         <img class="img-hot" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                         @endif {{ $product->title }}</a></h4>
                             <div class="description-info">
+                              <div class="id-post"><i class="fa fa-rebel" aria-hidden="true"></i><label>Mã tin<span>:</span></label>{{ $product->id }}</div>
                               <div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
                                 <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }} m<sup>2</sup></div>
                                 <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}</div>

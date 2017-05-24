@@ -71,6 +71,10 @@
 	    		<h3>Đặc điểm bất động sản</h3>
 	    		<table class="table table-customize">	    			
 	    			<tr>
+	    				<td><b>Mã tin</b></td>
+	    				<td>{{ $detail->id }}</td>
+	    			</tr>
+	    			<tr>
 	    				<td><b>Loại tin rao</b></td>
 	    				<td>{{ Helper::getName($detail->estate_type_id, 'estate_type') }}</td>
 	    			</tr>
