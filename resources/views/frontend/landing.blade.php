@@ -5,14 +5,14 @@
 <!--[if IE 9 ]><html dir="ltr" lang="en-US" class="no-js ie ie9 lte9"><![endif]-->
 <!--[if IE 10 ]><html dir="ltr" lang="en-US" class="no-js ie ie10 lte10"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en">
+<html lang="vi">
 <!--<![endif]-->
 <head>
 	<meta charset="UTF-8">
 	<title>@yield('title')</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="index,follow"/>
-    <meta http-equiv="content-language" content="en"/>
+    <meta http-equiv="content-language" content="vi"/>
     <meta name="description" content="@yield('site_description')"/>
     <meta name="keywords" content="@yield('site_keywords')"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>

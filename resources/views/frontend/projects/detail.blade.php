@@ -5,8 +5,14 @@
 <section class="block-main main"  id="site-main">
 <div class="block block-langding" style="padding-top:10px">
 <div class="container">
-	<div class="block block-title block-in-res">
-		<div class="icon-bars-op5"><i class="fa fa-bars"></i></div>  
+	<article class="block-breadcrumb-page">
+		<ul class="breadcrumb">	
+			<li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
+			<li><a href="{{ route('du-an') }}" title="Dự án">Dự án</a></li>
+			<li class="active">{{ $detail->name }}</li>
+		</ul>
+	</article>
+	<div class="block block-title">		  
 		<ul class="nav nav-tabs nav-tabs-langding fix-tabs" id="nav-tabs-langding" role="tablist">
 			<li role="presentation" >
 				<p class="tabs-item-logo">
