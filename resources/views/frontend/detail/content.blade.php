@@ -2,14 +2,14 @@
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">
 	<article class="block block-cate-news-detail">
-		<h1>{{ $detail->name }}</h1>
+		<h1>{{ $detail->title }}</h1>
 		<div class="cate-news-detail-location">
 	        <i class="fa fa-map-marker"></i> Khu vực:
-	    	<a style="color: #015f95;" href="#">Cho thuê căn hộ chung cư tại Him Lam Riverside</a> - {{ Helper::getName($detail->district_id, 'district')}} - {{ Helper::getName($detail->city_id, 'city')}}
+	    	{{ Helper::getName($detail->district_id, 'district')}} - {{ Helper::getName($detail->city_id, 'city')}}
 	    </div><!-- /cate-news-detail-location -->
 	    <ul class="cate-news-detail-price">
-			<li>Giá: <span>{{ $detail->price }} {{ Helper::getName($detail->price_unit_id, 'price_unit')}}</span></li>
-			<li>Diện tích: <span>{{ $detail->area }} m<sub>2</sub></span></li>
+			<li><p>Giá: <span>{{ $detail->price }} {{ Helper::getName($detail->price_unit_id, 'price_unit')}}</span></p></li>
+			<li><p>Diện tích: <span>{{ $detail->area }} m<sup>2</sup></span></p></li>
 	    </ul><!-- /cate-news-detail-price -->
 	    <hr>
 	    <div class="cate-news-detail-desc">
@@ -135,7 +135,7 @@
 			                        </p>
 			                        <p>
 			                            <label>Diện tích:</label>
-			                            {{ $product->area }} m<sub>2</sub>
+			                            {{ $product->area }} m<sup>2</sup>
 			                        </p>
 			                        <p>
 			                            <label>Vị trí:</label>

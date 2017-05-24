@@ -47,14 +47,26 @@
                 <div class="form-group" style="border: 1px solid #CCC;padding: 10px; border-radius:5px">
                   <p><?php echo $detail->work_content; ?></p>
                 </div>
-                <div class="form-group">
-                  <label>Trạng thái</label>
-                  <select class="form-control" name="status" id="status">                                      
-                    <option value="1" {{ old('status', $detail->status) == 1 ? "selected" : "" }}>Mới</option>                  
-                    <option value="2" {{ old('status', $detail->status) == 2 ? "selected" : "" }}>Đã duyệt</option>  
-                    <option value="3" {{ old('status', $detail->status) == 3 ? "selected" : "" }}>Không duyệt duyệt</option>                   
-                  </select>
+                <div class="form-group col-md-4 none-padding" >
+                    <div class="checkbox">
+                      <label>
+                        <input type="radio" name="status" value="2" {{ old('status', $detail->status) == 2 ? "checked" : "" }}>
+                        Duyệt
+                      </label>
+                    </div>
                 </div>
+                <div class="form-group col-md-4 none-padding" >
+                    <div class="checkbox">
+                      <label>
+                        <input type="radio" name="status" value="3" {{ old('status', $detail->status) == 3 ? "checked" : "" }}>
+                        Không duyệt
+                      </label>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                
+                </div>
+                <div class="clearfix"></div>
                 <div class="form-group">
                   <label>Nhận xét</label>
                   <textarea class="form-control" rows="4" name="leader_comment" id="leader_comment">{{ old('leader_comment', $detail->leader_comment) }}</textarea>
@@ -100,7 +112,11 @@
             </div>          
           
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <button type="submit" class="btn btn-primary btn-sm" 
+              @if(Auth::user()->role > 1)
+              onclick="return validateStatus()"
+              @endif
+              >Lưu</button>
               <a class="btn btn-default btn-sm" href="{{ route('user-work.index')}}">Hủy</a>
             </div>
                 
@@ -134,6 +150,9 @@
           language : 'vi',    
           height : 300
       });
+
+
+
       @else
       var editor = CKEDITOR.replace( 'work_content',{
           language : 'vi',    
@@ -145,6 +164,13 @@
       });
       @endif
     });
-    
+    function validateStatus(){
+      if (!$("input[name='status']:checked").val()) {
+        alert('Chưa chọn trạng thái Duyệt / Không duyệt');
+         return false;
+      }else{
+        return true;
+      }
+    }
 </script>
 @stop
