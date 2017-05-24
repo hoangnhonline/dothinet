@@ -7,7 +7,7 @@
 	        <i class="fa fa-map-marker"></i> Khu vực:
 	    	{{ Helper::getName($detail->district_id, 'district')}} - {{ Helper::getName($detail->city_id, 'city')}}
 	    </div><!-- /cate-news-detail-location -->
-	    <ul class="cate-news-detail-price">
+	    <ul class="cate-news-detail-price clearfix">
 			<li><p>Giá: <span>{{ $detail->price }} {{ Helper::getName($detail->price_unit_id, 'price_unit')}}</span></p></li>
 			<li><p>Diện tích: <span>{{ $detail->area }} m<sup>2</sup></span></p></li>
 	    </ul><!-- /cate-news-detail-price -->
