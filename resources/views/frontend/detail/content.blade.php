@@ -1,6 +1,22 @@
 @include('frontend.partials.meta')
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">
+<article class="block-breadcrumb-page">
+	<ul class="breadcrumb">	
+		<li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
+		<li>
+			@if($detail->type == 1)			
+			<a href="{{ route('ban') }}">BĐS Bán</a>
+			@else
+			<a href="{{ route('cho-thue') }}">BĐS Cho thuê</a>
+			@endif
+		</li>
+		<li>					
+			<a href="{{ route('danh-muc', $rsLoai->slug ) }}">{{ $rsLoai->name }}</a>			
+		</li>
+		<!--<li class="active">{{ $detail->title }}</li>-->
+	</ul>
+</article>
 	<article class="block block-cate-news-detail">
 		<h1>{{ $detail->title }}</h1>
 		<div class="cate-news-detail-location">
@@ -99,7 +115,7 @@
 	    	</div>
 	    </div><!-- /block-detail-info -->	    
 	</article><!-- /block-cate-news-detail -->
-	@if($tagSelected)
+	@if(!empty((array)$tagSelected))
 	<?php $countTag = count($tagSelected);?>
 	<article class="block block-news-with-region">
 		<u>Tags</u>:

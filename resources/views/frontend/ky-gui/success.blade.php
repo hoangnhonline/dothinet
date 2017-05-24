@@ -6,6 +6,12 @@
 @endsection
 @include('frontend.partials.meta')
 @section('content')
+<article class="block-breadcrumb-page">
+    <ul class="breadcrumb"> 
+        <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>            
+        <li class="active">Ký gửi</li>
+    </ul>
+</article>
 <section class="main" id="site-main">
 	<section class="container">
 		<section class="row">

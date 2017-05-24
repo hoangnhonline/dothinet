@@ -49,11 +49,10 @@ class NewsController extends Controller
             $seo['description'] = $detail->meta_description ? $detail->meta_description : $detail->title;
             $seo['keywords'] = $detail->meta_keywords ? $detail->meta_keywords : $detail->title;
             $socialImage = $detail->image_url; 
-            $is_km = $detail->cate_id == 2 ? 1 : 0;
-            $is_news = $detail->cate_id == 1 ? 1 : 0;
-            $is_kn = $detail->cate_id == 4 ? 1 : 0;
+          
             $tagSelected = Articles::getListTag($id);
-            return view('frontend.news.news-detail', compact('title',  'hotArr', 'detail', 'otherArr', 'seo', 'socialImage', 'is_km', 'is_news', 'is_kn', 'tagSelected'));
+            $detailLoai = ArticlesCate::find($detail->cate_id);
+            return view('frontend.news.news-detail', compact('title',  'hotArr', 'detail', 'otherArr', 'seo', 'socialImage', 'tagSelected', 'detailLoai'));
         }else{
             return view('erros.404');
         }

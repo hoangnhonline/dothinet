@@ -76,7 +76,7 @@ class DetailController extends Controller
                     ->orderBy('product.cart_status', 'asc')
                     ->orderBy('product.id', 'desc')->limit(6)->get();
 
-        $tagSelected = Product::getListTag($detail->id);        
+        $tagSelected = Product::getListTag($detail->id); 
         $type = $detail->type;
         $estate_type_id = $detail->estate_type_id;
         $street_id = $detail->street_id;
@@ -86,8 +86,7 @@ class DetailController extends Controller
         $price_id = $detail->price_id;
         $no_room = $detail->no_room;
         $project_id = $detail->project_id;
-        $direction_id = $detail->direction_id;
-
+        $direction_id = $detail->direction_id;        
         return view('frontend.detail.index', compact('detail', 'rsLoai', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList', 'tagSelected',
             'type',
             'estate_type_id',
@@ -98,8 +97,7 @@ class DetailController extends Controller
             'direction_id',
             'area_id',
             'project_id',
-            'price_id'
-
+            'price_id'            
             ));
     }
     public function tagDetail(Request $request){

@@ -1,6 +1,14 @@
 @extends('frontend.layout')
 @include('frontend.partials.meta')
 @section('content')
+<article class="block-breadcrumb-page">
+	<ul class="breadcrumb">	
+		<li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
+		<li  class="active">
+			Tag : '{{ $detail->name }}'
+		</li>		
+	</ul>
+</article>
 <section class="col-sm-8 col-xs-12 block-sitemain">
 	<article class="block block-news-new block-news-cate clearfix">
 		<div class="block-cate-title"><h1>Tag : '{{ $detail->name }}'</h1></div>

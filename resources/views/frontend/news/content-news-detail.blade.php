@@ -1,11 +1,19 @@
 @include('frontend.partials.meta')
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">
-
+<article class="block-breadcrumb-page">
+    <ul class="breadcrumb"> 
+        <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>  
+        <li>
+            <a href="{{ route('news-list', $detailLoai->slug) }}">{{ $detailLoai->name }}</a>
+        </li>    
+        <li class="active">{{ $detail->title }}</li>
+    </ul>
+</article>
     <article class="block block-breadcrumb">
         <div class="block-contents">
             <ul>
-                <li class="active"><h2><a href="/tin-tuc.htm">Phong thủy</a></h2></li>
+                <li class="active"><h2><a href="{{ route('news-list', $detailLoai->slug) }}">{{ $detailLoai->name }}</a></h2></li>
             </ul>
         </div>
     </article><!-- /block-breadcrumb -->

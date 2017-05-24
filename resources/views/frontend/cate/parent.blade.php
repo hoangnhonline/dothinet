@@ -2,6 +2,19 @@
 @include('frontend.partials.meta')
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">
+<article class="block-breadcrumb-page">
+	<ul class="breadcrumb">	
+		<li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
+		<li>
+			@if($rs->type == 1)			
+			<a href="{{ route('ban') }}">BĐS Bán</a>
+			@else
+			<a href="{{ route('cho-thue') }}">BĐS Cho thuê</a>
+			@endif
+		</li>
+		<li class="active">{{ $rs->name }}</li>
+	</ul>
+</article>
 	<article class="block block-news-new block-news-cate clearfix">
 		<div class="block-cate-title"><h1>{{ $rs->name }} tại Việt Nam</h1></div>
 		<div class="block-searchresult">

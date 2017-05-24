@@ -1,13 +1,18 @@
 @extends('frontend.layout')
   
   
-  @include('frontend.news.content')
+@include('frontend.news.content')
 @include('frontend.partials.meta')
   
 
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">
-
+<article class="block-breadcrumb-page">
+    <ul class="breadcrumb"> 
+        <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>            
+        <li class="active">{{ $cateDetail->name }}</li>
+    </ul>
+</article>
     <article class="block block-breadcrumb">
       <div class="block-contents">
         <ul>
