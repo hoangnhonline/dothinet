@@ -615,6 +615,9 @@
               console.log("Returned place contains no geometry");
               return;
             }
+            document.getElementById('latt').value = place.geometry.location.lat();
+            document.getElementById('longt').value = place.geometry.location.lng();
+            
             var icon = {
               url: place.icon,
               size: new google.maps.Size(128, 128),

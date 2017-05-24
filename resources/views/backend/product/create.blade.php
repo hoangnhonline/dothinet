@@ -538,10 +538,13 @@
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
+            
             if (!place.geometry) {
               console.log("Returned place contains no geometry");
               return;
             }
+            document.getElementById('latt').value = place.geometry.location.lat();
+            document.getElementById('longt').value = place.geometry.location.lng();
             var icon = {              
               size: new google.maps.Size(128, 128),
               origin: new google.maps.Point(0, 0),
