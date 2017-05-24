@@ -285,7 +285,7 @@ class ProductController extends Controller
         $dataArr['city_id'] = 1;       
         
         if($dataArr['price_id'] == ''){
-            $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id']);
+            $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id'], $dataArr['type']);
         }
 
         if($dataArr['area_id'] == ''){
@@ -524,7 +524,8 @@ class ProductController extends Controller
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
         
         if($dataArr['price_id'] == ''){
-            $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id']);
+            $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id'], $dataArr['type']);
+            //var_dump($dataArr['price_id']);die;
         }
 
         if($dataArr['area_id'] == ''){
@@ -561,23 +562,7 @@ class ProductController extends Controller
 
         Session::flash('message', 'Chỉnh sửa tin thành công');
 
-    }
-    public function storeSoSanh($sp_1, $soSanhArr){
-        Compare::where('sp_1', $sp_1)->delete();              
-        Compare::where('sp_2', $sp_1)->delete();  
-        if( !empty($soSanhArr)){
-            foreach( $soSanhArr as $sp_2){
-                if( $sp_2 > 0){
-                    $check1 = Compare::where('sp_1', $sp_1)->where('sp_2', $sp_2)->first();
-                    $check2 = Compare::where('sp_1', $sp_2)->where('sp_2', $sp_1)->first();
-                    if( !$check1 && !$check2){
-                        Compare::create(['sp_1' => $sp_1, 'sp_2' => $sp_2]);
-                    }
-                }
-            }
-        }
-        
-    }
+    }    
 
     /**
     * Remove the specified resource from storage.

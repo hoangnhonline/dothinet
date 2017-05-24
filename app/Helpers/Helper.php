@@ -34,10 +34,11 @@ class Helper
             }
         }
     }
-    public static function getPriceId($price, $price_unit_id){
+    public static function getPriceId($price, $price_unit_id, $type){
         $rs = Price::where('value_from', '<=', $price)
                     ->where('value_to', '>=', $price)
                     ->where('price_unit_id', $price_unit_id)
+                    ->where('type', $type)
                     ->first();
         if($rs){
             return $rs->id;    

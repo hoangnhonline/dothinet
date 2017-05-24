@@ -221,7 +221,7 @@ class DetailController extends Controller
 
         $dataArr['status'] = 2;          
         $dataArr['city_id'] = 1;      
-        $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id']);
+        $dataArr['price_id'] = Helper::getPriceId($dataArr['price'], $dataArr['price_unit_id'], $dataArr['type']);
         $dataArr['area_id'] = Helper::getAreaId($dataArr['area']);   
         $rs = Product::create($dataArr);
         $product_id = $rs->id;         
