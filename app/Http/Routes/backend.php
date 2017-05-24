@@ -44,14 +44,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/update', ['as' => 'district.update', 'uses' => 'DistrictController@update']);
         Route::get('{id}/destroy', ['as' => 'district.destroy', 'uses' => 'DistrictController@destroy']);
     });
-    Route::group(['prefix' => 'ward'], function () {
-        Route::get('/', ['as' => 'ward.index', 'uses' => 'WardController@index']);
-        Route::get('/create', ['as' => 'ward.create', 'uses' => 'WardController@create']);
-        Route::post('/store', ['as' => 'ward.store', 'uses' => 'WardController@store']);
-        Route::get('{id}/edit',   ['as' => 'ward.edit', 'uses' => 'WardController@edit']);
-        Route::post('/update', ['as' => 'ward.update', 'uses' => 'WardController@update']);
-        Route::get('{id}/destroy', ['as' => 'ward.destroy', 'uses' => 'WardController@destroy']);
-    });
+    
     Route::group(['prefix' => 'cart-product'], function () {
         Route::get('/', ['as' => 'cart-product.index', 'uses' => 'CartProductController@index']);
         Route::get('/create', ['as' => 'cart-product.create', 'uses' => 'CartProductController@create']);

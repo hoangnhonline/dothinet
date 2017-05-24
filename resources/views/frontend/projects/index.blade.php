@@ -30,13 +30,13 @@
 			<div class="col-sm-6 col-xs-6">
 				<div class="project-item">
 					<div class="project-img">
-					    <a href="{{ route('detail-project', [$value->slug, $value->id])}}" title="{{ $value->name }}">
+					    <a href="{{ route('detail-project', [$value->slug])}}" title="{{ $value->name }}">
 					        <img src="{{ $value->image_url ? Helper::showImageThumb($value->image_url, 3, '306x194') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{{ $value->name }}">
 					    </a>
 					</div>
 					<div class="project-desc">
 			            <div class="project-name">
-			                <h4><a href="{{ route('detail-project', [$value->slug, $value->id])}}" title="{{ $value->name }}">{{ $value->name }}</a></h4>
+			                <h4><a href="{{ route('detail-project', [$value->slug])}}" title="{{ $value->name }}">{{ $value->name }}</a></h4>
 			            </div>
 			            <div class="project-address">
 			                <span>Địa chỉ: </span>
