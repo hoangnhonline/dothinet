@@ -130,19 +130,7 @@
 
 	@yield('slider')
 
-	@yield('content')
-	
-
-	<section class="block block-get-news">
-		<div class="container">
-			<div class="block-contents">
-				<form action="" method="get" >
-					<input type="text" name="" value="" placeholder="Nhập địa chỉ email">
-					<button type="button" class="btnConfirm">Đăng ký</button>
-				</form>
-			</div>
-		</div>
-	</section><!-- /block-get-news -->
+	@yield('content')	
 
 	@include('frontend.home.footer')
 
