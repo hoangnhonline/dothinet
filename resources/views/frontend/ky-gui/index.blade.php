@@ -250,9 +250,11 @@
 									<hr>
 									<h4 class="titile-post-news">THÔNG TIN BẢN ĐỒ</h4>
 									<div class="block-map">
-										<object class="mymap" data="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126263.60819855973!2d-84.44808690325613!3d33.735934882617194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDQ0JzQ1LjQiTiA4NMKwMjMnMzUuMyJX!5e0!3m2!1svi!2s!4v1475105845390"></object>
+										<input id="pac-input" class="controls" type="text" placeholder="Nhập địa chỉ để tìm kiếm">
+                          				<div id="map-abc"></div>
 									</div>
-
+									<input type="hidden" name="longt" id="longt" value="" />
+              						<input type="hidden" name="latt" id="latt" value="" />
 									<hr>
 									<h4 class="titile-post-news">THÔNG TIN LIÊN HỆ</h4>
 									<div class="form-group">
@@ -300,9 +302,172 @@
 	</section>
 </section><!-- /main -->
 <input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple-fe') }}">
+  <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map-abc {
+        height: 400px;
+      }
+    
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map-abc #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+        border: 2px solid #45a44b;
+        height: 30px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }     
+      
+    </style>
 @endsection
 @section('javascript_page')
+<script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
 
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map-abc'), {
+          center: {lat: 10.7860332, lng: 106.6950147},
+          zoom: 17,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+           var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(10.7860332, 106.6950147),
+              draggable:true,
+              map: map            
+            });
+           google.maps.event.addListener(marker,'dragend',function(event) {
+                document.getElementById('latt').value = this.position.lat();
+                document.getElementById('longt').value = this.position.lng();                
+            });
+        });
+
+        var markers = [];       
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            document.getElementById('latt').value = place.geometry.location.lat();
+            document.getElementById('longt').value = place.geometry.location.lng();
+            var icon = {              
+              size: new google.maps.Size(128, 128),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              draggable:true,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+
+             // Clear out the old markers.
+          markers.forEach(function(marker) {
+            google.maps.event.addListener(marker,'dragend',function(event) {
+                document.getElementById('latt').value = this.position.lat();
+                document.getElementById('longt').value = this.position.lng();                
+            });
+          });
+            
+          });
+          map.fitBounds(bounds);
+        });
+      }
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhxs7FQ3DcyDm8Mt7nCGD05BjUskp_k7w&libraries=places&callback=initAutocomplete"
+         async defer></script>
 
 <script type="text/javascript">
 	$(document).on('click', '.remove-image', function(){
@@ -311,6 +476,10 @@
   }
 });
 $(document).ready(function() {
+
+$('#pac-input').on('keypress', function(e) {
+    return e.which !== 13;
+});
       var files = "";
       $('#file-image').change(function(e){
          files = e.target.files;
