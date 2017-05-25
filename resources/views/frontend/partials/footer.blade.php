@@ -76,7 +76,7 @@
                             <div class="introduce-title">CHÍNH SÁCH</div>
                             <ul id = "introduce-support"  class="introduce-list">
                                 <li><a href="{{ route('danh-muc', 'bao-mat-thong-tin') }}">Bảo mật thông tin</a></li>
-                                <li><a href="{{ route('danh-muc', 'phuong-thuc-thanh-toan') }}">Phương thức thanh toán</a></li>
+                                <li><a href="{{ route('danh-muc', 'thanh-toan') }}">Phương thức thanh toán</a></li>
                                 <li><a href="{{ route('danh-muc', 'hinh-thuc-van-chuyen') }}">Hình thức vận chuyển</a></li>
                                 <li><a href="{{ route('danh-muc', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>
                             </ul>

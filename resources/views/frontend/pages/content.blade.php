@@ -25,7 +25,7 @@
                               <ul class="tree-menu">
                                   <li {{ $detailPage->slug == 'gioi-thieu' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'gioi-thieu') }}">Giới thiệu</a></li>                               
                                   <li {{ $detailPage->slug == 'bao-mat-thong-tin' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'bao-mat-thong-tin') }}">Bảo mật thông tin</a></li>                      
-                                  <li {{ $detailPage->slug == 'phuong-thuc-thanh-toan' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'phuong-thuc-thanh-toan') }}">Phương thức thanh toán</a></li>
+                                  <li {{ $detailPage->slug == 'thanh-toan' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'thanh-toan') }}">Phương thức thanh toán</a></li>
                                   <li {{ $detailPage->slug == 'hinh-thuc-van-chuyen' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'hinh-thuc-van-chuyen') }}">Hình thức vận chuyển</a></li>
                                   <li {{ $detailPage->slug == 'chinh-sach-bao-hanh' ? 'class=active' : '' }}><span></span><a href="{{ route('danh-muc', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>                                 
                               </ul>
