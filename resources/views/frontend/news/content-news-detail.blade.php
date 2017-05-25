@@ -5,7 +5,7 @@
     <ul class="breadcrumb"> 
         <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>  
         <li>
-            <a href="{{ route('news-list', $detailLoai->slug) }}">{{ $detailLoai->name }}</a>
+            <a href="{{ route('news-list', $cateDetail->slug) }}">{{ $cateDetail->name }}</a>
         </li>    
         <li class="active">{{ $detail->title }}</li>
     </ul>
@@ -13,7 +13,7 @@
     <article class="block block-breadcrumb">
         <div class="block-contents">
             <ul>
-                <li class="active"><h2><a href="{{ route('news-list', $detailLoai->slug) }}">{{ $detailLoai->name }}</a></h2></li>
+                <li class="active"><h2><a href="{{ route('news-list', $cateDetail->slug) }}">{{ $cateDetail->name }}</a></h2></li>
             </ul>
         </div>
     </article><!-- /block-breadcrumb -->

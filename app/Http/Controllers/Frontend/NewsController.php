@@ -38,7 +38,7 @@ class NewsController extends Controller
         $detail = Articles::where( 'id', $id )
                 ->select('id', 'title', 'slug', 'description', 'image_url', 'content', 'meta_id', 'created_at', 'cate_id')
                 ->first();
-        $is_km = $is_news = $is_kn = 0;
+        
         if( $detail ){           
 
             $title = trim($detail->meta_title) ? $detail->meta_title : $detail->title;
@@ -51,8 +51,8 @@ class NewsController extends Controller
             $socialImage = $detail->image_url; 
           
             $tagSelected = Articles::getListTag($id);
-            $detailLoai = ArticlesCate::find($detail->cate_id);
-            return view('frontend.news.news-detail', compact('title',  'hotArr', 'detail', 'otherArr', 'seo', 'socialImage', 'tagSelected', 'detailLoai'));
+            $cateDetail = ArticlesCate::find($detail->cate_id);
+            return view('frontend.news.news-detail', compact('title',  'hotArr', 'detail', 'otherArr', 'seo', 'socialImage', 'tagSelected', 'cateDetail'));
         }else{
             return view('erros.404');
         }
