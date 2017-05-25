@@ -87,7 +87,7 @@ class ProContentController extends Controller
         $rs = Articles::create($dataArr);
 
         $object_id = $rs->id;       
-
+        $this->storeMeta( $object_id, 0, $dataArr);
         Session::flash('message', 'Tạo mới bài viêt thành công');
 
         return redirect()->route('pro-content.index',['project_id' => $dataArr['project_id']]);
@@ -137,8 +137,12 @@ class ProContentController extends Controller
         }
         $project_id = $detail->project_id;
         $projectDetail = LandingProjects::find($project_id);
-        $tabList = LandingProjects::getListTabProject($project_id);  
-        return view('backend.pro-content.edit', compact('detail', 'project_id', 'projectDetail', 'tabList'));
+        $tabList = LandingProjects::getListTabProject($project_id);
+        $meta = (object) [];
+        if ( $detail->meta_id > 0){
+            $meta = MetaData::find( $detail->meta_id );
+        }  
+        return view('backend.pro-content.edit', compact('detail', 'project_id', 'projectDetail', 'tabList', 'meta'));
     }
 
     /**
@@ -154,45 +158,15 @@ class ProContentController extends Controller
         
         $this->validate($request,[            
             'cate_id' => 'required',            
-            'title' => 'required',            
-            'slug' => 'required|unique:articles,slug,'.$dataArr['id'],
+            'title' => 'required'           
         ],
         [            
             'cate_id.required' => 'Bạn chưa chọn danh mục',            
-            'title.required' => 'Bạn chưa nhập tiêu đề',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'slug.unique' => 'Slug đã được sử dụng.'
+            'title.required' => 'Bạn chưa nhập tiêu đề'            
         ]);       
         
-        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
-        
-        if($dataArr['image_url'] && $dataArr['image_name']){
-            
-            $tmp = explode('/', $dataArr['image_url']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-            if(!is_dir('uploads/thumbs/articles/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/articles/'.date('Y/m/d'), 0777, true);
-            }
-            if(!is_dir('uploads/thumbs/articles/312x234/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/articles/312x234/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);
-            
-            Image::make(config('icho.upload_path').$destionation)->resize(203, null, function ($constraint) {
-                                $constraint->aspectRatio();
-                        })->crop(203, 128)->save(config('icho.upload_thumbs_path_articles').$destionation);
-            Image::make(config('icho.upload_path').$destionation)->resize(312, null, function ($constraint) {
-                                $constraint->aspectRatio();
-                        })->crop(312, 234)->save(config('icho.upload_thumbs_path_articles').'312x234/'.$destionation);
-            $dataArr['image_url'] = $destionation;
-        }
-
+        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);        
+       
         $dataArr['updated_user'] = Auth::user()->id;
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
         //$dataArr['status'] = isset($dataArr['status']) ? 1 : 0;  
@@ -214,7 +188,7 @@ class ProContentController extends Controller
                 $modelTagObject->save();
             }
         }
-        Session::flash('message', 'Cập nhật tin tức thành công');        
+        Session::flash('message', 'Cập nhật bài viết thành công');        
 
         return redirect()->route('pro-content.edit', $dataArr['id']);
     }
@@ -232,7 +206,7 @@ class ProContentController extends Controller
         $model->delete();
 
         // redirect
-        Session::flash('message', 'Xóa tin tức thành công');
+        Session::flash('message', 'Xóa bài viết thành công');
         return redirect()->route('pro-content.index');
     }
 }

@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Frontend'], function()
     
     Route::get('/du-an', ['as' => 'du-an', 'uses' => 'ProjectsController@index']);    
     Route::get('du-an/{slug}', ['as' => 'detail-project', 'uses' => 'ProjectsController@detail']);
-    Route::get('du-an/{slug}/{slug-tab}', ['as' => 'tab', 'uses' => 'ProjectsController@tab']);
+    Route::get('du-an/{slug}/{slugtab}', ['as' => 'tab', 'uses' => 'ProjectsController@tab']);
     Route::post('/tmp-upload-multiple-fe', ['as' => 'image.tmp-upload-multiple-fe', 'uses' => 'UploadController@tmpUploadMultipleFE']);
    
     Route::get('tag/{slug}', ['as' => 'tag', 'uses' => 'DetailController@tagDetail']);

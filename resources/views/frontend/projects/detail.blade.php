@@ -22,8 +22,8 @@
 				</p>
 			</li>
 			@if(in_array(1, $tabArr))
-			<li role="presentation" class="active">
-				<a href="{{ route('tab', [$detail->slug, 'gioi-thieu']) }}" aria-controls="About" role="tab" data-toggle="tab">
+			<li role="presentation" @if($tab_id == 1) class="active" @endif>
+				<a href="{{ route('tab', [$detail->slug, 'gioi-thieu']) }}" >
 					<i class="icon">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 22 20" enable-background="new 0 0 22 20" xml:space="preserve" class="svg replaced-svg">
 						<g><g><path fill="#979797" d="M20,0H4.6c-1.1,0-2,0.9-2,2.1v3.5H2c-1.1,0-2,1-2,2.1v10.1C0,19.1,0.9,20,2,20H20c1.1,0,2-1,2-2.1V2.1    C22,0.9,21.1,0,20,0z M2,18.6L2,18.6c-0.4,0-0.7-0.3-0.7-0.7V7.8c0-0.4,0.3-0.7,0.7-0.7h0.6v10.8c0,0.2,0,0.5,0.1,0.7H2z     M20.7,17.9c0,0.4-0.3,0.7-0.7,0.7H4.6c-0.4,0-0.7-0.3-0.7-0.7V2.1c0-0.4,0.3-0.7,0.7-0.7H20c0.4,0,0.7,0.3,0.7,0.7V17.9z M18,7.2    h-2.5v1.6H18V7.2z M15.5,11.5h3.6V9.9h-3.6V11.5z M15.5,14.2h3.1v-1.6h-3.1V14.2z M10,8.1l-2.9,3.1c0,0-0.1,0.1-0.1,0.1v2.5    c0,0.3,0.2,0.5,0.4,0.5h1.6v-2.6h2v2.6h1.6c0.2,0,0.4-0.2,0.4-0.5v-2.4c0,0-0.1-0.1-0.1-0.1L10,8.1z M10.6,6.4L10,5.8L9.4,6.4    l-3.7,3.9c-0.2,0.2-0.2,0.5,0,0.7c0.1,0.1,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1L10,7.1l3.7,3.9c0.1,0.1,0.2,0.1,0.3,0.1    c0.1,0,0.2,0,0.3-0.1c0.2-0.2,0.2-0.5,0-0.7L10.6,6.4z"></path></g></g></svg>
@@ -34,7 +34,7 @@
 			</li>
 			@endif
 			@if(in_array(2, $tabArr))
-		    <li role="presentation">
+		    <li role="presentation" @if($tab_id == 2) class="active" @endif>
 		    	<a href="{{ route('tab', [$detail->slug, 'vi-tri']) }}" >
 		    		<i class="icon">
 		    			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 20" enable-background="new 0 0 24 20" xml:space="preserve" class="svg replaced-svg">
@@ -45,7 +45,7 @@
 		    </li>
 		    @endif
 		    @if(in_array(3, $tabArr))
-		    <li role="presentation">
+		    <li role="presentation" @if($tab_id == 3) class="active" @endif>
 		    	<a href="{{ route('tab', [$detail->slug, 'tien-ich']) }}" >
 		    		<i class="icon">
 			    		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve" class="svg replaced-svg">
@@ -56,7 +56,7 @@
 		    </li>
 		    @endif
 		    @if(in_array(3, $tabArr))
-		    <li role="presentation">
+		    <li role="presentation" @if($tab_id == 4) class="active" @endif>
 		    	<a href="{{ route('tab', [$detail->slug, 'thiet-ke']) }}" >
 		    		<i class="icon">
 		    			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 29 20" enable-background="new 0 0 29 20" xml:space="preserve" class="svg replaced-svg">
@@ -67,7 +67,7 @@
 		    </li>
 		    @endif
 		    @if(in_array(5, $tabArr))
-		    <li role="presentation">
+		    <li role="presentation" @if($tab_id == 5) class="active" @endif>
 		    	<a href="{{ route('tab', [$detail->slug, 'phuong-thuc-thanh-toan']) }}" >
 		    		<i class="icon">
 			    		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 27 19" enable-background="new 0 0 27 19" xml:space="preserve" class="svg replaced-svg">
@@ -78,7 +78,7 @@
 		    </li>
 		    @endif
 		    @if(in_array(6, $tabArr))
-		    <li role="presentation">
+		    <li role="presentation" @if($tab_id == 6) class="active" @endif>
 		    	<a href="{{ route('tab', [$detail->slug, 'brochure']) }}" >
 		    		<p class="icon"><i class="fa fa-file-o" aria-hidden="true"></i></p>
 		    		Brochure
@@ -86,7 +86,7 @@
     		</li>
     		@endif
     		@if(in_array(7, $tabArr))
-		    <li role="presentation" >
+		    <li role="presentation" @if($tab_id == 7) class="active" @endif>
 		    	<a href="{{ route('tab', [$detail->slug, 'lien-he']) }}" >
 		    		<i class="icon">
 			    		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 22 14" enable-background="new 0 0 22 14" xml:space="preserve" class="svg replaced-svg"><g><g><path fill="#979797" d="M11,8.4L11,8.4c0.2,0,0.3,0,0.5-0.1l0,0c0,0,0,0,0,0L12,7.9L22,0c0,0-0.1,0-0.1,0H0.1c0,0-0.1,0-0.1,0    l10.5,8.2C10.6,8.3,10.8,8.4,11,8.4z M0,1.1v11.6L7.5,7L0,1.1z M14.5,7l7.5,5.7V1.1L14.5,7z M12.1,8.9c-0.3,0.2-0.7,0.4-1.1,0.4    c-0.4,0-0.8-0.1-1.1-0.4L8.2,7.6L0,13.9v0C0,13.9,0.1,14,0.1,14h21.8c0.1,0,0.1-0.1,0.1-0.1v0l-8.2-6.3L12.1,8.9z"></path>
@@ -103,11 +103,11 @@
 		<div class="tab-content">
 			@if(in_array(1, $tabArr) && $tab_id != 7)
 			<div role="tabpanel" class="tab-pane fade in active" id="About">
-				@if($contentArr[1])
+				@if($detailTab)
 				<div class="page-block">
-					<h2 class="page-title">{{ $contentArr[1]->title }}</h2>
+					<h2 class="page-title">{{ $detailTab->title }}</h2>
 					<div class="page-content editor-content">
-						<?php echo $contentArr[1]->content; ?>
+						<?php echo $detailTab->content; ?>
 					</div>
 				</div>
 				@endif
