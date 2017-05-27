@@ -2,7 +2,9 @@
 @section('content')
 <section class="col-sm-8 col-xs-12 block-sitemain">
   <article class="block block-news-default row">
+    
     <div class="block-news-default-left">
+    @if(isset($tinThiTruong[0]))
       <div class="col-sm-7 col-xs-12">
         <div class="block-news-default-item">
           <div class="block-thumb">
@@ -15,7 +17,9 @@
               </h2>
             </div><!-- /block-news-default-item -->
       </div>
+      @endif
     </div><!-- /block-news-default-left -->
+
     <div class="block-news-default-right">
       <div class="col-sm-5 col-xs-12 block-pl0">
         <ul class="block-news-list-right">
@@ -128,13 +132,15 @@
         </div>
         <div class="block-contents">
           <div class="news-fengshui clearfix">
-            <div class="fengshui-news-hot">
+              @if(isset($phongthuy[0]))
+              <div class="fengshui-news-hot">
               <a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}" title="">
                 <img src="{{ $phongthuy[0]['image_url'] ? Helper::showImageThumb($phongthuy[0]['image_url'], 2, '312x234') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
               </a>    
                     
                     <h4><a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}">{{ $phongthuy[0]['title'] }}</a></h4>
                 </div>
+                @endif
                 <div class="fengshui-news-list">
                   <ul>
                     <?php $i =0; ?>
@@ -161,7 +167,9 @@
           <h3><span class="icon-tile2"><img src="{{ URL::asset('assets/images/icon-living.png') }}" alt=""> Không gian sống</h3>
         </div>
         <div class="block-contents">
+
           <div class="news-fengshui clearfix">
+           @if(isset($khonggiansong[0]))
             <div class="fengshui-news-hot">
                     <a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}" title="">
                 <img src="{{ $khonggiansong[0]['image_url'] ? Helper::showImageThumb($khonggiansong[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
@@ -169,6 +177,7 @@
                     
                     <h4><a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}">{{ $khonggiansong[0]['title'] }}</a></h4>
                 </div>
+                @endif
                 <div class="fengshui-news-list">
                   <ul>
                      <?php $i =0; ?>
