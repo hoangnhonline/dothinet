@@ -1109,3 +1109,17 @@ Stack trace:
 #69 /var/www/html/dothi/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(99): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #70 /var/www/html/dothi/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #71 {main}  
+[2017-05-22 11:30:27] production.ERROR: Symfony\Component\Console\Exception\CommandNotFoundException: Command "cache:Clear" is not defined.
+
+Did you mean one of these?
+    cache:clear
+    config:clear
+    route:clear
+    view:clear
+    cache:table in /home/dothi9.com/public_html/vendor/symfony/console/Application.php:515
+Stack trace:
+#0 /home/dothi9.com/public_html/vendor/symfony/console/Application.php(183): Symfony\Component\Console\Application->find('cache:Clear')
+#1 /home/dothi9.com/public_html/vendor/symfony/console/Application.php(117): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 /home/dothi9.com/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(107): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 /home/dothi9.com/public_html/artisan(35): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
