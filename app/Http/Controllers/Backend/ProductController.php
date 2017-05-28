@@ -470,6 +470,7 @@ class ProductController extends Controller
 
         $tagSelected = Product::productTag($id);
         $tienIchSelected = Product::productTienIch($id);
+        
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $detail->district_id])->get();
         $directionArr = Direction::all();
         $areaList = Area::all();

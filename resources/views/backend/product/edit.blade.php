@@ -315,7 +315,7 @@
                                 @foreach($tienIchLists as $ti)
                                 <?php $i_ti++; ?>
                                 <div class="col-md-4">
-                                  <input type="checkbox" value="{{ $ti->id }}" {{ in_array($value->id, $tienIchSelected) || (old('tien_ich') && in_array($value->id, old('tien_ich'))) ? "selected" : "" }} name="tien_ich[]" id="tien_ich_{{ $i_ti }}"> 
+                                  <input type="checkbox" value="{{ $ti->id }}" {{ in_array($ti->id, $tienIchSelected) || (old('tien_ich') && in_array($value->id, old('tien_ich'))) ? "checked" : "" }} name="tien_ich[]" id="tien_ich_{{ $i_ti }}"> 
                                   <label style="cursor:poiter;text-transform:uppercase; font-weight:normal" for="tien_ich_{{ $i_ti }}">{{ $ti->name }}</label>
                                 </div>
                                 @endforeach 
