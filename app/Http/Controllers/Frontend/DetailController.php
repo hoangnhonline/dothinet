@@ -124,7 +124,15 @@ class DetailController extends Controller
                 $productList  = $query->limit(36)->get();
 
             }
-            $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
+            
+            if( $detail->meta_id > 0){
+               $seo = MetaData::find( $detail->meta_id )->toArray();
+               $seo['title'] = $seo['title'] != '' ? $seo['title'] : 'Tag - '. $detail->name;
+               $seo['description'] = $seo['description'] != '' ? $seo['description'] : 'Tag - '. $detail->name;
+               $seo['keywords'] = $seo['keywords'] != '' ? $seo['keywords'] : 'Tag - '. $detail->name;
+            }else{
+                $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
+            }
             
             return view('frontend.cate.tag', compact('productList', 'socialImage', 'seo', 'detail'));
         }elseif($detail->type == 2){ // articles
@@ -138,7 +146,14 @@ class DetailController extends Controller
                 $articlesArr = Articles::whereIn('id', $listId)->orderBy('id', 'desc')->where('cate_id', '<>', 999)->paginate(20);
             }  
 
-            $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
+            if( $detail->meta_id > 0){
+               $seo = MetaData::find( $detail->meta_id )->toArray();
+               $seo['title'] = $seo['title'] != '' ? $seo['title'] : 'Tag - '. $detail->name;
+               $seo['description'] = $seo['description'] != '' ? $seo['description'] : 'Tag - '. $detail->name;
+               $seo['keywords'] = $seo['keywords'] != '' ? $seo['keywords'] : 'Tag - '. $detail->name;
+            }else{
+                $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
+            }  
                   
             return view('frontend.news.tag', compact('title', 'articlesArr', 'seo', 'socialImage', 'detail'));
         }
