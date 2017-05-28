@@ -94,6 +94,19 @@
 	    				<td><b>Số toilet</b></td>
 	    				<td>{{ $detail->no_wc }}</td>
 	    			</tr>
+	    			@if(!empty($tienIch))
+	    			<?php $countTag = count($tienIch); ?>
+	    			<tr>
+	    				<td><b>Tiện ích xung quanh</b></td>
+	    				<td>
+	    					<?php $i = 0; ?>
+							@foreach($tienIch as $tag)							
+							<?php $i++; ?>
+							<a href="{{ route('tag', $tag['slug']) }}">{{ $tag['name'] }}</a>@if($i< $countTag), @endif
+							@endforeach		
+	    				</td>
+	    			</tr>
+	    			@endif
 	    		</table>
 	    	</div>
 	    	<div class="col-sm-6">

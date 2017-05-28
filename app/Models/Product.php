@@ -83,6 +83,17 @@ class Product extends Model  {
         }
         return $arr;
     }
+    public static function productTienIchName( $id )
+    {
+        $arr = [];
+        $rs = TagObjects::where( ['tag_objects.type' => 3, 'tag_objects.object_id' => $id] )
+            ->join('tag', 'tag.id', '=', 'tag_objects.tag_id')
+            ->select('tag.*')->get();
+        if( $rs ){
+            $arr = $rs->toArray();
+        }
+        return $arr;
+    }
     public static function getListTag($id){
         $query = TagObjects::where(['object_id' => $id, 'tag_objects.type' => 1])
             ->join('tag', 'tag.id', '=', 'tag_objects.tag_id')            
