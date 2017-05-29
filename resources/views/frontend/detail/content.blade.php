@@ -236,7 +236,8 @@
     	controls: false,
         pagerCustom: '.pro-thumb-img',
         nextText: '<i class="fa fa-angle-right"></i>',
-        prevText: '<i class="fa fa-angle-left"></i>'
+        prevText: '<i class="fa fa-angle-left"></i>',
+        adaptiveHeight: true
     });
 
     $(".pro-thumb-img").bxSlider({
@@ -260,10 +261,14 @@
 	$('.bxslider').bxSlider({
 		pagerCustom: '#bx-pager',
 		pager: true,
+		adaptiveHeight: true
 	});
 	$('.slide-detail').bxSlider({
 		pagerCustom: '#bx-pager-detail',
 		pager: true,
+		adaptiveHeight: true,
+		auto : true,
+		pause : 4000
 	});
 
 });
