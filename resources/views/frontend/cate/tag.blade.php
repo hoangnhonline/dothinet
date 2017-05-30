@@ -22,6 +22,7 @@
 			</div>
 		</div>
 		@endif
+		<div class="clearfix"></div>
 		<div class="block-searchresult">			
 			<span class="block-countresult">Có <b>{{ number_format(count($productList)) }}</b> bất động sản</span>
 		</div>
