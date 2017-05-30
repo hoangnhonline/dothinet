@@ -67,7 +67,7 @@
                 </div>
                 
                 <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-3 row">Thumbnail </label>    
+                  <label class="col-md-3 row">Thumbnail ( 624x468 px)</label>    
                   <div class="col-md-9">
                     <img id="thumbnail_image" src="{{ $detail->image_url ? Helper::showImage($detail->image_url ) : URL::asset('backend/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
                     
