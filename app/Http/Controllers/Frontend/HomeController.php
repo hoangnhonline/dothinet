@@ -109,10 +109,10 @@ class HomeController extends Controller
         $seo['keywords'] = $settingArr['site_keywords'];
         $socialImage = $settingArr['banner'];
 
-        $tinThiTruong = Articles::where('cate_id', 7)->limit(6)->get()->toArray();
-        $phongthuy = Articles::where('cate_id', 4)->limit(6)->get()->toArray();
-        $tuvanluat = Articles::where('cate_id', 5)->limit(6)->get()->toArray();
-        $khonggiansong = Articles::where('cate_id', 1)->limit(6)->get()->toArray();
+        $tinThiTruong = Articles::where('cate_id', 7)->orderBy('id', 'desc')->limit(6)->get()->toArray();
+        $phongthuy = Articles::where('cate_id', 4)->orderBy('id', 'desc')->limit(6)->get()->toArray();
+        $tuvanluat = Articles::where('cate_id', 5)->orderBy('id', 'desc')->limit(6)->get()->toArray();
+        $khonggiansong = Articles::where('cate_id', 1)->orderBy('id', 'desc')->limit(6)->get()->toArray();
         
         
 
