@@ -130,6 +130,7 @@ class DetailController extends Controller
                $seo['title'] = $seo['title'] != '' ? $seo['title'] : 'Tag - '. $detail->name;
                $seo['description'] = $seo['description'] != '' ? $seo['description'] : 'Tag - '. $detail->name;
                $seo['keywords'] = $seo['keywords'] != '' ? $seo['keywords'] : 'Tag - '. $detail->name;
+               $seo['custom_text'] = $seo['custom_text'];
             }else{
                 $seo['title'] = $seo['description'] = $seo['keywords'] = 'Tag - '. $detail->name;
             }

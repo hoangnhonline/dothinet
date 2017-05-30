@@ -9,7 +9,7 @@
         <div class="block-news-default-item">
           <div class="block-thumb">
             <a href="{{ route('news-detail', ['slug' => $tinThiTruong[0]['slug'], 'id' => $tinThiTruong[0]['id']]) }}" title="">
-              <img src="{{ $tinThiTruong[0]['image_url'] ? Helper::showImageThumb($tinThiTruong[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+              <img src="{{ $tinThiTruong[0]['image_url'] ? Helper::showImageThumb($tinThiTruong[0]['image_url'], 2, '312x234') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
             </a>
           </div>
           <h2 class="block-title">
