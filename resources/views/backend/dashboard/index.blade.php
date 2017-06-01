@@ -14,7 +14,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">		  
-		  <div class="panel-body" style="background-color:#65C0E9; color:#FFF"><?php echo $settingArr['thong_bao_chung']; ?></div>
+		  <div class="panel-body" style="background-color:#063d4c; color:#FFF"><?php echo $settingArr['thong_bao_chung']; ?></div>
 		</div>
       <div class="box">
 
