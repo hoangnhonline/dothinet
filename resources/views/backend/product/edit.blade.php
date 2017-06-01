@@ -193,7 +193,7 @@
                         </div>
                         <div class="form-group col-md-3 none-padding pleft-5">
                           <label>Số WC</label>                  
-                          <input type="text" class="form-control" name="no_room" id="no_room" value="{{ old('no_room', $detail->no_room) }}">                        
+                          <input type="text" class="form-control" name="no_wc" id="no_wc" value="{{ old('no_wc', $detail->no_wc) }}">                        
                         </div>
                         <div class="form-group col-md-3 none-padding pleft-5">
                           <label>Hướng</label>                  
