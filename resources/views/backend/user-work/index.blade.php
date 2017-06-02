@@ -84,6 +84,7 @@
             <tr>
               <th style="width: 1%">#</th>              
               <th width="120px">Ngày</th>
+              <th width="120px">Nhân viên</th>
               <th>Mô tả</th>
               <th>Nhận xét</th>
               <th>Trạng thái</th>
@@ -102,7 +103,8 @@
                    @if( $item->is_hot == 1 )
                   <img class="img-thumbnail" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Ưu tiên" title="Ưu tiên" />
                   @endif
-                </td>        
+                </td>    
+                <td>{{ $item->full_name }}</td>    
                 <td>                                    
                   <p><?php echo $item->description; ?></p>
                 </td>

@@ -53,10 +53,14 @@ class UserWorkController extends Controller
             }
 
         }else{
-            $userList = Account::where('role', 1)->get();
+            $userList = Account::where('role', 1)->get();            
+            if( $created_user){
+                $query->where('created_user', $created_user);
+            }
         }
+        $query->join('users', 'users.id', '=', 'user_work.created_user');
         $groupList = WorkGroup::all();
-        $query->orderBy('status', 'asc')->orderBy('is_hot','desc')->orderBy('id', 'desc');
+        $query->orderBy('user_work.status', 'asc')->orderBy('is_hot','desc')->orderBy('user_work.id', 'desc');
         $items = $query->orderBy('user_work.work_date', 'DESC')->paginate(20);
 
         return view('backend.user-work.index', compact( 'items', 's', 'userList', 'groupList'));
