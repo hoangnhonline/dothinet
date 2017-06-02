@@ -33,12 +33,13 @@ class ArticlesController extends Controller
             $query->where('cate_id', $cate_id);
         }
         // check editor
-        if( Auth::user()->role == 1 ){
+        if( Auth::user()->role < 3 ){
             $query->where('created_user', Auth::user()->id);
         }
         if( $title != ''){
             $query->where('alias', 'LIKE', '%'.$title.'%');
         }
+
         $items = $query->orderBy('id', 'desc')->paginate(20);
         
         $cateArr = ArticlesCate::all();
@@ -181,7 +182,7 @@ class ArticlesController extends Controller
         $tagSelected = [];
 
         $detail = Articles::find($id);
-        if( Auth::user()->role == 1 ){
+        if( Auth::user()->role < 3 ){
             if($detail->created_user != Auth::user()->id){
                 return redirect()->route('dashboard.index');
             }
