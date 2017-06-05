@@ -9,7 +9,7 @@
 		<ul class="breadcrumb">	
 			<li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
 			<li><a href="{{ route('du-an') }}" title="Dự án">Dự án</a></li>
-			<li class="active">{{ $detail->name }}</li>
+			<li class="active">{!! $detail->name !!}</li>
 		</ul>
 	</article>
 	<div class="block block-title">		  
@@ -17,7 +17,7 @@
 			<li role="presentation" >
 				<p class="tabs-item-logo">
 					<i class="icon">
-						<img src="{{ $detail->logo_url ? Helper::showImage($detail->logo_url) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{{ $detail->name }}">
+						<img src="{{ $detail->logo_url ? Helper::showImage($detail->logo_url) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $detail->name !!}">
 					</i>
 				</p>
 			</li>
