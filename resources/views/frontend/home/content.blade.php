@@ -13,7 +13,7 @@
             </a>
           </div>
           <h2 class="block-title">
-                  <a href="{{ route('news-detail', ['slug' => $tinThiTruong[0]['slug'], 'id' => $tinThiTruong[0]['id']]) }}" title="">{{ $tinThiTruong[0]['title'] }}</a>
+                  <a href="{{ route('news-detail', ['slug' => $tinThiTruong[0]['slug'], 'id' => $tinThiTruong[0]['id']]) }}" title="">{!! $tinThiTruong[0]['title'] !!}</a>
               </h2>
             </div><!-- /block-news-default-item -->
       </div>
@@ -28,7 +28,7 @@
           <?php $i++; 
           ?>
           @if($i > 1)
-          <li><h3><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></h3></li>
+          <li><h3><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{!! $tin['title'] !!}</a></h3></li>
           @endif
           @endforeach
         </ul>
@@ -55,7 +55,7 @@
                   @foreach($hotProduct as $product)
                     <li class="news-new-item">                      
                       <div class="news-new-item-head">
-                        <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="{{ $product->title }}" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{{ $product->title }}" > 
+                        <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="{{ $product->title }}" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $product->title !!}" > 
                         
                         
                       </div>
@@ -63,10 +63,10 @@
                         <h4>
                         <a class="description-title vip1" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}">@if( $product->is_hot == 1 )
                         <img class="img-hot" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
-                        @endif{{ $product->title }}</a></h4>
+                        @endif {!! $product->title !!}</a></h4>
                             <div class="description-info">
                               <div class="id-post"><i class="fa fa-rebel" aria-hidden="true"></i><label>Mã tin<span>:</span></label>{{ $product->id }}</div>
-                              <div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}                                
+                              <div class="price"><label>Giá<span>:</span></label>{!! $product->price !!} {{ Helper::getName($product->price_unit_id, 'price_unit')}}                                
                                 @if($product->type == 1)
                                     @if($product->cart_status == 1)
                                       <span class="label label-primary">Chưa bán</span>
@@ -82,8 +82,8 @@
                                 @endif
 
                               </div>
-                                <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }} m<sup>2</sup></div>
-                                <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}</div>
+                                <div class="area"><label>Diện tích<span>:</span></label>{!! $product->area !!} m<sup>2</sup></div>
+                                <div class="location"><label>Vị trí<span>:</span></label>{!! Helper::getName($product->district_id, 'district') !!} - {!! Helper::getName($product->city_id, 'city') !!}</div>
                             </div>
                             <span class="date">{{ date('d/m/Y', strtotime($product->updated_at)) }}</span>
                       </div>
@@ -97,19 +97,19 @@
                   @foreach($hotProduct2 as $product)
                     <li class="news-new-item">                      
                       <div class="news-new-item-head">
-                        <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="{{ $product->title }}" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{{ $product->title }}" >
+                        <a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="{{ $product->title }}" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $product->title !!}" >
                         </a>
                         
                       </div>
                       <div class="news-new-item-description">
                         <h4><a class="description-title vip1" href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}">@if( $product->is_hot == 1 )
                         <img class="img-hot" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
-                        @endif {{ $product->title }}</a></h4>
+                        @endif {!! $product->title !!}</a></h4>
                             <div class="description-info">
                               <div class="id-post"><i class="fa fa-rebel" aria-hidden="true"></i><label>Mã tin<span>:</span></label>{{ $product->id }}</div>
-                              <div class="price"><label>Giá<span>:</span></label>{{ $product->price }} {{ Helper::getName($product->price_unit_id, 'price_unit')}}</div>
-                                <div class="area"><label>Diện tích<span>:</span></label>{{ $product->area }} m<sup>2</sup></div>
-                                <div class="location"><label>Vị trí<span>:</span></label>{{ Helper::getName($product->district_id, 'district')}} - {{ Helper::getName($product->city_id, 'city')}}</div>
+                              <div class="price"><label>Giá<span>:</span></label>{!! $product->price !!} {!! Helper::getName($product->price_unit_id, 'price_unit') !!}</div>
+                                <div class="area"><label>Diện tích<span>:</span></label>{!! $product->area !!} m<sup>2</sup></div>
+                                <div class="location"><label>Vị trí<span>:</span></label>{!! Helper::getName($product->district_id, 'district') !!} - {!! Helper::getName($product->city_id, 'city') !!}</div>
                             </div>
                             <span class="date">{{ date('d/m/Y', strtotime($product->updated_at)) }}</span>
                       </div>
@@ -135,10 +135,10 @@
            @if(isset($khonggiansong[0]))
             <div class="fengshui-news-hot">
                     <a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}" title="">
-                <img src="{{ $khonggiansong[0]['image_url'] ? Helper::showImageThumb($khonggiansong[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+                <img src="{{ $khonggiansong[0]['image_url'] ? Helper::showImageThumb($khonggiansong[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $khonggiansong[0]['title'] !!}">
               </a>    
                     
-                    <h4><a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}">{{ $khonggiansong[0]['title'] }}</a></h4>
+                    <h4><a href="{{ route('news-detail', ['slug' => $khonggiansong[0]['slug'], 'id' => $khonggiansong[0]['id']]) }}" title="{!! $khonggiansong[0]['title'] !!}" >{!! $khonggiansong[0]['title'] !!}</a></h4>
                 </div>
                 @endif
                 <div class="fengshui-news-list">
@@ -148,7 +148,7 @@
                       <?php $i++; 
                       ?>
                       @if($i > 1)
-                      <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></li>
+                      <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="{!! $tin['title'] !!}">{!! $tin['title'] !!}</a></li>
                       @endif
                       @endforeach
                   </ul>
@@ -168,11 +168,11 @@
           <div class="news-fengshui clearfix">
               @if(isset($luat[0]))
               <div class="fengshui-news-hot">
-              <a href="{{ route('news-detail', ['slug' => $luat[0]['slug'], 'id' => $luat[0]['id']]) }}" title="">
-                <img src="{{ $luat[0]['image_url'] ? Helper::showImageThumb($luat[0]['image_url'], 2, '325x200') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+              <a href="{{ route('news-detail', ['slug' => $luat[0]['slug'], 'id' => $luat[0]['id']]) }}" title="{!! $luat[0]['title'] !!}">
+                <img src="{{ $luat[0]['image_url'] ? Helper::showImageThumb($luat[0]['image_url'], 2, '325x200') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $luat[0]['title'] !!}">
               </a>    
                     
-                    <h4><a href="{{ route('news-detail', ['slug' => $luat[0]['slug'], 'id' => $luat[0]['id']]) }}">{{ $luat[0]['title'] }}</a></h4>
+                    <h4><a href="{{ route('news-detail', ['slug' => $luat[0]['slug'], 'id' => $luat[0]['id']]) }}" title="{!! $luat[0]['title'] !!}">{!! $luat[0]['title'] !!}</a></h4>
                 </div>
                 @endif
                 <div class="fengshui-news-list">
@@ -182,7 +182,7 @@
                   <?php $i++; 
                   ?>
                   @if($i > 1)
-                  <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></li>
+                  <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="{!! $tin['title'] !!}">{!! $tin['title'] !!}</a></li>
                   @endif
                   @endforeach
                     
@@ -204,11 +204,11 @@
           <div class="news-fengshui clearfix">
            @if(isset($tuvan[0]))
             <div class="fengshui-news-hot">
-                    <a href="{{ route('news-detail', ['slug' => $tuvan[0]['slug'], 'id' => $tuvan[0]['id']]) }}" title="">
-                <img src="{{ $tuvan[0]['image_url'] ? Helper::showImageThumb($tuvan[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+                    <a href="{{ route('news-detail', ['slug' => $tuvan[0]['slug'], 'id' => $tuvan[0]['id']]) }}" title="{!! $tuvan[0]['title'] !!}">
+                <img src="{{ $tuvan[0]['image_url'] ? Helper::showImageThumb($tuvan[0]['image_url'], 2) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $tuvan[0]['title'] !!}">
               </a>    
                     
-                    <h4><a href="{{ route('news-detail', ['slug' => $tuvan[0]['slug'], 'id' => $tuvan[0]['id']]) }}">{{ $tuvan[0]['title'] }}</a></h4>
+                    <h4><a href="{{ route('news-detail', ['slug' => $tuvan[0]['slug'], 'id' => $tuvan[0]['id']]) }}" title="{!! $tuvan[0]['title'] !!}">{!! $tuvan[0]['title'] !!}</a></h4>
                 </div>
                 @endif
                 <div class="fengshui-news-list">
@@ -218,7 +218,7 @@
                       <?php $i++; 
                       ?>
                       @if($i > 1)
-                      <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></li>
+                      <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="{!! $tin['title'] !!}">{!! $tin['title'] !!}</a></li>
                       @endif
                       @endforeach
                   </ul>
@@ -238,11 +238,11 @@
           <div class="news-fengshui clearfix">
               @if(isset($phongthuy[0]))
               <div class="fengshui-news-hot">
-              <a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}" title="">
-                <img src="{{ $phongthuy[0]['image_url'] ? Helper::showImageThumb($phongthuy[0]['image_url'], 2, '325x200') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="">
+              <a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}" title="{!! $phongthuy[0]['title'] !!}">
+                <img src="{{ $phongthuy[0]['image_url'] ? Helper::showImageThumb($phongthuy[0]['image_url'], 2, '325x200') : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $phongthuy[0]['title'] !!}">
               </a>    
                     
-                    <h4><a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}">{{ $phongthuy[0]['title'] }}</a></h4>
+                    <h4><a href="{{ route('news-detail', ['slug' => $phongthuy[0]['slug'], 'id' => $phongthuy[0]['id']]) }}" title="{!! $phongthuy[0]['title'] !!}">{!! $phongthuy[0]['title'] !!}</a></h4>
                 </div>
                 @endif
                 <div class="fengshui-news-list">
@@ -252,7 +252,7 @@
                   <?php $i++; 
                   ?>
                   @if($i > 1)
-                  <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="">{{ $tin['title'] }}</a></li>
+                  <li><a href="{{ route('news-detail', ['slug' => $tin['slug'], 'id' => $tin['id']]) }}" title="{!! $tin['title'] !!}">{!! $tin['title'] !!}</a></li>
                   @endif
                   @endforeach
                     

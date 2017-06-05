@@ -20,7 +20,7 @@
 									<select class="selectpicker form-control" data-live-search="true" name="estate_type_id" id="estate_type_id">
 										<option selected="selected" value="">Loại bất động sản</option>
 										@foreach($banList as $ban)
-										<option value="{{ $ban->id }}">{{ $ban->name }}</option>
+										<option value="{{ $ban->id }}">{!! $ban->name !!}</option>
 										@endforeach
 									</select>
 								</div>
@@ -30,7 +30,7 @@
 									<select class="selectpicker form-control" data-live-search="true" id="district_id" name="district_id">
 										<option value="">Quận/Huyện</option>
 										@foreach($districtList as $district)
-										<option value="{{ $district->id }}">{{ $district->name }}</option>
+										<option value="{{ $district->id }}">{!! $district->name !!}</option>
 										@endforeach
 									</select>
 								</div>
@@ -64,7 +64,7 @@
 									<select class="selectpicker form-control" data-live-search="true" name="price_id" id="price_id">
 										<option value="">Mức giá</option>
 										@foreach($priceList as $price)
-										<option  value="{{ $price->id }}">{{ $price->name }}</option>
+										<option  value="{{ $price->id }}">{!! $price->name !!}</option>
 										@endforeach
 									</select>
 								</div>
@@ -77,7 +77,7 @@
 									<select class="selectpicker form-control" id="area_id" name="area_id" data-live-search="true">
 										<option value="">Diện tích</option>
 										@foreach($areaList as $area)
-										<option value="{{ $area->id }}">{{ $area->name }}</option>
+										<option value="{{ $area->id }}">{!! $area->name !!}</option>
 										@endforeach
 									</select>
 								</div>
@@ -87,7 +87,7 @@
 									<select class="selectpicker form-control" data-live-search="true" name="direction_id">
 										<option value="">Hướng nhà</option>
 										@foreach($directionList as $dir)
-										<option value="{{ $dir->id }}">{{ $dir->name }}</option>
+										<option value="{{ $dir->id }}">{!! $dir->name !!}</option>
 										@endforeach
 									</select>
 								</div>

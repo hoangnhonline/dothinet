@@ -22,7 +22,7 @@
     <meta property="og:title" content="@yield('title')" />
     <meta property="og:description" content="@yield('site_description')" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:site_name" content="iCho.vn" />
+    <meta property="og:site_name" content="dothi9.com" />
     <?php $socialImage = isset($socialImage) ? $socialImage : $settingArr['banner']; ?>
     <meta property="og:image" content="{{ Helper::showImage($socialImage) }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -85,14 +85,14 @@
 	            <?php 
 				$bannerArr = DB::table('banner')->where(['object_id' => 4, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
 				?>	           
-	            <div class="banner_adv" id="Banner_tet" style="display: block;">
-
+	            <div class="banner_adv" id="Banner_tet" style="display: block;">	
+	            <?php $i = 0; ?>
 				@foreach($bannerArr as $banner)
-
+					<?php $i++; ?>
 	                @if($banner->ads_url !='')
 					<a href="{{ $banner->ads_url }}">
 					@endif
-	                    <img src="{{ Helper::showImage($banner->image_url) }}"></a>
+	                    <img src="{{ Helper::showImage($banner->image_url) }}" alt="Banner top {{ $i }}"></a>
 
 	                 @if($banner->ads_url !='')
 					</a>

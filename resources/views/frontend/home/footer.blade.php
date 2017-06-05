@@ -19,7 +19,7 @@
             </div>
             <div class="block-footer-address col-sm-4">
                 <address>
-					<?php echo $settingArr['cty_info']; ?>
+					{!! $settingArr['cty_info'] !!}
 				</address>
             </div>
             <div class="block-menu-bottom-bottom col-sm-4">
@@ -27,7 +27,7 @@
                 <ul>
                 	@if($footerLink)
                 	@foreach($footerLink as $link)
-					<li><a href="{{ $link->link_url }}" title="{{ $link->link_text }}">{{ $link->link_text }}</a></li>
+					<li><a href="{{ $link->link_url }}" title="{!! $link->link_text !!}">{!! $link->link_text !!}</a></li>
 					@endforeach
 					@endif
                 </ul>
