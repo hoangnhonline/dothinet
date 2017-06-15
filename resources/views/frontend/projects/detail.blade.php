@@ -120,7 +120,7 @@
 				<div class="row">
 					<div class="col-sm-6 col-xs-12">
 						<img class="project-logo-contact" src="{{ $detail->logo_url ? Helper::showImage($detail->logo_url) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{{ $detail->name }}">
-						<h3 class="page-title-child">công ty TNHH BĐS Sunland Sài Gòn</h3>
+						<h3 class="page-title-child">CÔNG TY TNHH SẢN XUẤT XÂY DỰNG THƯƠNG MẠI PHÚ LONG</h3>
 						<div class="block-table-nobor-tab">
 							<table class="table table-no-border">
 								<tr>
@@ -128,21 +128,21 @@
 										<label>Địa chỉ:</label>
 									</td>
 									<td>
-										85A Phan Kế Bính, Đa Kao, quận 1, TP. Hồ Chí Minh
+										185A Tây Hòa, Phường Phước Long A, Quận 9, Tp. Hồ Chí Minh.
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<label>Điện thoại :</label>
 									</td>
-									<td>0000.000.000</td>
+									<td>0902.950.950</td>
 								</tr>
 								<tr>
 									<td>
 										<label>Email :</label>
 									</td>
 									<td>
-										<a href="mailto:joe@example.com?subject=feedback">email me</a>
+										<a href="mailto:nguyenlong0098@gmail.com?subject=feedback">nguyenlong0098@gmail.com</a>
 									</td>
 								</tr>
 							</table>
