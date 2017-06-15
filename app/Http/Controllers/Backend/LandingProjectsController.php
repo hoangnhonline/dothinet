@@ -80,17 +80,17 @@ class LandingProjectsController extends Controller
             if(!is_dir('uploads/thumbs/projects/'.date('Y/m/d'))){
                 mkdir('uploads/thumbs/projects/'.date('Y/m/d'), 0777, true);
             }
-            if(!is_dir('uploads/thumbs/projects/306x194/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/projects/306x194/'.date('Y/m/d'), 0777, true);
+            if(!is_dir('uploads/thumbs/projects/308x190/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/projects/308x190/'.date('Y/m/d'), 0777, true);
             }
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);           
             
-            Image::make(config('icho.upload_path').$destionation)->resize(306, null, function ($constraint) {
+            Image::make(config('icho.upload_path').$destionation)->resize(308, null, function ($constraint) {
                                 $constraint->aspectRatio();
-                        })->crop(306, 194)->save(config('icho.upload_thumbs_path_projects').'306x194/'.$destionation);
+                        })->crop(308, 190)->save(config('icho.upload_thumbs_path_projects').'308x190/'.$destionation);
             $dataArr['image_url'] = $destionation;
         }
 
@@ -104,8 +104,8 @@ class LandingProjectsController extends Controller
             if(!is_dir('uploads/thumbs/projects/'.date('Y/m/d'))){
                 mkdir('uploads/thumbs/projects/'.date('Y/m/d'), 0777, true);
             }
-            if(!is_dir('uploads/thumbs/projects/306x194/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/projects/306x194/'.date('Y/m/d'), 0777, true);
+            if(!is_dir('uploads/thumbs/projects/308x190/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/projects/308x190/'.date('Y/m/d'), 0777, true);
             }
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
@@ -233,17 +233,17 @@ class LandingProjectsController extends Controller
             if(!is_dir('uploads/thumbs/projects/'.date('Y/m/d'))){
                 mkdir('uploads/thumbs/projects/'.date('Y/m/d'), 0777, true);
             }
-            if(!is_dir('uploads/thumbs/projects/306x194/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/projects/306x194/'.date('Y/m/d'), 0777, true);
+            if(!is_dir('uploads/thumbs/projects/308x190/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/projects/308x190/'.date('Y/m/d'), 0777, true);
             }
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);            
         
-            Image::make(config('icho.upload_path').$destionation)->resize(306, null, function ($constraint) {
+            Image::make(config('icho.upload_path').$destionation)->resize(308, null, function ($constraint) {
                                 $constraint->aspectRatio();
-                        })->crop(306, 194)->save(config('icho.upload_thumbs_path_projects').'306x194/'.$destionation);
+                        })->crop(308, 190)->save(config('icho.upload_thumbs_path_projects').'308x190/'.$destionation);
             $dataArr['image_url'] = $destionation;
         }
         if($dataArr['logo_url'] && $dataArr['logo_name']){
@@ -256,8 +256,8 @@ class LandingProjectsController extends Controller
             if(!is_dir('uploads/thumbs/projects/'.date('Y/m/d'))){
                 mkdir('uploads/thumbs/projects/'.date('Y/m/d'), 0777, true);
             }
-            if(!is_dir('uploads/thumbs/projects/306x194/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/projects/306x194/'.date('Y/m/d'), 0777, true);
+            if(!is_dir('uploads/thumbs/projects/308x190/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/projects/308x190/'.date('Y/m/d'), 0777, true);
             }
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
