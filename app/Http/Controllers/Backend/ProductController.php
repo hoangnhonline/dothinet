@@ -405,7 +405,7 @@ class ProductController extends Controller
 
                         Image::make(config('icho.upload_path').$destionation)->resize(170, null, function ($constraint) {
                                 $constraint->aspectRatio();
-                        })->crop(170, 128)->save(config('icho.upload_thumbs_path').$destionation);
+                        })->crop(170, 105)->save(config('icho.upload_thumbs_path').$destionation);
 
                         $imageArr['name'][] = $destionation;
 
