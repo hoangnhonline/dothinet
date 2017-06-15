@@ -291,9 +291,9 @@ class DetailController extends Controller
                         
                         File::move(config('icho.upload_path').$image_url, config('icho.upload_path').$destionation);
 
-                        Image::make(config('icho.upload_path').$destionation)->resize(170, null, function ($constraint) {
+                        Image::make(config('icho.upload_path').$destionation)->resize(170, 105, function ($constraint) {
                                 $constraint->aspectRatio();
-                        })->crop(170, 105)->save(config('icho.upload_thumbs_path').$destionation);
+                        })->save(config('icho.upload_thumbs_path').$destionation);
                         $imageArr['name'][] = $destionation;
 
                         $imageArr['is_thumbnail'][] = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
