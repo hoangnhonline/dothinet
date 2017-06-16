@@ -59,7 +59,7 @@ class ProjectsController extends Controller
                 ],
                 function($message) use ($projectsDetail) {
                     $message->subject('Khách hàng liên hệ dự án #'.$projectsDetail->name);
-                    $message->to(['hoangnhonline@gmail.com', 'baoanhco@yahoo.com']);
+                    $message->to(['nguyenlong0098@gmail.com']);
                     $message->from('web.0917492306@gmail.com', 'Admin Website');
                     $message->sender('web.0917492306@gmail.com', 'Admin Website');
             });
