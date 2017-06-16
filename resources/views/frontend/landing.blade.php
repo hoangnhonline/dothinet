@@ -75,13 +75,23 @@
 	                	<img src="{{ Helper::showImage($settingArr['logo']) }}" alt="Logo">	                   
 	                </a>
 	            </div>
-	            <div class="banner_adv" id="Banner_dothi" style="display: none;">
-	               <a href="#" target="_blank">
-	                    <img src="{{ URL::asset('assets/images/adv/Banxehoi.com_Bannertop_728x90.gif') }}"></a>
-	            </div>
-	            <div class="banner_adv" id="Banner_tet" style="display: block;">
-	                <a href="#" target="_blank">
-	                    <img src="{{ URL::asset('assets/images/adv/Banxehoi.com_Bannertop_728x90.gif') }}"></a>
+	            <?php 
+				$bannerArr = DB::table('banner')->where(['object_id' => 4, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+				?>	           
+	            <div class="banner_adv" id="Banner_tet" style="display: block;">	
+	            <?php $i = 0; ?>
+				@foreach($bannerArr as $banner)
+					<?php $i++; ?>
+	                @if($banner->ads_url !='')
+					<a href="{{ $banner->ads_url }}">
+					@endif
+	                    <img src="{{ Helper::showImage($banner->image_url) }}" alt="Banner top {{ $i }}"></a>
+
+	                 @if($banner->ads_url !='')
+					</a>
+					@endif
+
+	            @endforeach
 	            </div>
 	        </div>
 	    </div>

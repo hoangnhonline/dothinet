@@ -305,9 +305,9 @@
 	
 
 	@include('frontend.home.footer')
-	
+	@if(\Request::route()->getName() != "du-an")
 	@include('frontend.partials.ads')	
-	
+	@endif
 
 	<a id="return-to-top" class="td-scroll-up" href="javascript:void(0)">
   		<i class="fa fa-angle-up" aria-hidden="true"></i>
