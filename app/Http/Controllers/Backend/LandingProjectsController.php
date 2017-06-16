@@ -80,17 +80,26 @@ class LandingProjectsController extends Controller
             if(!is_dir('uploads/thumbs/projects/'.date('Y/m/d'))){
                 mkdir('uploads/thumbs/projects/'.date('Y/m/d'), 0777, true);
             }
-            if(!is_dir('uploads/thumbs/projects/308x190/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/projects/308x190/'.date('Y/m/d'), 0777, true);
+            if(!is_dir('uploads/thumbs/projects/306x194/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/projects/306x194/'.date('Y/m/d'), 0777, true);
             }
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);           
-            
-            Image::make(config('icho.upload_path').$destionation)->resize(308, 190, function ($constraint) {
-                                $constraint->aspectRatio();
-                        })->save(config('icho.upload_thumbs_path_projects').'308x190/'.$destionation);
+            $tile2 = 0.06232734;
+            $w_tile2 = $w_img/306;
+            $h_tile2 = $h_img/194;
+         
+            if($w_tile2- $h_tile2 <= $tile2){
+                Image::make(config('icho.upload_path').$destionation)->resize(306, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                })->crop(306, 194)->save(config('icho.upload_thumbs_path_projects').'306x194/'.$destionation);
+            }else{
+                Image::make(config('icho.upload_path').$destionation)->resize(null, 194, function ($constraint) {
+                        $constraint->aspectRatio();
+                })->crop(306, 194)->save(config('icho.upload_thumbs_path_projects').'306x194/'.$destionation);
+            }           
             $dataArr['image_url'] = $destionation;
         }
 
@@ -103,10 +112,7 @@ class LandingProjectsController extends Controller
             }
             if(!is_dir('uploads/thumbs/projects/'.date('Y/m/d'))){
                 mkdir('uploads/thumbs/projects/'.date('Y/m/d'), 0777, true);
-            }
-            if(!is_dir('uploads/thumbs/projects/308x190/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/projects/308x190/'.date('Y/m/d'), 0777, true);
-            }
+            }         
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
@@ -233,17 +239,27 @@ class LandingProjectsController extends Controller
             if(!is_dir('uploads/thumbs/projects/'.date('Y/m/d'))){
                 mkdir('uploads/thumbs/projects/'.date('Y/m/d'), 0777, true);
             }
-            if(!is_dir('uploads/thumbs/projects/308x190/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/projects/308x190/'.date('Y/m/d'), 0777, true);
+            if(!is_dir('uploads/thumbs/projects/306x194/'.date('Y/m/d'))){
+                mkdir('uploads/thumbs/projects/306x194/'.date('Y/m/d'), 0777, true);
             }
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);            
         
-            Image::make(config('icho.upload_path').$destionation)->resize(308, 190, function ($constraint) {
-                                $constraint->aspectRatio();
-                        })->save(config('icho.upload_thumbs_path_projects').'308x190/'.$destionation);
+            $tile2 = 0.06232734;
+            $w_tile2 = $w_img/306;
+            $h_tile2 = $h_img/194;
+         
+            if($w_tile2- $h_tile2 <= $tile2){
+                Image::make(config('icho.upload_path').$destionation)->resize(306, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                })->crop(306, 194)->save(config('icho.upload_thumbs_path_projects').'306x194/'.$destionation);
+            }else{
+                Image::make(config('icho.upload_path').$destionation)->resize(null, 194, function ($constraint) {
+                        $constraint->aspectRatio();
+                })->crop(306, 194)->save(config('icho.upload_thumbs_path_projects').'306x194/'.$destionation);
+            }           
             $dataArr['image_url'] = $destionation;
         }
         if($dataArr['logo_url'] && $dataArr['logo_name']){
@@ -255,11 +271,7 @@ class LandingProjectsController extends Controller
             }
             if(!is_dir('uploads/thumbs/projects/'.date('Y/m/d'))){
                 mkdir('uploads/thumbs/projects/'.date('Y/m/d'), 0777, true);
-            }
-            if(!is_dir('uploads/thumbs/projects/308x190/'.date('Y/m/d'))){
-                mkdir('uploads/thumbs/projects/308x190/'.date('Y/m/d'), 0777, true);
-            }
-
+            }            
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
             File::move(config('icho.upload_path').$dataArr['logo_url'], config('icho.upload_path').$destionation);                       

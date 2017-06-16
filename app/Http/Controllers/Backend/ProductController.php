@@ -403,6 +403,30 @@ class ProductController extends Controller
                         //var_dump(config('icho.upload_path').$image_url, config('icho.upload_path').$destionation);die;
                         File::move(config('icho.upload_path').$image_url, config('icho.upload_path').$destionation);
 
+                        $imageArr['is_thumbnail'][] = $is_thumbnail = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
+
+                        if($is_thumbnail == 1){
+                            $img = Image::make(config('icho.upload_path').$destionation);
+                            $w_img = $img->width();
+                            $h_img = $img->height();
+                            $tile = 0.0140056;
+                            $w_tile = $w_img/170;
+                            $h_tile = $h_img/105;
+                         
+                            if($w_tile - $h_tile <= 0.0140056){
+                                Image::make(config('icho.upload_path').$destionation)->resize(170, null, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                })->crop(170, 105)->save(config('icho.upload_thumbs_path').$destionation);
+                            }else{
+                                Image::make(config('icho.upload_path').$destionation)->resize(null, 105, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                })->crop(170, 105)->save(config('icho.upload_thumbs_path').$destionation);
+                            }
+
+                        }
+
+                        $imageArr['name'][] = $destionation;
+
                         Image::make(config('icho.upload_path').$destionation)->resize(170, 105, function ($constraint) {
                                 $constraint->aspectRatio();
                         })->save(config('icho.upload_thumbs_path').$destionation);
