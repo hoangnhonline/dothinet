@@ -127,7 +127,7 @@
 							<table class="table table-no-border">
 								<tr>
 									<td>
-										<label>Địa chỉ:</label>
+										<label>Địa chỉ :</label>
 									</td>
 									<td>
 										185A Tây Hòa, Phường Phước Long A, Quận 9, Tp. Hồ Chí Minh.
@@ -135,7 +135,7 @@
 								</tr>
 								<tr>
 									<td>
-										<label>Điện thoại :</label>
+										<label>Phone :</label>
 									</td>
 									<td>0902.950.950</td>
 								</tr>
