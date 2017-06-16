@@ -107,7 +107,9 @@
 				<div class="page-block">
 					<h2 class="page-title">{{ $detailTab->title }}</h2>
 					<div class="page-content editor-content">
-						<?php echo $detailTab->content; ?>
+						<?php 
+						$output = preg_replace('/<\s*img[^<>]+?(style\s*=\s*[\'\"][^\'\"]+[\'\"])/i', '', $detailTab->content);
+						echo $output; ?>
 					</div>
 				</div>
 				@endif
