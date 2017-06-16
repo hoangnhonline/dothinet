@@ -9,6 +9,7 @@ use App\Models\LandingProjects;
 use App\Models\ProContent;
 use App\Models\MetaData;
 use App\Models\Tab;
+use App\Models\Contact;
 use App\Models\Articles;
 
 
@@ -32,7 +33,41 @@ class ProjectsController extends Controller
         $socialImage = "";
         return view('frontend.projects.index', compact('seo', 'socialImage', 'projectList'));
     }
+    public function contact(Request $request){
+        $dataArr = $request->all();
+        $this->validate($request,[
+            'full_name' => 'required',
+            'phone' => 'required',
+            'email' => 'email|required',
+            'content' => 'required'
+        ],
+        [            
+            'full_name.required' => 'Bạn chưa nhập họ và tên.',
+            'email.required' => 'Bạn chưa nhập email.',
+            'email.email' => 'Địa chỉ email không hợp lệ.',
+            'phone.required' => 'Bạn chưa nhập số điện thoại.',
+            'content.required' => 'Bạn chưa nhập nội dung.'            
+        ]); 
 
+        $rs = Contact::create($dataArr);
+        if($rs->id > 0){
+            $projectsDetail = LandingProjects::find($dataArr['project_id']);
+            Mail::send('frontend.projects.email',
+                [
+                    'projectsDetail'          => $projectsDetail,
+                    'dataArr'             => $dataArr
+                ],
+                function($message) use ($projectsDetail) {
+                    $message->subject('Khách hàng liên hệ dự án #'.$projectsDetail->name);
+                    $message->to(['hoangnhonline@gmail.com', 'baoanhco@yahoo.com']);
+                    $message->from('web.0917492306@gmail.com', 'Admin Website');
+                    $message->sender('web.0917492306@gmail.com', 'Admin Website');
+            });
+        }
+        Session::flash('message', 'Gửi liên hệ thành công.');
+
+        return redirect()->to($request->return_url);
+    }
     public function detail(Request $request){
 
         $slug = $request->slug;        

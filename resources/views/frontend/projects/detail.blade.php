@@ -152,33 +152,49 @@
 					</div>
 					<div class="col-sm-6 col-xs-12">
 						<h3 class="page-title-child">Form liên hệ chủ dự án</h3>
-						<form action="#" method="POST" class="form-horizontal block-contact-form-tab">
+						@if(Session::has('message'))
+		                <p class="alert alert-success block-alert-success" >{{ Session::get('message') }}</p>
+		                @endif
+						@if (count($errors) > 0)
+	                  		<div class="alert alert-danger block-alert-danger">
+			                    <ul>
+			                        @foreach ($errors->all() as $error)
+			                            <li>{{ $error }}</li>
+			                        @endforeach
+			                    </ul>
+		                  	</div>
+		                @endif
+						<form action="{{ route('project-contact') }}" method="POST" class="form-horizontal block-contact-form-tab">
+							{{ csrf_field() }}
+							<input type="hidden" name="project_id" value="{{ $project_id }}">
+							<input type="hidden" name="type" value="2">
+							<input type="hidden" name="return_url" value="{{ url()->current() }}">
                   			<div class="form-group group">
-                  				<input type="text">
+                  				<input type="text" name="full_name" >
                   				<span class="highlight"></span>
                   				<span class="bar"></span>
 								<label>Họ và Tên *</label>
                   			</div><!-- /form-group -->
                   			<div class="form-group group">
-                  				<input type="text">
+                  				<input type="text" name="phone">
                   				<span class="highlight"></span>
                   				<span class="bar"></span>
-								<label>Điện thoại *</label>
+								<label>Điện thoại *</label>
                   			</div><!-- /form-group -->
                   			<div class="form-group group">
-                  				<input type="text">
+                  				<input type="text" name="email">
                   				<span class="highlight"></span>
                   				<span class="bar"></span>
 								<label>Email *</label>
                   			</div><!-- /form-group -->
                   			<div class="form-group group">
-                  				<textarea rows="5" name="txtarea" placeholder=""></textarea>
+                  				<textarea rows="5" name="content" placeholder=""></textarea>
                   				<span class="highlight"></span>
                   				<span class="bar"></span>
-                  				<label>Nội Dung</label>
+                  				<label>Nội Dung *</label>
                   			</div><!-- /form-group -->
                   			<div class="form-group">
-								<button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Gửi Email</button>
+								<button type="submit" class="btn btn-primary" id="btnSend"><i class="fa fa-envelope-o"></i> Gửi Email</button>
 							</div><!-- /form-group -->
                   		</form>
 					</div>
@@ -195,6 +211,10 @@
 @section('javascript_page')
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#btnSend').click(function(){
+			$(this).attr('disabled', 'disabled').html('<i class="fa fa-spin fa-spinner"></i>');
+			$(this).parents('form').submit();
+		});
 			$('ul.tabssssss li.tab-link').click(function(){
 				var tab_id = $(this).attr('data-tab');
 
