@@ -104,9 +104,7 @@
 
 	@yield('content')	
 
-	@include('frontend.home.footer')
-
-	@include('frontend.partials.ads')	
+	@include('frontend.home.footer')	
 
 	<a id="return-to-top" class="td-scroll-up" href="javascript:void(0)">
   		<i class="fa fa-angle-up" aria-hidden="true"></i>
