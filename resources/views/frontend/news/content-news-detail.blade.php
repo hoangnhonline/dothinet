@@ -31,7 +31,7 @@
         </div><!-- /block-news-new-related -->
         <h2>{{ $detail->description }}</h2>
         <div class="block-news-new-content">
-            <?php echo $detail->content; ?>
+            <?php echo preg_replace('/(\<img[^>]+)(style\=\"[^\"]+\")([^>]+)(>)/', '${1}${3}${4}', $detail->content);  ?>
         </div><!-- /block-news-new-content -->
         
     </article><!-- /block-news-new-detail -->
