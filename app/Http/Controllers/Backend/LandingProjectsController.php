@@ -86,7 +86,10 @@ class LandingProjectsController extends Controller
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
-            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);           
+            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation); 
+            $img = Image::make(config('icho.upload_path').$destionation);
+                            $w_img = $img->width();
+                            $h_img = $img->height();          
             $tile2 = 0.06232734;
             $w_tile2 = $w_img/306;
             $h_tile2 = $h_img/194;
@@ -246,7 +249,9 @@ class LandingProjectsController extends Controller
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);            
-        
+            $img = Image::make(config('icho.upload_path').$destionation);
+                            $w_img = $img->width();
+                            $h_img = $img->height();
             $tile2 = 0.06232734;
             $w_tile2 = $w_img/306;
             $h_tile2 = $h_img/194;
