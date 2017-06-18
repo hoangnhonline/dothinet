@@ -305,7 +305,7 @@
 	
 
 	@include('frontend.home.footer')
-	@if(\Request::route()->getName() != "du-an")
+	@if(\Request::route()->getName() != "du-an" && !isset($detailPage))
 	@include('frontend.partials.ads')	
 	@endif
 
