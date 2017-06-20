@@ -58,13 +58,13 @@
                     <div class="col-sm-6 col-xs-12">
                         <div class="all-news-new-item clearfix">
                             <div class="all-news-new-img">
-                                <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="">
-                                    <img  src="{{ Helper::showImage($articles->image_url) }}" alt="" style="height:80px !important; width:120px !important; "> 
+                                <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="{!! $articles->title !!}">
+                                    <img  src="{{ Helper::showImageThumb($articles->image_url, 2) }}" alt="{!! $articles->title !!}" style="height:80px !important; width:120px !important; "> 
                                 </a>
                             </div>
                             <div class="all-news-new-info" style="height:77px !important">
-                                <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="">
-                                    {{ $articles->title }}
+                                <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="{!! $articles->title !!}">
+                                    {!! $articles->title !!}
                                 </a>
                             </div>
                         </div>

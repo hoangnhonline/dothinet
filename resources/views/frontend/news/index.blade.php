@@ -29,12 +29,12 @@
               @foreach( $articlesArr as $articles )
               <li class="article-news-item">
                 <div class="article-news-item-head">
-                  <a id="" href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}"><img id="" title="" src="{{ Helper::showImageThumb($articles->image_url, 2) }}" alt=""></a>
+                  <a id="" href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}"><img title="{!! $articles->title !!}" src="{{ Helper::showImageThumb($articles->image_url, 2) }}" alt="{!! $articles->title !!}"></a>
                 </div>
                 <div class="article-news-item-description">
-                  <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="">{{ $articles->title }}</a>
-                  <div class="nd-time">{{ date('d-m-Y', strtotime($articles->created_at)) }}  <small>08:05 </small></div>
-                  <p>{{ $articles->description }}</p>
+                  <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="{!! $articles->title !!}">{!! $articles->title !!}</a>
+                  <div class="nd-time">{{ date('d-m-Y', strtotime($articles->created_at)) }}  <small>{{ date('H:i', strtotime($articles->created_at)) }} </small></div>
+                  <p>{!! $articles->description !!}</p>
                 </div>
               </li>
               @endforeach
