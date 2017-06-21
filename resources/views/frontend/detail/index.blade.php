@@ -166,7 +166,7 @@
 							</div>
 							<div class="news-with-region-content">
 								<div class="news-with-region-img">
-									<a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="{!! $product->title !!}" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $product->title !!}" ></a>
+									aa<a  href="{{ route('chi-tiet', [$product->slug_loai, $product->slug, $product->id]) }}"><img  title="{!! $product->title !!}" src="{{ $product->image_urls ? Helper::showImageThumb($product->image_urls) : URL::asset('backend/dist/img/no-image.jpg') }}" alt="{!! $product->title !!}" ></a>
 								</div>
 								<div class="news-with-region-info">
 									<p>
