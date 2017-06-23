@@ -86,7 +86,7 @@
         </a>       
       </li>
       @endif
-      @if(Auth::user()->role == 3)
+      
       <li class="treeview {{ in_array(\Request::route()->getName(), ['pages.index', 'pages.create']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-twitch"></i> 
@@ -100,7 +100,7 @@
           <li {{ in_array(\Request::route()->getName(), ['pages.create']) ? "class=active" : "" }}><a href="{{ route('pages.create') }}"><i class="fa fa-circle-o"></i> Thêm trang</a></li>          
         </ul>
       </li>
-      @endif
+      
       <li class="treeview {{ in_array(\Request::route()->getName(), ['articles.index', 'articles.create', 'articles.edit','articles-cate.create', 'articles-cate.index', 'articles-cate.edit']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-pencil-square-o"></i> 

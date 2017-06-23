@@ -22,6 +22,130 @@ use App\Models\ProductImg;
 
 class CrawlerController extends Controller
 {
+    public function ward(){
+        set_time_limit(10000);
+        $districtArr = [72,73,74,75,76];
+        foreach ($districtArr as $dis) {
+            $url = 'https://dothi.net/Handler/SearchHandler.ashx?module=GetWard&distId='. $dis; 
+            $chs = curl_init();            
+            curl_setopt($chs, CURLOPT_URL, $url);
+            curl_setopt($chs, CURLOPT_RETURNTRANSFER, 1); 
+            curl_setopt($chs, CURLOPT_HEADER, 0);
+            $result = curl_exec($chs);
+            
+            curl_close($chs);
+
+            $data = json_decode($result, true);
+            $i = 0;
+            $district_id = District::where('id_dothi', $dis)->first()->id;
+            foreach($data as $ward){
+                $i++;
+                Ward::create([
+                    'id_dothi' => $ward['Id'],
+                    'name' => $ward['Text'],
+                    'prefix' => $ward['WardPrefix'],
+                    'district_id' => $district_id,
+                    'city_id' => 1,
+                    'display_order' => $i,
+                    'slug' => Helper::changeFileName($ward['Text'])
+                ]);           
+            }            
+        }
+    }
+    public function street(){
+        set_time_limit(10000);
+        //$districtArr = [54,61,71];
+        $districtArr = [53,55,56,57,58,59,60,62,63,64,65,66,67,68,69,70,72,73,75,75,76];
+        foreach ($districtArr as $dis) {
+            $url = 'https://dothi.net/Handler/SearchHandler.ashx?module=GetStreet&distId='. $dis; 
+            $chs = curl_init();            
+            curl_setopt($chs, CURLOPT_URL, $url);
+            curl_setopt($chs, CURLOPT_RETURNTRANSFER, 1); 
+            curl_setopt($chs, CURLOPT_HEADER, 0);
+            $result = curl_exec($chs);
+            
+            curl_close($chs);
+
+            $data = json_decode($result, true);
+            $i = 0;
+            $district_id = District::where('id_dothi', $dis)->first()->id;
+            foreach($data as $street){
+                
+                $i++;                
+                Street::create([
+                    'id_dothi' => $street['Id'],
+                    'name' => $street['Text'],
+                    'prefix' => $street['StreetPrefix'],
+                    'district_id' => $district_id,
+                    'city_id' => 1,
+                    'display_order' => $i,
+                    'slug' => Helper::changeFileName($street['Text'])
+                ]);           
+                
+            }                        
+        }
+    }
+
+    public function project(Request $request){
+        
+        set_time_limit(10000);
+        //$districtArr = [54,61,71];
+        $districtArr = [53,55,56,57,58,59,60,62,63,64,65,66,67,68,69,70,72,73,75,75,76];
+        foreach ($districtArr as $id) {
+            $url = 'https://dothi.net/Handler/SearchHandler.ashx?module=GetProject&distId='. $id; 
+            $distric_id = District::where('id_dothi', $id)->first()->id;
+            $chs = curl_init();            
+            curl_setopt($chs, CURLOPT_URL, $url);
+            curl_setopt($chs, CURLOPT_RETURNTRANSFER, 1); 
+            curl_setopt($chs, CURLOPT_HEADER, 0);
+            $result = curl_exec($chs);
+            
+            curl_close($chs);
+
+            $data = json_decode($result, true);
+            $i = 0;
+            foreach($data as $pro){
+                var_dump($pro['StreetId']);
+                echo "<hr>";
+                $i++;
+                if($pro['WardId'] > 0){
+                $wardObj = Ward::where('id_dothi', $pro['WardId'])->first();
+                //echo "<pre>";
+                //var_dump($wardObj->toArray());die;
+                $ward_id = $wardObj->id;
+            }else{
+                $ward_id = 0;
+            }
+                if($pro['StreetId'] > 0){
+                    $stObj = Street::where('id_dothi', $pro['StreetId'])->first();
+                    if(!empty( (array) $stObj)){
+                        $street_id = $stObj->id;
+                    }
+                }else{
+                    $street_id = 0;
+                }
+                
+                Project::create([
+                    'id_dothi' => $pro['Id'],
+                    'name' => $pro['Text'],
+                    'longt' => $pro['Lng'],
+                    'latt' => $pro['Lat'],
+                    'district_id' => $distric_id,
+                    'city_id' => 1,
+                    'ward_id' => $ward_id,
+                    'street_id' => $street_id,
+                    'status' => 1,
+                    'display_order' => $i,
+                    'slug' => Helper::changeFileName($pro['Text'])
+                ]);           
+            }
+        }     
+
+
+
+        
+    }
+
     public function articles(){
         $prAll = Product::all();
         foreach ($prAll as $value) {
@@ -315,125 +439,10 @@ class CrawlerController extends Controller
         }
         return $dataArr;
     }
-    public function street(){
-        set_time_limit(10000);
-        $districtArr = [54,61,71];
-        foreach ($districtArr as $dis) {
-            $url = 'https://dothi.net/Handler/SearchHandler.ashx?module=GetStreet&distId='. $dis; 
-            $chs = curl_init();            
-            curl_setopt($chs, CURLOPT_URL, $url);
-            curl_setopt($chs, CURLOPT_RETURNTRANSFER, 1); 
-            curl_setopt($chs, CURLOPT_HEADER, 0);
-            $result = curl_exec($chs);
-            
-            curl_close($chs);
 
-            $data = json_decode($result, true);
-            $i = 0;
-            foreach($data as $street){
-                
-                $i++;                
-                Street::create([
-                    'id_dothi' => $street['Id'],
-                    'name' => $street['Text'],
-                    'prefix' => $street['StreetPrefix'],
-                    'district_id' => $dis,
-                    'city_id' => 1,
-                    'display_order' => $i,
-                    'slug' => Helper::changeFileName($street['Text'])
-                ]);           
-                
-            }                        
-        }
-    }
-    public function ward(){
-        set_time_limit(10000);
-        $districtArr = [54,61,71];
-        foreach ($districtArr as $dis) {
-            $url = 'https://dothi.net/Handler/SearchHandler.ashx?module=GetWard&distId='. $dis; 
-            $chs = curl_init();            
-            curl_setopt($chs, CURLOPT_URL, $url);
-            curl_setopt($chs, CURLOPT_RETURNTRANSFER, 1); 
-            curl_setopt($chs, CURLOPT_HEADER, 0);
-            $result = curl_exec($chs);
-            
-            curl_close($chs);
-
-            $data = json_decode($result, true);
-            $i = 0;
-            foreach($data as $ward){
-                $i++;
-                Ward::create([
-                    'id_dothi' => $ward['Id'],
-                    'name' => $ward['Text'],
-                    'prefix' => $ward['WardPrefix'],
-                    'district_id' => $dis,
-                    'city_id' => 1,
-                    'display_order' => $i,
-                    'slug' => Helper::changeFileName($ward['Text'])
-                ]);           
-            }            
-        }
-    }
+    
    
-   public function project(Request $request){
-        
-        set_time_limit(10000);
-        $districtArr = [54,61,71];
-        foreach ($districtArr as $id) {
-            $url = 'https://dothi.net/Handler/SearchHandler.ashx?module=GetProject&distId='. $id; 
-            $distric_id = District::where('id_dothi', $id)->first()->id;
-            $chs = curl_init();            
-            curl_setopt($chs, CURLOPT_URL, $url);
-            curl_setopt($chs, CURLOPT_RETURNTRANSFER, 1); 
-            curl_setopt($chs, CURLOPT_HEADER, 0);
-            $result = curl_exec($chs);
-            
-            curl_close($chs);
-
-            $data = json_decode($result, true);
-            $i = 0;
-            foreach($data as $pro){
-                var_dump($pro['StreetId']);
-                echo "<hr>";
-                $i++;
-                if($pro['WardId'] > 0){
-                $wardObj = Ward::where('id_dothi', $pro['WardId'])->first();
-                //echo "<pre>";
-                //var_dump($wardObj->toArray());die;
-                $ward_id = $wardObj->id;
-            }else{
-                $ward_id = 0;
-            }
-                if($pro['StreetId'] > 0){
-                    $stObj = Street::where('id_dothi', $pro['StreetId'])->first();
-                    if(!empty( (array) $stObj)){
-                        $street_id = $stObj->id;
-                    }
-                }else{
-                    $street_id = 0;
-                }
-                
-                Project::create([
-                    'id_dothi' => $pro['Id'],
-                    'name' => $pro['Text'],
-                    'longt' => $pro['Lng'],
-                    'latt' => $pro['Lat'],
-                    'district_id' => $distric_id,
-                    'city_id' => 1,
-                    'ward_id' => $ward_id,
-                    'street_id' => $street_id,
-                    'status' => 1,
-                    'display_order' => $i,
-                    'slug' => Helper::changeFileName($pro['Text'])
-                ]);           
-            }
-        }     
-
-
-
-        
-    }
+   
     public function index(Request $request){
         $dataArr = CrawlerUrl::all();
         foreach ($dataArr as $key => $value) {
