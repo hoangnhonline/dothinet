@@ -14,8 +14,9 @@
     	<div class="block-footer row">
     		<div class="block-logo-footer col-sm-4">
                 <a href="/" title="Đô thị">
-                	<img src="https://imgholder.ru/204x90/0082D5/fff.jpg&text=My+Logo&font=tahoma&fz=27" alt="">
+                	<img src="http://dothi9.com/uploads/2017/06/13/logopl-1497290939.png" alt="">
                 </a>
+
             </div>
             <div class="block-footer-address col-sm-4">
                 <address>
@@ -31,6 +32,19 @@
 					@endforeach
 					@endif
                 </ul>
+<!-- Histats.com  (div with counter) --><div id="histats_counter"></div>
+<!-- Histats.com  START  (aync)-->
+<script type="text/javascript">var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,3844607,4,1,120,40,00010000']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+hs.src = ('//s10.histats.com/js15_as.js');
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+})();</script>
+<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?3844607&101" alt="" border="0"></a></noscript>
+<!-- Histats.com  END  -->
             </div>
     	</div>
     </div>
