@@ -24,5 +24,11 @@ class Contact extends Model  {
      * @var array
      */
     protected $fillable = ['type', 'title', 'full_name', 'email', 'phone', 'content', 'status', 'updated_user', 'gender', 'project_id'];
+
+    public function project()
+    {
+        return $this->belongsTo('App\Models\LandingProjects', 'project_id');
+    } 
+    
     
 }
