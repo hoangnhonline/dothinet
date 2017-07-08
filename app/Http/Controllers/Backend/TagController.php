@@ -188,10 +188,9 @@ class TagController extends Controller
 
         $dataArr['updated_user'] = Auth::user()->id;
 
-        $model->update($dataArr);
+        $is = $model->update($dataArr);        
 
-        if( $dataArr['meta_id'] ){
-
+        if( $dataArr['meta_id'] != '' ){            
             $this->storeMeta( $dataArr['id'], $dataArr['meta_id'], $dataArr);
         }
 
