@@ -23,7 +23,7 @@ class UserWorkController extends Controller
     {
         $s['status'] = $status = isset($request->status) ? $request->status : null;
         $s['group_id'] = $group_id = isset($request->group_id) ? $request->group_id : null;
-        $s['created_user'] = $created_user = isset($request->created_user) ? $request->created_user : -1;
+        $s['created_user'] = $created_user = isset($request->created_user) ? $request->created_user : null;
         $s['date_from'] = $date_from = isset($request->date_from) && $request->date_from !='' ? $request->date_from : '';
         $s['date_to'] = $date_to = isset($request->date_to) && $request->date_to !='' ? $request->date_to : date('d-m-Y');               
 
@@ -59,6 +59,7 @@ class UserWorkController extends Controller
             }
         }
         $query->join('users', 'users.id', '=', 'user_work.created_user');
+        $query->select('user_work.*', 'users.full_name', 'users.role', 'users.email');
         $groupList = WorkGroup::all();
         $query->orderBy('user_work.status', 'asc')->orderBy('is_hot','desc')->orderBy('user_work.id', 'desc');
         $items = $query->orderBy('user_work.work_date', 'DESC')->paginate(20);
