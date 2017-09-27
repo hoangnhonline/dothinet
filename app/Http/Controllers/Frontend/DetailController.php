@@ -121,7 +121,7 @@ class DetailController extends Controller
                 ->whereIn('product.id', $listId)
                 ->orderBy('product.cart_status', 'asc')
                 ->orderBy('product.id', 'desc');
-                $productList  = $query->limit(36)->get();
+                $productList  = $query->paginate(36);
 
             }
             
