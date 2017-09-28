@@ -56,11 +56,7 @@
                   <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
                 </div>
                 <!-- textarea -->
-                <div class="form-group">
-                  <label>Mô tả</label>
-                  <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
-                </div>            
-               
+                
                 <div class="form-group">
                   <label>Ẩn/hiện</label>
                   <select class="form-control" name="status" id="status">                  

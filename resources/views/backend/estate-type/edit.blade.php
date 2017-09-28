@@ -61,11 +61,7 @@
                 <input type="text" class="form-control" name="slug" id="slug" value="{{ $detail->slug }}">
               </div>
               <!-- textarea -->
-              <div class="form-group">
-                <label>Mô tả</label>
-                <textarea class="form-control" rows="4" name="description" id="description">{{ $detail->description }}</textarea>
-              </div>  
-             
+              
               <div class="form-group">
                 <label>Ẩn/hiện</label>
                 <select class="form-control" name="status" id="status">                  
