@@ -14,6 +14,7 @@ use App\Models\ProContent;
 use App\Models\Price;
 use App\Models\Area;
 use App\Models\Direction;
+use App\Models\City;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -55,6 +56,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 					$thueList[] = $est;
 				}
 			}
+			$cityList = City::whereIn('id', [1, 23])->get();
 	        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
 	        $articleCate = ArticlesCate::orderBy('display_order', 'desc')->get();	     
 	        $districtList = District::where('city_id', 1)->where('status',1)->get();
@@ -72,7 +74,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
 			$view->with( ['loaiSpKey' => [], 'menuNgang' => [], 'menuDoc' => [], 'loaiSpHot' => [], 'settingArr' => $settingArr, 
 			'banList' => $banList, 'thueList' => $thueList, 'articleCate' => $articleCate, 'districtList' => $districtList, 'tinRandom' => $tinRandom, 'customLink' => $customLink, 'landingList' => $landingList, 'landing2List' => $landing2List, 'priceList' => $priceList, 'areaList' => $areaList,
-			'directionList' => $directionList, 'footerLink' => $footerLink] );
+			'directionList' => $directionList, 'footerLink' => $footerLink, 'cityList' => $cityList] );
 			
 		});
 	}

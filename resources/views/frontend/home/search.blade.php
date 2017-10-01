@@ -24,6 +24,16 @@
 										@endforeach
 									</select>
 								</div>
+							</div>	
+							<div class="col-xs-2">
+								<div class="form-group">
+									<select class="selectpicker form-control" data-live-search="true" id="city_id" name="city_id">
+										<option value="">Tỉnh/TP</option>
+										@foreach($cityList as $city)
+										<option value="{{ $city->id }}">{!! $city->name !!}</option>
+										@endforeach
+									</select>
+								</div>
 							</div>								
 							<div class="col-xs-2">
 								<div class="form-group">
@@ -124,6 +134,26 @@
 @section('javascript_page')
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#city_id').change(function(){
+			obj = $(this);
+			
+			$.ajax({
+				url : '{{ route('get-child') }}',
+				data : {
+					mod : 'district',
+					col : 'city_id',
+					id : obj.val()
+				},
+				type : 'POST',
+				dataType : 'html',
+				success : function(data){
+					$('#district_id').html(data).selectpicker('refresh');
+					$('#ward_id').html('').selectpicker('refresh');
+					$('#project_id').html(data).selectpicker('refresh');
+					$('#street_id').html(data).selectpicker('refresh');
+				}
+			});
+		});
 		$('#btnSearch').click(function(){		
 			if($('#estate_type_id').val() == ''){
 				swal({ title: '', text: 'Vui lòng chọn loại bất động sản.', type: 'error' });

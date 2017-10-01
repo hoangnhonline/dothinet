@@ -163,7 +163,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 													<option @if(isset($estate_type_id) && $estate_type_id == $ban->id) selected @endif class="option-lv1" value="{{ $ban->id }}">{{ $ban->name }}</option>
 													@endforeach
 												</select>
-											</div>											
+											</div>	
+											<div class="form-group">
+												<select class="selectpicker form-control" data-live-search="true" id="city_id" name="city_id">
+													<option value="">Tỉnh/TP</option>
+													@foreach($cityList as $city)
+													<option value="{{ $city->id }}">{!! $city->name !!}</option>
+													@endforeach
+												</select>
+											</div>										
 											<div class="form-group">
 												<select class="selectpicker form-control" data-live-search="true" id="district_id" name="district_id">
 													<option value="">Quận/Huyện</option>

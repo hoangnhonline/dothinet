@@ -14,6 +14,7 @@ Route::get('/crawler', ['uses' => 'CrawlerController@ward', 'as' => 'crawler']);
 Route::get('/project', ['uses' => 'CrawlerController@project', 'as' => 'project']);
 Route::get('/ward', ['uses' => 'CrawlerController@ward', 'as' => 'ward']);
 Route::get('/street', ['uses' => 'CrawlerController@street', 'as' => 'street']);
+Route::get('/district', ['uses' => 'CrawlerController@district', 'as' => 'district']);
 Route::get('/product', ['uses' => 'CrawlerController@product', 'as' => 'product']);
 Route::get('/articles', ['uses' => 'CrawlerController@articles', 'as' => 'articles']);
 Route::post('/get-child', ['uses' => 'Frontend\HomeController@getChild', 'as' => 'get-child']);
