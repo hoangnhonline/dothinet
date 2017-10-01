@@ -88,7 +88,7 @@
                             <option value="">--Chọn--</option>
                             @foreach( $cateList as $value )
                             <option value="{{ $value->id }}"
-                            {{ old('cate_id') == $value->id ? "selected" : "" }}                           
+                            {{ old('cate_id', $detail->cate_id) == $value->id ? "selected" : "" }}                           
 
                             >{{ $value->name }}</option>
                             @endforeach
