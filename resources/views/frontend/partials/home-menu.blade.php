@@ -9,7 +9,15 @@
             <a href="{{ route('ban') }}">BĐS bán</a>
             <ul class="level0 submenu">
                 @foreach($banList as $ban)
-                <li class="level1"><a href="{{ route('danh-muc', $ban->slug ) }}">{!! $ban->name !!}</a></li>                         
+                <li class="level1"><a href="{{ route('danh-muc', $ban->slug ) }}">{!! $ban->name !!}</a>
+                @if($ban->id == 6)
+                <ul class="level0 submenu">
+                   
+                    <li class="level1"><a href="{{ route('danh-muc-con', [$ban->slug, 'ban-dat-dong-nai'] ) }}">Bán đất Đồng Nai</a></li>                           
+                   
+                </ul>
+                @endif
+                </li>                         
                 @endforeach
             </ul>
         </li><!-- END MENU SHOP -->
