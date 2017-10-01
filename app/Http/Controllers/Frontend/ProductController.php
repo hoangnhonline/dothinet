@@ -67,7 +67,9 @@ class ProductController extends Controller
         $rsType = EstateType::where('slug', $slug)->first();   
         $rs = Cate::where('estate_type_id', $rsType->id)->where('slug', $cate_slug)->first();
         $estate_type_id = $rsType->id;
-        //dd($rs);     
+        //dd($rs);   
+        $city_id = ($cate_id == 1) ? 23 : null;
+        
         if($rs){//danh muc cha
             $cate_id = $rs->id;
             
@@ -90,7 +92,7 @@ class ProductController extends Controller
                 $seo['title'] = $seo['description'] = $seo['keywords'] = $rs->name;
             }            
             $type = $rs->type;                                     
-            return view('frontend.cate.parent', compact('productList','productArr', 'rs', 'hoverInfo', 'socialImage', 'seo', 'type', 'estate_type_id'));
+            return view('frontend.cate.parent', compact('productList','productArr', 'rs', 'hoverInfo', 'socialImage', 'seo', 'type', 'estate_type_id', 'city_id'));
         
         }else{
             return redirect()->route('home');
