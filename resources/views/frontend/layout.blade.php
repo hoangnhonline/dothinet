@@ -356,6 +356,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
 		    });
+		    @if(isset($city_id) && $city_id > 0)
+		    var city_id = {{ $city_id }};
+		    $('#city_id').val(city_id);
+		    $.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'district',
+						col : 'city_id',
+						id : city_id
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#district_id').html(data).selectpicker('refresh');
+						@if(isset($district_id) && $district_id > 0)
+						$('#district_id').val({{ $district_id }}).selectpicker('refresh');
+						@endif
+					}
+				});				
+		    @endif
 		    @if(isset($district_id) && $district_id > 0)
 		    var district_id = {{ $district_id }};
 		    $('#district_id').val(district_id);
