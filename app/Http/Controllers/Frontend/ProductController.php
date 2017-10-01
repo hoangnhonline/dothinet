@@ -68,11 +68,11 @@ class ProductController extends Controller
         $rs = Cate::where('estate_type_id', $rsType->id)->where('slug', $cate_slug)->first();
         $estate_type_id = $rsType->id;
         //dd($rs);   
-        $city_id = ($cate_id == 1) ? 23 : null;
+        
         
         if($rs){//danh muc cha
             $cate_id = $rs->id;
-            
+            $city_id = ($cate_id == 1) ? 23 : null;
             $query = Product::where('estate_type_id', $estate_type_id)
                 ->where('cate_id', $rs->id)               
                 ->where('product.status', 1)
