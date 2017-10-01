@@ -24,5 +24,9 @@ class EstateType extends Model  {
      * @var array
      */
     protected $fillable = [ 'name', 'slug', 'type', 'display_order', 'status', 'meta_id'];
-        
+    
+    public function cate()
+    {
+        return $this->hasMany('App\Models\Cate', 'estate_type_id');
+    }
 }

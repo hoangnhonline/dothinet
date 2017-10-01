@@ -237,6 +237,7 @@ class ProductController extends Controller
 
         $tienIchLists = Tag::where(['type' => 3, 'district_id' => $district_id])->get();
         $areaList = Area::all();
+       // dd($estate_type_id);
         return view('backend.product.create', compact('estateTypeArr',   'estate_type_id', 'type', 'district_id', 'districtList', 'wardList', 'streetList', 'projectList', 'priceUnitList', 'tagArr', 'tienIchLists', 'directionArr', 'priceList', 'areaList'));
     }
 

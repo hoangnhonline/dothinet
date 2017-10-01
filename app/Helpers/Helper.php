@@ -14,6 +14,9 @@ class Helper
     {
         return strtoupper($string);
     }
+    public static function getNextOrder($table, $where = []){
+        return DB::table($table)->where($where)->max('display_order') + 1;
+    }
     public static function getChild($table, $column, $parent_id){
         $listData = DB::table($table)->where($column, $parent_id)->get();
         if($table == 'ward'){

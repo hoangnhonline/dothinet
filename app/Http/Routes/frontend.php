@@ -43,6 +43,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/tim-kiem.html', ['as' => 'search', 'uses' => 'ProductController@search']);
     Route::get('so-sanh.html', ['as' => 'so-sanh', 'uses' => 'CompareController@index']);
     Route::get('lien-he.html', ['as' => 'contact', 'uses' => 'HomeController@contact']);
+    Route::get('{slug}/{cate_slug}.html', ['as' => 'danh-muc-con', 'uses' => 'ProductController@cateChild']);
     Route::get('{slug}.html', ['as' => 'danh-muc', 'uses' => 'ProductController@cate']);
 
 

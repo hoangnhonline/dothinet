@@ -14,6 +14,8 @@ use App\Models\Project;
 use App\Models\EstateType;
 use App\Models\MetaData;
 use App\Models\Pages;
+use App\Models\Cate;
+
 use Helper, File, Session, Auth;
 use Mail;
 
@@ -55,6 +57,43 @@ class ProductController extends Controller
             $seo['description'] = $detailPage->meta_description ? $detailPage->meta_description : $detailPage->title;
             $seo['keywords'] = $detailPage->meta_keywords ? $detailPage->meta_keywords : $detailPage->title;           
             return view('frontend.pages.index', compact('detailPage', 'seo'));    
+        }
+    }
+    public function cateChild(Request $request)
+    {
+        $productArr = [];
+        $slug = $request->slug;
+        $cate_slug = $request->cate_slug;
+        $rsType = EstateType::where('slug', $slug)->first();   
+        $rs = Cate::where('estate_type_id', $rsType->id)->where('slug', $cate_slug)->first();
+        $estate_type_id = $rsType->id;
+        //dd($rs);     
+        if($rs){//danh muc cha
+            $cate_id = $rs->id;
+            
+            $query = Product::where('estate_type_id', $estate_type_id)
+                ->where('cate_id', $rs->id)               
+                ->where('product.status', 1)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id') 
+                ->join('estate_type', 'estate_type.id', '=','product.estate_type_id')                
+                ->select('product_img.image_url as image_urls', 'product.*', 'estate_type.slug as slug_loai')              
+                ->where('product_img.image_url', '<>', '')
+                ->orderBy('product.is_hot', 'desc')
+                ->orderBy('product.cart_status', 'asc')
+                ->orderBy('product.id', 'desc');
+                $productList  = $query->paginate(10);
+                $productArr = $productList->toArray();
+            
+            if( $rs->meta_id > 0){
+               $seo = MetaData::find( $rs->meta_id )->toArray();
+            }else{
+                $seo['title'] = $seo['description'] = $seo['keywords'] = $rs->name;
+            }            
+            $type = $rs->type;                                     
+            return view('frontend.cate.parent', compact('productList','productArr', 'rs', 'hoverInfo', 'socialImage', 'seo', 'type', 'estate_type_id'));
+        
+        }else{
+            return redirect()->route('home');
         }
     }
     public function ban(Request $request)
