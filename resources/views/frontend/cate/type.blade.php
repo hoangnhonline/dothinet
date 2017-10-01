@@ -12,7 +12,7 @@
 <section class="col-sm-8 col-xs-12 block-sitemain">
 	<article class="block block-news-new block-news-cate clearfix">
 		<div class="block-cate-title"><h1>{!! $name !!}</h1></div>
-		@if($seo['custom_text'])
+		@if(isset($seo['custom_text']))
 		<div class="col-sm-12 col-xs-12">
 			<div class="row">				
 				<div class="block-contents">

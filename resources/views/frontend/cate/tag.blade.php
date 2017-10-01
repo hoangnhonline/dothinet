@@ -13,7 +13,7 @@
 	<article class="block block-news-new block-news-cate clearfix">
 		<div class="block-cate-title"><h1>Tag : '{!! $detail->name !!}'</h1></div>
 		
-		@if($seo['custom_text'])
+		@if(isset($seo['custom_text']))
 		<div class="col-sm-12 col-xs-12">
 			<div class="row">				
 				<div class="block-contents">
