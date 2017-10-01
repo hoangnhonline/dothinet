@@ -356,6 +356,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
 		    });
+		    $('#city_id').change(function(){
+				obj = $(this);
+				
+				$.ajax({
+					url : '{{ route('get-child') }}',
+					data : {
+						mod : 'district',
+						col : 'city_id',
+						id : obj.val()
+					},
+					type : 'POST',
+					dataType : 'html',
+					success : function(data){
+						$('#district_id').html(data).selectpicker('refresh');						
+					}
+				});
+			});
 		    @if(isset($city_id) && $city_id > 0)
 		    var city_id = {{ $city_id }};
 		    $('#city_id').val(city_id);

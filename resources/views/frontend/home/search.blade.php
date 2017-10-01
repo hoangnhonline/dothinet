@@ -147,10 +147,7 @@
 				type : 'POST',
 				dataType : 'html',
 				success : function(data){
-					$('#district_id').html(data).selectpicker('refresh');
-					$('#ward_id').html('').selectpicker('refresh');
-					$('#project_id').html(data).selectpicker('refresh');
-					$('#street_id').html(data).selectpicker('refresh');
+					$('#district_id').html(data).selectpicker('refresh');					
 				}
 			});
 		});
