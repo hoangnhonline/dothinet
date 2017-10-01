@@ -104,7 +104,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $productArr = [];
-       
+        $city_id = $request->city_id;
             $estate_type_id = $request->estate_type_id;
             $type = $request->type;
             $district_id = $request->district_id;
@@ -117,6 +117,9 @@ class ProductController extends Controller
             $direction_id = $request->direction_id;
 
             $query = Product::where('estate_type_id', $estate_type_id);
+            if($city_id){
+                $query->where('city_id', $city_id);
+            }
             if($district_id){
                 $query->where('district_id', $district_id);
             }
@@ -161,7 +164,8 @@ class ProductController extends Controller
             'direction_id',
             'area_id',
             'project_id',
-            'price_id'
+            'price_id',
+            'city_id'
                 ));
         
     }       
